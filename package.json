@@ -2,7 +2,8 @@
   "name": "windsurf-grpc",
   "author": "dami",
   "version": "1.0.0",
-  "description": "",
+  "description": "windsurf接口测试",
+  "license": "MIT",
   "keywords": [],
   "main": "index.js",
   "scripts": {
