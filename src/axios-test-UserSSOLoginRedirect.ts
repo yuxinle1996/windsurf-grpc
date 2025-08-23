@@ -37,7 +37,7 @@ async function sendAxiosProtobufRequest() {
 
     return responseMessage;
   } catch (error) {
-    console.error("❌ 请求失败:", error);
+    console.error("❌ 请求失败:", (error as Error).message);
   }
 }
 
