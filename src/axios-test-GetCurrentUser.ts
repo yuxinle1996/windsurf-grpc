@@ -40,7 +40,7 @@ async function sendAxiosProtobufRequest() {
     // 反序列化响应数据
     const responseData = new Uint8Array(response.data);
     const responseMessage = GetCurrentUserResponse.fromBinary(responseData);
-    console.log(responseMessage);
+    console.log(responseMessage.toJson());
 
     return responseMessage;
   } catch (error) {

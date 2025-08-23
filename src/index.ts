@@ -2,7 +2,7 @@ import { createClient } from "@connectrpc/connect";
 import { SeatManagementService } from "./gen/seat_management_pb_connect";
 import { createConnectTransport } from "@connectrpc/connect-web";
 
-const webToken = "xxx";
+const webToken = "";
 
 const transport = createConnectTransport({
   baseUrl: "https://web-backend.windsurf.com",
@@ -32,7 +32,7 @@ async function main() {
       }
     ),
   ]);
-  console.log("res1", res1);
-  console.log("res2", res2);
+  console.log("res1", res1.toJson());
+  console.log("res2", res2.toJson());
 }
 main();

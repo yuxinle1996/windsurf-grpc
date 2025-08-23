@@ -4,374 +4,1380 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, protoInt64 } from "@bufbuild/protobuf";
+import { Duration, Message, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
 
 /**
- * @generated from enum exa.codeium_common_pb.UserTeamStatus
+ * @generated from enum exa.codeium_common_pb.ProviderSource
  */
-export enum UserTeamStatus {
+export enum ProviderSource {
   /**
-   * @generated from enum value: USER_TEAM_STATUS_UNSPECIFIED = 0;
+   * @generated from enum value: PROVIDER_SOURCE_UNSPECIFIED = 0;
    */
   UNSPECIFIED = 0,
 
   /**
-   * @generated from enum value: USER_TEAM_STATUS_PENDING = 1;
+   * @generated from enum value: PROVIDER_SOURCE_AUTOCOMPLETE = 1;
    */
-  PENDING = 1,
+  AUTOCOMPLETE = 1,
 
   /**
-   * @generated from enum value: USER_TEAM_STATUS_APPROVED = 2;
+   * @generated from enum value: PROVIDER_SOURCE_CHAT = 2;
    */
-  APPROVED = 2,
+  CHAT = 2,
 
   /**
-   * @generated from enum value: USER_TEAM_STATUS_REJECTED = 3;
+   * @generated from enum value: PROVIDER_SOURCE_COMMAND_GENERATE = 4;
    */
-  REJECTED = 3,
+  COMMAND_GENERATE = 4,
+
+  /**
+   * @generated from enum value: PROVIDER_SOURCE_COMMAND_EDIT = 5;
+   */
+  COMMAND_EDIT = 5,
+
+  /**
+   * @generated from enum value: PROVIDER_SOURCE_SUPERCOMPLETE = 6;
+   */
+  SUPERCOMPLETE = 6,
+
+  /**
+   * @generated from enum value: PROVIDER_SOURCE_COMMAND_PLAN = 7;
+   */
+  COMMAND_PLAN = 7,
+
+  /**
+   * @generated from enum value: PROVIDER_SOURCE_QUERY = 8;
+   */
+  QUERY = 8,
+
+  /**
+   * @generated from enum value: PROVIDER_SOURCE_FAST_APPLY = 9;
+   */
+  FAST_APPLY = 9,
+
+  /**
+   * @generated from enum value: PROVIDER_SOURCE_COMMAND_TERMINAL = 10;
+   */
+  COMMAND_TERMINAL = 10,
+
+  /**
+   * @generated from enum value: PROVIDER_SOURCE_TAB_JUMP = 11;
+   */
+  TAB_JUMP = 11,
+
+  /**
+   * @generated from enum value: PROVIDER_SOURCE_CASCADE = 12;
+   */
+  CASCADE = 12,
 }
-// Retrieve enum metadata with: proto3.getEnumType(UserTeamStatus)
-proto3.util.setEnumType(UserTeamStatus, "exa.codeium_common_pb.UserTeamStatus", [
-  { no: 0, name: "USER_TEAM_STATUS_UNSPECIFIED" },
-  { no: 1, name: "USER_TEAM_STATUS_PENDING" },
-  { no: 2, name: "USER_TEAM_STATUS_APPROVED" },
-  { no: 3, name: "USER_TEAM_STATUS_REJECTED" },
+// Retrieve enum metadata with: proto3.getEnumType(ProviderSource)
+proto3.util.setEnumType(ProviderSource, "exa.codeium_common_pb.ProviderSource", [
+  { no: 0, name: "PROVIDER_SOURCE_UNSPECIFIED" },
+  { no: 1, name: "PROVIDER_SOURCE_AUTOCOMPLETE" },
+  { no: 2, name: "PROVIDER_SOURCE_CHAT" },
+  { no: 4, name: "PROVIDER_SOURCE_COMMAND_GENERATE" },
+  { no: 5, name: "PROVIDER_SOURCE_COMMAND_EDIT" },
+  { no: 6, name: "PROVIDER_SOURCE_SUPERCOMPLETE" },
+  { no: 7, name: "PROVIDER_SOURCE_COMMAND_PLAN" },
+  { no: 8, name: "PROVIDER_SOURCE_QUERY" },
+  { no: 9, name: "PROVIDER_SOURCE_FAST_APPLY" },
+  { no: 10, name: "PROVIDER_SOURCE_COMMAND_TERMINAL" },
+  { no: 11, name: "PROVIDER_SOURCE_TAB_JUMP" },
+  { no: 12, name: "PROVIDER_SOURCE_CASCADE" },
 ]);
 
 /**
- * @generated from enum exa.codeium_common_pb.Permission
+ * @generated from enum exa.codeium_common_pb.PromptElementKind
  */
-export enum Permission {
+export enum PromptElementKind {
   /**
-   * @generated from enum value: PERMISSION_UNSPECIFIED = 0;
+   * @generated from enum value: PROMPT_ELEMENT_KIND_UNSPECIFIED = 0;
    */
   UNSPECIFIED = 0,
 
   /**
-   * @generated from enum value: PERMISSION_ATTRIBUTION_READ = 1;
+   * @generated from enum value: PROMPT_ELEMENT_KIND_FILE_MARKER = 2;
    */
-  ATTRIBUTION_READ = 1,
+  FILE_MARKER = 2,
 
   /**
-   * @generated from enum value: PERMISSION_ANALYTICS_READ = 2;
+   * @generated from enum value: PROMPT_ELEMENT_KIND_OTHER_DOCUMENT = 4;
    */
-  ANALYTICS_READ = 2,
+  OTHER_DOCUMENT = 4,
 
   /**
-   * @generated from enum value: PERMISSION_LICENSE_READ = 3;
+   * @generated from enum value: PROMPT_ELEMENT_KIND_BEFORE_CURSOR = 5;
    */
-  LICENSE_READ = 3,
+  BEFORE_CURSOR = 5,
 
   /**
-   * @generated from enum value: PERMISSION_TEAM_USER_READ = 4;
+   * @generated from enum value: PROMPT_ELEMENT_KIND_AFTER_CURSOR = 7;
    */
-  TEAM_USER_READ = 4,
+  AFTER_CURSOR = 7,
 
   /**
-   * @generated from enum value: PERMISSION_TEAM_USER_UPDATE = 5;
+   * @generated from enum value: PROMPT_ELEMENT_KIND_FIM = 8;
    */
-  TEAM_USER_UPDATE = 5,
+  FIM = 8,
 
   /**
-   * @generated from enum value: PERMISSION_TEAM_USER_DELETE = 6;
+   * @generated from enum value: PROMPT_ELEMENT_KIND_SOT = 9;
    */
-  TEAM_USER_DELETE = 6,
+  SOT = 9,
 
   /**
-   * @generated from enum value: PERMISSION_INDEXING_READ = 7;
+   * @generated from enum value: PROMPT_ELEMENT_KIND_EOT = 10;
    */
-  INDEXING_READ = 7,
+  EOT = 10,
 
   /**
-   * @generated from enum value: PERMISSION_INDEXING_CREATE = 8;
+   * @generated from enum value: PROMPT_ELEMENT_KIND_CODE_CONTEXT_ITEM = 13;
    */
-  INDEXING_CREATE = 8,
+  CODE_CONTEXT_ITEM = 13,
 
   /**
-   * @generated from enum value: PERMISSION_INDEXING_UPDATE = 9;
+   * @generated from enum value: PROMPT_ELEMENT_KIND_INSTRUCTION = 14;
    */
-  INDEXING_UPDATE = 9,
+  INSTRUCTION = 14,
 
   /**
-   * @generated from enum value: PERMISSION_INDEXING_DELETE = 10;
+   * @generated from enum value: PROMPT_ELEMENT_KIND_SELECTION = 15;
    */
-  INDEXING_DELETE = 10,
+  SELECTION = 15,
 
   /**
-   * @generated from enum value: PERMISSION_SSO_READ = 11;
+   * @generated from enum value: PROMPT_ELEMENT_KIND_TRAJECTORY_STEP = 16;
    */
-  SSO_READ = 11,
+  TRAJECTORY_STEP = 16,
 
   /**
-   * @generated from enum value: PERMISSION_SSO_WRITE = 12;
+   * @generated from enum value: PROMPT_ELEMENT_KIND_ACTIVE_DOCUMENT = 17;
    */
-  SSO_WRITE = 12,
+  ACTIVE_DOCUMENT = 17,
 
   /**
-   * @generated from enum value: PERMISSION_SERVICE_KEY_READ = 13;
+   * @generated from enum value: PROMPT_ELEMENT_KIND_CACHED_MESSAGE = 18;
    */
-  SERVICE_KEY_READ = 13,
-
-  /**
-   * @generated from enum value: PERMISSION_SERVICE_KEY_CREATE = 14;
-   */
-  SERVICE_KEY_CREATE = 14,
-
-  /**
-   * @generated from enum value: PERMISSION_SERVICE_KEY_DELETE = 15;
-   */
-  SERVICE_KEY_DELETE = 15,
-
-  /**
-   * @generated from enum value: PERMISSION_BILLING_READ = 16;
-   */
-  BILLING_READ = 16,
-
-  /**
-   * @generated from enum value: PERMISSION_TEAM_USER_INVITE = 17;
-   */
-  TEAM_USER_INVITE = 17,
-
-  /**
-   * @generated from enum value: PERMISSION_BILLING_WRITE = 18;
-   */
-  BILLING_WRITE = 18,
-
-  /**
-   * @generated from enum value: PERMISSION_FINETUNING_READ = 19;
-   */
-  FINETUNING_READ = 19,
-
-  /**
-   * @generated from enum value: PERMISSION_FINETUNING_CREATE = 20;
-   */
-  FINETUNING_CREATE = 20,
-
-  /**
-   * @generated from enum value: PERMISSION_FINETUNING_UPDATE = 21;
-   */
-  FINETUNING_UPDATE = 21,
-
-  /**
-   * @generated from enum value: PERMISSION_FINETUNING_DELETE = 22;
-   */
-  FINETUNING_DELETE = 22,
-
-  /**
-   * @generated from enum value: PERMISSION_ROLE_READ = 23;
-   */
-  ROLE_READ = 23,
-
-  /**
-   * @generated from enum value: PERMISSION_ROLE_CREATE = 24;
-   */
-  ROLE_CREATE = 24,
-
-  /**
-   * @generated from enum value: PERMISSION_ROLE_UPDATE = 25;
-   */
-  ROLE_UPDATE = 25,
-
-  /**
-   * @generated from enum value: PERMISSION_ROLE_DELETE = 26;
-   */
-  ROLE_DELETE = 26,
-
-  /**
-   * @generated from enum value: PERMISSION_INDEXING_MANAGEMENT = 27;
-   */
-  INDEXING_MANAGEMENT = 27,
-
-  /**
-   * @generated from enum value: PERMISSION_SERVICE_KEY_UPDATE = 28;
-   */
-  SERVICE_KEY_UPDATE = 28,
-
-  /**
-   * @generated from enum value: PERMISSION_EXTERNAL_CHAT_UPDATE = 29;
-   */
-  EXTERNAL_CHAT_UPDATE = 29,
-
-  /**
-   * @generated from enum value: PERMISSION_TEAM_SETTINGS_READ = 30;
-   */
-  TEAM_SETTINGS_READ = 30,
-
-  /**
-   * @generated from enum value: PERMISSION_TEAM_SETTINGS_UPDATE = 31;
-   */
-  TEAM_SETTINGS_UPDATE = 31,
+  CACHED_MESSAGE = 18,
 }
-// Retrieve enum metadata with: proto3.getEnumType(Permission)
-proto3.util.setEnumType(Permission, "exa.codeium_common_pb.Permission", [
-  { no: 0, name: "PERMISSION_UNSPECIFIED" },
-  { no: 1, name: "PERMISSION_ATTRIBUTION_READ" },
-  { no: 2, name: "PERMISSION_ANALYTICS_READ" },
-  { no: 3, name: "PERMISSION_LICENSE_READ" },
-  { no: 4, name: "PERMISSION_TEAM_USER_READ" },
-  { no: 5, name: "PERMISSION_TEAM_USER_UPDATE" },
-  { no: 6, name: "PERMISSION_TEAM_USER_DELETE" },
-  { no: 7, name: "PERMISSION_INDEXING_READ" },
-  { no: 8, name: "PERMISSION_INDEXING_CREATE" },
-  { no: 9, name: "PERMISSION_INDEXING_UPDATE" },
-  { no: 10, name: "PERMISSION_INDEXING_DELETE" },
-  { no: 11, name: "PERMISSION_SSO_READ" },
-  { no: 12, name: "PERMISSION_SSO_WRITE" },
-  { no: 13, name: "PERMISSION_SERVICE_KEY_READ" },
-  { no: 14, name: "PERMISSION_SERVICE_KEY_CREATE" },
-  { no: 15, name: "PERMISSION_SERVICE_KEY_DELETE" },
-  { no: 16, name: "PERMISSION_BILLING_READ" },
-  { no: 17, name: "PERMISSION_TEAM_USER_INVITE" },
-  { no: 18, name: "PERMISSION_BILLING_WRITE" },
-  { no: 19, name: "PERMISSION_FINETUNING_READ" },
-  { no: 20, name: "PERMISSION_FINETUNING_CREATE" },
-  { no: 21, name: "PERMISSION_FINETUNING_UPDATE" },
-  { no: 22, name: "PERMISSION_FINETUNING_DELETE" },
-  { no: 23, name: "PERMISSION_ROLE_READ" },
-  { no: 24, name: "PERMISSION_ROLE_CREATE" },
-  { no: 25, name: "PERMISSION_ROLE_UPDATE" },
-  { no: 26, name: "PERMISSION_ROLE_DELETE" },
-  { no: 27, name: "PERMISSION_INDEXING_MANAGEMENT" },
-  { no: 28, name: "PERMISSION_SERVICE_KEY_UPDATE" },
-  { no: 29, name: "PERMISSION_EXTERNAL_CHAT_UPDATE" },
-  { no: 30, name: "PERMISSION_TEAM_SETTINGS_READ" },
-  { no: 31, name: "PERMISSION_TEAM_SETTINGS_UPDATE" },
+// Retrieve enum metadata with: proto3.getEnumType(PromptElementKind)
+proto3.util.setEnumType(PromptElementKind, "exa.codeium_common_pb.PromptElementKind", [
+  { no: 0, name: "PROMPT_ELEMENT_KIND_UNSPECIFIED" },
+  { no: 2, name: "PROMPT_ELEMENT_KIND_FILE_MARKER" },
+  { no: 4, name: "PROMPT_ELEMENT_KIND_OTHER_DOCUMENT" },
+  { no: 5, name: "PROMPT_ELEMENT_KIND_BEFORE_CURSOR" },
+  { no: 7, name: "PROMPT_ELEMENT_KIND_AFTER_CURSOR" },
+  { no: 8, name: "PROMPT_ELEMENT_KIND_FIM" },
+  { no: 9, name: "PROMPT_ELEMENT_KIND_SOT" },
+  { no: 10, name: "PROMPT_ELEMENT_KIND_EOT" },
+  { no: 13, name: "PROMPT_ELEMENT_KIND_CODE_CONTEXT_ITEM" },
+  { no: 14, name: "PROMPT_ELEMENT_KIND_INSTRUCTION" },
+  { no: 15, name: "PROMPT_ELEMENT_KIND_SELECTION" },
+  { no: 16, name: "PROMPT_ELEMENT_KIND_TRAJECTORY_STEP" },
+  { no: 17, name: "PROMPT_ELEMENT_KIND_ACTIVE_DOCUMENT" },
+  { no: 18, name: "PROMPT_ELEMENT_KIND_CACHED_MESSAGE" },
 ]);
 
 /**
- * @generated from enum exa.codeium_common_pb.TeamsTier
+ * @generated from enum exa.codeium_common_pb.PromptAnnotationKind
  */
-export enum TeamsTier {
+export enum PromptAnnotationKind {
   /**
-   * @generated from enum value: TEAMS_TIER_UNSPECIFIED = 0;
+   * @generated from enum value: PROMPT_ANNOTATION_KIND_UNSPECIFIED = 0;
    */
   UNSPECIFIED = 0,
 
   /**
-   * @generated from enum value: TEAMS_TIER_TEAMS = 1;
+   * @generated from enum value: PROMPT_ANNOTATION_KIND_COPY = 1;
    */
-  TEAMS = 1,
+  COPY = 1,
 
   /**
-   * @generated from enum value: TEAMS_TIER_PRO = 2;
+   * @generated from enum value: PROMPT_ANNOTATION_KIND_PROMPT_CACHE = 2;
    */
-  PRO = 2,
-
-  /**
-   * @generated from enum value: TEAMS_TIER_ENTERPRISE_SAAS = 3;
-   */
-  ENTERPRISE_SAAS = 3,
-
-  /**
-   * @generated from enum value: TEAMS_TIER_HYBRID = 4;
-   */
-  HYBRID = 4,
-
-  /**
-   * @generated from enum value: TEAMS_TIER_ENTERPRISE_SELF_HOSTED = 5;
-   */
-  ENTERPRISE_SELF_HOSTED = 5,
-
-  /**
-   * @generated from enum value: TEAMS_TIER_WAITLIST_PRO = 6;
-   */
-  WAITLIST_PRO = 6,
-
-  /**
-   * @generated from enum value: TEAMS_TIER_TEAMS_ULTIMATE = 7;
-   */
-  TEAMS_ULTIMATE = 7,
-
-  /**
-   * @generated from enum value: TEAMS_TIER_PRO_ULTIMATE = 8;
-   */
-  PRO_ULTIMATE = 8,
-
-  /**
-   * @generated from enum value: TEAMS_TIER_TRIAL = 9;
-   */
-  TRIAL = 9,
-
-  /**
-   * @generated from enum value: TEAMS_TIER_ENTERPRISE_SELF_SERVE = 10;
-   */
-  ENTERPRISE_SELF_SERVE = 10,
+  PROMPT_CACHE = 2,
 }
-// Retrieve enum metadata with: proto3.getEnumType(TeamsTier)
-proto3.util.setEnumType(TeamsTier, "exa.codeium_common_pb.TeamsTier", [
-  { no: 0, name: "TEAMS_TIER_UNSPECIFIED" },
-  { no: 1, name: "TEAMS_TIER_TEAMS" },
-  { no: 2, name: "TEAMS_TIER_PRO" },
-  { no: 3, name: "TEAMS_TIER_ENTERPRISE_SAAS" },
-  { no: 4, name: "TEAMS_TIER_HYBRID" },
-  { no: 5, name: "TEAMS_TIER_ENTERPRISE_SELF_HOSTED" },
-  { no: 6, name: "TEAMS_TIER_WAITLIST_PRO" },
-  { no: 7, name: "TEAMS_TIER_TEAMS_ULTIMATE" },
-  { no: 8, name: "TEAMS_TIER_PRO_ULTIMATE" },
-  { no: 9, name: "TEAMS_TIER_TRIAL" },
-  { no: 10, name: "TEAMS_TIER_ENTERPRISE_SELF_SERVE" },
+// Retrieve enum metadata with: proto3.getEnumType(PromptAnnotationKind)
+proto3.util.setEnumType(PromptAnnotationKind, "exa.codeium_common_pb.PromptAnnotationKind", [
+  { no: 0, name: "PROMPT_ANNOTATION_KIND_UNSPECIFIED" },
+  { no: 1, name: "PROMPT_ANNOTATION_KIND_COPY" },
+  { no: 2, name: "PROMPT_ANNOTATION_KIND_PROMPT_CACHE" },
 ]);
 
 /**
- * @generated from enum exa.codeium_common_pb.ModelProvider
+ * @generated from enum exa.codeium_common_pb.ExperimentKey
  */
-export enum ModelProvider {
+export enum ExperimentKey {
   /**
-   * @generated from enum value: MODEL_PROVIDER_UNSPECIFIED = 0;
+   * @generated from enum value: UNSPECIFIED = 0;
    */
   UNSPECIFIED = 0,
 
   /**
-   * @generated from enum value: MODEL_PROVIDER_WINDSURF = 1;
+   * @generated from enum value: USE_INTERNAL_CHAT_MODEL = 36;
    */
-  WINDSURF = 1,
+  USE_INTERNAL_CHAT_MODEL = 36,
 
   /**
-   * @generated from enum value: MODEL_PROVIDER_OPENAI = 2;
+   * @generated from enum value: RECORD_FILES = 47;
    */
-  OPENAI = 2,
+  RECORD_FILES = 47,
 
   /**
-   * @generated from enum value: MODEL_PROVIDER_ANTHROPIC = 3;
+   * @generated from enum value: NO_SAMPLER_EARLY_STOP = 48;
    */
-  ANTHROPIC = 3,
+  NO_SAMPLER_EARLY_STOP = 48,
 
   /**
-   * @generated from enum value: MODEL_PROVIDER_GOOGLE = 4;
+   * @generated from enum value: CM_MEMORY_TELEMETRY = 53;
    */
-  GOOGLE = 4,
+  CM_MEMORY_TELEMETRY = 53,
 
   /**
-   * @generated from enum value: MODEL_PROVIDER_XAI = 5;
+   * @generated from enum value: LANGUAGE_SERVER_VERSION = 55;
    */
-  XAI = 5,
+  LANGUAGE_SERVER_VERSION = 55,
 
   /**
-   * @generated from enum value: MODEL_PROVIDER_DEEPSEEK = 6;
+   * @generated from enum value: LANGUAGE_SERVER_AUTO_RELOAD = 56;
    */
-  DEEPSEEK = 6,
+  LANGUAGE_SERVER_AUTO_RELOAD = 56,
 
   /**
-   * @generated from enum value: MODEL_PROVIDER_MOONSHOT = 7;
+   * @generated from enum value: ONLY_MULTILINE = 60;
    */
-  MOONSHOT = 7,
+  ONLY_MULTILINE = 60,
 
   /**
-   * @generated from enum value: MODEL_PROVIDER_QWEN = 8;
+   * @generated from enum value: USE_AUTOCOMPLETE_MODEL = 64;
    */
-  QWEN = 8,
+  USE_AUTOCOMPLETE_MODEL = 64,
+
+  /**
+   * @generated from enum value: USE_ATTRIBUTION_FOR_INDIVIDUAL_TIER = 68;
+   */
+  USE_ATTRIBUTION_FOR_INDIVIDUAL_TIER = 68,
+
+  /**
+   * @generated from enum value: CHAT_MODEL_CONFIG = 78;
+   */
+  CHAT_MODEL_CONFIG = 78,
+
+  /**
+   * @generated from enum value: COMMAND_MODEL_CONFIG = 79;
+   */
+  COMMAND_MODEL_CONFIG = 79,
+
+  /**
+   * @generated from enum value: MIN_IDE_VERSION = 81;
+   */
+  MIN_IDE_VERSION = 81,
+
+  /**
+   * @generated from enum value: API_SERVER_VERBOSE_ERRORS = 84;
+   */
+  API_SERVER_VERBOSE_ERRORS = 84,
+
+  /**
+   * @generated from enum value: DEFAULT_ENABLE_SEARCH = 86;
+   */
+  DEFAULT_ENABLE_SEARCH = 86,
+
+  /**
+   * @generated from enum value: COLLECT_ONBOARDING_EVENTS = 87;
+   */
+  COLLECT_ONBOARDING_EVENTS = 87,
+
+  /**
+   * @generated from enum value: COLLECT_EXAMPLE_COMPLETIONS = 88;
+   */
+  COLLECT_EXAMPLE_COMPLETIONS = 88,
+
+  /**
+   * @generated from enum value: USE_MULTILINE_MODEL = 89;
+   */
+  USE_MULTILINE_MODEL = 89,
+
+  /**
+   * @generated from enum value: ATTRIBUTION_KILL_SWITCH = 92;
+   */
+  ATTRIBUTION_KILL_SWITCH = 92,
+
+  /**
+   * @generated from enum value: FAST_MULTILINE = 94;
+   */
+  FAST_MULTILINE = 94,
+
+  /**
+   * @generated from enum value: SINGLE_COMPLETION = 95;
+   */
+  SINGLE_COMPLETION = 95,
+
+  /**
+   * @generated from enum value: STOP_FIRST_NON_WHITESPACE_LINE = 96;
+   */
+  STOP_FIRST_NON_WHITESPACE_LINE = 96,
+
+  /**
+   * @generated from enum value: CORTEX_CONFIG = 102;
+   */
+  CORTEX_CONFIG = 102,
+
+  /**
+   * @generated from enum value: MODEL_CHAT_11121_VARIANTS = 103;
+   */
+  MODEL_CHAT_11121_VARIANTS = 103,
+
+  /**
+   * @generated from enum value: INCLUDE_PROMPT_COMPONENTS = 105;
+   */
+  INCLUDE_PROMPT_COMPONENTS = 105,
+
+  /**
+   * @generated from enum value: NON_TEAMS_KILL_SWITCH = 106;
+   */
+  NON_TEAMS_KILL_SWITCH = 106,
+
+  /**
+   * @generated from enum value: PERSIST_CODE_TRACKER = 108;
+   */
+  PERSIST_CODE_TRACKER = 108,
+
+  /**
+   * @generated from enum value: API_SERVER_LIVENESS_PROBE = 112;
+   */
+  API_SERVER_LIVENESS_PROBE = 112,
+
+  /**
+   * @generated from enum value: CHAT_COMPLETION_TOKENS_SOFT_LIMIT = 114;
+   */
+  CHAT_COMPLETION_TOKENS_SOFT_LIMIT = 114,
+
+  /**
+   * @generated from enum value: CHAT_TOKENS_SOFT_LIMIT = 115;
+   */
+  CHAT_TOKENS_SOFT_LIMIT = 115,
+
+  /**
+   * @generated from enum value: DISABLE_COMPLETIONS_CACHE = 118;
+   */
+  DISABLE_COMPLETIONS_CACHE = 118,
+
+  /**
+   * @generated from enum value: LLAMA3_405B_KILL_SWITCH = 119;
+   */
+  LLAMA3_405B_KILL_SWITCH = 119,
+
+  /**
+   * @generated from enum value: USE_COMMAND_DOCSTRING_GENERATION = 121;
+   */
+  USE_COMMAND_DOCSTRING_GENERATION = 121,
+
+  /**
+   * @generated from enum value: ENABLE_SUPERCOMPLETE = 123;
+   */
+  ENABLE_SUPERCOMPLETE = 123,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_FILTER_REVERT = 125;
+   */
+  SUPERCOMPLETE_FILTER_REVERT = 125,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_FILTER_PREFIX_MATCH = 126;
+   */
+  SUPERCOMPLETE_FILTER_PREFIX_MATCH = 126,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_FILTER_SCORE_THRESHOLD = 127;
+   */
+  SUPERCOMPLETE_FILTER_SCORE_THRESHOLD = 127,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_FILTER_INSERTION_CAP = 128;
+   */
+  SUPERCOMPLETE_FILTER_INSERTION_CAP = 128,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_MIN_SCORE = 129;
+   */
+  SUPERCOMPLETE_MIN_SCORE = 129,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_MAX_INSERTIONS = 130;
+   */
+  SUPERCOMPLETE_MAX_INSERTIONS = 130,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_LINE_RADIUS = 131;
+   */
+  SUPERCOMPLETE_LINE_RADIUS = 131,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_MAX_DELETIONS = 132;
+   */
+  SUPERCOMPLETE_MAX_DELETIONS = 132,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_FILTER_DELETION_CAP = 133;
+   */
+  SUPERCOMPLETE_FILTER_DELETION_CAP = 133,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_USE_CURRENT_LINE = 135;
+   */
+  SUPERCOMPLETE_USE_CURRENT_LINE = 135,
+
+  /**
+   * @generated from enum value: SENTRY = 136;
+   */
+  SENTRY = 136,
+
+  /**
+   * @generated from enum value: JETBRAINS_ENABLE_ONBOARDING = 137;
+   */
+  JETBRAINS_ENABLE_ONBOARDING = 137,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_RECENT_STEPS_DURATION = 138;
+   */
+  SUPERCOMPLETE_RECENT_STEPS_DURATION = 138,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_PRUNE_RESPONSE = 140;
+   */
+  SUPERCOMPLETE_PRUNE_RESPONSE = 140,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_PRUNE_MAX_INSERT_DELETE_LINE_DELTA = 141;
+   */
+  SUPERCOMPLETE_PRUNE_MAX_INSERT_DELETE_LINE_DELTA = 141,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_USE_CODE_DIAGNOSTICS = 143;
+   */
+  SUPERCOMPLETE_USE_CODE_DIAGNOSTICS = 143,
+
+  /**
+   * @generated from enum value: FAST_SINGLELINE = 144;
+   */
+  FAST_SINGLELINE = 144,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_MODEL_CONFIG = 145;
+   */
+  SUPERCOMPLETE_MODEL_CONFIG = 145,
+
+  /**
+   * @generated from enum value: ENABLE_AUTOCOMPLETE_DURING_INTELLISENSE = 146;
+   */
+  ENABLE_AUTOCOMPLETE_DURING_INTELLISENSE = 146,
+
+  /**
+   * @generated from enum value: R2_LANGUAGE_SERVER_DOWNLOAD = 147;
+   */
+  R2_LANGUAGE_SERVER_DOWNLOAD = 147,
+
+  /**
+   * @generated from enum value: CONTEXT_ACTIVE_DOCUMENT_FRACTION = 149;
+   */
+  CONTEXT_ACTIVE_DOCUMENT_FRACTION = 149,
+
+  /**
+   * @generated from enum value: CONTEXT_COMMAND_TRAJECTORY_PROMPT_CONFIG = 150;
+   */
+  CONTEXT_COMMAND_TRAJECTORY_PROMPT_CONFIG = 150,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_ON_TAB = 151;
+   */
+  SUPERCOMPLETE_ON_TAB = 151,
+
+  /**
+   * @generated from enum value: SPLIT_MODEL = 152;
+   */
+  SPLIT_MODEL = 152,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_MAX_TRAJECTORY_STEPS = 154;
+   */
+  SUPERCOMPLETE_MAX_TRAJECTORY_STEPS = 154,
+
+  /**
+   * @generated from enum value: COMMAND_BOX_ON_TOP = 155;
+   */
+  COMMAND_BOX_ON_TOP = 155,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_FILTER_WHITESPACE_ONLY = 156;
+   */
+  SUPERCOMPLETE_FILTER_WHITESPACE_ONLY = 156,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_ON_ACCEPT_ONLY = 157;
+   */
+  SUPERCOMPLETE_ON_ACCEPT_ONLY = 157,
+
+  /**
+   * @generated from enum value: API_SERVER_CUTOFF = 158;
+   */
+  API_SERVER_CUTOFF = 158,
+
+  /**
+   * @generated from enum value: FAST_SPEED_KILL_SWITCH = 159;
+   */
+  FAST_SPEED_KILL_SWITCH = 159,
+
+  /**
+   * @generated from enum value: PREDICTIVE_MULTILINE = 160;
+   */
+  PREDICTIVE_MULTILINE = 160,
+
+  /**
+   * @generated from enum value: USE_AUTOCOMPLETE_MODEL_SERVER_SIDE = 163;
+   */
+  USE_AUTOCOMPLETE_MODEL_SERVER_SIDE = 163,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_NO_CONTEXT = 165;
+   */
+  SUPERCOMPLETE_NO_CONTEXT = 165,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_NO_ACTIVE_NODE = 166;
+   */
+  SUPERCOMPLETE_NO_ACTIVE_NODE = 166,
+
+  /**
+   * @generated from enum value: TAB_JUMP_ENABLED = 168;
+   */
+  TAB_JUMP_ENABLED = 168,
+
+  /**
+   * @generated from enum value: TAB_JUMP_ACCEPT_ENABLED = 169;
+   */
+  TAB_JUMP_ACCEPT_ENABLED = 169,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_FILTER_NO_OP = 170;
+   */
+  SUPERCOMPLETE_FILTER_NO_OP = 170,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_INLINE_PURE_DELETE = 171;
+   */
+  SUPERCOMPLETE_INLINE_PURE_DELETE = 171,
+
+  /**
+   * @generated from enum value: STREAMING_EXTERNAL_COMMAND = 172;
+   */
+  STREAMING_EXTERNAL_COMMAND = 172,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_FILTER_SUFFIX_MATCH = 176;
+   */
+  SUPERCOMPLETE_FILTER_SUFFIX_MATCH = 176,
+
+  /**
+   * @generated from enum value: TAB_JUMP_LINE_RADIUS = 177;
+   */
+  TAB_JUMP_LINE_RADIUS = 177,
+
+  /**
+   * @generated from enum value: CONTEXT_FORCE_LOCAL_CONTEXT = 178;
+   */
+  CONTEXT_FORCE_LOCAL_CONTEXT = 178,
+
+  /**
+   * @generated from enum value: USE_SPECIAL_EDIT_CODE_BLOCK = 179;
+   */
+  USE_SPECIAL_EDIT_CODE_BLOCK = 179,
+
+  /**
+   * @generated from enum value: ENABLE_SMART_COPY = 181;
+   */
+  ENABLE_SMART_COPY = 181,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_FILTER_PREVIOUSLY_SHOWN = 182;
+   */
+  SUPERCOMPLETE_FILTER_PREVIOUSLY_SHOWN = 182,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_TEMPERATURE = 183;
+   */
+  SUPERCOMPLETE_TEMPERATURE = 183,
+
+  /**
+   * @generated from enum value: ENABLE_COMMIT_MESSAGE_GENERATION = 185;
+   */
+  ENABLE_COMMIT_MESSAGE_GENERATION = 185,
+
+  /**
+   * @generated from enum value: ENABLE_SUGGESTED_RESPONSES = 187;
+   */
+  ENABLE_SUGGESTED_RESPONSES = 187,
+
+  /**
+   * @generated from enum value: CASCADE_BASE_MODEL_ID = 190;
+   */
+  CASCADE_BASE_MODEL_ID = 190,
+
+  /**
+   * @generated from enum value: CASCADE_BACKGROUND_RESEARCH_CONFIG_OVERRIDE = 193;
+   */
+  CASCADE_BACKGROUND_RESEARCH_CONFIG_OVERRIDE = 193,
+
+  /**
+   * @generated from enum value: SKIP_CONSISTENCY_MANAGER = 194;
+   */
+  SKIP_CONSISTENCY_MANAGER = 194,
+
+  /**
+   * @generated from enum value: TAB_JUMP_MIN_FILTER_RADIUS = 197;
+   */
+  TAB_JUMP_MIN_FILTER_RADIUS = 197,
+
+  /**
+   * @generated from enum value: WINDSURF_SENTRY_SAMPLE_RATE = 198;
+   */
+  WINDSURF_SENTRY_SAMPLE_RATE = 198,
+
+  /**
+   * @generated from enum value: API_SERVER_CLIENT_USE_HTTP_2 = 202;
+   */
+  API_SERVER_CLIENT_USE_HTTP_2 = 202,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_MAX_TRAJECTORY_STEP_SIZE = 203;
+   */
+  SUPERCOMPLETE_MAX_TRAJECTORY_STEP_SIZE = 203,
+
+  /**
+   * @generated from enum value: CASCADE_ENFORCE_QUOTA = 204;
+   */
+  CASCADE_ENFORCE_QUOTA = 204,
+
+  /**
+   * @generated from enum value: TAB_JUMP_ON_ACCEPT_ONLY = 205;
+   */
+  TAB_JUMP_ON_ACCEPT_ONLY = 205,
+
+  /**
+   * @generated from enum value: COMPLETION_SPEED_SUPERCOMPLETE_CACHE = 207;
+   */
+  COMPLETION_SPEED_SUPERCOMPLETE_CACHE = 207,
+
+  /**
+   * @generated from enum value: COMPLETION_SPEED_PREDICTIVE_SUPERCOMPLETE = 208;
+   */
+  COMPLETION_SPEED_PREDICTIVE_SUPERCOMPLETE = 208,
+
+  /**
+   * @generated from enum value: COMPLETION_SPEED_TAB_JUMP_CACHE = 209;
+   */
+  COMPLETION_SPEED_TAB_JUMP_CACHE = 209,
+
+  /**
+   * @generated from enum value: COMPLETION_SPEED_PREDICTIVE_TAB_JUMP = 210;
+   */
+  COMPLETION_SPEED_PREDICTIVE_TAB_JUMP = 210,
+
+  /**
+   * @generated from enum value: VIEWED_FILE_TRACKER_CONFIG = 211;
+   */
+  VIEWED_FILE_TRACKER_CONFIG = 211,
+
+  /**
+   * @generated from enum value: CASCADE_GLOBAL_CONFIG_OVERRIDE = 212;
+   */
+  CASCADE_GLOBAL_CONFIG_OVERRIDE = 212,
+
+  /**
+   * @generated from enum value: AUTOCOMPLETE_DEFAULT_DEBOUNCE_MS = 213;
+   */
+  AUTOCOMPLETE_DEFAULT_DEBOUNCE_MS = 213,
+
+  /**
+   * @generated from enum value: AUTOCOMPLETE_FAST_DEBOUNCE_MS = 214;
+   */
+  AUTOCOMPLETE_FAST_DEBOUNCE_MS = 214,
+
+  /**
+   * @generated from enum value: TAB_JUMP_FILTER_IN_SELECTION = 215;
+   */
+  TAB_JUMP_FILTER_IN_SELECTION = 215,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_INLINE_RICH_GHOST_TEXT_INSERTIONS = 218;
+   */
+  SUPERCOMPLETE_INLINE_RICH_GHOST_TEXT_INSERTIONS = 218,
+
+  /**
+   * @generated from enum value: PROFILING_TELEMETRY_SAMPLE_RATE = 219;
+   */
+  PROFILING_TELEMETRY_SAMPLE_RATE = 219,
+
+  /**
+   * @generated from enum value: CROSS_SELL_EXTENSION_DOWNLOAD_WINDSURF = 220;
+   */
+  CROSS_SELL_EXTENSION_DOWNLOAD_WINDSURF = 220,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_DIAGNOSTIC_SEVERITY_THRESHOLD = 223;
+   */
+  SUPERCOMPLETE_DIAGNOSTIC_SEVERITY_THRESHOLD = 223,
+
+  /**
+   * @generated from enum value: CASCADE_ENABLE_AUTOMATED_MEMORIES = 224;
+   */
+  CASCADE_ENABLE_AUTOMATED_MEMORIES = 224,
+
+  /**
+   * @generated from enum value: STREAM_USER_SHELL_COMMANDS = 225;
+   */
+  STREAM_USER_SHELL_COMMANDS = 225,
+
+  /**
+   * @generated from enum value: CASCADE_USE_REPLACE_CONTENT_EDIT_TOOL = 228;
+   */
+  CASCADE_USE_REPLACE_CONTENT_EDIT_TOOL = 228,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_DISABLE_TYPING_CACHE = 231;
+   */
+  SUPERCOMPLETE_DISABLE_TYPING_CACHE = 231,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_CODE_DIAGNOSTICS_TOP_K = 232;
+   */
+  SUPERCOMPLETE_CODE_DIAGNOSTICS_TOP_K = 232,
+
+  /**
+   * @generated from enum value: COMMAND_INJECT_USER_MEMORIES = 233;
+   */
+  COMMAND_INJECT_USER_MEMORIES = 233,
+
+  /**
+   * @generated from enum value: AUTOCOMPLETE_HIDDEN_ERROR_REGEX = 234;
+   */
+  AUTOCOMPLETE_HIDDEN_ERROR_REGEX = 234,
+
+  /**
+   * @generated from enum value: CASCADE_ENABLE_CUSTOM_RECIPES = 236;
+   */
+  CASCADE_ENABLE_CUSTOM_RECIPES = 236,
+
+  /**
+   * @generated from enum value: TAB_JUMP_MODEL_CONFIG = 237;
+   */
+  TAB_JUMP_MODEL_CONFIG = 237,
+
+  /**
+   * @generated from enum value: TAB_JUMP_FILTER_NO_OP = 238;
+   */
+  TAB_JUMP_FILTER_NO_OP = 238,
+
+  /**
+   * @generated from enum value: TAB_JUMP_FILTER_REVERT = 239;
+   */
+  TAB_JUMP_FILTER_REVERT = 239,
+
+  /**
+   * @generated from enum value: TAB_JUMP_FILTER_SCORE_THRESHOLD = 240;
+   */
+  TAB_JUMP_FILTER_SCORE_THRESHOLD = 240,
+
+  /**
+   * @generated from enum value: TAB_JUMP_FILTER_WHITESPACE_ONLY = 241;
+   */
+  TAB_JUMP_FILTER_WHITESPACE_ONLY = 241,
+
+  /**
+   * @generated from enum value: TAB_JUMP_FILTER_INSERTION_CAP = 242;
+   */
+  TAB_JUMP_FILTER_INSERTION_CAP = 242,
+
+  /**
+   * @generated from enum value: TAB_JUMP_FILTER_DELETION_CAP = 243;
+   */
+  TAB_JUMP_FILTER_DELETION_CAP = 243,
+
+  /**
+   * @generated from enum value: CASCADE_ENABLE_MCP_TOOLS = 245;
+   */
+  CASCADE_ENABLE_MCP_TOOLS = 245,
+
+  /**
+   * @generated from enum value: CASCADE_USE_EXPERIMENT_CHECKPOINTER = 247;
+   */
+  CASCADE_USE_EXPERIMENT_CHECKPOINTER = 247,
+
+  /**
+   * @generated from enum value: ENABLE_QUICK_ACTIONS = 250;
+   */
+  ENABLE_QUICK_ACTIONS = 250,
+
+  /**
+   * @generated from enum value: QUICK_ACTIONS_WHITELIST_REGEX = 251;
+   */
+  QUICK_ACTIONS_WHITELIST_REGEX = 251,
+
+  /**
+   * @generated from enum value: COMMAND_PROMPT_CACHE_CONFIG = 255;
+   */
+  COMMAND_PROMPT_CACHE_CONFIG = 255,
+
+  /**
+   * @generated from enum value: CUMULATIVE_PROMPT_CONFIG = 256;
+   */
+  CUMULATIVE_PROMPT_CONFIG = 256,
+
+  /**
+   * @generated from enum value: CASCADE_VIEW_FILE_TOOL_CONFIG_OVERRIDE = 258;
+   */
+  CASCADE_VIEW_FILE_TOOL_CONFIG_OVERRIDE = 258,
+
+  /**
+   * @generated from enum value: CASCADE_NEW_MODELS_NUX = 259;
+   */
+  CASCADE_NEW_MODELS_NUX = 259,
+
+  /**
+   * @generated from enum value: TAB_JUMP_PRUNE_RESPONSE = 260;
+   */
+  TAB_JUMP_PRUNE_RESPONSE = 260,
+
+  /**
+   * @generated from enum value: TAB_JUMP_PRUNE_MAX_INSERT_DELETE_LINE_DELTA = 261;
+   */
+  TAB_JUMP_PRUNE_MAX_INSERT_DELETE_LINE_DELTA = 261,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_FAST_DEBOUNCE = 262;
+   */
+  SUPERCOMPLETE_FAST_DEBOUNCE = 262,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_REGULAR_DEBOUNCE = 263;
+   */
+  SUPERCOMPLETE_REGULAR_DEBOUNCE = 263,
+
+  /**
+   * @generated from enum value: COMBINED_MODEL_USE_FULL_INSTRUCTION_FOR_RETRIEVAL = 264;
+   */
+  COMBINED_MODEL_USE_FULL_INSTRUCTION_FOR_RETRIEVAL = 264,
+
+  /**
+   * @generated from enum value: MAX_PAST_TRAJECTORY_TOKENS_FOR_RETRIEVAL = 265;
+   */
+  MAX_PAST_TRAJECTORY_TOKENS_FOR_RETRIEVAL = 265,
+
+  /**
+   * @generated from enum value: CASCADE_PLAN_BASED_CONFIG_OVERRIDE = 266;
+   */
+  CASCADE_PLAN_BASED_CONFIG_OVERRIDE = 266,
+
+  /**
+   * @generated from enum value: XML_TOOL_PARSING_MODELS = 268;
+   */
+  XML_TOOL_PARSING_MODELS = 268,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_DONT_FILTER_MID_STREAMED = 269;
+   */
+  SUPERCOMPLETE_DONT_FILTER_MID_STREAMED = 269,
+
+  /**
+   * @generated from enum value: CASCADE_NEW_WAVE_2_MODELS_NUX = 270;
+   */
+  CASCADE_NEW_WAVE_2_MODELS_NUX = 270,
+
+  /**
+   * @generated from enum value: API_SERVER_ENABLE_MORE_LOGGING = 272;
+   */
+  API_SERVER_ENABLE_MORE_LOGGING = 272,
+
+  /**
+   * @generated from enum value: CASCADE_AUTO_FIX_LINTS = 275;
+   */
+  CASCADE_AUTO_FIX_LINTS = 275,
+
+  /**
+   * @generated from enum value: FIREWORKS_ON_DEMAND_DEPLOYMENT = 276;
+   */
+  FIREWORKS_ON_DEMAND_DEPLOYMENT = 276,
+
+  /**
+   * @generated from enum value: DISABLE_IDE_COMPLETIONS_DEBOUNCE = 278;
+   */
+  DISABLE_IDE_COMPLETIONS_DEBOUNCE = 278,
+
+  /**
+   * @generated from enum value: CUMULATIVE_PROMPT_CASCADE_CONFIG = 279;
+   */
+  CUMULATIVE_PROMPT_CASCADE_CONFIG = 279,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_MAX_CONCURRENT_REQUESTS = 284;
+   */
+  SUPERCOMPLETE_MAX_CONCURRENT_REQUESTS = 284,
+
+  /**
+   * @generated from enum value: ANNOYANCE_MANAGER_MAX_NAVIGATION_RENDERS = 285;
+   */
+  ANNOYANCE_MANAGER_MAX_NAVIGATION_RENDERS = 285,
+
+  /**
+   * @generated from enum value: ANNOYANCE_MANAGER_INLINE_PREVENTION_THRESHOLD_MS = 286;
+   */
+  ANNOYANCE_MANAGER_INLINE_PREVENTION_THRESHOLD_MS = 286,
+
+  /**
+   * @generated from enum value: ANNOYANCE_MANAGER_INLINE_PREVENTION_MAX_INTENTIONAL_REJECTIONS = 287;
+   */
+  ANNOYANCE_MANAGER_INLINE_PREVENTION_MAX_INTENTIONAL_REJECTIONS = 287,
+
+  /**
+   * @generated from enum value: ANNOYANCE_MANAGER_INLINE_PREVENTION_MAX_AUTO_REJECTIONS = 288;
+   */
+  ANNOYANCE_MANAGER_INLINE_PREVENTION_MAX_AUTO_REJECTIONS = 288,
+
+  /**
+   * @generated from enum value: CASCADE_USER_MEMORIES_IN_SYS_PROMPT = 289;
+   */
+  CASCADE_USER_MEMORIES_IN_SYS_PROMPT = 289,
+
+  /**
+   * @generated from enum value: CASCADE_ENABLE_PROXY_WEB_SERVER = 290;
+   */
+  CASCADE_ENABLE_PROXY_WEB_SERVER = 290,
+
+  /**
+   * @generated from enum value: USE_CUSTOM_CHARACTER_DIFF = 292;
+   */
+  USE_CUSTOM_CHARACTER_DIFF = 292,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_ALWAYS_USE_CACHE_ON_EQUAL_STATE = 293;
+   */
+  SUPERCOMPLETE_ALWAYS_USE_CACHE_ON_EQUAL_STATE = 293,
+
+  /**
+   * @generated from enum value: COMPLETION_SPEED_BLOCK_TAB_JUMP_ON_PREDICTIVE_SUPERCOMPLETE = 294;
+   */
+  COMPLETION_SPEED_BLOCK_TAB_JUMP_ON_PREDICTIVE_SUPERCOMPLETE = 294,
+
+  /**
+   * @generated from enum value: MODEL_LLAMA_3_1_70B_INSTRUCT_LONG_CONTEXT_VARIANTS = 295;
+   */
+  MODEL_LLAMA_3_1_70B_INSTRUCT_LONG_CONTEXT_VARIANTS = 295,
+
+  /**
+   * @generated from enum value: USE_ANTHROPIC_TOKEN_EFFICIENT_TOOLS_BETA = 296;
+   */
+  USE_ANTHROPIC_TOKEN_EFFICIENT_TOOLS_BETA = 296,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_CACHE_ON_PARENT_ID_KILL_SWITCH = 297;
+   */
+  SUPERCOMPLETE_CACHE_ON_PARENT_ID_KILL_SWITCH = 297,
+
+  /**
+   * @generated from enum value: FORCE_NON_OPTIMIZED_DIFF = 298;
+   */
+  FORCE_NON_OPTIMIZED_DIFF = 298,
+
+  /**
+   * @generated from enum value: CASCADE_WEB_APP_DEPLOYMENTS_ENABLED = 300;
+   */
+  CASCADE_WEB_APP_DEPLOYMENTS_ENABLED = 300,
+
+  /**
+   * @generated from enum value: TAB_JUMP_CUMULATIVE_PROMPT_CONFIG = 301;
+   */
+  TAB_JUMP_CUMULATIVE_PROMPT_CONFIG = 301,
+
+  /**
+   * @generated from enum value: DISABLE_SUPERCOMPLETE_PCW = 303;
+   */
+  DISABLE_SUPERCOMPLETE_PCW = 303,
+
+  /**
+   * @generated from enum value: BLOCK_TAB_ON_SHOWN_AUTOCOMPLETE = 304;
+   */
+  BLOCK_TAB_ON_SHOWN_AUTOCOMPLETE = 304,
+
+  /**
+   * @generated from enum value: SNAPSHOT_TO_STEP_OPTIONS_OVERRIDE = 305;
+   */
+  SNAPSHOT_TO_STEP_OPTIONS_OVERRIDE = 305,
+
+  /**
+   * @generated from enum value: API_SERVER_PROMPT_CACHE_REPLICAS = 307;
+   */
+  API_SERVER_PROMPT_CACHE_REPLICAS = 307,
+
+  /**
+   * @generated from enum value: MODEL_CHAT_19821_VARIANTS = 308;
+   */
+  MODEL_CHAT_19821_VARIANTS = 308,
+
+  /**
+   * @generated from enum value: IMPLICIT_USES_CLIPBOARD = 310;
+   */
+  IMPLICIT_USES_CLIPBOARD = 310,
+
+  /**
+   * @generated from enum value: CASCADE_WEB_SEARCH_NUX = 311;
+   */
+  CASCADE_WEB_SEARCH_NUX = 311,
+
+  /**
+   * @generated from enum value: COLLAPSE_ASSISTANT_MESSAGES = 312;
+   */
+  COLLAPSE_ASSISTANT_MESSAGES = 312,
+
+  /**
+   * @generated from enum value: CASCADE_MEMORY_CONFIG_OVERRIDE = 314;
+   */
+  CASCADE_MEMORY_CONFIG_OVERRIDE = 314,
+
+  /**
+   * @generated from enum value: CASCADE_RECIPES_AT_MENTION_VISIBILITY = 316;
+   */
+  CASCADE_RECIPES_AT_MENTION_VISIBILITY = 316,
+
+  /**
+   * @generated from enum value: TAB_JUMP_STOP_TOKEN_MIDSTREAM = 317;
+   */
+  TAB_JUMP_STOP_TOKEN_MIDSTREAM = 317,
+
+  /**
+   * @generated from enum value: MODEL_NOTIFICATIONS = 319;
+   */
+  MODEL_NOTIFICATIONS = 319,
+
+  /**
+   * @generated from enum value: MODEL_SELECTOR_NUX_COPY = 320;
+   */
+  MODEL_SELECTOR_NUX_COPY = 320,
+
+  /**
+   * @generated from enum value: CASCADE_DEFAULT_MODEL_OVERRIDE = 321;
+   */
+  CASCADE_DEFAULT_MODEL_OVERRIDE = 321,
+
+  /**
+   * @generated from enum value: CASCADE_TOOL_CALL_PRICING_NUX = 322;
+   */
+  CASCADE_TOOL_CALL_PRICING_NUX = 322,
+
+  /**
+   * @generated from enum value: CASCADE_PLUGINS_TAB = 323;
+   */
+  CASCADE_PLUGINS_TAB = 323,
+
+  /**
+   * @generated from enum value: WAVE_8_RULES_ENABLED = 324;
+   */
+  WAVE_8_RULES_ENABLED = 324,
+
+  /**
+   * @generated from enum value: WAVE_8_KNOWLEDGE_ENABLED = 325;
+   */
+  WAVE_8_KNOWLEDGE_ENABLED = 325,
+
+  /**
+   * @generated from enum value: CASCADE_ONBOARDING = 326;
+   */
+  CASCADE_ONBOARDING = 326,
+
+  /**
+   * @generated from enum value: CASCADE_ONBOARDING_REVERT = 327;
+   */
+  CASCADE_ONBOARDING_REVERT = 327,
+
+  /**
+   * @generated from enum value: CASCADE_WINDSURF_BROWSER_TOOLS_ENABLED = 328;
+   */
+  CASCADE_WINDSURF_BROWSER_TOOLS_ENABLED = 328,
+
+  /**
+   * @generated from enum value: CASCADE_MODEL_HEADER_WARNING = 329;
+   */
+  CASCADE_MODEL_HEADER_WARNING = 329,
+
+  /**
+   * @generated from enum value: TEST_ONLY = 999;
+   */
+  TEST_ONLY = 999,
 }
-// Retrieve enum metadata with: proto3.getEnumType(ModelProvider)
-proto3.util.setEnumType(ModelProvider, "exa.codeium_common_pb.ModelProvider", [
-  { no: 0, name: "MODEL_PROVIDER_UNSPECIFIED" },
-  { no: 1, name: "MODEL_PROVIDER_WINDSURF" },
-  { no: 2, name: "MODEL_PROVIDER_OPENAI" },
-  { no: 3, name: "MODEL_PROVIDER_ANTHROPIC" },
-  { no: 4, name: "MODEL_PROVIDER_GOOGLE" },
-  { no: 5, name: "MODEL_PROVIDER_XAI" },
-  { no: 6, name: "MODEL_PROVIDER_DEEPSEEK" },
-  { no: 7, name: "MODEL_PROVIDER_MOONSHOT" },
-  { no: 8, name: "MODEL_PROVIDER_QWEN" },
+// Retrieve enum metadata with: proto3.getEnumType(ExperimentKey)
+proto3.util.setEnumType(ExperimentKey, "exa.codeium_common_pb.ExperimentKey", [
+  { no: 0, name: "UNSPECIFIED" },
+  { no: 36, name: "USE_INTERNAL_CHAT_MODEL" },
+  { no: 47, name: "RECORD_FILES" },
+  { no: 48, name: "NO_SAMPLER_EARLY_STOP" },
+  { no: 53, name: "CM_MEMORY_TELEMETRY" },
+  { no: 55, name: "LANGUAGE_SERVER_VERSION" },
+  { no: 56, name: "LANGUAGE_SERVER_AUTO_RELOAD" },
+  { no: 60, name: "ONLY_MULTILINE" },
+  { no: 64, name: "USE_AUTOCOMPLETE_MODEL" },
+  { no: 68, name: "USE_ATTRIBUTION_FOR_INDIVIDUAL_TIER" },
+  { no: 78, name: "CHAT_MODEL_CONFIG" },
+  { no: 79, name: "COMMAND_MODEL_CONFIG" },
+  { no: 81, name: "MIN_IDE_VERSION" },
+  { no: 84, name: "API_SERVER_VERBOSE_ERRORS" },
+  { no: 86, name: "DEFAULT_ENABLE_SEARCH" },
+  { no: 87, name: "COLLECT_ONBOARDING_EVENTS" },
+  { no: 88, name: "COLLECT_EXAMPLE_COMPLETIONS" },
+  { no: 89, name: "USE_MULTILINE_MODEL" },
+  { no: 92, name: "ATTRIBUTION_KILL_SWITCH" },
+  { no: 94, name: "FAST_MULTILINE" },
+  { no: 95, name: "SINGLE_COMPLETION" },
+  { no: 96, name: "STOP_FIRST_NON_WHITESPACE_LINE" },
+  { no: 102, name: "CORTEX_CONFIG" },
+  { no: 103, name: "MODEL_CHAT_11121_VARIANTS" },
+  { no: 105, name: "INCLUDE_PROMPT_COMPONENTS" },
+  { no: 106, name: "NON_TEAMS_KILL_SWITCH" },
+  { no: 108, name: "PERSIST_CODE_TRACKER" },
+  { no: 112, name: "API_SERVER_LIVENESS_PROBE" },
+  { no: 114, name: "CHAT_COMPLETION_TOKENS_SOFT_LIMIT" },
+  { no: 115, name: "CHAT_TOKENS_SOFT_LIMIT" },
+  { no: 118, name: "DISABLE_COMPLETIONS_CACHE" },
+  { no: 119, name: "LLAMA3_405B_KILL_SWITCH" },
+  { no: 121, name: "USE_COMMAND_DOCSTRING_GENERATION" },
+  { no: 123, name: "ENABLE_SUPERCOMPLETE" },
+  { no: 125, name: "SUPERCOMPLETE_FILTER_REVERT" },
+  { no: 126, name: "SUPERCOMPLETE_FILTER_PREFIX_MATCH" },
+  { no: 127, name: "SUPERCOMPLETE_FILTER_SCORE_THRESHOLD" },
+  { no: 128, name: "SUPERCOMPLETE_FILTER_INSERTION_CAP" },
+  { no: 129, name: "SUPERCOMPLETE_MIN_SCORE" },
+  { no: 130, name: "SUPERCOMPLETE_MAX_INSERTIONS" },
+  { no: 131, name: "SUPERCOMPLETE_LINE_RADIUS" },
+  { no: 132, name: "SUPERCOMPLETE_MAX_DELETIONS" },
+  { no: 133, name: "SUPERCOMPLETE_FILTER_DELETION_CAP" },
+  { no: 135, name: "SUPERCOMPLETE_USE_CURRENT_LINE" },
+  { no: 136, name: "SENTRY" },
+  { no: 137, name: "JETBRAINS_ENABLE_ONBOARDING" },
+  { no: 138, name: "SUPERCOMPLETE_RECENT_STEPS_DURATION" },
+  { no: 140, name: "SUPERCOMPLETE_PRUNE_RESPONSE" },
+  { no: 141, name: "SUPERCOMPLETE_PRUNE_MAX_INSERT_DELETE_LINE_DELTA" },
+  { no: 143, name: "SUPERCOMPLETE_USE_CODE_DIAGNOSTICS" },
+  { no: 144, name: "FAST_SINGLELINE" },
+  { no: 145, name: "SUPERCOMPLETE_MODEL_CONFIG" },
+  { no: 146, name: "ENABLE_AUTOCOMPLETE_DURING_INTELLISENSE" },
+  { no: 147, name: "R2_LANGUAGE_SERVER_DOWNLOAD" },
+  { no: 149, name: "CONTEXT_ACTIVE_DOCUMENT_FRACTION" },
+  { no: 150, name: "CONTEXT_COMMAND_TRAJECTORY_PROMPT_CONFIG" },
+  { no: 151, name: "SUPERCOMPLETE_ON_TAB" },
+  { no: 152, name: "SPLIT_MODEL" },
+  { no: 154, name: "SUPERCOMPLETE_MAX_TRAJECTORY_STEPS" },
+  { no: 155, name: "COMMAND_BOX_ON_TOP" },
+  { no: 156, name: "SUPERCOMPLETE_FILTER_WHITESPACE_ONLY" },
+  { no: 157, name: "SUPERCOMPLETE_ON_ACCEPT_ONLY" },
+  { no: 158, name: "API_SERVER_CUTOFF" },
+  { no: 159, name: "FAST_SPEED_KILL_SWITCH" },
+  { no: 160, name: "PREDICTIVE_MULTILINE" },
+  { no: 163, name: "USE_AUTOCOMPLETE_MODEL_SERVER_SIDE" },
+  { no: 165, name: "SUPERCOMPLETE_NO_CONTEXT" },
+  { no: 166, name: "SUPERCOMPLETE_NO_ACTIVE_NODE" },
+  { no: 168, name: "TAB_JUMP_ENABLED" },
+  { no: 169, name: "TAB_JUMP_ACCEPT_ENABLED" },
+  { no: 170, name: "SUPERCOMPLETE_FILTER_NO_OP" },
+  { no: 171, name: "SUPERCOMPLETE_INLINE_PURE_DELETE" },
+  { no: 172, name: "STREAMING_EXTERNAL_COMMAND" },
+  { no: 176, name: "SUPERCOMPLETE_FILTER_SUFFIX_MATCH" },
+  { no: 177, name: "TAB_JUMP_LINE_RADIUS" },
+  { no: 178, name: "CONTEXT_FORCE_LOCAL_CONTEXT" },
+  { no: 179, name: "USE_SPECIAL_EDIT_CODE_BLOCK" },
+  { no: 181, name: "ENABLE_SMART_COPY" },
+  { no: 182, name: "SUPERCOMPLETE_FILTER_PREVIOUSLY_SHOWN" },
+  { no: 183, name: "SUPERCOMPLETE_TEMPERATURE" },
+  { no: 185, name: "ENABLE_COMMIT_MESSAGE_GENERATION" },
+  { no: 187, name: "ENABLE_SUGGESTED_RESPONSES" },
+  { no: 190, name: "CASCADE_BASE_MODEL_ID" },
+  { no: 193, name: "CASCADE_BACKGROUND_RESEARCH_CONFIG_OVERRIDE" },
+  { no: 194, name: "SKIP_CONSISTENCY_MANAGER" },
+  { no: 197, name: "TAB_JUMP_MIN_FILTER_RADIUS" },
+  { no: 198, name: "WINDSURF_SENTRY_SAMPLE_RATE" },
+  { no: 202, name: "API_SERVER_CLIENT_USE_HTTP_2" },
+  { no: 203, name: "SUPERCOMPLETE_MAX_TRAJECTORY_STEP_SIZE" },
+  { no: 204, name: "CASCADE_ENFORCE_QUOTA" },
+  { no: 205, name: "TAB_JUMP_ON_ACCEPT_ONLY" },
+  { no: 207, name: "COMPLETION_SPEED_SUPERCOMPLETE_CACHE" },
+  { no: 208, name: "COMPLETION_SPEED_PREDICTIVE_SUPERCOMPLETE" },
+  { no: 209, name: "COMPLETION_SPEED_TAB_JUMP_CACHE" },
+  { no: 210, name: "COMPLETION_SPEED_PREDICTIVE_TAB_JUMP" },
+  { no: 211, name: "VIEWED_FILE_TRACKER_CONFIG" },
+  { no: 212, name: "CASCADE_GLOBAL_CONFIG_OVERRIDE" },
+  { no: 213, name: "AUTOCOMPLETE_DEFAULT_DEBOUNCE_MS" },
+  { no: 214, name: "AUTOCOMPLETE_FAST_DEBOUNCE_MS" },
+  { no: 215, name: "TAB_JUMP_FILTER_IN_SELECTION" },
+  { no: 218, name: "SUPERCOMPLETE_INLINE_RICH_GHOST_TEXT_INSERTIONS" },
+  { no: 219, name: "PROFILING_TELEMETRY_SAMPLE_RATE" },
+  { no: 220, name: "CROSS_SELL_EXTENSION_DOWNLOAD_WINDSURF" },
+  { no: 223, name: "SUPERCOMPLETE_DIAGNOSTIC_SEVERITY_THRESHOLD" },
+  { no: 224, name: "CASCADE_ENABLE_AUTOMATED_MEMORIES" },
+  { no: 225, name: "STREAM_USER_SHELL_COMMANDS" },
+  { no: 228, name: "CASCADE_USE_REPLACE_CONTENT_EDIT_TOOL" },
+  { no: 231, name: "SUPERCOMPLETE_DISABLE_TYPING_CACHE" },
+  { no: 232, name: "SUPERCOMPLETE_CODE_DIAGNOSTICS_TOP_K" },
+  { no: 233, name: "COMMAND_INJECT_USER_MEMORIES" },
+  { no: 234, name: "AUTOCOMPLETE_HIDDEN_ERROR_REGEX" },
+  { no: 236, name: "CASCADE_ENABLE_CUSTOM_RECIPES" },
+  { no: 237, name: "TAB_JUMP_MODEL_CONFIG" },
+  { no: 238, name: "TAB_JUMP_FILTER_NO_OP" },
+  { no: 239, name: "TAB_JUMP_FILTER_REVERT" },
+  { no: 240, name: "TAB_JUMP_FILTER_SCORE_THRESHOLD" },
+  { no: 241, name: "TAB_JUMP_FILTER_WHITESPACE_ONLY" },
+  { no: 242, name: "TAB_JUMP_FILTER_INSERTION_CAP" },
+  { no: 243, name: "TAB_JUMP_FILTER_DELETION_CAP" },
+  { no: 245, name: "CASCADE_ENABLE_MCP_TOOLS" },
+  { no: 247, name: "CASCADE_USE_EXPERIMENT_CHECKPOINTER" },
+  { no: 250, name: "ENABLE_QUICK_ACTIONS" },
+  { no: 251, name: "QUICK_ACTIONS_WHITELIST_REGEX" },
+  { no: 255, name: "COMMAND_PROMPT_CACHE_CONFIG" },
+  { no: 256, name: "CUMULATIVE_PROMPT_CONFIG" },
+  { no: 258, name: "CASCADE_VIEW_FILE_TOOL_CONFIG_OVERRIDE" },
+  { no: 259, name: "CASCADE_NEW_MODELS_NUX" },
+  { no: 260, name: "TAB_JUMP_PRUNE_RESPONSE" },
+  { no: 261, name: "TAB_JUMP_PRUNE_MAX_INSERT_DELETE_LINE_DELTA" },
+  { no: 262, name: "SUPERCOMPLETE_FAST_DEBOUNCE" },
+  { no: 263, name: "SUPERCOMPLETE_REGULAR_DEBOUNCE" },
+  { no: 264, name: "COMBINED_MODEL_USE_FULL_INSTRUCTION_FOR_RETRIEVAL" },
+  { no: 265, name: "MAX_PAST_TRAJECTORY_TOKENS_FOR_RETRIEVAL" },
+  { no: 266, name: "CASCADE_PLAN_BASED_CONFIG_OVERRIDE" },
+  { no: 268, name: "XML_TOOL_PARSING_MODELS" },
+  { no: 269, name: "SUPERCOMPLETE_DONT_FILTER_MID_STREAMED" },
+  { no: 270, name: "CASCADE_NEW_WAVE_2_MODELS_NUX" },
+  { no: 272, name: "API_SERVER_ENABLE_MORE_LOGGING" },
+  { no: 275, name: "CASCADE_AUTO_FIX_LINTS" },
+  { no: 276, name: "FIREWORKS_ON_DEMAND_DEPLOYMENT" },
+  { no: 278, name: "DISABLE_IDE_COMPLETIONS_DEBOUNCE" },
+  { no: 279, name: "CUMULATIVE_PROMPT_CASCADE_CONFIG" },
+  { no: 284, name: "SUPERCOMPLETE_MAX_CONCURRENT_REQUESTS" },
+  { no: 285, name: "ANNOYANCE_MANAGER_MAX_NAVIGATION_RENDERS" },
+  { no: 286, name: "ANNOYANCE_MANAGER_INLINE_PREVENTION_THRESHOLD_MS" },
+  { no: 287, name: "ANNOYANCE_MANAGER_INLINE_PREVENTION_MAX_INTENTIONAL_REJECTIONS" },
+  { no: 288, name: "ANNOYANCE_MANAGER_INLINE_PREVENTION_MAX_AUTO_REJECTIONS" },
+  { no: 289, name: "CASCADE_USER_MEMORIES_IN_SYS_PROMPT" },
+  { no: 290, name: "CASCADE_ENABLE_PROXY_WEB_SERVER" },
+  { no: 292, name: "USE_CUSTOM_CHARACTER_DIFF" },
+  { no: 293, name: "SUPERCOMPLETE_ALWAYS_USE_CACHE_ON_EQUAL_STATE" },
+  { no: 294, name: "COMPLETION_SPEED_BLOCK_TAB_JUMP_ON_PREDICTIVE_SUPERCOMPLETE" },
+  { no: 295, name: "MODEL_LLAMA_3_1_70B_INSTRUCT_LONG_CONTEXT_VARIANTS" },
+  { no: 296, name: "USE_ANTHROPIC_TOKEN_EFFICIENT_TOOLS_BETA" },
+  { no: 297, name: "SUPERCOMPLETE_CACHE_ON_PARENT_ID_KILL_SWITCH" },
+  { no: 298, name: "FORCE_NON_OPTIMIZED_DIFF" },
+  { no: 300, name: "CASCADE_WEB_APP_DEPLOYMENTS_ENABLED" },
+  { no: 301, name: "TAB_JUMP_CUMULATIVE_PROMPT_CONFIG" },
+  { no: 303, name: "DISABLE_SUPERCOMPLETE_PCW" },
+  { no: 304, name: "BLOCK_TAB_ON_SHOWN_AUTOCOMPLETE" },
+  { no: 305, name: "SNAPSHOT_TO_STEP_OPTIONS_OVERRIDE" },
+  { no: 307, name: "API_SERVER_PROMPT_CACHE_REPLICAS" },
+  { no: 308, name: "MODEL_CHAT_19821_VARIANTS" },
+  { no: 310, name: "IMPLICIT_USES_CLIPBOARD" },
+  { no: 311, name: "CASCADE_WEB_SEARCH_NUX" },
+  { no: 312, name: "COLLAPSE_ASSISTANT_MESSAGES" },
+  { no: 314, name: "CASCADE_MEMORY_CONFIG_OVERRIDE" },
+  { no: 316, name: "CASCADE_RECIPES_AT_MENTION_VISIBILITY" },
+  { no: 317, name: "TAB_JUMP_STOP_TOKEN_MIDSTREAM" },
+  { no: 319, name: "MODEL_NOTIFICATIONS" },
+  { no: 320, name: "MODEL_SELECTOR_NUX_COPY" },
+  { no: 321, name: "CASCADE_DEFAULT_MODEL_OVERRIDE" },
+  { no: 322, name: "CASCADE_TOOL_CALL_PRICING_NUX" },
+  { no: 323, name: "CASCADE_PLUGINS_TAB" },
+  { no: 324, name: "WAVE_8_RULES_ENABLED" },
+  { no: 325, name: "WAVE_8_KNOWLEDGE_ENABLED" },
+  { no: 326, name: "CASCADE_ONBOARDING" },
+  { no: 327, name: "CASCADE_ONBOARDING_REVERT" },
+  { no: 328, name: "CASCADE_WINDSURF_BROWSER_TOOLS_ENABLED" },
+  { no: 329, name: "CASCADE_MODEL_HEADER_WARNING" },
+  { no: 999, name: "TEST_ONLY" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.ExperimentSource
+ */
+export enum ExperimentSource {
+  /**
+   * @generated from enum value: EXPERIMENT_SOURCE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: EXPERIMENT_SOURCE_EXTENSION = 1;
+   */
+  EXTENSION = 1,
+
+  /**
+   * @generated from enum value: EXPERIMENT_SOURCE_LANGUAGE_SERVER = 2;
+   */
+  LANGUAGE_SERVER = 2,
+
+  /**
+   * @generated from enum value: EXPERIMENT_SOURCE_API_SERVER = 3;
+   */
+  API_SERVER = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ExperimentSource)
+proto3.util.setEnumType(ExperimentSource, "exa.codeium_common_pb.ExperimentSource", [
+  { no: 0, name: "EXPERIMENT_SOURCE_UNSPECIFIED" },
+  { no: 1, name: "EXPERIMENT_SOURCE_EXTENSION" },
+  { no: 2, name: "EXPERIMENT_SOURCE_LANGUAGE_SERVER" },
+  { no: 3, name: "EXPERIMENT_SOURCE_API_SERVER" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.ModelAlias
+ */
+export enum ModelAlias {
+  /**
+   * @generated from enum value: MODEL_ALIAS_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: MODEL_ALIAS_CASCADE_BASE = 1;
+   */
+  CASCADE_BASE = 1,
+
+  /**
+   * @generated from enum value: MODEL_ALIAS_VISTA = 3;
+   */
+  VISTA = 3,
+
+  /**
+   * @generated from enum value: MODEL_ALIAS_SHAMU = 4;
+   */
+  SHAMU = 4,
+
+  /**
+   * @generated from enum value: MODEL_ALIAS_SWE_1 = 5;
+   */
+  SWE_1 = 5,
+
+  /**
+   * @generated from enum value: MODEL_ALIAS_SWE_1_LITE = 6;
+   */
+  SWE_1_LITE = 6,
+
+  /**
+   * @generated from enum value: MODEL_ALIAS_AUTO = 7;
+   */
+  AUTO = 7,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ModelAlias)
+proto3.util.setEnumType(ModelAlias, "exa.codeium_common_pb.ModelAlias", [
+  { no: 0, name: "MODEL_ALIAS_UNSPECIFIED" },
+  { no: 1, name: "MODEL_ALIAS_CASCADE_BASE" },
+  { no: 3, name: "MODEL_ALIAS_VISTA" },
+  { no: 4, name: "MODEL_ALIAS_SHAMU" },
+  { no: 5, name: "MODEL_ALIAS_SWE_1" },
+  { no: 6, name: "MODEL_ALIAS_SWE_1_LITE" },
+  { no: 7, name: "MODEL_ALIAS_AUTO" },
 ]);
 
 /**
@@ -1817,6 +2823,1730 @@ proto3.util.setEnumType(Model, "exa.codeium_common_pb.Model", [
 ]);
 
 /**
+ * @generated from enum exa.codeium_common_pb.DeepWikiModelType
+ */
+export enum DeepWikiModelType {
+  /**
+   * @generated from enum value: DEEP_WIKI_MODEL_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: DEEP_WIKI_MODEL_TYPE_CAPACITY_FALLBACK = 1;
+   */
+  CAPACITY_FALLBACK = 1,
+
+  /**
+   * @generated from enum value: DEEP_WIKI_MODEL_TYPE_LITE_FREE = 2;
+   */
+  LITE_FREE = 2,
+
+  /**
+   * @generated from enum value: DEEP_WIKI_MODEL_TYPE_LITE_PAID = 3;
+   */
+  LITE_PAID = 3,
+
+  /**
+   * @generated from enum value: DEEP_WIKI_MODEL_TYPE_PREMIUM = 4;
+   */
+  PREMIUM = 4,
+}
+// Retrieve enum metadata with: proto3.getEnumType(DeepWikiModelType)
+proto3.util.setEnumType(DeepWikiModelType, "exa.codeium_common_pb.DeepWikiModelType", [
+  { no: 0, name: "DEEP_WIKI_MODEL_TYPE_UNSPECIFIED" },
+  { no: 1, name: "DEEP_WIKI_MODEL_TYPE_CAPACITY_FALLBACK" },
+  { no: 2, name: "DEEP_WIKI_MODEL_TYPE_LITE_FREE" },
+  { no: 3, name: "DEEP_WIKI_MODEL_TYPE_LITE_PAID" },
+  { no: 4, name: "DEEP_WIKI_MODEL_TYPE_PREMIUM" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.PromptElementExclusionReason
+ */
+export enum PromptElementExclusionReason {
+  /**
+   * @generated from enum value: EXCLUSION_UNSPECIFIED = 0;
+   */
+  EXCLUSION_UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: EXCLUSION_ELEMENT_KIND_DISABLED = 1;
+   */
+  EXCLUSION_ELEMENT_KIND_DISABLED = 1,
+
+  /**
+   * @generated from enum value: EXCLUSION_ELEMENT_MISSING_DEPENDENCY = 2;
+   */
+  EXCLUSION_ELEMENT_MISSING_DEPENDENCY = 2,
+
+  /**
+   * @generated from enum value: EXCLUSION_TOKEN_BUDGET = 3;
+   */
+  EXCLUSION_TOKEN_BUDGET = 3,
+
+  /**
+   * @generated from enum value: EXCLUSION_ACTIVE_SOURCE_OVERLAP = 4;
+   */
+  EXCLUSION_ACTIVE_SOURCE_OVERLAP = 4,
+}
+// Retrieve enum metadata with: proto3.getEnumType(PromptElementExclusionReason)
+proto3.util.setEnumType(PromptElementExclusionReason, "exa.codeium_common_pb.PromptElementExclusionReason", [
+  { no: 0, name: "EXCLUSION_UNSPECIFIED" },
+  { no: 1, name: "EXCLUSION_ELEMENT_KIND_DISABLED" },
+  { no: 2, name: "EXCLUSION_ELEMENT_MISSING_DEPENDENCY" },
+  { no: 3, name: "EXCLUSION_TOKEN_BUDGET" },
+  { no: 4, name: "EXCLUSION_ACTIVE_SOURCE_OVERLAP" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.StopReason
+ */
+export enum StopReason {
+  /**
+   * @generated from enum value: STOP_REASON_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: STOP_REASON_INCOMPLETE = 1;
+   */
+  INCOMPLETE = 1,
+
+  /**
+   * @generated from enum value: STOP_REASON_STOP_PATTERN = 2;
+   */
+  STOP_PATTERN = 2,
+
+  /**
+   * @generated from enum value: STOP_REASON_MAX_TOKENS = 3;
+   */
+  MAX_TOKENS = 3,
+
+  /**
+   * @generated from enum value: STOP_REASON_MIN_LOG_PROB = 4;
+   */
+  MIN_LOG_PROB = 4,
+
+  /**
+   * @generated from enum value: STOP_REASON_MAX_NEWLINES = 5;
+   */
+  MAX_NEWLINES = 5,
+
+  /**
+   * @generated from enum value: STOP_REASON_EXIT_SCOPE = 6;
+   */
+  EXIT_SCOPE = 6,
+
+  /**
+   * @generated from enum value: STOP_REASON_NONFINITE_LOGIT_OR_PROB = 7;
+   */
+  NONFINITE_LOGIT_OR_PROB = 7,
+
+  /**
+   * @generated from enum value: STOP_REASON_FIRST_NON_WHITESPACE_LINE = 8;
+   */
+  FIRST_NON_WHITESPACE_LINE = 8,
+
+  /**
+   * @generated from enum value: STOP_REASON_PARTIAL = 9;
+   */
+  PARTIAL = 9,
+
+  /**
+   * @generated from enum value: STOP_REASON_FUNCTION_CALL = 10;
+   */
+  FUNCTION_CALL = 10,
+
+  /**
+   * @generated from enum value: STOP_REASON_CONTENT_FILTER = 11;
+   */
+  CONTENT_FILTER = 11,
+
+  /**
+   * @generated from enum value: STOP_REASON_NON_INSERTION = 12;
+   */
+  NON_INSERTION = 12,
+
+  /**
+   * @generated from enum value: STOP_REASON_ERROR = 13;
+   */
+  ERROR = 13,
+}
+// Retrieve enum metadata with: proto3.getEnumType(StopReason)
+proto3.util.setEnumType(StopReason, "exa.codeium_common_pb.StopReason", [
+  { no: 0, name: "STOP_REASON_UNSPECIFIED" },
+  { no: 1, name: "STOP_REASON_INCOMPLETE" },
+  { no: 2, name: "STOP_REASON_STOP_PATTERN" },
+  { no: 3, name: "STOP_REASON_MAX_TOKENS" },
+  { no: 4, name: "STOP_REASON_MIN_LOG_PROB" },
+  { no: 5, name: "STOP_REASON_MAX_NEWLINES" },
+  { no: 6, name: "STOP_REASON_EXIT_SCOPE" },
+  { no: 7, name: "STOP_REASON_NONFINITE_LOGIT_OR_PROB" },
+  { no: 8, name: "STOP_REASON_FIRST_NON_WHITESPACE_LINE" },
+  { no: 9, name: "STOP_REASON_PARTIAL" },
+  { no: 10, name: "STOP_REASON_FUNCTION_CALL" },
+  { no: 11, name: "STOP_REASON_CONTENT_FILTER" },
+  { no: 12, name: "STOP_REASON_NON_INSERTION" },
+  { no: 13, name: "STOP_REASON_ERROR" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.FilterReason
+ */
+export enum FilterReason {
+  /**
+   * @generated from enum value: FILTER_REASON_NONE = 0;
+   */
+  NONE = 0,
+
+  /**
+   * @generated from enum value: FILTER_REASON_INCOMPLETE = 1;
+   */
+  INCOMPLETE = 1,
+
+  /**
+   * @generated from enum value: FILTER_REASON_EMPTY = 2;
+   */
+  EMPTY = 2,
+
+  /**
+   * @generated from enum value: FILTER_REASON_REPETITIVE = 3;
+   */
+  REPETITIVE = 3,
+
+  /**
+   * @generated from enum value: FILTER_REASON_DUPLICATE = 4;
+   */
+  DUPLICATE = 4,
+
+  /**
+   * @generated from enum value: FILTER_REASON_LONG_LINE = 5;
+   */
+  LONG_LINE = 5,
+
+  /**
+   * @generated from enum value: FILTER_REASON_COMPLETIONS_CUTOFF = 6;
+   */
+  COMPLETIONS_CUTOFF = 6,
+
+  /**
+   * @generated from enum value: FILTER_REASON_ATTRIBUTION = 7;
+   */
+  ATTRIBUTION = 7,
+
+  /**
+   * @generated from enum value: FILTER_REASON_NON_MATCHING = 8;
+   */
+  NON_MATCHING = 8,
+
+  /**
+   * @generated from enum value: FILTER_REASON_NON_INSERTION = 9;
+   */
+  NON_INSERTION = 9,
+}
+// Retrieve enum metadata with: proto3.getEnumType(FilterReason)
+proto3.util.setEnumType(FilterReason, "exa.codeium_common_pb.FilterReason", [
+  { no: 0, name: "FILTER_REASON_NONE" },
+  { no: 1, name: "FILTER_REASON_INCOMPLETE" },
+  { no: 2, name: "FILTER_REASON_EMPTY" },
+  { no: 3, name: "FILTER_REASON_REPETITIVE" },
+  { no: 4, name: "FILTER_REASON_DUPLICATE" },
+  { no: 5, name: "FILTER_REASON_LONG_LINE" },
+  { no: 6, name: "FILTER_REASON_COMPLETIONS_CUTOFF" },
+  { no: 7, name: "FILTER_REASON_ATTRIBUTION" },
+  { no: 8, name: "FILTER_REASON_NON_MATCHING" },
+  { no: 9, name: "FILTER_REASON_NON_INSERTION" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.AttributionStatus
+ */
+export enum AttributionStatus {
+  /**
+   * @generated from enum value: ATTRIBUTION_STATUS_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: ATTRIBUTION_STATUS_NEW_CODE = 1;
+   */
+  NEW_CODE = 1,
+
+  /**
+   * @generated from enum value: ATTRIBUTION_STATUS_NO_LICENSE = 2;
+   */
+  NO_LICENSE = 2,
+
+  /**
+   * @generated from enum value: ATTRIBUTION_STATUS_NONPERMISSIVE = 3;
+   */
+  NONPERMISSIVE = 3,
+
+  /**
+   * @generated from enum value: ATTRIBUTION_STATUS_PERMISSIVE = 4;
+   */
+  PERMISSIVE = 4,
+
+  /**
+   * @generated from enum value: ATTRIBUTION_STATUS_PERMISSIVE_BLOCKED = 5;
+   */
+  PERMISSIVE_BLOCKED = 5,
+}
+// Retrieve enum metadata with: proto3.getEnumType(AttributionStatus)
+proto3.util.setEnumType(AttributionStatus, "exa.codeium_common_pb.AttributionStatus", [
+  { no: 0, name: "ATTRIBUTION_STATUS_UNSPECIFIED" },
+  { no: 1, name: "ATTRIBUTION_STATUS_NEW_CODE" },
+  { no: 2, name: "ATTRIBUTION_STATUS_NO_LICENSE" },
+  { no: 3, name: "ATTRIBUTION_STATUS_NONPERMISSIVE" },
+  { no: 4, name: "ATTRIBUTION_STATUS_PERMISSIVE" },
+  { no: 5, name: "ATTRIBUTION_STATUS_PERMISSIVE_BLOCKED" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.EmbeddingPriority
+ */
+export enum EmbeddingPriority {
+  /**
+   * @generated from enum value: EMBEDDING_PRIORITY_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: EMBEDDING_PRIORITY_HIGH = 1;
+   */
+  HIGH = 1,
+
+  /**
+   * @generated from enum value: EMBEDDING_PRIORITY_LOW = 2;
+   */
+  LOW = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(EmbeddingPriority)
+proto3.util.setEnumType(EmbeddingPriority, "exa.codeium_common_pb.EmbeddingPriority", [
+  { no: 0, name: "EMBEDDING_PRIORITY_UNSPECIFIED" },
+  { no: 1, name: "EMBEDDING_PRIORITY_HIGH" },
+  { no: 2, name: "EMBEDDING_PRIORITY_LOW" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.EmbeddingPrefix
+ */
+export enum EmbeddingPrefix {
+  /**
+   * @generated from enum value: EMBEDDING_PREFIX_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: EMBEDDING_PREFIX_NOMIC_DOCUMENT = 1;
+   */
+  NOMIC_DOCUMENT = 1,
+
+  /**
+   * @generated from enum value: EMBEDDING_PREFIX_NOMIC_SEARCH = 2;
+   */
+  NOMIC_SEARCH = 2,
+
+  /**
+   * @generated from enum value: EMBEDDING_PREFIX_NOMIC_CLASSIFICATION = 3;
+   */
+  NOMIC_CLASSIFICATION = 3,
+
+  /**
+   * @generated from enum value: EMBEDDING_PREFIX_NOMIC_CLUSTERING = 4;
+   */
+  NOMIC_CLUSTERING = 4,
+}
+// Retrieve enum metadata with: proto3.getEnumType(EmbeddingPrefix)
+proto3.util.setEnumType(EmbeddingPrefix, "exa.codeium_common_pb.EmbeddingPrefix", [
+  { no: 0, name: "EMBEDDING_PREFIX_UNSPECIFIED" },
+  { no: 1, name: "EMBEDDING_PREFIX_NOMIC_DOCUMENT" },
+  { no: 2, name: "EMBEDDING_PREFIX_NOMIC_SEARCH" },
+  { no: 3, name: "EMBEDDING_PREFIX_NOMIC_CLASSIFICATION" },
+  { no: 4, name: "EMBEDDING_PREFIX_NOMIC_CLUSTERING" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.EmbeddingSource
+ */
+export enum EmbeddingSource {
+  /**
+   * @generated from enum value: EMBEDDING_SOURCE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: EMBEDDING_SOURCE_CODE_CONTEXT_ITEM = 1;
+   */
+  CODE_CONTEXT_ITEM = 1,
+
+  /**
+   * @generated from enum value: EMBEDDING_SOURCE_COMMIT_INTENT = 2;
+   */
+  COMMIT_INTENT = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(EmbeddingSource)
+proto3.util.setEnumType(EmbeddingSource, "exa.codeium_common_pb.EmbeddingSource", [
+  { no: 0, name: "EMBEDDING_SOURCE_UNSPECIFIED" },
+  { no: 1, name: "EMBEDDING_SOURCE_CODE_CONTEXT_ITEM" },
+  { no: 2, name: "EMBEDDING_SOURCE_COMMIT_INTENT" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.AuthSource
+ */
+export enum AuthSource {
+  /**
+   * @generated from enum value: AUTH_SOURCE_CODEIUM = 0;
+   */
+  CODEIUM = 0,
+
+  /**
+   * @generated from enum value: AUTH_SOURCE_DEEPNOTE = 1;
+   */
+  DEEPNOTE = 1,
+
+  /**
+   * @generated from enum value: AUTH_SOURCE_CODESANDBOX = 2;
+   */
+  CODESANDBOX = 2,
+
+  /**
+   * @generated from enum value: AUTH_SOURCE_STACKBLITZ = 3;
+   */
+  STACKBLITZ = 3,
+
+  /**
+   * @generated from enum value: AUTH_SOURCE_VALTOWN = 4;
+   */
+  VALTOWN = 4,
+
+  /**
+   * @generated from enum value: AUTH_SOURCE_HEX = 5;
+   */
+  HEX = 5,
+
+  /**
+   * @generated from enum value: AUTH_SOURCE_ZAPIER = 6;
+   */
+  ZAPIER = 6,
+
+  /**
+   * @generated from enum value: AUTH_SOURCE_SUPERBLOCKS = 7;
+   */
+  SUPERBLOCKS = 7,
+
+  /**
+   * @generated from enum value: AUTH_SOURCE_EMBARCADERO = 8;
+   */
+  EMBARCADERO = 8,
+}
+// Retrieve enum metadata with: proto3.getEnumType(AuthSource)
+proto3.util.setEnumType(AuthSource, "exa.codeium_common_pb.AuthSource", [
+  { no: 0, name: "AUTH_SOURCE_CODEIUM" },
+  { no: 1, name: "AUTH_SOURCE_DEEPNOTE" },
+  { no: 2, name: "AUTH_SOURCE_CODESANDBOX" },
+  { no: 3, name: "AUTH_SOURCE_STACKBLITZ" },
+  { no: 4, name: "AUTH_SOURCE_VALTOWN" },
+  { no: 5, name: "AUTH_SOURCE_HEX" },
+  { no: 6, name: "AUTH_SOURCE_ZAPIER" },
+  { no: 7, name: "AUTH_SOURCE_SUPERBLOCKS" },
+  { no: 8, name: "AUTH_SOURCE_EMBARCADERO" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.EventType
+ */
+export enum EventType {
+  /**
+   * @generated from enum value: EVENT_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: EVENT_TYPE_ENABLE_CODEIUM = 1;
+   */
+  ENABLE_CODEIUM = 1,
+
+  /**
+   * @generated from enum value: EVENT_TYPE_DISABLE_CODEIUM = 2;
+   */
+  DISABLE_CODEIUM = 2,
+
+  /**
+   * @generated from enum value: EVENT_TYPE_SHOW_PREVIOUS_COMPLETION = 3;
+   */
+  SHOW_PREVIOUS_COMPLETION = 3,
+
+  /**
+   * @generated from enum value: EVENT_TYPE_SHOW_NEXT_COMPLETION = 4;
+   */
+  SHOW_NEXT_COMPLETION = 4,
+
+  /**
+   * @generated from enum value: EVENT_TYPE_COPILOT_STATUS = 5;
+   */
+  COPILOT_STATUS = 5,
+
+  /**
+   * @generated from enum value: EVENT_TYPE_COMPLETION_SUPPRESSED = 6;
+   */
+  COMPLETION_SUPPRESSED = 6,
+
+  /**
+   * @generated from enum value: EVENT_TYPE_MEMORY_STATS = 8;
+   */
+  MEMORY_STATS = 8,
+
+  /**
+   * @generated from enum value: EVENT_TYPE_LOCAL_CONTEXT_RELEVANCE_CHECK = 9;
+   */
+  LOCAL_CONTEXT_RELEVANCE_CHECK = 9,
+
+  /**
+   * @generated from enum value: EVENT_TYPE_ACTIVE_EDITOR_CHANGED = 10;
+   */
+  ACTIVE_EDITOR_CHANGED = 10,
+
+  /**
+   * @generated from enum value: EVENT_TYPE_SHOW_PREVIOUS_CORTEX_STEP = 11;
+   */
+  SHOW_PREVIOUS_CORTEX_STEP = 11,
+
+  /**
+   * @generated from enum value: EVENT_TYPE_SHOW_NEXT_CORTEX_STEP = 12;
+   */
+  SHOW_NEXT_CORTEX_STEP = 12,
+
+  /**
+   * @generated from enum value: EVENT_TYPE_INDEXER_STATS = 13;
+   */
+  INDEXER_STATS = 13,
+}
+// Retrieve enum metadata with: proto3.getEnumType(EventType)
+proto3.util.setEnumType(EventType, "exa.codeium_common_pb.EventType", [
+  { no: 0, name: "EVENT_TYPE_UNSPECIFIED" },
+  { no: 1, name: "EVENT_TYPE_ENABLE_CODEIUM" },
+  { no: 2, name: "EVENT_TYPE_DISABLE_CODEIUM" },
+  { no: 3, name: "EVENT_TYPE_SHOW_PREVIOUS_COMPLETION" },
+  { no: 4, name: "EVENT_TYPE_SHOW_NEXT_COMPLETION" },
+  { no: 5, name: "EVENT_TYPE_COPILOT_STATUS" },
+  { no: 6, name: "EVENT_TYPE_COMPLETION_SUPPRESSED" },
+  { no: 8, name: "EVENT_TYPE_MEMORY_STATS" },
+  { no: 9, name: "EVENT_TYPE_LOCAL_CONTEXT_RELEVANCE_CHECK" },
+  { no: 10, name: "EVENT_TYPE_ACTIVE_EDITOR_CHANGED" },
+  { no: 11, name: "EVENT_TYPE_SHOW_PREVIOUS_CORTEX_STEP" },
+  { no: 12, name: "EVENT_TYPE_SHOW_NEXT_CORTEX_STEP" },
+  { no: 13, name: "EVENT_TYPE_INDEXER_STATS" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.SearchResultType
+ */
+export enum SearchResultType {
+  /**
+   * @generated from enum value: SEARCH_RESULT_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: SEARCH_RESULT_TYPE_CLUSTER = 1;
+   */
+  CLUSTER = 1,
+
+  /**
+   * @generated from enum value: SEARCH_RESULT_TYPE_EXACT = 2;
+   */
+  EXACT = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(SearchResultType)
+proto3.util.setEnumType(SearchResultType, "exa.codeium_common_pb.SearchResultType", [
+  { no: 0, name: "SEARCH_RESULT_TYPE_UNSPECIFIED" },
+  { no: 1, name: "SEARCH_RESULT_TYPE_CLUSTER" },
+  { no: 2, name: "SEARCH_RESULT_TYPE_EXACT" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.EmbedType
+ */
+export enum EmbedType {
+  /**
+   * @generated from enum value: EMBED_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: EMBED_TYPE_RAW_SOURCE = 1;
+   */
+  RAW_SOURCE = 1,
+
+  /**
+   * @generated from enum value: EMBED_TYPE_DOCSTRING = 2;
+   */
+  DOCSTRING = 2,
+
+  /**
+   * @generated from enum value: EMBED_TYPE_FUNCTION = 3;
+   */
+  FUNCTION = 3,
+
+  /**
+   * @generated from enum value: EMBED_TYPE_NODEPATH = 4;
+   */
+  NODEPATH = 4,
+
+  /**
+   * @generated from enum value: EMBED_TYPE_DECLARATION = 5;
+   */
+  DECLARATION = 5,
+
+  /**
+   * @generated from enum value: EMBED_TYPE_NAIVE_CHUNK = 6;
+   */
+  NAIVE_CHUNK = 6,
+
+  /**
+   * @generated from enum value: EMBED_TYPE_SIGNATURE = 7;
+   */
+  SIGNATURE = 7,
+}
+// Retrieve enum metadata with: proto3.getEnumType(EmbedType)
+proto3.util.setEnumType(EmbedType, "exa.codeium_common_pb.EmbedType", [
+  { no: 0, name: "EMBED_TYPE_UNSPECIFIED" },
+  { no: 1, name: "EMBED_TYPE_RAW_SOURCE" },
+  { no: 2, name: "EMBED_TYPE_DOCSTRING" },
+  { no: 3, name: "EMBED_TYPE_FUNCTION" },
+  { no: 4, name: "EMBED_TYPE_NODEPATH" },
+  { no: 5, name: "EMBED_TYPE_DECLARATION" },
+  { no: 6, name: "EMBED_TYPE_NAIVE_CHUNK" },
+  { no: 7, name: "EMBED_TYPE_SIGNATURE" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.CompletionSource
+ */
+export enum CompletionSource {
+  /**
+   * @generated from enum value: COMPLETION_SOURCE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: COMPLETION_SOURCE_TYPING_AS_SUGGESTED = 1;
+   */
+  TYPING_AS_SUGGESTED = 1,
+
+  /**
+   * @generated from enum value: COMPLETION_SOURCE_CACHE = 2;
+   */
+  CACHE = 2,
+
+  /**
+   * @generated from enum value: COMPLETION_SOURCE_NETWORK = 3;
+   */
+  NETWORK = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(CompletionSource)
+proto3.util.setEnumType(CompletionSource, "exa.codeium_common_pb.CompletionSource", [
+  { no: 0, name: "COMPLETION_SOURCE_UNSPECIFIED" },
+  { no: 1, name: "COMPLETION_SOURCE_TYPING_AS_SUGGESTED" },
+  { no: 2, name: "COMPLETION_SOURCE_CACHE" },
+  { no: 3, name: "COMPLETION_SOURCE_NETWORK" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.CompletionType
+ */
+export enum CompletionType {
+  /**
+   * @generated from enum value: COMPLETION_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: COMPLETION_TYPE_SINGLE = 1;
+   */
+  SINGLE = 1,
+
+  /**
+   * @generated from enum value: COMPLETION_TYPE_MULTI = 2;
+   */
+  MULTI = 2,
+
+  /**
+   * @generated from enum value: COMPLETION_TYPE_INLINE_FIM = 3;
+   */
+  INLINE_FIM = 3,
+
+  /**
+   * @generated from enum value: COMPLETION_TYPE_CASCADE = 4;
+   */
+  CASCADE = 4,
+}
+// Retrieve enum metadata with: proto3.getEnumType(CompletionType)
+proto3.util.setEnumType(CompletionType, "exa.codeium_common_pb.CompletionType", [
+  { no: 0, name: "COMPLETION_TYPE_UNSPECIFIED" },
+  { no: 1, name: "COMPLETION_TYPE_SINGLE" },
+  { no: 2, name: "COMPLETION_TYPE_MULTI" },
+  { no: 3, name: "COMPLETION_TYPE_INLINE_FIM" },
+  { no: 4, name: "COMPLETION_TYPE_CASCADE" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.Language
+ */
+export enum Language {
+  /**
+   * @generated from enum value: LANGUAGE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: LANGUAGE_C = 1;
+   */
+  C = 1,
+
+  /**
+   * @generated from enum value: LANGUAGE_CLOJURE = 2;
+   */
+  CLOJURE = 2,
+
+  /**
+   * @generated from enum value: LANGUAGE_COFFEESCRIPT = 3;
+   */
+  COFFEESCRIPT = 3,
+
+  /**
+   * @generated from enum value: LANGUAGE_CPP = 4;
+   */
+  CPP = 4,
+
+  /**
+   * @generated from enum value: LANGUAGE_CSHARP = 5;
+   */
+  CSHARP = 5,
+
+  /**
+   * @generated from enum value: LANGUAGE_CSS = 6;
+   */
+  CSS = 6,
+
+  /**
+   * @generated from enum value: LANGUAGE_CUDACPP = 7;
+   */
+  CUDACPP = 7,
+
+  /**
+   * @generated from enum value: LANGUAGE_DOCKERFILE = 8;
+   */
+  DOCKERFILE = 8,
+
+  /**
+   * @generated from enum value: LANGUAGE_GO = 9;
+   */
+  GO = 9,
+
+  /**
+   * @generated from enum value: LANGUAGE_GROOVY = 10;
+   */
+  GROOVY = 10,
+
+  /**
+   * @generated from enum value: LANGUAGE_HANDLEBARS = 11;
+   */
+  HANDLEBARS = 11,
+
+  /**
+   * @generated from enum value: LANGUAGE_HASKELL = 12;
+   */
+  HASKELL = 12,
+
+  /**
+   * @generated from enum value: LANGUAGE_HCL = 13;
+   */
+  HCL = 13,
+
+  /**
+   * @generated from enum value: LANGUAGE_HTML = 14;
+   */
+  HTML = 14,
+
+  /**
+   * @generated from enum value: LANGUAGE_INI = 15;
+   */
+  INI = 15,
+
+  /**
+   * @generated from enum value: LANGUAGE_JAVA = 16;
+   */
+  JAVA = 16,
+
+  /**
+   * @generated from enum value: LANGUAGE_JAVASCRIPT = 17;
+   */
+  JAVASCRIPT = 17,
+
+  /**
+   * @generated from enum value: LANGUAGE_JSON = 18;
+   */
+  JSON = 18,
+
+  /**
+   * @generated from enum value: LANGUAGE_JULIA = 19;
+   */
+  JULIA = 19,
+
+  /**
+   * @generated from enum value: LANGUAGE_KOTLIN = 20;
+   */
+  KOTLIN = 20,
+
+  /**
+   * @generated from enum value: LANGUAGE_LATEX = 21;
+   */
+  LATEX = 21,
+
+  /**
+   * @generated from enum value: LANGUAGE_LESS = 22;
+   */
+  LESS = 22,
+
+  /**
+   * @generated from enum value: LANGUAGE_LUA = 23;
+   */
+  LUA = 23,
+
+  /**
+   * @generated from enum value: LANGUAGE_MAKEFILE = 24;
+   */
+  MAKEFILE = 24,
+
+  /**
+   * @generated from enum value: LANGUAGE_MARKDOWN = 25;
+   */
+  MARKDOWN = 25,
+
+  /**
+   * @generated from enum value: LANGUAGE_OBJECTIVEC = 26;
+   */
+  OBJECTIVEC = 26,
+
+  /**
+   * @generated from enum value: LANGUAGE_OBJECTIVECPP = 27;
+   */
+  OBJECTIVECPP = 27,
+
+  /**
+   * @generated from enum value: LANGUAGE_PERL = 28;
+   */
+  PERL = 28,
+
+  /**
+   * @generated from enum value: LANGUAGE_PHP = 29;
+   */
+  PHP = 29,
+
+  /**
+   * @generated from enum value: LANGUAGE_PLAINTEXT = 30;
+   */
+  PLAINTEXT = 30,
+
+  /**
+   * @generated from enum value: LANGUAGE_PROTOBUF = 31;
+   */
+  PROTOBUF = 31,
+
+  /**
+   * @generated from enum value: LANGUAGE_PBTXT = 32;
+   */
+  PBTXT = 32,
+
+  /**
+   * @generated from enum value: LANGUAGE_PYTHON = 33;
+   */
+  PYTHON = 33,
+
+  /**
+   * @generated from enum value: LANGUAGE_R = 34;
+   */
+  R = 34,
+
+  /**
+   * @generated from enum value: LANGUAGE_RUBY = 35;
+   */
+  RUBY = 35,
+
+  /**
+   * @generated from enum value: LANGUAGE_RUST = 36;
+   */
+  RUST = 36,
+
+  /**
+   * @generated from enum value: LANGUAGE_SASS = 37;
+   */
+  SASS = 37,
+
+  /**
+   * @generated from enum value: LANGUAGE_SCALA = 38;
+   */
+  SCALA = 38,
+
+  /**
+   * @generated from enum value: LANGUAGE_SCSS = 39;
+   */
+  SCSS = 39,
+
+  /**
+   * @generated from enum value: LANGUAGE_SHELL = 40;
+   */
+  SHELL = 40,
+
+  /**
+   * @generated from enum value: LANGUAGE_SQL = 41;
+   */
+  SQL = 41,
+
+  /**
+   * @generated from enum value: LANGUAGE_STARLARK = 42;
+   */
+  STARLARK = 42,
+
+  /**
+   * @generated from enum value: LANGUAGE_SWIFT = 43;
+   */
+  SWIFT = 43,
+
+  /**
+   * @generated from enum value: LANGUAGE_TSX = 44;
+   */
+  TSX = 44,
+
+  /**
+   * @generated from enum value: LANGUAGE_TYPESCRIPT = 45;
+   */
+  TYPESCRIPT = 45,
+
+  /**
+   * @generated from enum value: LANGUAGE_VISUALBASIC = 46;
+   */
+  VISUALBASIC = 46,
+
+  /**
+   * @generated from enum value: LANGUAGE_VUE = 47;
+   */
+  VUE = 47,
+
+  /**
+   * @generated from enum value: LANGUAGE_XML = 48;
+   */
+  XML = 48,
+
+  /**
+   * @generated from enum value: LANGUAGE_XSL = 49;
+   */
+  XSL = 49,
+
+  /**
+   * @generated from enum value: LANGUAGE_YAML = 50;
+   */
+  YAML = 50,
+
+  /**
+   * @generated from enum value: LANGUAGE_SVELTE = 51;
+   */
+  SVELTE = 51,
+
+  /**
+   * @generated from enum value: LANGUAGE_TOML = 52;
+   */
+  TOML = 52,
+
+  /**
+   * @generated from enum value: LANGUAGE_DART = 53;
+   */
+  DART = 53,
+
+  /**
+   * @generated from enum value: LANGUAGE_RST = 54;
+   */
+  RST = 54,
+
+  /**
+   * @generated from enum value: LANGUAGE_OCAML = 55;
+   */
+  OCAML = 55,
+
+  /**
+   * @generated from enum value: LANGUAGE_CMAKE = 56;
+   */
+  CMAKE = 56,
+
+  /**
+   * @generated from enum value: LANGUAGE_PASCAL = 57;
+   */
+  PASCAL = 57,
+
+  /**
+   * @generated from enum value: LANGUAGE_ELIXIR = 58;
+   */
+  ELIXIR = 58,
+
+  /**
+   * @generated from enum value: LANGUAGE_FSHARP = 59;
+   */
+  FSHARP = 59,
+
+  /**
+   * @generated from enum value: LANGUAGE_LISP = 60;
+   */
+  LISP = 60,
+
+  /**
+   * @generated from enum value: LANGUAGE_MATLAB = 61;
+   */
+  MATLAB = 61,
+
+  /**
+   * @generated from enum value: LANGUAGE_POWERSHELL = 62;
+   */
+  POWERSHELL = 62,
+
+  /**
+   * @generated from enum value: LANGUAGE_SOLIDITY = 63;
+   */
+  SOLIDITY = 63,
+
+  /**
+   * @generated from enum value: LANGUAGE_ADA = 64;
+   */
+  ADA = 64,
+
+  /**
+   * @generated from enum value: LANGUAGE_OCAML_INTERFACE = 65;
+   */
+  OCAML_INTERFACE = 65,
+
+  /**
+   * @generated from enum value: LANGUAGE_TREE_SITTER_QUERY = 66;
+   */
+  TREE_SITTER_QUERY = 66,
+
+  /**
+   * @generated from enum value: LANGUAGE_APL = 67;
+   */
+  APL = 67,
+
+  /**
+   * @generated from enum value: LANGUAGE_ASSEMBLY = 68;
+   */
+  ASSEMBLY = 68,
+
+  /**
+   * @generated from enum value: LANGUAGE_COBOL = 69;
+   */
+  COBOL = 69,
+
+  /**
+   * @generated from enum value: LANGUAGE_CRYSTAL = 70;
+   */
+  CRYSTAL = 70,
+
+  /**
+   * @generated from enum value: LANGUAGE_EMACS_LISP = 71;
+   */
+  EMACS_LISP = 71,
+
+  /**
+   * @generated from enum value: LANGUAGE_ERLANG = 72;
+   */
+  ERLANG = 72,
+
+  /**
+   * @generated from enum value: LANGUAGE_FORTRAN = 73;
+   */
+  FORTRAN = 73,
+
+  /**
+   * @generated from enum value: LANGUAGE_FREEFORM = 74;
+   */
+  FREEFORM = 74,
+
+  /**
+   * @generated from enum value: LANGUAGE_GRADLE = 75;
+   */
+  GRADLE = 75,
+
+  /**
+   * @generated from enum value: LANGUAGE_HACK = 76;
+   */
+  HACK = 76,
+
+  /**
+   * @generated from enum value: LANGUAGE_MAVEN = 77;
+   */
+  MAVEN = 77,
+
+  /**
+   * @generated from enum value: LANGUAGE_M68KASSEMBLY = 78;
+   */
+  M68KASSEMBLY = 78,
+
+  /**
+   * @generated from enum value: LANGUAGE_SAS = 79;
+   */
+  SAS = 79,
+
+  /**
+   * @generated from enum value: LANGUAGE_UNIXASSEMBLY = 80;
+   */
+  UNIXASSEMBLY = 80,
+
+  /**
+   * @generated from enum value: LANGUAGE_VBA = 81;
+   */
+  VBA = 81,
+
+  /**
+   * @generated from enum value: LANGUAGE_VIMSCRIPT = 82;
+   */
+  VIMSCRIPT = 82,
+
+  /**
+   * @generated from enum value: LANGUAGE_WEBASSEMBLY = 83;
+   */
+  WEBASSEMBLY = 83,
+
+  /**
+   * @generated from enum value: LANGUAGE_BLADE = 84;
+   */
+  BLADE = 84,
+
+  /**
+   * @generated from enum value: LANGUAGE_ASTRO = 85;
+   */
+  ASTRO = 85,
+
+  /**
+   * @generated from enum value: LANGUAGE_MUMPS = 86;
+   */
+  MUMPS = 86,
+
+  /**
+   * @generated from enum value: LANGUAGE_GDSCRIPT = 87;
+   */
+  GDSCRIPT = 87,
+
+  /**
+   * @generated from enum value: LANGUAGE_NIM = 88;
+   */
+  NIM = 88,
+
+  /**
+   * @generated from enum value: LANGUAGE_PROLOG = 89;
+   */
+  PROLOG = 89,
+
+  /**
+   * @generated from enum value: LANGUAGE_MARKDOWN_INLINE = 90;
+   */
+  MARKDOWN_INLINE = 90,
+
+  /**
+   * @generated from enum value: LANGUAGE_APEX = 91;
+   */
+  APEX = 91,
+}
+// Retrieve enum metadata with: proto3.getEnumType(Language)
+proto3.util.setEnumType(Language, "exa.codeium_common_pb.Language", [
+  { no: 0, name: "LANGUAGE_UNSPECIFIED" },
+  { no: 1, name: "LANGUAGE_C" },
+  { no: 2, name: "LANGUAGE_CLOJURE" },
+  { no: 3, name: "LANGUAGE_COFFEESCRIPT" },
+  { no: 4, name: "LANGUAGE_CPP" },
+  { no: 5, name: "LANGUAGE_CSHARP" },
+  { no: 6, name: "LANGUAGE_CSS" },
+  { no: 7, name: "LANGUAGE_CUDACPP" },
+  { no: 8, name: "LANGUAGE_DOCKERFILE" },
+  { no: 9, name: "LANGUAGE_GO" },
+  { no: 10, name: "LANGUAGE_GROOVY" },
+  { no: 11, name: "LANGUAGE_HANDLEBARS" },
+  { no: 12, name: "LANGUAGE_HASKELL" },
+  { no: 13, name: "LANGUAGE_HCL" },
+  { no: 14, name: "LANGUAGE_HTML" },
+  { no: 15, name: "LANGUAGE_INI" },
+  { no: 16, name: "LANGUAGE_JAVA" },
+  { no: 17, name: "LANGUAGE_JAVASCRIPT" },
+  { no: 18, name: "LANGUAGE_JSON" },
+  { no: 19, name: "LANGUAGE_JULIA" },
+  { no: 20, name: "LANGUAGE_KOTLIN" },
+  { no: 21, name: "LANGUAGE_LATEX" },
+  { no: 22, name: "LANGUAGE_LESS" },
+  { no: 23, name: "LANGUAGE_LUA" },
+  { no: 24, name: "LANGUAGE_MAKEFILE" },
+  { no: 25, name: "LANGUAGE_MARKDOWN" },
+  { no: 26, name: "LANGUAGE_OBJECTIVEC" },
+  { no: 27, name: "LANGUAGE_OBJECTIVECPP" },
+  { no: 28, name: "LANGUAGE_PERL" },
+  { no: 29, name: "LANGUAGE_PHP" },
+  { no: 30, name: "LANGUAGE_PLAINTEXT" },
+  { no: 31, name: "LANGUAGE_PROTOBUF" },
+  { no: 32, name: "LANGUAGE_PBTXT" },
+  { no: 33, name: "LANGUAGE_PYTHON" },
+  { no: 34, name: "LANGUAGE_R" },
+  { no: 35, name: "LANGUAGE_RUBY" },
+  { no: 36, name: "LANGUAGE_RUST" },
+  { no: 37, name: "LANGUAGE_SASS" },
+  { no: 38, name: "LANGUAGE_SCALA" },
+  { no: 39, name: "LANGUAGE_SCSS" },
+  { no: 40, name: "LANGUAGE_SHELL" },
+  { no: 41, name: "LANGUAGE_SQL" },
+  { no: 42, name: "LANGUAGE_STARLARK" },
+  { no: 43, name: "LANGUAGE_SWIFT" },
+  { no: 44, name: "LANGUAGE_TSX" },
+  { no: 45, name: "LANGUAGE_TYPESCRIPT" },
+  { no: 46, name: "LANGUAGE_VISUALBASIC" },
+  { no: 47, name: "LANGUAGE_VUE" },
+  { no: 48, name: "LANGUAGE_XML" },
+  { no: 49, name: "LANGUAGE_XSL" },
+  { no: 50, name: "LANGUAGE_YAML" },
+  { no: 51, name: "LANGUAGE_SVELTE" },
+  { no: 52, name: "LANGUAGE_TOML" },
+  { no: 53, name: "LANGUAGE_DART" },
+  { no: 54, name: "LANGUAGE_RST" },
+  { no: 55, name: "LANGUAGE_OCAML" },
+  { no: 56, name: "LANGUAGE_CMAKE" },
+  { no: 57, name: "LANGUAGE_PASCAL" },
+  { no: 58, name: "LANGUAGE_ELIXIR" },
+  { no: 59, name: "LANGUAGE_FSHARP" },
+  { no: 60, name: "LANGUAGE_LISP" },
+  { no: 61, name: "LANGUAGE_MATLAB" },
+  { no: 62, name: "LANGUAGE_POWERSHELL" },
+  { no: 63, name: "LANGUAGE_SOLIDITY" },
+  { no: 64, name: "LANGUAGE_ADA" },
+  { no: 65, name: "LANGUAGE_OCAML_INTERFACE" },
+  { no: 66, name: "LANGUAGE_TREE_SITTER_QUERY" },
+  { no: 67, name: "LANGUAGE_APL" },
+  { no: 68, name: "LANGUAGE_ASSEMBLY" },
+  { no: 69, name: "LANGUAGE_COBOL" },
+  { no: 70, name: "LANGUAGE_CRYSTAL" },
+  { no: 71, name: "LANGUAGE_EMACS_LISP" },
+  { no: 72, name: "LANGUAGE_ERLANG" },
+  { no: 73, name: "LANGUAGE_FORTRAN" },
+  { no: 74, name: "LANGUAGE_FREEFORM" },
+  { no: 75, name: "LANGUAGE_GRADLE" },
+  { no: 76, name: "LANGUAGE_HACK" },
+  { no: 77, name: "LANGUAGE_MAVEN" },
+  { no: 78, name: "LANGUAGE_M68KASSEMBLY" },
+  { no: 79, name: "LANGUAGE_SAS" },
+  { no: 80, name: "LANGUAGE_UNIXASSEMBLY" },
+  { no: 81, name: "LANGUAGE_VBA" },
+  { no: 82, name: "LANGUAGE_VIMSCRIPT" },
+  { no: 83, name: "LANGUAGE_WEBASSEMBLY" },
+  { no: 84, name: "LANGUAGE_BLADE" },
+  { no: 85, name: "LANGUAGE_ASTRO" },
+  { no: 86, name: "LANGUAGE_MUMPS" },
+  { no: 87, name: "LANGUAGE_GDSCRIPT" },
+  { no: 88, name: "LANGUAGE_NIM" },
+  { no: 89, name: "LANGUAGE_PROLOG" },
+  { no: 90, name: "LANGUAGE_MARKDOWN_INLINE" },
+  { no: 91, name: "LANGUAGE_APEX" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.ChatMessageSource
+ */
+export enum ChatMessageSource {
+  /**
+   * @generated from enum value: CHAT_MESSAGE_SOURCE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CHAT_MESSAGE_SOURCE_USER = 1;
+   */
+  USER = 1,
+
+  /**
+   * @generated from enum value: CHAT_MESSAGE_SOURCE_SYSTEM = 2;
+   */
+  SYSTEM = 2,
+
+  /**
+   * @generated from enum value: CHAT_MESSAGE_SOURCE_UNKNOWN = 3;
+   */
+  UNKNOWN = 3,
+
+  /**
+   * @generated from enum value: CHAT_MESSAGE_SOURCE_TOOL = 4;
+   */
+  TOOL = 4,
+
+  /**
+   * @generated from enum value: CHAT_MESSAGE_SOURCE_SYSTEM_PROMPT = 5;
+   */
+  SYSTEM_PROMPT = 5,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ChatMessageSource)
+proto3.util.setEnumType(ChatMessageSource, "exa.codeium_common_pb.ChatMessageSource", [
+  { no: 0, name: "CHAT_MESSAGE_SOURCE_UNSPECIFIED" },
+  { no: 1, name: "CHAT_MESSAGE_SOURCE_USER" },
+  { no: 2, name: "CHAT_MESSAGE_SOURCE_SYSTEM" },
+  { no: 3, name: "CHAT_MESSAGE_SOURCE_UNKNOWN" },
+  { no: 4, name: "CHAT_MESSAGE_SOURCE_TOOL" },
+  { no: 5, name: "CHAT_MESSAGE_SOURCE_SYSTEM_PROMPT" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.UserTeamStatus
+ */
+export enum UserTeamStatus {
+  /**
+   * @generated from enum value: USER_TEAM_STATUS_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: USER_TEAM_STATUS_PENDING = 1;
+   */
+  PENDING = 1,
+
+  /**
+   * @generated from enum value: USER_TEAM_STATUS_APPROVED = 2;
+   */
+  APPROVED = 2,
+
+  /**
+   * @generated from enum value: USER_TEAM_STATUS_REJECTED = 3;
+   */
+  REJECTED = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(UserTeamStatus)
+proto3.util.setEnumType(UserTeamStatus, "exa.codeium_common_pb.UserTeamStatus", [
+  { no: 0, name: "USER_TEAM_STATUS_UNSPECIFIED" },
+  { no: 1, name: "USER_TEAM_STATUS_PENDING" },
+  { no: 2, name: "USER_TEAM_STATUS_APPROVED" },
+  { no: 3, name: "USER_TEAM_STATUS_REJECTED" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.TeamsFeatures
+ */
+export enum TeamsFeatures {
+  /**
+   * @generated from enum value: TEAMS_FEATURES_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: TEAMS_FEATURES_SSO = 1;
+   */
+  SSO = 1,
+
+  /**
+   * @generated from enum value: TEAMS_FEATURES_ATTRIBUTION = 2;
+   */
+  ATTRIBUTION = 2,
+
+  /**
+   * @generated from enum value: TEAMS_FEATURES_PHI = 3;
+   */
+  PHI = 3,
+
+  /**
+   * @generated from enum value: TEAMS_FEATURES_CORTEX = 4;
+   */
+  CORTEX = 4,
+
+  /**
+   * @generated from enum value: TEAMS_FEATURES_OPENAI_DISABLED = 5;
+   */
+  OPENAI_DISABLED = 5,
+
+  /**
+   * @generated from enum value: TEAMS_FEATURES_REMOTE_INDEXING_DISABLED = 6;
+   */
+  REMOTE_INDEXING_DISABLED = 6,
+
+  /**
+   * @generated from enum value: TEAMS_FEATURES_API_KEY_ENABLED = 7;
+   */
+  API_KEY_ENABLED = 7,
+}
+// Retrieve enum metadata with: proto3.getEnumType(TeamsFeatures)
+proto3.util.setEnumType(TeamsFeatures, "exa.codeium_common_pb.TeamsFeatures", [
+  { no: 0, name: "TEAMS_FEATURES_UNSPECIFIED" },
+  { no: 1, name: "TEAMS_FEATURES_SSO" },
+  { no: 2, name: "TEAMS_FEATURES_ATTRIBUTION" },
+  { no: 3, name: "TEAMS_FEATURES_PHI" },
+  { no: 4, name: "TEAMS_FEATURES_CORTEX" },
+  { no: 5, name: "TEAMS_FEATURES_OPENAI_DISABLED" },
+  { no: 6, name: "TEAMS_FEATURES_REMOTE_INDEXING_DISABLED" },
+  { no: 7, name: "TEAMS_FEATURES_API_KEY_ENABLED" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.UserFeatures
+ */
+export enum UserFeatures {
+  /**
+   * @generated from enum value: USER_FEATURES_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: USER_FEATURES_CORTEX = 1;
+   */
+  CORTEX = 1,
+
+  /**
+   * @generated from enum value: USER_FEATURES_CORTEX_TEST = 2;
+   */
+  CORTEX_TEST = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(UserFeatures)
+proto3.util.setEnumType(UserFeatures, "exa.codeium_common_pb.UserFeatures", [
+  { no: 0, name: "USER_FEATURES_UNSPECIFIED" },
+  { no: 1, name: "USER_FEATURES_CORTEX" },
+  { no: 2, name: "USER_FEATURES_CORTEX_TEST" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.Permission
+ */
+export enum Permission {
+  /**
+   * @generated from enum value: PERMISSION_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: PERMISSION_ATTRIBUTION_READ = 1;
+   */
+  ATTRIBUTION_READ = 1,
+
+  /**
+   * @generated from enum value: PERMISSION_ANALYTICS_READ = 2;
+   */
+  ANALYTICS_READ = 2,
+
+  /**
+   * @generated from enum value: PERMISSION_LICENSE_READ = 3;
+   */
+  LICENSE_READ = 3,
+
+  /**
+   * @generated from enum value: PERMISSION_TEAM_USER_READ = 4;
+   */
+  TEAM_USER_READ = 4,
+
+  /**
+   * @generated from enum value: PERMISSION_TEAM_USER_UPDATE = 5;
+   */
+  TEAM_USER_UPDATE = 5,
+
+  /**
+   * @generated from enum value: PERMISSION_TEAM_USER_DELETE = 6;
+   */
+  TEAM_USER_DELETE = 6,
+
+  /**
+   * @generated from enum value: PERMISSION_INDEXING_READ = 7;
+   */
+  INDEXING_READ = 7,
+
+  /**
+   * @generated from enum value: PERMISSION_INDEXING_CREATE = 8;
+   */
+  INDEXING_CREATE = 8,
+
+  /**
+   * @generated from enum value: PERMISSION_INDEXING_UPDATE = 9;
+   */
+  INDEXING_UPDATE = 9,
+
+  /**
+   * @generated from enum value: PERMISSION_INDEXING_DELETE = 10;
+   */
+  INDEXING_DELETE = 10,
+
+  /**
+   * @generated from enum value: PERMISSION_SSO_READ = 11;
+   */
+  SSO_READ = 11,
+
+  /**
+   * @generated from enum value: PERMISSION_SSO_WRITE = 12;
+   */
+  SSO_WRITE = 12,
+
+  /**
+   * @generated from enum value: PERMISSION_SERVICE_KEY_READ = 13;
+   */
+  SERVICE_KEY_READ = 13,
+
+  /**
+   * @generated from enum value: PERMISSION_SERVICE_KEY_CREATE = 14;
+   */
+  SERVICE_KEY_CREATE = 14,
+
+  /**
+   * @generated from enum value: PERMISSION_SERVICE_KEY_DELETE = 15;
+   */
+  SERVICE_KEY_DELETE = 15,
+
+  /**
+   * @generated from enum value: PERMISSION_BILLING_READ = 16;
+   */
+  BILLING_READ = 16,
+
+  /**
+   * @generated from enum value: PERMISSION_TEAM_USER_INVITE = 17;
+   */
+  TEAM_USER_INVITE = 17,
+
+  /**
+   * @generated from enum value: PERMISSION_BILLING_WRITE = 18;
+   */
+  BILLING_WRITE = 18,
+
+  /**
+   * @generated from enum value: PERMISSION_FINETUNING_READ = 19;
+   */
+  FINETUNING_READ = 19,
+
+  /**
+   * @generated from enum value: PERMISSION_FINETUNING_CREATE = 20;
+   */
+  FINETUNING_CREATE = 20,
+
+  /**
+   * @generated from enum value: PERMISSION_FINETUNING_UPDATE = 21;
+   */
+  FINETUNING_UPDATE = 21,
+
+  /**
+   * @generated from enum value: PERMISSION_FINETUNING_DELETE = 22;
+   */
+  FINETUNING_DELETE = 22,
+
+  /**
+   * @generated from enum value: PERMISSION_ROLE_READ = 23;
+   */
+  ROLE_READ = 23,
+
+  /**
+   * @generated from enum value: PERMISSION_ROLE_CREATE = 24;
+   */
+  ROLE_CREATE = 24,
+
+  /**
+   * @generated from enum value: PERMISSION_ROLE_UPDATE = 25;
+   */
+  ROLE_UPDATE = 25,
+
+  /**
+   * @generated from enum value: PERMISSION_ROLE_DELETE = 26;
+   */
+  ROLE_DELETE = 26,
+
+  /**
+   * @generated from enum value: PERMISSION_INDEXING_MANAGEMENT = 27;
+   */
+  INDEXING_MANAGEMENT = 27,
+
+  /**
+   * @generated from enum value: PERMISSION_SERVICE_KEY_UPDATE = 28;
+   */
+  SERVICE_KEY_UPDATE = 28,
+
+  /**
+   * @generated from enum value: PERMISSION_EXTERNAL_CHAT_UPDATE = 29;
+   */
+  EXTERNAL_CHAT_UPDATE = 29,
+
+  /**
+   * @generated from enum value: PERMISSION_TEAM_SETTINGS_READ = 30;
+   */
+  TEAM_SETTINGS_READ = 30,
+
+  /**
+   * @generated from enum value: PERMISSION_TEAM_SETTINGS_UPDATE = 31;
+   */
+  TEAM_SETTINGS_UPDATE = 31,
+}
+// Retrieve enum metadata with: proto3.getEnumType(Permission)
+proto3.util.setEnumType(Permission, "exa.codeium_common_pb.Permission", [
+  { no: 0, name: "PERMISSION_UNSPECIFIED" },
+  { no: 1, name: "PERMISSION_ATTRIBUTION_READ" },
+  { no: 2, name: "PERMISSION_ANALYTICS_READ" },
+  { no: 3, name: "PERMISSION_LICENSE_READ" },
+  { no: 4, name: "PERMISSION_TEAM_USER_READ" },
+  { no: 5, name: "PERMISSION_TEAM_USER_UPDATE" },
+  { no: 6, name: "PERMISSION_TEAM_USER_DELETE" },
+  { no: 7, name: "PERMISSION_INDEXING_READ" },
+  { no: 8, name: "PERMISSION_INDEXING_CREATE" },
+  { no: 9, name: "PERMISSION_INDEXING_UPDATE" },
+  { no: 10, name: "PERMISSION_INDEXING_DELETE" },
+  { no: 11, name: "PERMISSION_SSO_READ" },
+  { no: 12, name: "PERMISSION_SSO_WRITE" },
+  { no: 13, name: "PERMISSION_SERVICE_KEY_READ" },
+  { no: 14, name: "PERMISSION_SERVICE_KEY_CREATE" },
+  { no: 15, name: "PERMISSION_SERVICE_KEY_DELETE" },
+  { no: 16, name: "PERMISSION_BILLING_READ" },
+  { no: 17, name: "PERMISSION_TEAM_USER_INVITE" },
+  { no: 18, name: "PERMISSION_BILLING_WRITE" },
+  { no: 19, name: "PERMISSION_FINETUNING_READ" },
+  { no: 20, name: "PERMISSION_FINETUNING_CREATE" },
+  { no: 21, name: "PERMISSION_FINETUNING_UPDATE" },
+  { no: 22, name: "PERMISSION_FINETUNING_DELETE" },
+  { no: 23, name: "PERMISSION_ROLE_READ" },
+  { no: 24, name: "PERMISSION_ROLE_CREATE" },
+  { no: 25, name: "PERMISSION_ROLE_UPDATE" },
+  { no: 26, name: "PERMISSION_ROLE_DELETE" },
+  { no: 27, name: "PERMISSION_INDEXING_MANAGEMENT" },
+  { no: 28, name: "PERMISSION_SERVICE_KEY_UPDATE" },
+  { no: 29, name: "PERMISSION_EXTERNAL_CHAT_UPDATE" },
+  { no: 30, name: "PERMISSION_TEAM_SETTINGS_READ" },
+  { no: 31, name: "PERMISSION_TEAM_SETTINGS_UPDATE" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.TeamsTier
+ */
+export enum TeamsTier {
+  /**
+   * @generated from enum value: TEAMS_TIER_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: TEAMS_TIER_TEAMS = 1;
+   */
+  TEAMS = 1,
+
+  /**
+   * @generated from enum value: TEAMS_TIER_PRO = 2;
+   */
+  PRO = 2,
+
+  /**
+   * @generated from enum value: TEAMS_TIER_ENTERPRISE_SAAS = 3;
+   */
+  ENTERPRISE_SAAS = 3,
+
+  /**
+   * @generated from enum value: TEAMS_TIER_HYBRID = 4;
+   */
+  HYBRID = 4,
+
+  /**
+   * @generated from enum value: TEAMS_TIER_ENTERPRISE_SELF_HOSTED = 5;
+   */
+  ENTERPRISE_SELF_HOSTED = 5,
+
+  /**
+   * @generated from enum value: TEAMS_TIER_WAITLIST_PRO = 6;
+   */
+  WAITLIST_PRO = 6,
+
+  /**
+   * @generated from enum value: TEAMS_TIER_TEAMS_ULTIMATE = 7;
+   */
+  TEAMS_ULTIMATE = 7,
+
+  /**
+   * @generated from enum value: TEAMS_TIER_PRO_ULTIMATE = 8;
+   */
+  PRO_ULTIMATE = 8,
+
+  /**
+   * @generated from enum value: TEAMS_TIER_TRIAL = 9;
+   */
+  TRIAL = 9,
+
+  /**
+   * @generated from enum value: TEAMS_TIER_ENTERPRISE_SELF_SERVE = 10;
+   */
+  ENTERPRISE_SELF_SERVE = 10,
+}
+// Retrieve enum metadata with: proto3.getEnumType(TeamsTier)
+proto3.util.setEnumType(TeamsTier, "exa.codeium_common_pb.TeamsTier", [
+  { no: 0, name: "TEAMS_TIER_UNSPECIFIED" },
+  { no: 1, name: "TEAMS_TIER_TEAMS" },
+  { no: 2, name: "TEAMS_TIER_PRO" },
+  { no: 3, name: "TEAMS_TIER_ENTERPRISE_SAAS" },
+  { no: 4, name: "TEAMS_TIER_HYBRID" },
+  { no: 5, name: "TEAMS_TIER_ENTERPRISE_SELF_HOSTED" },
+  { no: 6, name: "TEAMS_TIER_WAITLIST_PRO" },
+  { no: 7, name: "TEAMS_TIER_TEAMS_ULTIMATE" },
+  { no: 8, name: "TEAMS_TIER_PRO_ULTIMATE" },
+  { no: 9, name: "TEAMS_TIER_TRIAL" },
+  { no: 10, name: "TEAMS_TIER_ENTERPRISE_SELF_SERVE" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.ModelProvider
+ */
+export enum ModelProvider {
+  /**
+   * @generated from enum value: MODEL_PROVIDER_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: MODEL_PROVIDER_WINDSURF = 1;
+   */
+  WINDSURF = 1,
+
+  /**
+   * @generated from enum value: MODEL_PROVIDER_OPENAI = 2;
+   */
+  OPENAI = 2,
+
+  /**
+   * @generated from enum value: MODEL_PROVIDER_ANTHROPIC = 3;
+   */
+  ANTHROPIC = 3,
+
+  /**
+   * @generated from enum value: MODEL_PROVIDER_GOOGLE = 4;
+   */
+  GOOGLE = 4,
+
+  /**
+   * @generated from enum value: MODEL_PROVIDER_XAI = 5;
+   */
+  XAI = 5,
+
+  /**
+   * @generated from enum value: MODEL_PROVIDER_DEEPSEEK = 6;
+   */
+  DEEPSEEK = 6,
+
+  /**
+   * @generated from enum value: MODEL_PROVIDER_MOONSHOT = 7;
+   */
+  MOONSHOT = 7,
+
+  /**
+   * @generated from enum value: MODEL_PROVIDER_QWEN = 8;
+   */
+  QWEN = 8,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ModelProvider)
+proto3.util.setEnumType(ModelProvider, "exa.codeium_common_pb.ModelProvider", [
+  { no: 0, name: "MODEL_PROVIDER_UNSPECIFIED" },
+  { no: 1, name: "MODEL_PROVIDER_WINDSURF" },
+  { no: 2, name: "MODEL_PROVIDER_OPENAI" },
+  { no: 3, name: "MODEL_PROVIDER_ANTHROPIC" },
+  { no: 4, name: "MODEL_PROVIDER_GOOGLE" },
+  { no: 5, name: "MODEL_PROVIDER_XAI" },
+  { no: 6, name: "MODEL_PROVIDER_DEEPSEEK" },
+  { no: 7, name: "MODEL_PROVIDER_MOONSHOT" },
+  { no: 8, name: "MODEL_PROVIDER_QWEN" },
+]);
+
+/**
  * @generated from enum exa.codeium_common_pb.ModelPricingType
  */
 export enum ModelPricingType {
@@ -1846,6 +4576,1194 @@ proto3.util.setEnumType(ModelPricingType, "exa.codeium_common_pb.ModelPricingTyp
   { no: 1, name: "MODEL_PRICING_TYPE_STATIC_CREDIT" },
   { no: 2, name: "MODEL_PRICING_TYPE_API" },
   { no: 3, name: "MODEL_PRICING_TYPE_BYOK" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.TransactionStatus
+ */
+export enum TransactionStatus {
+  /**
+   * @generated from enum value: TRANSACTION_STATUS_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: TRANSACTION_STATUS_SUCCEEDED = 1;
+   */
+  SUCCEEDED = 1,
+
+  /**
+   * @generated from enum value: TRANSACTION_STATUS_PROCESSING = 2;
+   */
+  PROCESSING = 2,
+
+  /**
+   * @generated from enum value: TRANSACTION_STATUS_FAILED = 3;
+   */
+  FAILED = 3,
+
+  /**
+   * @generated from enum value: TRANSACTION_STATUS_NO_ACTIVE = 4;
+   */
+  NO_ACTIVE = 4,
+}
+// Retrieve enum metadata with: proto3.getEnumType(TransactionStatus)
+proto3.util.setEnumType(TransactionStatus, "exa.codeium_common_pb.TransactionStatus", [
+  { no: 0, name: "TRANSACTION_STATUS_UNSPECIFIED" },
+  { no: 1, name: "TRANSACTION_STATUS_SUCCEEDED" },
+  { no: 2, name: "TRANSACTION_STATUS_PROCESSING" },
+  { no: 3, name: "TRANSACTION_STATUS_FAILED" },
+  { no: 4, name: "TRANSACTION_STATUS_NO_ACTIVE" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.ScmProvider
+ */
+export enum ScmProvider {
+  /**
+   * @generated from enum value: SCM_PROVIDER_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: SCM_PROVIDER_GITHUB = 1;
+   */
+  GITHUB = 1,
+
+  /**
+   * @generated from enum value: SCM_PROVIDER_GITLAB = 2;
+   */
+  GITLAB = 2,
+
+  /**
+   * @generated from enum value: SCM_PROVIDER_BITBUCKET = 3;
+   */
+  BITBUCKET = 3,
+
+  /**
+   * @generated from enum value: SCM_PROVIDER_AZURE_DEVOPS = 4;
+   */
+  AZURE_DEVOPS = 4,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ScmProvider)
+proto3.util.setEnumType(ScmProvider, "exa.codeium_common_pb.ScmProvider", [
+  { no: 0, name: "SCM_PROVIDER_UNSPECIFIED" },
+  { no: 1, name: "SCM_PROVIDER_GITHUB" },
+  { no: 2, name: "SCM_PROVIDER_GITLAB" },
+  { no: 3, name: "SCM_PROVIDER_BITBUCKET" },
+  { no: 4, name: "SCM_PROVIDER_AZURE_DEVOPS" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.ScmType
+ */
+export enum ScmType {
+  /**
+   * @generated from enum value: SCM_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: SCM_TYPE_GIT = 1;
+   */
+  GIT = 1,
+
+  /**
+   * @generated from enum value: SCM_TYPE_PERFORCE = 2;
+   */
+  PERFORCE = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ScmType)
+proto3.util.setEnumType(ScmType, "exa.codeium_common_pb.ScmType", [
+  { no: 0, name: "SCM_TYPE_UNSPECIFIED" },
+  { no: 1, name: "SCM_TYPE_GIT" },
+  { no: 2, name: "SCM_TYPE_PERFORCE" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.CodeContextType
+ */
+export enum CodeContextType {
+  /**
+   * @generated from enum value: CODE_CONTEXT_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CODE_CONTEXT_TYPE_FUNCTION = 1;
+   */
+  FUNCTION = 1,
+
+  /**
+   * @generated from enum value: CODE_CONTEXT_TYPE_CLASS = 2;
+   */
+  CLASS = 2,
+
+  /**
+   * @generated from enum value: CODE_CONTEXT_TYPE_IMPORT = 3;
+   */
+  IMPORT = 3,
+
+  /**
+   * @generated from enum value: CODE_CONTEXT_TYPE_NAIVE_LINECHUNK = 4;
+   */
+  NAIVE_LINECHUNK = 4,
+
+  /**
+   * @generated from enum value: CODE_CONTEXT_TYPE_REFERENCE_FUNCTION = 5;
+   */
+  REFERENCE_FUNCTION = 5,
+
+  /**
+   * @generated from enum value: CODE_CONTEXT_TYPE_REFERENCE_CLASS = 6;
+   */
+  REFERENCE_CLASS = 6,
+
+  /**
+   * @generated from enum value: CODE_CONTEXT_TYPE_FILE = 7;
+   */
+  FILE = 7,
+
+  /**
+   * @generated from enum value: CODE_CONTEXT_TYPE_TERMINAL = 8;
+   */
+  TERMINAL = 8,
+}
+// Retrieve enum metadata with: proto3.getEnumType(CodeContextType)
+proto3.util.setEnumType(CodeContextType, "exa.codeium_common_pb.CodeContextType", [
+  { no: 0, name: "CODE_CONTEXT_TYPE_UNSPECIFIED" },
+  { no: 1, name: "CODE_CONTEXT_TYPE_FUNCTION" },
+  { no: 2, name: "CODE_CONTEXT_TYPE_CLASS" },
+  { no: 3, name: "CODE_CONTEXT_TYPE_IMPORT" },
+  { no: 4, name: "CODE_CONTEXT_TYPE_NAIVE_LINECHUNK" },
+  { no: 5, name: "CODE_CONTEXT_TYPE_REFERENCE_FUNCTION" },
+  { no: 6, name: "CODE_CONTEXT_TYPE_REFERENCE_CLASS" },
+  { no: 7, name: "CODE_CONTEXT_TYPE_FILE" },
+  { no: 8, name: "CODE_CONTEXT_TYPE_TERMINAL" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.CodeContextSource
+ */
+export enum CodeContextSource {
+  /**
+   * @generated from enum value: CODE_CONTEXT_SOURCE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CODE_CONTEXT_SOURCE_OPEN_DOCS = 1;
+   */
+  OPEN_DOCS = 1,
+
+  /**
+   * @generated from enum value: CODE_CONTEXT_SOURCE_SEARCH_RESULT = 2;
+   */
+  SEARCH_RESULT = 2,
+
+  /**
+   * @generated from enum value: CODE_CONTEXT_SOURCE_IMPORT = 3;
+   */
+  IMPORT = 3,
+
+  /**
+   * @generated from enum value: CODE_CONTEXT_SOURCE_LOCAL_DIRECTORY = 4;
+   */
+  LOCAL_DIRECTORY = 4,
+
+  /**
+   * @generated from enum value: CODE_CONTEXT_SOURCE_LAST_ACTIVE_DOC = 5;
+   */
+  LAST_ACTIVE_DOC = 5,
+
+  /**
+   * @generated from enum value: CODE_CONTEXT_SOURCE_ORACLE_ITEMS = 6;
+   */
+  ORACLE_ITEMS = 6,
+
+  /**
+   * @generated from enum value: CODE_CONTEXT_SOURCE_PINNED_CONTEXT = 7;
+   */
+  PINNED_CONTEXT = 7,
+
+  /**
+   * @generated from enum value: CODE_CONTEXT_SOURCE_RESEARCH_STATE = 8;
+   */
+  RESEARCH_STATE = 8,
+
+  /**
+   * @generated from enum value: CODE_CONTEXT_SOURCE_GROUND_TRUTH_PLAN_EDIT = 9;
+   */
+  GROUND_TRUTH_PLAN_EDIT = 9,
+
+  /**
+   * @generated from enum value: CODE_CONTEXT_SOURCE_COMMIT_GRAPH = 10;
+   */
+  COMMIT_GRAPH = 10,
+}
+// Retrieve enum metadata with: proto3.getEnumType(CodeContextSource)
+proto3.util.setEnumType(CodeContextSource, "exa.codeium_common_pb.CodeContextSource", [
+  { no: 0, name: "CODE_CONTEXT_SOURCE_UNSPECIFIED" },
+  { no: 1, name: "CODE_CONTEXT_SOURCE_OPEN_DOCS" },
+  { no: 2, name: "CODE_CONTEXT_SOURCE_SEARCH_RESULT" },
+  { no: 3, name: "CODE_CONTEXT_SOURCE_IMPORT" },
+  { no: 4, name: "CODE_CONTEXT_SOURCE_LOCAL_DIRECTORY" },
+  { no: 5, name: "CODE_CONTEXT_SOURCE_LAST_ACTIVE_DOC" },
+  { no: 6, name: "CODE_CONTEXT_SOURCE_ORACLE_ITEMS" },
+  { no: 7, name: "CODE_CONTEXT_SOURCE_PINNED_CONTEXT" },
+  { no: 8, name: "CODE_CONTEXT_SOURCE_RESEARCH_STATE" },
+  { no: 9, name: "CODE_CONTEXT_SOURCE_GROUND_TRUTH_PLAN_EDIT" },
+  { no: 10, name: "CODE_CONTEXT_SOURCE_COMMIT_GRAPH" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.ContextSnippetType
+ */
+export enum ContextSnippetType {
+  /**
+   * @generated from enum value: CONTEXT_SNIPPET_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CONTEXT_SNIPPET_TYPE_RAW_SOURCE = 1;
+   */
+  RAW_SOURCE = 1,
+
+  /**
+   * @generated from enum value: CONTEXT_SNIPPET_TYPE_SIGNATURE = 2;
+   */
+  SIGNATURE = 2,
+
+  /**
+   * @generated from enum value: CONTEXT_SNIPPET_TYPE_NODEPATH = 3;
+   */
+  NODEPATH = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ContextSnippetType)
+proto3.util.setEnumType(ContextSnippetType, "exa.codeium_common_pb.ContextSnippetType", [
+  { no: 0, name: "CONTEXT_SNIPPET_TYPE_UNSPECIFIED" },
+  { no: 1, name: "CONTEXT_SNIPPET_TYPE_RAW_SOURCE" },
+  { no: 2, name: "CONTEXT_SNIPPET_TYPE_SIGNATURE" },
+  { no: 3, name: "CONTEXT_SNIPPET_TYPE_NODEPATH" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.CommitIntentType
+ */
+export enum CommitIntentType {
+  /**
+   * @generated from enum value: COMMIT_INTENT_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: COMMIT_INTENT_TYPE_COMMIT_MESSAGE = 1;
+   */
+  COMMIT_MESSAGE = 1,
+}
+// Retrieve enum metadata with: proto3.getEnumType(CommitIntentType)
+proto3.util.setEnumType(CommitIntentType, "exa.codeium_common_pb.CommitIntentType", [
+  { no: 0, name: "COMMIT_INTENT_TYPE_UNSPECIFIED" },
+  { no: 1, name: "COMMIT_INTENT_TYPE_COMMIT_MESSAGE" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.GpuType
+ */
+export enum GpuType {
+  /**
+   * @generated from enum value: GPU_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: GPU_TYPE_L4 = 1;
+   */
+  L4 = 1,
+
+  /**
+   * @generated from enum value: GPU_TYPE_T4 = 2;
+   */
+  T4 = 2,
+
+  /**
+   * @generated from enum value: GPU_TYPE_A10 = 3;
+   */
+  A10 = 3,
+
+  /**
+   * @generated from enum value: GPU_TYPE_A100 = 4;
+   */
+  A100 = 4,
+
+  /**
+   * @generated from enum value: GPU_TYPE_V100 = 5;
+   */
+  V100 = 5,
+
+  /**
+   * @generated from enum value: GPU_TYPE_A5000 = 6;
+   */
+  A5000 = 6,
+}
+// Retrieve enum metadata with: proto3.getEnumType(GpuType)
+proto3.util.setEnumType(GpuType, "exa.codeium_common_pb.GpuType", [
+  { no: 0, name: "GPU_TYPE_UNSPECIFIED" },
+  { no: 1, name: "GPU_TYPE_L4" },
+  { no: 2, name: "GPU_TYPE_T4" },
+  { no: 3, name: "GPU_TYPE_A10" },
+  { no: 4, name: "GPU_TYPE_A100" },
+  { no: 5, name: "GPU_TYPE_V100" },
+  { no: 6, name: "GPU_TYPE_A5000" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.ContextInclusionType
+ */
+export enum ContextInclusionType {
+  /**
+   * @generated from enum value: CONTEXT_INCLUSION_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CONTEXT_INCLUSION_TYPE_INCLUDE = 1;
+   */
+  INCLUDE = 1,
+
+  /**
+   * @generated from enum value: CONTEXT_INCLUSION_TYPE_EXCLUDE = 2;
+   */
+  EXCLUDE = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ContextInclusionType)
+proto3.util.setEnumType(ContextInclusionType, "exa.codeium_common_pb.ContextInclusionType", [
+  { no: 0, name: "CONTEXT_INCLUSION_TYPE_UNSPECIFIED" },
+  { no: 1, name: "CONTEXT_INCLUSION_TYPE_INCLUDE" },
+  { no: 2, name: "CONTEXT_INCLUSION_TYPE_EXCLUDE" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.ThemePreference
+ */
+export enum ThemePreference {
+  /**
+   * @generated from enum value: THEME_PREFERENCE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: THEME_PREFERENCE_AUTO = 1;
+   */
+  AUTO = 1,
+
+  /**
+   * @generated from enum value: THEME_PREFERENCE_LIGHT = 2;
+   */
+  LIGHT = 2,
+
+  /**
+   * @generated from enum value: THEME_PREFERENCE_DARK = 3;
+   */
+  DARK = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ThemePreference)
+proto3.util.setEnumType(ThemePreference, "exa.codeium_common_pb.ThemePreference", [
+  { no: 0, name: "THEME_PREFERENCE_UNSPECIFIED" },
+  { no: 1, name: "THEME_PREFERENCE_AUTO" },
+  { no: 2, name: "THEME_PREFERENCE_LIGHT" },
+  { no: 3, name: "THEME_PREFERENCE_DARK" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.FontSize
+ */
+export enum FontSize {
+  /**
+   * @generated from enum value: FONT_SIZE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: FONT_SIZE_SMALL = 1;
+   */
+  SMALL = 1,
+
+  /**
+   * @generated from enum value: FONT_SIZE_DEFAULT = 2;
+   */
+  DEFAULT = 2,
+
+  /**
+   * @generated from enum value: FONT_SIZE_LARGE = 3;
+   */
+  LARGE = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(FontSize)
+proto3.util.setEnumType(FontSize, "exa.codeium_common_pb.FontSize", [
+  { no: 0, name: "FONT_SIZE_UNSPECIFIED" },
+  { no: 1, name: "FONT_SIZE_SMALL" },
+  { no: 2, name: "FONT_SIZE_DEFAULT" },
+  { no: 3, name: "FONT_SIZE_LARGE" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.AutocompleteSpeed
+ */
+export enum AutocompleteSpeed {
+  /**
+   * @generated from enum value: AUTOCOMPLETE_SPEED_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: AUTOCOMPLETE_SPEED_SLOW = 1;
+   */
+  SLOW = 1,
+
+  /**
+   * @generated from enum value: AUTOCOMPLETE_SPEED_DEFAULT = 2;
+   */
+  DEFAULT = 2,
+
+  /**
+   * @generated from enum value: AUTOCOMPLETE_SPEED_FAST = 3;
+   */
+  FAST = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(AutocompleteSpeed)
+proto3.util.setEnumType(AutocompleteSpeed, "exa.codeium_common_pb.AutocompleteSpeed", [
+  { no: 0, name: "AUTOCOMPLETE_SPEED_UNSPECIFIED" },
+  { no: 1, name: "AUTOCOMPLETE_SPEED_SLOW" },
+  { no: 2, name: "AUTOCOMPLETE_SPEED_DEFAULT" },
+  { no: 3, name: "AUTOCOMPLETE_SPEED_FAST" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.CascadeCommandsAutoExecution
+ */
+export enum CascadeCommandsAutoExecution {
+  /**
+   * @generated from enum value: CASCADE_COMMANDS_AUTO_EXECUTION_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CASCADE_COMMANDS_AUTO_EXECUTION_OFF = 1;
+   */
+  OFF = 1,
+
+  /**
+   * @generated from enum value: CASCADE_COMMANDS_AUTO_EXECUTION_AUTO = 2;
+   */
+  AUTO = 2,
+
+  /**
+   * @generated from enum value: CASCADE_COMMANDS_AUTO_EXECUTION_EAGER = 3;
+   */
+  EAGER = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(CascadeCommandsAutoExecution)
+proto3.util.setEnumType(CascadeCommandsAutoExecution, "exa.codeium_common_pb.CascadeCommandsAutoExecution", [
+  { no: 0, name: "CASCADE_COMMANDS_AUTO_EXECUTION_UNSPECIFIED" },
+  { no: 1, name: "CASCADE_COMMANDS_AUTO_EXECUTION_OFF" },
+  { no: 2, name: "CASCADE_COMMANDS_AUTO_EXECUTION_AUTO" },
+  { no: 3, name: "CASCADE_COMMANDS_AUTO_EXECUTION_EAGER" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.ExtensionPanelTab
+ */
+export enum ExtensionPanelTab {
+  /**
+   * @generated from enum value: EXTENSION_PANEL_TAB_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: EXTENSION_PANEL_TAB_CHAT = 1;
+   */
+  CHAT = 1,
+
+  /**
+   * @generated from enum value: EXTENSION_PANEL_TAB_PROFILE = 2;
+   */
+  PROFILE = 2,
+
+  /**
+   * @generated from enum value: EXTENSION_PANEL_TAB_BRAIN = 4;
+   */
+  BRAIN = 4,
+
+  /**
+   * @generated from enum value: EXTENSION_PANEL_TAB_COMMAND = 5;
+   */
+  COMMAND = 5,
+
+  /**
+   * @generated from enum value: EXTENSION_PANEL_TAB_CORTEX = 6;
+   */
+  CORTEX = 6,
+
+  /**
+   * @generated from enum value: EXTENSION_PANEL_TAB_DEBUG = 7;
+   */
+  DEBUG = 7,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ExtensionPanelTab)
+proto3.util.setEnumType(ExtensionPanelTab, "exa.codeium_common_pb.ExtensionPanelTab", [
+  { no: 0, name: "EXTENSION_PANEL_TAB_UNSPECIFIED" },
+  { no: 1, name: "EXTENSION_PANEL_TAB_CHAT" },
+  { no: 2, name: "EXTENSION_PANEL_TAB_PROFILE" },
+  { no: 4, name: "EXTENSION_PANEL_TAB_BRAIN" },
+  { no: 5, name: "EXTENSION_PANEL_TAB_COMMAND" },
+  { no: 6, name: "EXTENSION_PANEL_TAB_CORTEX" },
+  { no: 7, name: "EXTENSION_PANEL_TAB_DEBUG" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.RememberLastModelSelection
+ */
+export enum RememberLastModelSelection {
+  /**
+   * @generated from enum value: REMEMBER_LAST_MODEL_SELECTION_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: REMEMBER_LAST_MODEL_SELECTION_ENABLED = 1;
+   */
+  ENABLED = 1,
+
+  /**
+   * @generated from enum value: REMEMBER_LAST_MODEL_SELECTION_DISABLED = 2;
+   */
+  DISABLED = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(RememberLastModelSelection)
+proto3.util.setEnumType(RememberLastModelSelection, "exa.codeium_common_pb.RememberLastModelSelection", [
+  { no: 0, name: "REMEMBER_LAST_MODEL_SELECTION_UNSPECIFIED" },
+  { no: 1, name: "REMEMBER_LAST_MODEL_SELECTION_ENABLED" },
+  { no: 2, name: "REMEMBER_LAST_MODEL_SELECTION_DISABLED" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.CascadeNUXEvent
+ */
+export enum CascadeNUXEvent {
+  /**
+   * @generated from enum value: CASCADE_NUX_EVENT_UNSPECIFIED = 0;
+   */
+  CASCADE_NUX_EVENT_UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_EVENT_DIFF_OVERVIEW = 1;
+   */
+  CASCADE_NUX_EVENT_DIFF_OVERVIEW = 1,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_EVENT_WEB_SEARCH = 2;
+   */
+  CASCADE_NUX_EVENT_WEB_SEARCH = 2,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_EVENT_NEW_MODELS_WAVE2 = 3;
+   */
+  CASCADE_NUX_EVENT_NEW_MODELS_WAVE2 = 3,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_EVENT_TOOL_CALL = 4;
+   */
+  CASCADE_NUX_EVENT_TOOL_CALL = 4,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_EVENT_MODEL_SELECTOR_NUX = 5;
+   */
+  CASCADE_NUX_EVENT_MODEL_SELECTOR_NUX = 5,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_EVENT_TOOL_CALL_PRICING_NUX = 6;
+   */
+  CASCADE_NUX_EVENT_TOOL_CALL_PRICING_NUX = 6,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_EVENT_WRITE_CHAT_MODE = 7;
+   */
+  CASCADE_NUX_EVENT_WRITE_CHAT_MODE = 7,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_EVENT_REVERT_STEP = 8;
+   */
+  CASCADE_NUX_EVENT_REVERT_STEP = 8,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_EVENT_RULES = 9;
+   */
+  CASCADE_NUX_EVENT_RULES = 9,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_EVENT_WEB_MENTION = 10;
+   */
+  CASCADE_NUX_EVENT_WEB_MENTION = 10,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_EVENT_BACKGROUND_CASCADE = 11;
+   */
+  CASCADE_NUX_EVENT_BACKGROUND_CASCADE = 11,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_EVENT_ANTHROPIC_API_PRICING = 12;
+   */
+  CASCADE_NUX_EVENT_ANTHROPIC_API_PRICING = 12,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_EVENT_PLAN_MODE = 13;
+   */
+  CASCADE_NUX_EVENT_PLAN_MODE = 13,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_EVENT_OPEN_BROWSER_URL = 14;
+   */
+  CASCADE_NUX_EVENT_OPEN_BROWSER_URL = 14,
+}
+// Retrieve enum metadata with: proto3.getEnumType(CascadeNUXEvent)
+proto3.util.setEnumType(CascadeNUXEvent, "exa.codeium_common_pb.CascadeNUXEvent", [
+  { no: 0, name: "CASCADE_NUX_EVENT_UNSPECIFIED" },
+  { no: 1, name: "CASCADE_NUX_EVENT_DIFF_OVERVIEW" },
+  { no: 2, name: "CASCADE_NUX_EVENT_WEB_SEARCH" },
+  { no: 3, name: "CASCADE_NUX_EVENT_NEW_MODELS_WAVE2" },
+  { no: 4, name: "CASCADE_NUX_EVENT_TOOL_CALL" },
+  { no: 5, name: "CASCADE_NUX_EVENT_MODEL_SELECTOR_NUX" },
+  { no: 6, name: "CASCADE_NUX_EVENT_TOOL_CALL_PRICING_NUX" },
+  { no: 7, name: "CASCADE_NUX_EVENT_WRITE_CHAT_MODE" },
+  { no: 8, name: "CASCADE_NUX_EVENT_REVERT_STEP" },
+  { no: 9, name: "CASCADE_NUX_EVENT_RULES" },
+  { no: 10, name: "CASCADE_NUX_EVENT_WEB_MENTION" },
+  { no: 11, name: "CASCADE_NUX_EVENT_BACKGROUND_CASCADE" },
+  { no: 12, name: "CASCADE_NUX_EVENT_ANTHROPIC_API_PRICING" },
+  { no: 13, name: "CASCADE_NUX_EVENT_PLAN_MODE" },
+  { no: 14, name: "CASCADE_NUX_EVENT_OPEN_BROWSER_URL" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.UserNUXEvent
+ */
+export enum UserNUXEvent {
+  /**
+   * @generated from enum value: USER_NUX_EVENT_UNSPECIFIED = 0;
+   */
+  USER_NUX_EVENT_UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: USER_NUX_EVENT_DISMISS_WINDSURF_CROSS_SELL = 1;
+   */
+  USER_NUX_EVENT_DISMISS_WINDSURF_CROSS_SELL = 1,
+}
+// Retrieve enum metadata with: proto3.getEnumType(UserNUXEvent)
+proto3.util.setEnumType(UserNUXEvent, "exa.codeium_common_pb.UserNUXEvent", [
+  { no: 0, name: "USER_NUX_EVENT_UNSPECIFIED" },
+  { no: 1, name: "USER_NUX_EVENT_DISMISS_WINDSURF_CROSS_SELL" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.ConversationalPlannerMode
+ */
+export enum ConversationalPlannerMode {
+  /**
+   * @generated from enum value: CONVERSATIONAL_PLANNER_MODE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CONVERSATIONAL_PLANNER_MODE_DEFAULT = 1;
+   */
+  DEFAULT = 1,
+
+  /**
+   * @generated from enum value: CONVERSATIONAL_PLANNER_MODE_READ_ONLY = 2;
+   */
+  READ_ONLY = 2,
+
+  /**
+   * @generated from enum value: CONVERSATIONAL_PLANNER_MODE_NO_TOOL = 3;
+   */
+  NO_TOOL = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ConversationalPlannerMode)
+proto3.util.setEnumType(ConversationalPlannerMode, "exa.codeium_common_pb.ConversationalPlannerMode", [
+  { no: 0, name: "CONVERSATIONAL_PLANNER_MODE_UNSPECIFIED" },
+  { no: 1, name: "CONVERSATIONAL_PLANNER_MODE_DEFAULT" },
+  { no: 2, name: "CONVERSATIONAL_PLANNER_MODE_READ_ONLY" },
+  { no: 3, name: "CONVERSATIONAL_PLANNER_MODE_NO_TOOL" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.TabToJump
+ */
+export enum TabToJump {
+  /**
+   * @generated from enum value: TAB_TO_JUMP_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: TAB_TO_JUMP_ENABLED = 1;
+   */
+  ENABLED = 1,
+
+  /**
+   * @generated from enum value: TAB_TO_JUMP_DISABLED = 2;
+   */
+  DISABLED = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(TabToJump)
+proto3.util.setEnumType(TabToJump, "exa.codeium_common_pb.TabToJump", [
+  { no: 0, name: "TAB_TO_JUMP_UNSPECIFIED" },
+  { no: 1, name: "TAB_TO_JUMP_ENABLED" },
+  { no: 2, name: "TAB_TO_JUMP_DISABLED" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.CascadeWebSearchTool
+ */
+export enum CascadeWebSearchTool {
+  /**
+   * @generated from enum value: CASCADE_WEB_SEARCH_TOOL_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CASCADE_WEB_SEARCH_TOOL_ENABLED = 1;
+   */
+  ENABLED = 1,
+
+  /**
+   * @generated from enum value: CASCADE_WEB_SEARCH_TOOL_DISABLED = 2;
+   */
+  DISABLED = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(CascadeWebSearchTool)
+proto3.util.setEnumType(CascadeWebSearchTool, "exa.codeium_common_pb.CascadeWebSearchTool", [
+  { no: 0, name: "CASCADE_WEB_SEARCH_TOOL_UNSPECIFIED" },
+  { no: 1, name: "CASCADE_WEB_SEARCH_TOOL_ENABLED" },
+  { no: 2, name: "CASCADE_WEB_SEARCH_TOOL_DISABLED" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.CascadeRunExtensionCode
+ */
+export enum CascadeRunExtensionCode {
+  /**
+   * @generated from enum value: CASCADE_RUN_EXTENSION_CODE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CASCADE_RUN_EXTENSION_CODE_ENABLED = 1;
+   */
+  ENABLED = 1,
+
+  /**
+   * @generated from enum value: CASCADE_RUN_EXTENSION_CODE_DISABLED = 2;
+   */
+  DISABLED = 2,
+
+  /**
+   * @generated from enum value: CASCADE_RUN_EXTENSION_CODE_ONLY = 3;
+   */
+  ONLY = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(CascadeRunExtensionCode)
+proto3.util.setEnumType(CascadeRunExtensionCode, "exa.codeium_common_pb.CascadeRunExtensionCode", [
+  { no: 0, name: "CASCADE_RUN_EXTENSION_CODE_UNSPECIFIED" },
+  { no: 1, name: "CASCADE_RUN_EXTENSION_CODE_ENABLED" },
+  { no: 2, name: "CASCADE_RUN_EXTENSION_CODE_DISABLED" },
+  { no: 3, name: "CASCADE_RUN_EXTENSION_CODE_ONLY" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.CascadeInputAutocomplete
+ */
+export enum CascadeInputAutocomplete {
+  /**
+   * @generated from enum value: CASCADE_INPUT_AUTOCOMPLETE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CASCADE_INPUT_AUTOCOMPLETE_ENABLED = 1;
+   */
+  ENABLED = 1,
+
+  /**
+   * @generated from enum value: CASCADE_INPUT_AUTOCOMPLETE_DISABLED = 2;
+   */
+  DISABLED = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(CascadeInputAutocomplete)
+proto3.util.setEnumType(CascadeInputAutocomplete, "exa.codeium_common_pb.CascadeInputAutocomplete", [
+  { no: 0, name: "CASCADE_INPUT_AUTOCOMPLETE_UNSPECIFIED" },
+  { no: 1, name: "CASCADE_INPUT_AUTOCOMPLETE_ENABLED" },
+  { no: 2, name: "CASCADE_INPUT_AUTOCOMPLETE_DISABLED" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.CommandPopupAutocomplete
+ */
+export enum CommandPopupAutocomplete {
+  /**
+   * @generated from enum value: COMMAND_POPUP_AUTOCOMPLETE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: COMMAND_POPUP_AUTOCOMPLETE_ENABLED = 1;
+   */
+  ENABLED = 1,
+
+  /**
+   * @generated from enum value: COMMAND_POPUP_AUTOCOMPLETE_DISABLED = 2;
+   */
+  DISABLED = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(CommandPopupAutocomplete)
+proto3.util.setEnumType(CommandPopupAutocomplete, "exa.codeium_common_pb.CommandPopupAutocomplete", [
+  { no: 0, name: "COMMAND_POPUP_AUTOCOMPLETE_UNSPECIFIED" },
+  { no: 1, name: "COMMAND_POPUP_AUTOCOMPLETE_ENABLED" },
+  { no: 2, name: "COMMAND_POPUP_AUTOCOMPLETE_DISABLED" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.CascadeRunExtensionCodeAutoRun
+ */
+export enum CascadeRunExtensionCodeAutoRun {
+  /**
+   * @generated from enum value: CASCADE_RUN_EXTENSION_CODE_AUTO_RUN_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CASCADE_RUN_EXTENSION_CODE_AUTO_RUN_ENABLED = 1;
+   */
+  ENABLED = 1,
+
+  /**
+   * @generated from enum value: CASCADE_RUN_EXTENSION_CODE_AUTO_RUN_DISABLED = 2;
+   */
+  DISABLED = 2,
+
+  /**
+   * @generated from enum value: CASCADE_RUN_EXTENSION_CODE_AUTO_RUN_MODEL_DECIDES = 3;
+   */
+  MODEL_DECIDES = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(CascadeRunExtensionCodeAutoRun)
+proto3.util.setEnumType(CascadeRunExtensionCodeAutoRun, "exa.codeium_common_pb.CascadeRunExtensionCodeAutoRun", [
+  { no: 0, name: "CASCADE_RUN_EXTENSION_CODE_AUTO_RUN_UNSPECIFIED" },
+  { no: 1, name: "CASCADE_RUN_EXTENSION_CODE_AUTO_RUN_ENABLED" },
+  { no: 2, name: "CASCADE_RUN_EXTENSION_CODE_AUTO_RUN_DISABLED" },
+  { no: 3, name: "CASCADE_RUN_EXTENSION_CODE_AUTO_RUN_MODEL_DECIDES" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.FeatureUsageType
+ */
+export enum FeatureUsageType {
+  /**
+   * @generated from enum value: FEATURE_USAGE_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: FEATURE_USAGE_TYPE_CASCADE_BROWSER = 1;
+   */
+  CASCADE_BROWSER = 1,
+
+  /**
+   * @generated from enum value: FEATURE_USAGE_TYPE_CASCADE_WEB_AT_MENTION = 2;
+   */
+  CASCADE_WEB_AT_MENTION = 2,
+
+  /**
+   * @generated from enum value: FEATURE_USAGE_TYPE_CASCADE_REVERT_TO_STEP = 3;
+   */
+  CASCADE_REVERT_TO_STEP = 3,
+
+  /**
+   * @generated from enum value: FEATURE_USAGE_TYPE_CASCADE_CLICK_MODEL_SELECTOR = 4;
+   */
+  CASCADE_CLICK_MODEL_SELECTOR = 4,
+
+  /**
+   * @generated from enum value: FEATURE_USAGE_TYPE_CASCADE_MESSAGE_FEEDBACK = 5;
+   */
+  CASCADE_MESSAGE_FEEDBACK = 5,
+}
+// Retrieve enum metadata with: proto3.getEnumType(FeatureUsageType)
+proto3.util.setEnumType(FeatureUsageType, "exa.codeium_common_pb.FeatureUsageType", [
+  { no: 0, name: "FEATURE_USAGE_TYPE_UNSPECIFIED" },
+  { no: 1, name: "FEATURE_USAGE_TYPE_CASCADE_BROWSER" },
+  { no: 2, name: "FEATURE_USAGE_TYPE_CASCADE_WEB_AT_MENTION" },
+  { no: 3, name: "FEATURE_USAGE_TYPE_CASCADE_REVERT_TO_STEP" },
+  { no: 4, name: "FEATURE_USAGE_TYPE_CASCADE_CLICK_MODEL_SELECTOR" },
+  { no: 5, name: "FEATURE_USAGE_TYPE_CASCADE_MESSAGE_FEEDBACK" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.PlanMode
+ */
+export enum PlanMode {
+  /**
+   * @generated from enum value: PLAN_MODE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: PLAN_MODE_ON = 1;
+   */
+  ON = 1,
+
+  /**
+   * @generated from enum value: PLAN_MODE_OFF = 2;
+   */
+  OFF = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(PlanMode)
+proto3.util.setEnumType(PlanMode, "exa.codeium_common_pb.PlanMode", [
+  { no: 0, name: "PLAN_MODE_UNSPECIFIED" },
+  { no: 1, name: "PLAN_MODE_ON" },
+  { no: 2, name: "PLAN_MODE_OFF" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.AutoContinueOnMaxGeneratorInvocations
+ */
+export enum AutoContinueOnMaxGeneratorInvocations {
+  /**
+   * @generated from enum value: AUTO_CONTINUE_ON_MAX_GENERATOR_INVOCATIONS_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: AUTO_CONTINUE_ON_MAX_GENERATOR_INVOCATIONS_ENABLED = 1;
+   */
+  ENABLED = 1,
+
+  /**
+   * @generated from enum value: AUTO_CONTINUE_ON_MAX_GENERATOR_INVOCATIONS_DISABLED = 2;
+   */
+  DISABLED = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(AutoContinueOnMaxGeneratorInvocations)
+proto3.util.setEnumType(AutoContinueOnMaxGeneratorInvocations, "exa.codeium_common_pb.AutoContinueOnMaxGeneratorInvocations", [
+  { no: 0, name: "AUTO_CONTINUE_ON_MAX_GENERATOR_INVOCATIONS_UNSPECIFIED" },
+  { no: 1, name: "AUTO_CONTINUE_ON_MAX_GENERATOR_INVOCATIONS_ENABLED" },
+  { no: 2, name: "AUTO_CONTINUE_ON_MAX_GENERATOR_INVOCATIONS_DISABLED" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.CascadeNUXLocation
+ */
+export enum CascadeNUXLocation {
+  /**
+   * @generated from enum value: CASCADE_NUX_LOCATION_UNSPECIFIED = 0;
+   */
+  CASCADE_NUX_LOCATION_UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_LOCATION_CASCADE_INPUT = 1;
+   */
+  CASCADE_NUX_LOCATION_CASCADE_INPUT = 1,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_LOCATION_MODEL_SELECTOR = 2;
+   */
+  CASCADE_NUX_LOCATION_MODEL_SELECTOR = 2,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_LOCATION_RULES_TAB = 4;
+   */
+  CASCADE_NUX_LOCATION_RULES_TAB = 4,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_LOCATION_REVERT_STEP = 6;
+   */
+  CASCADE_NUX_LOCATION_REVERT_STEP = 6,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_LOCATION_PLAN_MODE = 7;
+   */
+  CASCADE_NUX_LOCATION_PLAN_MODE = 7,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_LOCATION_WRITE_CHAT_MODE = 8;
+   */
+  CASCADE_NUX_LOCATION_WRITE_CHAT_MODE = 8,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_LOCATION_TOOLBAR = 9;
+   */
+  CASCADE_NUX_LOCATION_TOOLBAR = 9,
+}
+// Retrieve enum metadata with: proto3.getEnumType(CascadeNUXLocation)
+proto3.util.setEnumType(CascadeNUXLocation, "exa.codeium_common_pb.CascadeNUXLocation", [
+  { no: 0, name: "CASCADE_NUX_LOCATION_UNSPECIFIED" },
+  { no: 1, name: "CASCADE_NUX_LOCATION_CASCADE_INPUT" },
+  { no: 2, name: "CASCADE_NUX_LOCATION_MODEL_SELECTOR" },
+  { no: 4, name: "CASCADE_NUX_LOCATION_RULES_TAB" },
+  { no: 6, name: "CASCADE_NUX_LOCATION_REVERT_STEP" },
+  { no: 7, name: "CASCADE_NUX_LOCATION_PLAN_MODE" },
+  { no: 8, name: "CASCADE_NUX_LOCATION_WRITE_CHAT_MODE" },
+  { no: 9, name: "CASCADE_NUX_LOCATION_TOOLBAR" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.CascadeNUXIcon
+ */
+export enum CascadeNUXIcon {
+  /**
+   * @generated from enum value: CASCADE_NUX_ICON_UNSPECIFIED = 0;
+   */
+  CASCADE_NUX_ICON_UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_ICON_WEB_SEARCH = 1;
+   */
+  CASCADE_NUX_ICON_WEB_SEARCH = 1,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_ICON_WINDSURF_BROWSER = 2;
+   */
+  CASCADE_NUX_ICON_WINDSURF_BROWSER = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(CascadeNUXIcon)
+proto3.util.setEnumType(CascadeNUXIcon, "exa.codeium_common_pb.CascadeNUXIcon", [
+  { no: 0, name: "CASCADE_NUX_ICON_UNSPECIFIED" },
+  { no: 1, name: "CASCADE_NUX_ICON_WEB_SEARCH" },
+  { no: 2, name: "CASCADE_NUX_ICON_WINDSURF_BROWSER" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.CascadeNUXTrigger
+ */
+export enum CascadeNUXTrigger {
+  /**
+   * @generated from enum value: CASCADE_NUX_TRIGGER_UNSPECIFIED = 0;
+   */
+  CASCADE_NUX_TRIGGER_UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_TRIGGER_PRODUCED_CODE_DIFF = 1;
+   */
+  CASCADE_NUX_TRIGGER_PRODUCED_CODE_DIFF = 1,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_TRIGGER_OPEN_BROWSER_URL = 3;
+   */
+  CASCADE_NUX_TRIGGER_OPEN_BROWSER_URL = 3,
+
+  /**
+   * @generated from enum value: CASCADE_NUX_TRIGGER_WEB_SEARCH = 4;
+   */
+  CASCADE_NUX_TRIGGER_WEB_SEARCH = 4,
+}
+// Retrieve enum metadata with: proto3.getEnumType(CascadeNUXTrigger)
+proto3.util.setEnumType(CascadeNUXTrigger, "exa.codeium_common_pb.CascadeNUXTrigger", [
+  { no: 0, name: "CASCADE_NUX_TRIGGER_UNSPECIFIED" },
+  { no: 1, name: "CASCADE_NUX_TRIGGER_PRODUCED_CODE_DIFF" },
+  { no: 3, name: "CASCADE_NUX_TRIGGER_OPEN_BROWSER_URL" },
+  { no: 4, name: "CASCADE_NUX_TRIGGER_WEB_SEARCH" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.AnnotationsConfig
+ */
+export enum AnnotationsConfig {
+  /**
+   * @generated from enum value: ANNOTATIONS_CONFIG_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: ANNOTATIONS_CONFIG_ENABLED = 1;
+   */
+  ENABLED = 1,
+
+  /**
+   * @generated from enum value: ANNOTATIONS_CONFIG_DISABLED = 2;
+   */
+  DISABLED = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(AnnotationsConfig)
+proto3.util.setEnumType(AnnotationsConfig, "exa.codeium_common_pb.AnnotationsConfig", [
+  { no: 0, name: "ANNOTATIONS_CONFIG_UNSPECIFIED" },
+  { no: 1, name: "ANNOTATIONS_CONFIG_ENABLED" },
+  { no: 2, name: "ANNOTATIONS_CONFIG_DISABLED" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.BrowserExperimentalFeaturesConfig
+ */
+export enum BrowserExperimentalFeaturesConfig {
+  /**
+   * @generated from enum value: BROWSER_EXPERIMENTAL_FEATURES_CONFIG_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: BROWSER_EXPERIMENTAL_FEATURES_CONFIG_ENABLED = 1;
+   */
+  ENABLED = 1,
+
+  /**
+   * @generated from enum value: BROWSER_EXPERIMENTAL_FEATURES_CONFIG_DISABLED = 2;
+   */
+  DISABLED = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(BrowserExperimentalFeaturesConfig)
+proto3.util.setEnumType(BrowserExperimentalFeaturesConfig, "exa.codeium_common_pb.BrowserExperimentalFeaturesConfig", [
+  { no: 0, name: "BROWSER_EXPERIMENTAL_FEATURES_CONFIG_UNSPECIFIED" },
+  { no: 1, name: "BROWSER_EXPERIMENTAL_FEATURES_CONFIG_ENABLED" },
+  { no: 2, name: "BROWSER_EXPERIMENTAL_FEATURES_CONFIG_DISABLED" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.ModelType
+ */
+export enum ModelType {
+  /**
+   * @generated from enum value: MODEL_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: MODEL_TYPE_COMPLETION = 1;
+   */
+  COMPLETION = 1,
+
+  /**
+   * @generated from enum value: MODEL_TYPE_CHAT = 2;
+   */
+  CHAT = 2,
+
+  /**
+   * @generated from enum value: MODEL_TYPE_EMBED = 3;
+   */
+  EMBED = 3,
+
+  /**
+   * @generated from enum value: MODEL_TYPE_QUERY = 4;
+   */
+  QUERY = 4,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ModelType)
+proto3.util.setEnumType(ModelType, "exa.codeium_common_pb.ModelType", [
+  { no: 0, name: "MODEL_TYPE_UNSPECIFIED" },
+  { no: 1, name: "MODEL_TYPE_COMPLETION" },
+  { no: 2, name: "MODEL_TYPE_CHAT" },
+  { no: 3, name: "MODEL_TYPE_EMBED" },
+  { no: 4, name: "MODEL_TYPE_QUERY" },
 ]);
 
 /**
@@ -2061,54 +5979,8514 @@ proto3.util.setEnumType(APIProvider, "exa.codeium_common_pb.APIProvider", [
 ]);
 
 /**
- * @generated from enum exa.codeium_common_pb.ModelAlias
+ * @generated from enum exa.codeium_common_pb.ModelStatus
  */
-export enum ModelAlias {
+export enum ModelStatus {
   /**
-   * @generated from enum value: MODEL_ALIAS_UNSPECIFIED = 0;
+   * @generated from enum value: MODEL_STATUS_UNSPECIFIED = 0;
    */
   UNSPECIFIED = 0,
 
   /**
-   * @generated from enum value: MODEL_ALIAS_CASCADE_BASE = 1;
+   * @generated from enum value: MODEL_STATUS_INFO = 1;
    */
-  CASCADE_BASE = 1,
+  INFO = 1,
 
   /**
-   * @generated from enum value: MODEL_ALIAS_VISTA = 3;
+   * @generated from enum value: MODEL_STATUS_WARNING = 2;
    */
-  VISTA = 3,
-
-  /**
-   * @generated from enum value: MODEL_ALIAS_SHAMU = 4;
-   */
-  SHAMU = 4,
-
-  /**
-   * @generated from enum value: MODEL_ALIAS_SWE_1 = 5;
-   */
-  SWE_1 = 5,
-
-  /**
-   * @generated from enum value: MODEL_ALIAS_SWE_1_LITE = 6;
-   */
-  SWE_1_LITE = 6,
-
-  /**
-   * @generated from enum value: MODEL_ALIAS_AUTO = 7;
-   */
-  AUTO = 7,
+  WARNING = 2,
 }
-// Retrieve enum metadata with: proto3.getEnumType(ModelAlias)
-proto3.util.setEnumType(ModelAlias, "exa.codeium_common_pb.ModelAlias", [
-  { no: 0, name: "MODEL_ALIAS_UNSPECIFIED" },
-  { no: 1, name: "MODEL_ALIAS_CASCADE_BASE" },
-  { no: 3, name: "MODEL_ALIAS_VISTA" },
-  { no: 4, name: "MODEL_ALIAS_SHAMU" },
-  { no: 5, name: "MODEL_ALIAS_SWE_1" },
-  { no: 6, name: "MODEL_ALIAS_SWE_1_LITE" },
-  { no: 7, name: "MODEL_ALIAS_AUTO" },
+// Retrieve enum metadata with: proto3.getEnumType(ModelStatus)
+proto3.util.setEnumType(ModelStatus, "exa.codeium_common_pb.ModelStatus", [
+  { no: 0, name: "MODEL_STATUS_UNSPECIFIED" },
+  { no: 1, name: "MODEL_STATUS_INFO" },
+  { no: 2, name: "MODEL_STATUS_WARNING" },
 ]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.CodeSource
+ */
+export enum CodeSource {
+  /**
+   * @generated from enum value: CODE_SOURCE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CODE_SOURCE_BASE = 1;
+   */
+  BASE = 1,
+
+  /**
+   * @generated from enum value: CODE_SOURCE_CODEIUM = 2;
+   */
+  CODEIUM = 2,
+
+  /**
+   * @generated from enum value: CODE_SOURCE_USER = 3;
+   */
+  USER = 3,
+
+  /**
+   * @generated from enum value: CODE_SOURCE_USER_LARGE = 4;
+   */
+  USER_LARGE = 4,
+
+  /**
+   * @generated from enum value: CODE_SOURCE_UNKNOWN = 5;
+   */
+  UNKNOWN = 5,
+}
+// Retrieve enum metadata with: proto3.getEnumType(CodeSource)
+proto3.util.setEnumType(CodeSource, "exa.codeium_common_pb.CodeSource", [
+  { no: 0, name: "CODE_SOURCE_UNSPECIFIED" },
+  { no: 1, name: "CODE_SOURCE_BASE" },
+  { no: 2, name: "CODE_SOURCE_CODEIUM" },
+  { no: 3, name: "CODE_SOURCE_USER" },
+  { no: 4, name: "CODE_SOURCE_USER_LARGE" },
+  { no: 5, name: "CODE_SOURCE_UNKNOWN" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.DocumentType
+ */
+export enum DocumentType {
+  /**
+   * @generated from enum value: DOCUMENT_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: DOCUMENT_TYPE_SLACK_MESSAGE = 1;
+   */
+  SLACK_MESSAGE = 1,
+
+  /**
+   * @generated from enum value: DOCUMENT_TYPE_SLACK_CHANNEL = 2;
+   */
+  SLACK_CHANNEL = 2,
+
+  /**
+   * @generated from enum value: DOCUMENT_TYPE_GITHUB_ISSUE = 3;
+   */
+  GITHUB_ISSUE = 3,
+
+  /**
+   * @generated from enum value: DOCUMENT_TYPE_GITHUB_ISSUE_COMMENT = 4;
+   */
+  GITHUB_ISSUE_COMMENT = 4,
+
+  /**
+   * @generated from enum value: DOCUMENT_TYPE_GOOGLE_DRIVE_FILE = 5;
+   */
+  GOOGLE_DRIVE_FILE = 5,
+
+  /**
+   * @generated from enum value: DOCUMENT_TYPE_GOOGLE_DRIVE_FOLDER = 6;
+   */
+  GOOGLE_DRIVE_FOLDER = 6,
+
+  /**
+   * @generated from enum value: DOCUMENT_TYPE_JIRA_ISSUE = 7;
+   */
+  JIRA_ISSUE = 7,
+
+  /**
+   * @generated from enum value: DOCUMENT_TYPE_GITHUB_REPO = 8;
+   */
+  GITHUB_REPO = 8,
+
+  /**
+   * @generated from enum value: DOCUMENT_TYPE_CCI = 9;
+   */
+  CCI = 9,
+}
+// Retrieve enum metadata with: proto3.getEnumType(DocumentType)
+proto3.util.setEnumType(DocumentType, "exa.codeium_common_pb.DocumentType", [
+  { no: 0, name: "DOCUMENT_TYPE_UNSPECIFIED" },
+  { no: 1, name: "DOCUMENT_TYPE_SLACK_MESSAGE" },
+  { no: 2, name: "DOCUMENT_TYPE_SLACK_CHANNEL" },
+  { no: 3, name: "DOCUMENT_TYPE_GITHUB_ISSUE" },
+  { no: 4, name: "DOCUMENT_TYPE_GITHUB_ISSUE_COMMENT" },
+  { no: 5, name: "DOCUMENT_TYPE_GOOGLE_DRIVE_FILE" },
+  { no: 6, name: "DOCUMENT_TYPE_GOOGLE_DRIVE_FOLDER" },
+  { no: 7, name: "DOCUMENT_TYPE_JIRA_ISSUE" },
+  { no: 8, name: "DOCUMENT_TYPE_GITHUB_REPO" },
+  { no: 9, name: "DOCUMENT_TYPE_CCI" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.ContextScopeType
+ */
+export enum ContextScopeType {
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_FILE = 1;
+   */
+  FILE = 1,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_DIRECTORY = 2;
+   */
+  DIRECTORY = 2,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_REPOSITORY = 3;
+   */
+  REPOSITORY = 3,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_CODE_CONTEXT = 4;
+   */
+  CODE_CONTEXT = 4,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_CCI_WITH_SUBRANGE = 5;
+   */
+  CCI_WITH_SUBRANGE = 5,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_REPOSITORY_PATH = 6;
+   */
+  REPOSITORY_PATH = 6,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_SLACK = 7;
+   */
+  SLACK = 7,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_GITHUB = 8;
+   */
+  GITHUB = 8,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_FILE_LINE_RANGE = 9;
+   */
+  FILE_LINE_RANGE = 9,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_TEXT_BLOCK = 10;
+   */
+  TEXT_BLOCK = 10,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_JIRA = 11;
+   */
+  JIRA = 11,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_GOOGLE_DRIVE = 12;
+   */
+  GOOGLE_DRIVE = 12,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_CONSOLE_LOG = 13;
+   */
+  CONSOLE_LOG = 13,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_DOM_ELEMENT = 14;
+   */
+  DOM_ELEMENT = 14,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_RECIPE = 15;
+   */
+  RECIPE = 15,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_KNOWLEDGE = 16;
+   */
+  KNOWLEDGE = 16,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_RULE = 17;
+   */
+  RULE = 17,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_MCP_RESOURCE = 18;
+   */
+  MCP_RESOURCE = 18,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_BROWSER_PAGE = 19;
+   */
+  BROWSER_PAGE = 19,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_BROWSER_CODE_BLOCK = 20;
+   */
+  BROWSER_CODE_BLOCK = 20,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_BROWSER_TEXT = 21;
+   */
+  BROWSER_TEXT = 21,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_CONVERSATION = 22;
+   */
+  CONVERSATION = 22,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_USER_ACTIVITY = 23;
+   */
+  USER_ACTIVITY = 23,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_TERMINAL = 24;
+   */
+  TERMINAL = 24,
+
+  /**
+   * @generated from enum value: CONTEXT_SCOPE_TYPE_GITHUB_PULL_REQUEST = 25;
+   */
+  GITHUB_PULL_REQUEST = 25,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ContextScopeType)
+proto3.util.setEnumType(ContextScopeType, "exa.codeium_common_pb.ContextScopeType", [
+  { no: 0, name: "CONTEXT_SCOPE_TYPE_UNSPECIFIED" },
+  { no: 1, name: "CONTEXT_SCOPE_TYPE_FILE" },
+  { no: 2, name: "CONTEXT_SCOPE_TYPE_DIRECTORY" },
+  { no: 3, name: "CONTEXT_SCOPE_TYPE_REPOSITORY" },
+  { no: 4, name: "CONTEXT_SCOPE_TYPE_CODE_CONTEXT" },
+  { no: 5, name: "CONTEXT_SCOPE_TYPE_CCI_WITH_SUBRANGE" },
+  { no: 6, name: "CONTEXT_SCOPE_TYPE_REPOSITORY_PATH" },
+  { no: 7, name: "CONTEXT_SCOPE_TYPE_SLACK" },
+  { no: 8, name: "CONTEXT_SCOPE_TYPE_GITHUB" },
+  { no: 9, name: "CONTEXT_SCOPE_TYPE_FILE_LINE_RANGE" },
+  { no: 10, name: "CONTEXT_SCOPE_TYPE_TEXT_BLOCK" },
+  { no: 11, name: "CONTEXT_SCOPE_TYPE_JIRA" },
+  { no: 12, name: "CONTEXT_SCOPE_TYPE_GOOGLE_DRIVE" },
+  { no: 13, name: "CONTEXT_SCOPE_TYPE_CONSOLE_LOG" },
+  { no: 14, name: "CONTEXT_SCOPE_TYPE_DOM_ELEMENT" },
+  { no: 15, name: "CONTEXT_SCOPE_TYPE_RECIPE" },
+  { no: 16, name: "CONTEXT_SCOPE_TYPE_KNOWLEDGE" },
+  { no: 17, name: "CONTEXT_SCOPE_TYPE_RULE" },
+  { no: 18, name: "CONTEXT_SCOPE_TYPE_MCP_RESOURCE" },
+  { no: 19, name: "CONTEXT_SCOPE_TYPE_BROWSER_PAGE" },
+  { no: 20, name: "CONTEXT_SCOPE_TYPE_BROWSER_CODE_BLOCK" },
+  { no: 21, name: "CONTEXT_SCOPE_TYPE_BROWSER_TEXT" },
+  { no: 22, name: "CONTEXT_SCOPE_TYPE_CONVERSATION" },
+  { no: 23, name: "CONTEXT_SCOPE_TYPE_USER_ACTIVITY" },
+  { no: 24, name: "CONTEXT_SCOPE_TYPE_TERMINAL" },
+  { no: 25, name: "CONTEXT_SCOPE_TYPE_GITHUB_PULL_REQUEST" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.CommandRequestSource
+ */
+export enum CommandRequestSource {
+  /**
+   * @generated from enum value: COMMAND_REQUEST_SOURCE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: COMMAND_REQUEST_SOURCE_DEFAULT = 1;
+   */
+  DEFAULT = 1,
+
+  /**
+   * @generated from enum value: COMMAND_REQUEST_SOURCE_FUNCTION_CODE_LENS = 2;
+   */
+  FUNCTION_CODE_LENS = 2,
+
+  /**
+   * @generated from enum value: COMMAND_REQUEST_SOURCE_CLASS_CODE_LENS = 3;
+   */
+  CLASS_CODE_LENS = 3,
+
+  /**
+   * @generated from enum value: COMMAND_REQUEST_SOURCE_RIGHT_CLICK_REFACTOR = 4;
+   */
+  RIGHT_CLICK_REFACTOR = 4,
+
+  /**
+   * @generated from enum value: COMMAND_REQUEST_SOURCE_SELECTION_HINT_CODE_LENS = 5;
+   */
+  SELECTION_HINT_CODE_LENS = 5,
+
+  /**
+   * @generated from enum value: COMMAND_REQUEST_SOURCE_LINE_HINT_CODE_LENS = 6;
+   */
+  LINE_HINT_CODE_LENS = 6,
+
+  /**
+   * @generated from enum value: COMMAND_REQUEST_SOURCE_PLAN = 7;
+   */
+  PLAN = 7,
+
+  /**
+   * @generated from enum value: COMMAND_REQUEST_SOURCE_FOLLOWUP = 8;
+   */
+  FOLLOWUP = 8,
+
+  /**
+   * @generated from enum value: COMMAND_REQUEST_SOURCE_PASTE_AND_TRANSLATE = 9;
+   */
+  PASTE_AND_TRANSLATE = 9,
+
+  /**
+   * @generated from enum value: COMMAND_REQUEST_SOURCE_SUPERCOMPLETE = 10;
+   */
+  SUPERCOMPLETE = 10,
+
+  /**
+   * @generated from enum value: COMMAND_REQUEST_SOURCE_FUNCTION_DOCSTRING = 11;
+   */
+  FUNCTION_DOCSTRING = 11,
+
+  /**
+   * @generated from enum value: COMMAND_REQUEST_SOURCE_FAST_APPLY = 12;
+   */
+  FAST_APPLY = 12,
+
+  /**
+   * @generated from enum value: COMMAND_REQUEST_SOURCE_TERMINAL = 13;
+   */
+  TERMINAL = 13,
+
+  /**
+   * @generated from enum value: COMMAND_REQUEST_SOURCE_TAB_JUMP = 14;
+   */
+  TAB_JUMP = 14,
+
+  /**
+   * @generated from enum value: COMMAND_REQUEST_SOURCE_TERMINAL_SUGGESTIONS = 15;
+   */
+  TERMINAL_SUGGESTIONS = 15,
+
+  /**
+   * @generated from enum value: COMMAND_REQUEST_SOURCE_CASCADE_CHAT = 16;
+   */
+  CASCADE_CHAT = 16,
+}
+// Retrieve enum metadata with: proto3.getEnumType(CommandRequestSource)
+proto3.util.setEnumType(CommandRequestSource, "exa.codeium_common_pb.CommandRequestSource", [
+  { no: 0, name: "COMMAND_REQUEST_SOURCE_UNSPECIFIED" },
+  { no: 1, name: "COMMAND_REQUEST_SOURCE_DEFAULT" },
+  { no: 2, name: "COMMAND_REQUEST_SOURCE_FUNCTION_CODE_LENS" },
+  { no: 3, name: "COMMAND_REQUEST_SOURCE_CLASS_CODE_LENS" },
+  { no: 4, name: "COMMAND_REQUEST_SOURCE_RIGHT_CLICK_REFACTOR" },
+  { no: 5, name: "COMMAND_REQUEST_SOURCE_SELECTION_HINT_CODE_LENS" },
+  { no: 6, name: "COMMAND_REQUEST_SOURCE_LINE_HINT_CODE_LENS" },
+  { no: 7, name: "COMMAND_REQUEST_SOURCE_PLAN" },
+  { no: 8, name: "COMMAND_REQUEST_SOURCE_FOLLOWUP" },
+  { no: 9, name: "COMMAND_REQUEST_SOURCE_PASTE_AND_TRANSLATE" },
+  { no: 10, name: "COMMAND_REQUEST_SOURCE_SUPERCOMPLETE" },
+  { no: 11, name: "COMMAND_REQUEST_SOURCE_FUNCTION_DOCSTRING" },
+  { no: 12, name: "COMMAND_REQUEST_SOURCE_FAST_APPLY" },
+  { no: 13, name: "COMMAND_REQUEST_SOURCE_TERMINAL" },
+  { no: 14, name: "COMMAND_REQUEST_SOURCE_TAB_JUMP" },
+  { no: 15, name: "COMMAND_REQUEST_SOURCE_TERMINAL_SUGGESTIONS" },
+  { no: 16, name: "COMMAND_REQUEST_SOURCE_CASCADE_CHAT" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.StatusLevel
+ */
+export enum StatusLevel {
+  /**
+   * @generated from enum value: STATUS_LEVEL_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: STATUS_LEVEL_ERROR = 1;
+   */
+  ERROR = 1,
+
+  /**
+   * @generated from enum value: STATUS_LEVEL_WARNING = 2;
+   */
+  WARNING = 2,
+
+  /**
+   * @generated from enum value: STATUS_LEVEL_INFO = 3;
+   */
+  INFO = 3,
+
+  /**
+   * @generated from enum value: STATUS_LEVEL_DEBUG = 4;
+   */
+  DEBUG = 4,
+}
+// Retrieve enum metadata with: proto3.getEnumType(StatusLevel)
+proto3.util.setEnumType(StatusLevel, "exa.codeium_common_pb.StatusLevel", [
+  { no: 0, name: "STATUS_LEVEL_UNSPECIFIED" },
+  { no: 1, name: "STATUS_LEVEL_ERROR" },
+  { no: 2, name: "STATUS_LEVEL_WARNING" },
+  { no: 3, name: "STATUS_LEVEL_INFO" },
+  { no: 4, name: "STATUS_LEVEL_DEBUG" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.CortexErrorCategory
+ */
+export enum CortexErrorCategory {
+  /**
+   * @generated from enum value: CORTEX_ERROR_CATEGORY_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CORTEX_ERROR_CATEGORY_OVERALL = 1;
+   */
+  OVERALL = 1,
+
+  /**
+   * @generated from enum value: CORTEX_ERROR_CATEGORY_ACTION_PREPARE = 2;
+   */
+  ACTION_PREPARE = 2,
+
+  /**
+   * @generated from enum value: CORTEX_ERROR_CATEGORY_ACTION_APPLY = 3;
+   */
+  ACTION_APPLY = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(CortexErrorCategory)
+proto3.util.setEnumType(CortexErrorCategory, "exa.codeium_common_pb.CortexErrorCategory", [
+  { no: 0, name: "CORTEX_ERROR_CATEGORY_UNSPECIFIED" },
+  { no: 1, name: "CORTEX_ERROR_CATEGORY_OVERALL" },
+  { no: 2, name: "CORTEX_ERROR_CATEGORY_ACTION_PREPARE" },
+  { no: 3, name: "CORTEX_ERROR_CATEGORY_ACTION_APPLY" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.LastUpdateType
+ */
+export enum LastUpdateType {
+  /**
+   * @generated from enum value: LAST_UPDATE_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: LAST_UPDATE_TYPE_OVERALL = 1;
+   */
+  OVERALL = 1,
+
+  /**
+   * @generated from enum value: LAST_UPDATE_TYPE_LAST_AUTOCOMPLETE_USAGE_TIME = 2;
+   */
+  LAST_AUTOCOMPLETE_USAGE_TIME = 2,
+
+  /**
+   * @generated from enum value: LAST_UPDATE_TYPE_LAST_CHAT_USAGE_TIME = 3;
+   */
+  LAST_CHAT_USAGE_TIME = 3,
+
+  /**
+   * @generated from enum value: LAST_UPDATE_TYPE_LAST_COMMAND_USAGE_TIME = 4;
+   */
+  LAST_COMMAND_USAGE_TIME = 4,
+}
+// Retrieve enum metadata with: proto3.getEnumType(LastUpdateType)
+proto3.util.setEnumType(LastUpdateType, "exa.codeium_common_pb.LastUpdateType", [
+  { no: 0, name: "LAST_UPDATE_TYPE_UNSPECIFIED" },
+  { no: 1, name: "LAST_UPDATE_TYPE_OVERALL" },
+  { no: 2, name: "LAST_UPDATE_TYPE_LAST_AUTOCOMPLETE_USAGE_TIME" },
+  { no: 3, name: "LAST_UPDATE_TYPE_LAST_CHAT_USAGE_TIME" },
+  { no: 4, name: "LAST_UPDATE_TYPE_LAST_COMMAND_USAGE_TIME" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.OnboardingActionType
+ */
+export enum OnboardingActionType {
+  /**
+   * @generated from enum value: ONBOARDING_ACTION_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: ONBOARDING_ACTION_TYPE_AUTOCOMPLETE = 1;
+   */
+  AUTOCOMPLETE = 1,
+
+  /**
+   * @generated from enum value: ONBOARDING_ACTION_TYPE_COMMAND = 2;
+   */
+  COMMAND = 2,
+
+  /**
+   * @generated from enum value: ONBOARDING_ACTION_TYPE_CHAT = 3;
+   */
+  CHAT = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(OnboardingActionType)
+proto3.util.setEnumType(OnboardingActionType, "exa.codeium_common_pb.OnboardingActionType", [
+  { no: 0, name: "ONBOARDING_ACTION_TYPE_UNSPECIFIED" },
+  { no: 1, name: "ONBOARDING_ACTION_TYPE_AUTOCOMPLETE" },
+  { no: 2, name: "ONBOARDING_ACTION_TYPE_COMMAND" },
+  { no: 3, name: "ONBOARDING_ACTION_TYPE_CHAT" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.SupercompleteTriggerCondition
+ */
+export enum SupercompleteTriggerCondition {
+  /**
+   * @generated from enum value: SUPERCOMPLETE_TRIGGER_CONDITION_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_TRIGGER_CONDITION_AUTOCOMPLETE_ACCEPT = 1;
+   */
+  AUTOCOMPLETE_ACCEPT = 1,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_TRIGGER_CONDITION_CURSOR_LINE_NAVIGATION = 2;
+   */
+  CURSOR_LINE_NAVIGATION = 2,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_TRIGGER_CONDITION_TYPING = 3;
+   */
+  TYPING = 3,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_TRIGGER_CONDITION_FORCED = 4;
+   */
+  FORCED = 4,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_TRIGGER_CONDITION_TAB_JUMP_ACCEPT = 5;
+   */
+  TAB_JUMP_ACCEPT = 5,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_TRIGGER_CONDITION_SUPERCOMPLETE_ACCEPT = 6;
+   */
+  SUPERCOMPLETE_ACCEPT = 6,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_TRIGGER_CONDITION_TAB_JUMP_PREDICTIVE = 7;
+   */
+  TAB_JUMP_PREDICTIVE = 7,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_TRIGGER_CONDITION_AUTOCOMPLETE_PREDICTIVE = 8;
+   */
+  AUTOCOMPLETE_PREDICTIVE = 8,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_TRIGGER_CONDITION_SUPERCOMPLETE_PREDICTIVE = 9;
+   */
+  SUPERCOMPLETE_PREDICTIVE = 9,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_TRIGGER_CONDITION_TAB_JUMP_EDIT = 10;
+   */
+  TAB_JUMP_EDIT = 10,
+}
+// Retrieve enum metadata with: proto3.getEnumType(SupercompleteTriggerCondition)
+proto3.util.setEnumType(SupercompleteTriggerCondition, "exa.codeium_common_pb.SupercompleteTriggerCondition", [
+  { no: 0, name: "SUPERCOMPLETE_TRIGGER_CONDITION_UNSPECIFIED" },
+  { no: 1, name: "SUPERCOMPLETE_TRIGGER_CONDITION_AUTOCOMPLETE_ACCEPT" },
+  { no: 2, name: "SUPERCOMPLETE_TRIGGER_CONDITION_CURSOR_LINE_NAVIGATION" },
+  { no: 3, name: "SUPERCOMPLETE_TRIGGER_CONDITION_TYPING" },
+  { no: 4, name: "SUPERCOMPLETE_TRIGGER_CONDITION_FORCED" },
+  { no: 5, name: "SUPERCOMPLETE_TRIGGER_CONDITION_TAB_JUMP_ACCEPT" },
+  { no: 6, name: "SUPERCOMPLETE_TRIGGER_CONDITION_SUPERCOMPLETE_ACCEPT" },
+  { no: 7, name: "SUPERCOMPLETE_TRIGGER_CONDITION_TAB_JUMP_PREDICTIVE" },
+  { no: 8, name: "SUPERCOMPLETE_TRIGGER_CONDITION_AUTOCOMPLETE_PREDICTIVE" },
+  { no: 9, name: "SUPERCOMPLETE_TRIGGER_CONDITION_SUPERCOMPLETE_PREDICTIVE" },
+  { no: 10, name: "SUPERCOMPLETE_TRIGGER_CONDITION_TAB_JUMP_EDIT" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.ProductEventType
+ */
+export enum ProductEventType {
+  /**
+   * @generated from enum value: EVENT_UNSPECIFIED = 0;
+   */
+  EVENT_UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: LS_DOWNLOAD_START = 1;
+   */
+  LS_DOWNLOAD_START = 1,
+
+  /**
+   * @generated from enum value: LS_DOWNLOAD_COMPLETE = 2;
+   */
+  LS_DOWNLOAD_COMPLETE = 2,
+
+  /**
+   * @generated from enum value: LS_STARTUP = 3;
+   */
+  LS_STARTUP = 3,
+
+  /**
+   * @generated from enum value: LS_FAILURE = 4;
+   */
+  LS_FAILURE = 4,
+
+  /**
+   * @generated from enum value: LS_DOWNLOAD_FAILURE = 5;
+   */
+  LS_DOWNLOAD_FAILURE = 5,
+
+  /**
+   * @generated from enum value: AUTOCOMPLETE_ACCEPTED = 6;
+   */
+  AUTOCOMPLETE_ACCEPTED = 6,
+
+  /**
+   * @generated from enum value: AUTOCOMPLETE_ONE_WORD_ACCEPTED = 7;
+   */
+  AUTOCOMPLETE_ONE_WORD_ACCEPTED = 7,
+
+  /**
+   * @generated from enum value: CHAT_MESSAGE_SENT = 8;
+   */
+  CHAT_MESSAGE_SENT = 8,
+
+  /**
+   * @generated from enum value: COMMAND_BOX_OPENED = 9;
+   */
+  COMMAND_BOX_OPENED = 9,
+
+  /**
+   * @generated from enum value: COMMAND_SUBMITTED = 10;
+   */
+  COMMAND_SUBMITTED = 10,
+
+  /**
+   * @generated from enum value: COMMAND_ACCEPTED = 11;
+   */
+  COMMAND_ACCEPTED = 11,
+
+  /**
+   * @generated from enum value: COMMAND_REJECTED = 12;
+   */
+  COMMAND_REJECTED = 12,
+
+  /**
+   * @generated from enum value: CHAT_MENTION_INSERT = 13;
+   */
+  CHAT_MENTION_INSERT = 13,
+
+  /**
+   * @generated from enum value: CHAT_OPEN_SETTINGS = 14;
+   */
+  CHAT_OPEN_SETTINGS = 14,
+
+  /**
+   * @generated from enum value: CHAT_OPEN_CONTEXT_SETTINGS = 15;
+   */
+  CHAT_OPEN_CONTEXT_SETTINGS = 15,
+
+  /**
+   * @generated from enum value: CHAT_WITH_CODEBASE = 16;
+   */
+  CHAT_WITH_CODEBASE = 16,
+
+  /**
+   * @generated from enum value: CHAT_NEW_CONVERSATION = 17;
+   */
+  CHAT_NEW_CONVERSATION = 17,
+
+  /**
+   * @generated from enum value: CHAT_CHANGE_MODEL = 18;
+   */
+  CHAT_CHANGE_MODEL = 18,
+
+  /**
+   * @generated from enum value: CHAT_MENTION_MENU_OPEN = 19;
+   */
+  CHAT_MENTION_MENU_OPEN = 19,
+
+  /**
+   * @generated from enum value: WS_ONBOARDING_LANDING_PAGE_OPENED = 20;
+   */
+  WS_ONBOARDING_LANDING_PAGE_OPENED = 20,
+
+  /**
+   * @generated from enum value: WS_ONBOARDING_SETUP_PAGE_OPENED = 21;
+   */
+  WS_ONBOARDING_SETUP_PAGE_OPENED = 21,
+
+  /**
+   * @generated from enum value: WS_ONBOARDING_KEYBINDINGS_PAGE_OPENED = 22;
+   */
+  WS_ONBOARDING_KEYBINDINGS_PAGE_OPENED = 22,
+
+  /**
+   * @generated from enum value: WS_ONBOARDING_MIGRATION_SCOPE_PAGE_OPENED = 23;
+   */
+  WS_ONBOARDING_MIGRATION_SCOPE_PAGE_OPENED = 23,
+
+  /**
+   * @generated from enum value: WS_ONBOARDING_IMPORT_PAGE_OPENED = 24;
+   */
+  WS_ONBOARDING_IMPORT_PAGE_OPENED = 24,
+
+  /**
+   * @generated from enum value: WS_ONBOARDING_AUTH_PAGE_OPENED = 25;
+   */
+  WS_ONBOARDING_AUTH_PAGE_OPENED = 25,
+
+  /**
+   * @generated from enum value: WS_ONBOARDING_AUTH_MANUAL_PAGE_OPENED = 26;
+   */
+  WS_ONBOARDING_AUTH_MANUAL_PAGE_OPENED = 26,
+
+  /**
+   * @generated from enum value: WS_ONBOARDING_COMPLETED = 27;
+   */
+  WS_ONBOARDING_COMPLETED = 27,
+
+  /**
+   * @generated from enum value: FUNCTION_REFACTOR = 28;
+   */
+  FUNCTION_REFACTOR = 28,
+
+  /**
+   * @generated from enum value: EXPLAIN_CODE_BLOCK = 29;
+   */
+  EXPLAIN_CODE_BLOCK = 29,
+
+  /**
+   * @generated from enum value: FUNCTION_ADD_DOCSTRING = 30;
+   */
+  FUNCTION_ADD_DOCSTRING = 30,
+
+  /**
+   * @generated from enum value: EXPLAIN_PROBLEM = 31;
+   */
+  EXPLAIN_PROBLEM = 31,
+
+  /**
+   * @generated from enum value: WINDSURF_EXTENSION_ACTIVATED = 32;
+   */
+  WINDSURF_EXTENSION_ACTIVATED = 32,
+
+  /**
+   * @generated from enum value: PROVIDE_FEEDBACK = 33;
+   */
+  PROVIDE_FEEDBACK = 33,
+
+  /**
+   * @generated from enum value: CHAT_TOGGLE_FOCUS_INSERT_TEXT = 34;
+   */
+  CHAT_TOGGLE_FOCUS_INSERT_TEXT = 34,
+
+  /**
+   * @generated from enum value: WS_ONBOARDING_CHOOSE_THEME_PAGE_OPENED = 35;
+   */
+  WS_ONBOARDING_CHOOSE_THEME_PAGE_OPENED = 35,
+
+  /**
+   * @generated from enum value: CASCADE_MESSAGE_SENT = 36;
+   */
+  CASCADE_MESSAGE_SENT = 36,
+
+  /**
+   * @generated from enum value: OPEN_CHANGELOG = 37;
+   */
+  OPEN_CHANGELOG = 37,
+
+  /**
+   * @generated from enum value: WS_OPEN_CASCADE_MEMORIES_PANEL = 38;
+   */
+  WS_OPEN_CASCADE_MEMORIES_PANEL = 38,
+
+  /**
+   * @generated from enum value: CURSOR_DETECTED = 39;
+   */
+  CURSOR_DETECTED = 39,
+
+  /**
+   * @generated from enum value: VSCODE_DETECTED = 40;
+   */
+  VSCODE_DETECTED = 40,
+
+  /**
+   * @generated from enum value: PROVIDE_MESSAGE_FEEDBACK = 41;
+   */
+  PROVIDE_MESSAGE_FEEDBACK = 41,
+
+  /**
+   * @generated from enum value: CASCADE_MEMORY_DELETED = 42;
+   */
+  CASCADE_MEMORY_DELETED = 42,
+
+  /**
+   * @generated from enum value: CASCADE_STEP_COMPLETED = 43;
+   */
+  CASCADE_STEP_COMPLETED = 43,
+
+  /**
+   * @generated from enum value: ACKNOWLEDGE_CASCADE_CODE_EDIT = 44;
+   */
+  ACKNOWLEDGE_CASCADE_CODE_EDIT = 44,
+
+  /**
+   * @generated from enum value: CASCADE_WEB_TOOLS_OPEN_READ_URL_MARKDOWN = 45;
+   */
+  CASCADE_WEB_TOOLS_OPEN_READ_URL_MARKDOWN = 45,
+
+  /**
+   * @generated from enum value: CASCADE_WEB_TOOLS_OPEN_CHUNK_MARKDOWN = 46;
+   */
+  CASCADE_WEB_TOOLS_OPEN_CHUNK_MARKDOWN = 46,
+
+  /**
+   * @generated from enum value: CROSS_SELL_EXTENSION_DOWNLOAD_WINDSURF_CLICK = 47;
+   */
+  CROSS_SELL_EXTENSION_DOWNLOAD_WINDSURF_CLICK = 47,
+
+  /**
+   * @generated from enum value: CROSS_SELL_EXTENSION_DOWNLOAD_WINDSURF_NUDGE_IMPRESSION = 48;
+   */
+  CROSS_SELL_EXTENSION_DOWNLOAD_WINDSURF_NUDGE_IMPRESSION = 48,
+
+  /**
+   * @generated from enum value: WS_PROBLEMS_TAB_SEND_ALL_TO_CASCADE = 49;
+   */
+  WS_PROBLEMS_TAB_SEND_ALL_TO_CASCADE = 49,
+
+  /**
+   * @generated from enum value: WS_PROBLEMS_TAB_SEND_ALL_IN_FILE_TO_CASCADE = 50;
+   */
+  WS_PROBLEMS_TAB_SEND_ALL_IN_FILE_TO_CASCADE = 50,
+
+  /**
+   * @generated from enum value: WS_CASCADE_BAR_FILE_NAV = 51;
+   */
+  WS_CASCADE_BAR_FILE_NAV = 51,
+
+  /**
+   * @generated from enum value: WS_CASCADE_BAR_HUNK_NAV = 52;
+   */
+  WS_CASCADE_BAR_HUNK_NAV = 52,
+
+  /**
+   * @generated from enum value: WS_CASCADE_BAR_ACCEPT_FILE = 53;
+   */
+  WS_CASCADE_BAR_ACCEPT_FILE = 53,
+
+  /**
+   * @generated from enum value: WS_CASCADE_BAR_REJECT_FILE = 54;
+   */
+  WS_CASCADE_BAR_REJECT_FILE = 54,
+
+  /**
+   * @generated from enum value: WS_CUSTOM_APP_ICON_MODAL_OPEN = 55;
+   */
+  WS_CUSTOM_APP_ICON_MODAL_OPEN = 55,
+
+  /**
+   * @generated from enum value: WS_CUSTOM_APP_ICON_SELECT_CLASSIC = 56;
+   */
+  WS_CUSTOM_APP_ICON_SELECT_CLASSIC = 56,
+
+  /**
+   * @generated from enum value: WS_CUSTOM_APP_ICON_SELECT_CLASSIC_LIGHT = 57;
+   */
+  WS_CUSTOM_APP_ICON_SELECT_CLASSIC_LIGHT = 57,
+
+  /**
+   * @generated from enum value: WS_CUSTOM_APP_ICON_SELECT_RETRO = 58;
+   */
+  WS_CUSTOM_APP_ICON_SELECT_RETRO = 58,
+
+  /**
+   * @generated from enum value: WS_CUSTOM_APP_ICON_SELECT_BLUEPRINT = 59;
+   */
+  WS_CUSTOM_APP_ICON_SELECT_BLUEPRINT = 59,
+
+  /**
+   * @generated from enum value: WS_CUSTOM_APP_ICON_SELECT_HAND_DRAWN = 60;
+   */
+  WS_CUSTOM_APP_ICON_SELECT_HAND_DRAWN = 60,
+
+  /**
+   * @generated from enum value: WS_CUSTOM_APP_ICON_SELECT_SUNSET = 61;
+   */
+  WS_CUSTOM_APP_ICON_SELECT_SUNSET = 61,
+
+  /**
+   * @generated from enum value: CLICKED_TO_CONFIGURE_MCP = 62;
+   */
+  CLICKED_TO_CONFIGURE_MCP = 62,
+
+  /**
+   * @generated from enum value: ENTERED_MCP_TOOLBAR_TAB = 63;
+   */
+  ENTERED_MCP_TOOLBAR_TAB = 63,
+
+  /**
+   * @generated from enum value: CASCADE_MCP_SERVER_INIT = 64;
+   */
+  CASCADE_MCP_SERVER_INIT = 64,
+
+  /**
+   * @generated from enum value: CASCADE_CLICK_EVENT = 65;
+   */
+  CASCADE_CLICK_EVENT = 65,
+
+  /**
+   * @generated from enum value: WS_CUSTOM_APP_ICON_SELECT_VALENTINE = 66;
+   */
+  WS_CUSTOM_APP_ICON_SELECT_VALENTINE = 66,
+
+  /**
+   * @generated from enum value: CASCADE_IMPRESSION_EVENT = 67;
+   */
+  CASCADE_IMPRESSION_EVENT = 67,
+
+  /**
+   * @generated from enum value: WS_SETTINGS_UPDATED = 68;
+   */
+  WS_SETTINGS_UPDATED = 68,
+
+  /**
+   * @generated from enum value: WS_SKIPPED_ONBOARDING = 69;
+   */
+  WS_SKIPPED_ONBOARDING = 69,
+
+  /**
+   * @generated from enum value: BROWSER_PREVIEW_DOM_ELEMENT = 70;
+   */
+  BROWSER_PREVIEW_DOM_ELEMENT = 70,
+
+  /**
+   * @generated from enum value: BROWSER_PREVIEW_CONSOLE_OUTPUT = 71;
+   */
+  BROWSER_PREVIEW_CONSOLE_OUTPUT = 71,
+
+  /**
+   * @generated from enum value: WS_SETTINGS_PAGE_OPEN = 72;
+   */
+  WS_SETTINGS_PAGE_OPEN = 72,
+
+  /**
+   * @generated from enum value: WS_SETTINGS_PAGE_OPEN_WITH_SETTING_FOCUS = 73;
+   */
+  WS_SETTINGS_PAGE_OPEN_WITH_SETTING_FOCUS = 73,
+
+  /**
+   * @generated from enum value: WS_SETTINGS_CHANGED_BY_USER = 74;
+   */
+  WS_SETTINGS_CHANGED_BY_USER = 74,
+
+  /**
+   * @generated from enum value: WS_GENERATE_COMMIT_MESSAGE_CLICKED = 75;
+   */
+  WS_GENERATE_COMMIT_MESSAGE_CLICKED = 75,
+
+  /**
+   * @generated from enum value: WS_GENERATE_COMMIT_MESSAGE_ERRORED = 76;
+   */
+  WS_GENERATE_COMMIT_MESSAGE_ERRORED = 76,
+
+  /**
+   * @generated from enum value: WS_CLICKED_COMMIT_FROM_SCM_PANEL = 77;
+   */
+  WS_CLICKED_COMMIT_FROM_SCM_PANEL = 77,
+
+  /**
+   * @generated from enum value: USING_DEV_EXTENSION = 78;
+   */
+  USING_DEV_EXTENSION = 78,
+
+  /**
+   * @generated from enum value: WS_CANCELED_GENERATE_COMMIT_MESSAGE = 79;
+   */
+  WS_CANCELED_GENERATE_COMMIT_MESSAGE = 79,
+
+  /**
+   * @generated from enum value: WS_APP_DEPLOYMENT_CREATE_PROJECT = 80;
+   */
+  WS_APP_DEPLOYMENT_CREATE_PROJECT = 80,
+
+  /**
+   * @generated from enum value: WS_APP_DEPLOYMENT_DEPLOY_PROJECT = 81;
+   */
+  WS_APP_DEPLOYMENT_DEPLOY_PROJECT = 81,
+
+  /**
+   * @generated from enum value: WS_CUSTOM_APP_ICON_SELECT_PIXEL_SURF = 82;
+   */
+  WS_CUSTOM_APP_ICON_SELECT_PIXEL_SURF = 82,
+
+  /**
+   * @generated from enum value: CASCADE_CHANGES_ACCEPT_ALL = 83;
+   */
+  CASCADE_CHANGES_ACCEPT_ALL = 83,
+
+  /**
+   * @generated from enum value: CASCADE_CHANGES_REJECT_ALL = 84;
+   */
+  CASCADE_CHANGES_REJECT_ALL = 84,
+
+  /**
+   * @generated from enum value: CASCADE_MEMORIES_EDIT = 85;
+   */
+  CASCADE_MEMORIES_EDIT = 85,
+
+  /**
+   * @generated from enum value: CASCADE_MEMORIES_VIEW = 86;
+   */
+  CASCADE_MEMORIES_VIEW = 86,
+
+  /**
+   * @generated from enum value: CASCADE_INSERT_AT_MENTION = 87;
+   */
+  CASCADE_INSERT_AT_MENTION = 87,
+
+  /**
+   * @generated from enum value: WEBSITE_NOT_FOUND_PAGE = 88;
+   */
+  WEBSITE_NOT_FOUND_PAGE = 88,
+
+  /**
+   * @generated from enum value: WEBSITE_AUTH_REDIRECT_LONG_WAIT = 89;
+   */
+  WEBSITE_AUTH_REDIRECT_LONG_WAIT = 89,
+
+  /**
+   * @generated from enum value: WEBSITE_AUTH_REDIRECT_ERROR = 90;
+   */
+  WEBSITE_AUTH_REDIRECT_ERROR = 90,
+
+  /**
+   * @generated from enum value: JB_OPEN_PLAN_INFO = 91;
+   */
+  JB_OPEN_PLAN_INFO = 91,
+
+  /**
+   * @generated from enum value: JB_SNOOZE_PLUGIN = 92;
+   */
+  JB_SNOOZE_PLUGIN = 92,
+
+  /**
+   * @generated from enum value: JB_TOGGLE_PLUGIN_STATUS = 93;
+   */
+  JB_TOGGLE_PLUGIN_STATUS = 93,
+
+  /**
+   * @generated from enum value: JB_SWITCH_CHANNEL = 94;
+   */
+  JB_SWITCH_CHANNEL = 94,
+
+  /**
+   * @generated from enum value: JB_OPEN_SETTINGS = 95;
+   */
+  JB_OPEN_SETTINGS = 95,
+
+  /**
+   * @generated from enum value: JB_PLUGIN_LOG_IN = 96;
+   */
+  JB_PLUGIN_LOG_IN = 96,
+
+  /**
+   * @generated from enum value: JB_PLUGIN_LOG_OUT = 97;
+   */
+  JB_PLUGIN_LOG_OUT = 97,
+
+  /**
+   * @generated from enum value: JB_OPEN_QUICK_REFERENCE = 98;
+   */
+  JB_OPEN_QUICK_REFERENCE = 98,
+
+  /**
+   * @generated from enum value: JB_EDIT_KEYBOARD_SHORTCUTS = 99;
+   */
+  JB_EDIT_KEYBOARD_SHORTCUTS = 99,
+
+  /**
+   * @generated from enum value: JB_CASCADE_BAR_CASCADE_ICON = 100;
+   */
+  JB_CASCADE_BAR_CASCADE_ICON = 100,
+
+  /**
+   * @generated from enum value: JB_CASCADE_BAR_FILE_NAV = 101;
+   */
+  JB_CASCADE_BAR_FILE_NAV = 101,
+
+  /**
+   * @generated from enum value: JB_CASCADE_BAR_HUNK_NAV = 102;
+   */
+  JB_CASCADE_BAR_HUNK_NAV = 102,
+
+  /**
+   * @generated from enum value: JB_CASCADE_BAR_ACCEPT_FILE = 103;
+   */
+  JB_CASCADE_BAR_ACCEPT_FILE = 103,
+
+  /**
+   * @generated from enum value: JB_CASCADE_BAR_REJECT_FILE = 104;
+   */
+  JB_CASCADE_BAR_REJECT_FILE = 104,
+
+  /**
+   * @generated from enum value: JB_INLAY_HUNK_ACCEPT = 105;
+   */
+  JB_INLAY_HUNK_ACCEPT = 105,
+
+  /**
+   * @generated from enum value: JB_INLAY_HUNK_REJECT = 106;
+   */
+  JB_INLAY_HUNK_REJECT = 106,
+
+  /**
+   * @generated from enum value: JB_DIFF_RE_RENDER = 107;
+   */
+  JB_DIFF_RE_RENDER = 107,
+
+  /**
+   * @generated from enum value: JB_ONBOARDING_OPENED = 108;
+   */
+  JB_ONBOARDING_OPENED = 108,
+
+  /**
+   * @generated from enum value: JB_ONBOARDING_COMPLETED = 109;
+   */
+  JB_ONBOARDING_COMPLETED = 109,
+
+  /**
+   * @generated from enum value: JB_ONBOARDING_SKIPPED = 110;
+   */
+  JB_ONBOARDING_SKIPPED = 110,
+
+  /**
+   * @generated from enum value: JB_ONBOARDING_LEARN_MORE = 111;
+   */
+  JB_ONBOARDING_LEARN_MORE = 111,
+
+  /**
+   * @generated from enum value: WEBSITE_AUTH_REDIRECT_SUCCESS = 112;
+   */
+  WEBSITE_AUTH_REDIRECT_SUCCESS = 112,
+
+  /**
+   * @generated from enum value: CASCADE_KNOWLEDGE_BASE_ITEM_OPENED = 113;
+   */
+  CASCADE_KNOWLEDGE_BASE_ITEM_OPENED = 113,
+
+  /**
+   * @generated from enum value: CASCADE_OPEN_ACTIVE_CONVERSATION_DROPDOWN = 114;
+   */
+  CASCADE_OPEN_ACTIVE_CONVERSATION_DROPDOWN = 114,
+
+  /**
+   * @generated from enum value: CASCADE_SELECT_ACTIVE_CONVERSATION_ON_DROPDOWN = 115;
+   */
+  CASCADE_SELECT_ACTIVE_CONVERSATION_ON_DROPDOWN = 115,
+
+  /**
+   * @generated from enum value: JB_DIFF_RESOLUTION_ERRORED = 116;
+   */
+  JB_DIFF_RESOLUTION_ERRORED = 116,
+
+  /**
+   * @generated from enum value: JB_ACKNOWLEDGE_CODE_EDIT_ERRORED = 117;
+   */
+  JB_ACKNOWLEDGE_CODE_EDIT_ERRORED = 117,
+
+  /**
+   * @generated from enum value: JB_OPEN_SETTINGS_NOTIFICATION = 118;
+   */
+  JB_OPEN_SETTINGS_NOTIFICATION = 118,
+
+  /**
+   * @generated from enum value: CASCADE_VIEW_LOADED = 119;
+   */
+  CASCADE_VIEW_LOADED = 119,
+
+  /**
+   * @generated from enum value: CASCADE_ERROR_STEP = 120;
+   */
+  CASCADE_ERROR_STEP = 120,
+
+  /**
+   * @generated from enum value: CASCADE_SUGGESTED_RESPONSES_SUGGESTION_CLICKED = 121;
+   */
+  CASCADE_SUGGESTED_RESPONSES_SUGGESTION_CLICKED = 121,
+
+  /**
+   * @generated from enum value: CASCADE_NAVIGATE_ACTIVE_CONVERSATION_ON_DROPDOWN = 122;
+   */
+  CASCADE_NAVIGATE_ACTIVE_CONVERSATION_ON_DROPDOWN = 122,
+
+  /**
+   * @generated from enum value: CASCADE_SNOOZE_CONVERSATION_ON_DROPDOWN = 123;
+   */
+  CASCADE_SNOOZE_CONVERSATION_ON_DROPDOWN = 123,
+
+  /**
+   * @generated from enum value: CASCADE_TOGGLE_NOTIFICATION_ON_DROPDOWN = 124;
+   */
+  CASCADE_TOGGLE_NOTIFICATION_ON_DROPDOWN = 124,
+
+  /**
+   * @generated from enum value: CASCADE_SELECT_NOTIFICATION_ON_DROPDOWN = 125;
+   */
+  CASCADE_SELECT_NOTIFICATION_ON_DROPDOWN = 125,
+
+  /**
+   * @generated from enum value: CASCADE_NAVIGATE_NOTIFICATION_ON_DROPDOWN = 126;
+   */
+  CASCADE_NAVIGATE_NOTIFICATION_ON_DROPDOWN = 126,
+
+  /**
+   * @generated from enum value: CASCADE_DISMISS_NOTIFICATION_ON_DROPDOWN = 127;
+   */
+  CASCADE_DISMISS_NOTIFICATION_ON_DROPDOWN = 127,
+
+  /**
+   * @generated from enum value: CASCADE_PLUGIN_PANEL_OPENED = 128;
+   */
+  CASCADE_PLUGIN_PANEL_OPENED = 128,
+
+  /**
+   * @generated from enum value: CASCADE_PLUGIN_PAGE_OPENED = 129;
+   */
+  CASCADE_PLUGIN_PAGE_OPENED = 129,
+
+  /**
+   * @generated from enum value: CASCADE_PLUGIN_INSTALLED = 130;
+   */
+  CASCADE_PLUGIN_INSTALLED = 130,
+
+  /**
+   * @generated from enum value: CASCADE_PLUGIN_DISABLED = 131;
+   */
+  CASCADE_PLUGIN_DISABLED = 131,
+
+  /**
+   * @generated from enum value: CASCADE_PLUGIN_ENABLED = 132;
+   */
+  CASCADE_PLUGIN_ENABLED = 132,
+
+  /**
+   * @generated from enum value: CASCADE_PLUGIN_INSTALLATION_ERROR = 133;
+   */
+  CASCADE_PLUGIN_INSTALLATION_ERROR = 133,
+
+  /**
+   * @generated from enum value: CASCADE_PLUGIN_TOOL_ENABLED = 134;
+   */
+  CASCADE_PLUGIN_TOOL_ENABLED = 134,
+
+  /**
+   * @generated from enum value: CASCADE_PLUGIN_TOOL_DISABLED = 135;
+   */
+  CASCADE_PLUGIN_TOOL_DISABLED = 135,
+
+  /**
+   * @generated from enum value: KEYBOARD_SHORTCUT = 136;
+   */
+  KEYBOARD_SHORTCUT = 136,
+
+  /**
+   * @generated from enum value: CASCADE_TRAJECTORY_SHARE_COPY_LINK = 137;
+   */
+  CASCADE_TRAJECTORY_SHARE_COPY_LINK = 137,
+
+  /**
+   * @generated from enum value: CASCADE_TRAJECTORY_SHARE_CREATE_LINK = 138;
+   */
+  CASCADE_TRAJECTORY_SHARE_CREATE_LINK = 138,
+
+  /**
+   * @generated from enum value: CASCADE_CUSTOMIZATIONS_TAB_CHANGE = 139;
+   */
+  CASCADE_CUSTOMIZATIONS_TAB_CHANGE = 139,
+
+  /**
+   * @generated from enum value: CASCADE_WORKFLOW_OPEN = 140;
+   */
+  CASCADE_WORKFLOW_OPEN = 140,
+
+  /**
+   * @generated from enum value: CASCADE_NEW_WORKFLOW_CLICKED = 141;
+   */
+  CASCADE_NEW_WORKFLOW_CLICKED = 141,
+
+  /**
+   * @generated from enum value: CASCADE_WORKFLOW_REFRESH_CLICKED = 142;
+   */
+  CASCADE_WORKFLOW_REFRESH_CLICKED = 142,
+
+  /**
+   * @generated from enum value: CASCADE_RULE_OPEN = 143;
+   */
+  CASCADE_RULE_OPEN = 143,
+
+  /**
+   * @generated from enum value: CASCADE_NEW_RULE_CLICKED = 144;
+   */
+  CASCADE_NEW_RULE_CLICKED = 144,
+
+  /**
+   * @generated from enum value: CASCADE_NEW_GLOBAL_RULE_CLICKED = 145;
+   */
+  CASCADE_NEW_GLOBAL_RULE_CLICKED = 145,
+
+  /**
+   * @generated from enum value: CASCADE_RULE_REFRESH_CLICKED = 146;
+   */
+  CASCADE_RULE_REFRESH_CLICKED = 146,
+
+  /**
+   * @generated from enum value: CASCADE_IMPORT_RULES_FROM_CURSOR_CLICKED = 147;
+   */
+  CASCADE_IMPORT_RULES_FROM_CURSOR_CLICKED = 147,
+
+  /**
+   * @generated from enum value: JB_MCP_ADD_SERVER = 148;
+   */
+  JB_MCP_ADD_SERVER = 148,
+
+  /**
+   * @generated from enum value: JB_MCP_SAVE_CONFIG = 149;
+   */
+  JB_MCP_SAVE_CONFIG = 149,
+
+  /**
+   * @generated from enum value: JB_MCP_EXPAND_TOOLS = 150;
+   */
+  JB_MCP_EXPAND_TOOLS = 150,
+
+  /**
+   * @generated from enum value: JB_DISABLE_AUTOGEN_MEMORY = 151;
+   */
+  JB_DISABLE_AUTOGEN_MEMORY = 151,
+
+  /**
+   * @generated from enum value: WS_IMPORT_CURSOR_RULES_COMMAND_PALETTE = 152;
+   */
+  WS_IMPORT_CURSOR_RULES_COMMAND_PALETTE = 152,
+
+  /**
+   * @generated from enum value: JETBRAINS_DETECTED = 153;
+   */
+  JETBRAINS_DETECTED = 153,
+
+  /**
+   * @generated from enum value: JB_TOGGLE_AUTOCOMPLETE = 154;
+   */
+  JB_TOGGLE_AUTOCOMPLETE = 154,
+
+  /**
+   * @generated from enum value: WS_TERMINAL_INTEGRATION_FORCE_EXIT = 155;
+   */
+  WS_TERMINAL_INTEGRATION_FORCE_EXIT = 155,
+
+  /**
+   * @generated from enum value: KNOWLEDGE_BASE_ITEM_CREATED = 156;
+   */
+  KNOWLEDGE_BASE_ITEM_CREATED = 156,
+
+  /**
+   * @generated from enum value: KNOWLEDGE_BASE_ITEM_EDITED = 157;
+   */
+  KNOWLEDGE_BASE_ITEM_EDITED = 157,
+
+  /**
+   * @generated from enum value: KNOWLEDGE_BASE_ITEM_DELETED = 158;
+   */
+  KNOWLEDGE_BASE_ITEM_DELETED = 158,
+
+  /**
+   * @generated from enum value: KNOWLEDGE_BASE_ITEM_READ = 159;
+   */
+  KNOWLEDGE_BASE_ITEM_READ = 159,
+
+  /**
+   * @generated from enum value: KNOWLEDGE_BASE_CONNECTION_CREATE = 160;
+   */
+  KNOWLEDGE_BASE_CONNECTION_CREATE = 160,
+
+  /**
+   * @generated from enum value: KNOWLEDGE_BASE_CONNECTION_REMOVE = 161;
+   */
+  KNOWLEDGE_BASE_CONNECTION_REMOVE = 161,
+
+  /**
+   * @generated from enum value: TEAM_CONFIG_TOGGLE_AUTO_RUN_COMMANDS = 162;
+   */
+  TEAM_CONFIG_TOGGLE_AUTO_RUN_COMMANDS = 162,
+
+  /**
+   * @generated from enum value: TEAM_CONFIG_TOGGLE_MCP_SERVERS = 163;
+   */
+  TEAM_CONFIG_TOGGLE_MCP_SERVERS = 163,
+
+  /**
+   * @generated from enum value: TEAM_CONFIG_TOGGLE_APP_DEPLOYMENTS = 164;
+   */
+  TEAM_CONFIG_TOGGLE_APP_DEPLOYMENTS = 164,
+
+  /**
+   * @generated from enum value: TEAM_CONFIG_TOGGLE_SANDBOX_APP_DEPLOYMENTS = 165;
+   */
+  TEAM_CONFIG_TOGGLE_SANDBOX_APP_DEPLOYMENTS = 165,
+
+  /**
+   * @generated from enum value: TEAM_CONFIG_TOGGLE_TEAMS_APP_DEPLOYMENTS = 166;
+   */
+  TEAM_CONFIG_TOGGLE_TEAMS_APP_DEPLOYMENTS = 166,
+
+  /**
+   * @generated from enum value: TEAM_CONFIG_TOGGLE_GITHUB_REVIEWS = 167;
+   */
+  TEAM_CONFIG_TOGGLE_GITHUB_REVIEWS = 167,
+
+  /**
+   * @generated from enum value: TEAM_CONFIG_TOGGLE_GITHUB_DESCRIPTION_EDITS = 168;
+   */
+  TEAM_CONFIG_TOGGLE_GITHUB_DESCRIPTION_EDITS = 168,
+
+  /**
+   * @generated from enum value: TEAM_CONFIG_TOGGLE_PR_REVIEW_GUIDELINES = 169;
+   */
+  TEAM_CONFIG_TOGGLE_PR_REVIEW_GUIDELINES = 169,
+
+  /**
+   * @generated from enum value: TEAM_CONFIG_TOGGLE_PR_DESCRIPTION_GUIDELINES = 170;
+   */
+  TEAM_CONFIG_TOGGLE_PR_DESCRIPTION_GUIDELINES = 170,
+
+  /**
+   * @generated from enum value: TEAM_CONFIG_TOGGLE_INDIVIDUAL_LEVEL_ANALYTICS = 171;
+   */
+  TEAM_CONFIG_TOGGLE_INDIVIDUAL_LEVEL_ANALYTICS = 171,
+
+  /**
+   * @generated from enum value: TEAM_CONFIG_TOGGLE_CONVERSATION_SHARING = 172;
+   */
+  TEAM_CONFIG_TOGGLE_CONVERSATION_SHARING = 172,
+
+  /**
+   * @generated from enum value: CASCADE_CONTEXT_SCOPE_ITEM_ATTACHED = 173;
+   */
+  CASCADE_CONTEXT_SCOPE_ITEM_ATTACHED = 173,
+
+  /**
+   * @generated from enum value: JB_LOGIN_MANUAL_AUTH_TOKEN = 174;
+   */
+  JB_LOGIN_MANUAL_AUTH_TOKEN = 174,
+
+  /**
+   * @generated from enum value: WEBSITE_PAGE_VISIT = 175;
+   */
+  WEBSITE_PAGE_VISIT = 175,
+
+  /**
+   * @generated from enum value: WEBSITE_SIGNUP_INFO = 176;
+   */
+  WEBSITE_SIGNUP_INFO = 176,
+
+  /**
+   * @generated from enum value: WEBSITE_START_PLAN_CHECKOUT = 177;
+   */
+  WEBSITE_START_PLAN_CHECKOUT = 177,
+
+  /**
+   * @generated from enum value: TEAM_CONFIG_UPDATE_MCP_SERVERS = 178;
+   */
+  TEAM_CONFIG_UPDATE_MCP_SERVERS = 178,
+
+  /**
+   * @generated from enum value: JB_AUTO_UPDATED = 179;
+   */
+  JB_AUTO_UPDATED = 179,
+
+  /**
+   * @generated from enum value: BROWSER_OPEN = 180;
+   */
+  BROWSER_OPEN = 180,
+
+  /**
+   * @generated from enum value: CASCADE_WEB_TOOLS_OPEN_BROWSER_MARKDOWN = 181;
+   */
+  CASCADE_WEB_TOOLS_OPEN_BROWSER_MARKDOWN = 181,
+
+  /**
+   * @generated from enum value: JB_DRAG_DROP_FILE = 182;
+   */
+  JB_DRAG_DROP_FILE = 182,
+
+  /**
+   * @generated from enum value: JB_AUTO_OPEN_CHAT_WINDOW = 183;
+   */
+  JB_AUTO_OPEN_CHAT_WINDOW = 183,
+
+  /**
+   * @generated from enum value: CASCADE_NEW_GLOBAL_WORKFLOW_CLICKED = 184;
+   */
+  CASCADE_NEW_GLOBAL_WORKFLOW_CLICKED = 184,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_NO_RESPONSE = 185;
+   */
+  SUPERCOMPLETE_NO_RESPONSE = 185,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_REQUEST_SUCCEEDED = 186;
+   */
+  SUPERCOMPLETE_REQUEST_SUCCEEDED = 186,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_FILTERED = 187;
+   */
+  SUPERCOMPLETE_FILTERED = 187,
+
+  /**
+   * @generated from enum value: TAB_JUMP_REQUEST_STARTED = 188;
+   */
+  TAB_JUMP_REQUEST_STARTED = 188,
+
+  /**
+   * @generated from enum value: TAB_JUMP_CACHE_HIT = 189;
+   */
+  TAB_JUMP_CACHE_HIT = 189,
+
+  /**
+   * @generated from enum value: TAB_JUMP_ERROR_GETTING_RESPONSE = 190;
+   */
+  TAB_JUMP_ERROR_GETTING_RESPONSE = 190,
+
+  /**
+   * @generated from enum value: TAB_JUMP_NO_RESPONSE = 191;
+   */
+  TAB_JUMP_NO_RESPONSE = 191,
+
+  /**
+   * @generated from enum value: TAB_JUMP_PROCESSING_COMPLETE = 192;
+   */
+  TAB_JUMP_PROCESSING_COMPLETE = 192,
+
+  /**
+   * @generated from enum value: TAB_JUMP_FILTERED = 193;
+   */
+  TAB_JUMP_FILTERED = 193,
+
+  /**
+   * @generated from enum value: TAB_JUMP_ERROR_UI_RENDERED = 194;
+   */
+  TAB_JUMP_ERROR_UI_RENDERED = 194,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_REQUEST_STARTED = 195;
+   */
+  SUPERCOMPLETE_REQUEST_STARTED = 195,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_CACHE_HIT = 196;
+   */
+  SUPERCOMPLETE_CACHE_HIT = 196,
+
+  /**
+   * @generated from enum value: SUPERCOMPLETE_ERROR_GETTING_RESPONSE = 197;
+   */
+  SUPERCOMPLETE_ERROR_GETTING_RESPONSE = 197,
+
+  /**
+   * @generated from enum value: AUTO_CASCADE_PR_TITLE_GENERATED = 198;
+   */
+  AUTO_CASCADE_PR_TITLE_GENERATED = 198,
+
+  /**
+   * @generated from enum value: AUTO_CASCADE_PR_DESCRIPTION_GENERATED = 199;
+   */
+  AUTO_CASCADE_PR_DESCRIPTION_GENERATED = 199,
+
+  /**
+   * @generated from enum value: AUTO_CASCADE_PR_REVIEW_REQUESTED = 200;
+   */
+  AUTO_CASCADE_PR_REVIEW_REQUESTED = 200,
+
+  /**
+   * @generated from enum value: AUTO_CASCADE_PR_REVIEW_GENERATED = 201;
+   */
+  AUTO_CASCADE_PR_REVIEW_GENERATED = 201,
+
+  /**
+   * @generated from enum value: WEBSITE_START_UPDATE_PAYMENT = 202;
+   */
+  WEBSITE_START_UPDATE_PAYMENT = 202,
+
+  /**
+   * @generated from enum value: WEBSITE_START_VIEW_INVOICES = 203;
+   */
+  WEBSITE_START_VIEW_INVOICES = 203,
+
+  /**
+   * @generated from enum value: AUTO_CASCADE_GITHUB_CONNECTION_ADDED = 204;
+   */
+  AUTO_CASCADE_GITHUB_CONNECTION_ADDED = 204,
+
+  /**
+   * @generated from enum value: AUTO_CASCADE_GITHUB_CONNECTION_REMOVED = 205;
+   */
+  AUTO_CASCADE_GITHUB_CONNECTION_REMOVED = 205,
+
+  /**
+   * @generated from enum value: BROWSER_PAGE_LOAD_SUCCESS = 206;
+   */
+  BROWSER_PAGE_LOAD_SUCCESS = 206,
+
+  /**
+   * @generated from enum value: TEAM_CONFIG_TOGGLE_GITHUB_AUTO_REVIEWS = 207;
+   */
+  TEAM_CONFIG_TOGGLE_GITHUB_AUTO_REVIEWS = 207,
+
+  /**
+   * @generated from enum value: BROWSER_TOOLBAR_INSERT_PAGE_MENTION = 208;
+   */
+  BROWSER_TOOLBAR_INSERT_PAGE_MENTION = 208,
+
+  /**
+   * @generated from enum value: EMPTY_WORKSPACE_PAGE_OPENED = 209;
+   */
+  EMPTY_WORKSPACE_PAGE_OPENED = 209,
+
+  /**
+   * @generated from enum value: EMPTY_WORKSPACE_PAGE_RECENT_FOLDERS_CLICKED = 210;
+   */
+  EMPTY_WORKSPACE_PAGE_RECENT_FOLDERS_CLICKED = 210,
+
+  /**
+   * @generated from enum value: EMPTY_WORKSPACE_PAGE_OPEN_FOLDER_CLICKED = 211;
+   */
+  EMPTY_WORKSPACE_PAGE_OPEN_FOLDER_CLICKED = 211,
+
+  /**
+   * @generated from enum value: EMPTY_WORKSPACE_PAGE_GENERATE_PROJECT_CLICKED = 212;
+   */
+  EMPTY_WORKSPACE_PAGE_GENERATE_PROJECT_CLICKED = 212,
+
+  /**
+   * @generated from enum value: TEAM_CONFIG_UPDATE_TOP_UP_SETTINGS = 213;
+   */
+  TEAM_CONFIG_UPDATE_TOP_UP_SETTINGS = 213,
+
+  /**
+   * @generated from enum value: WEBSITE_UNIVERSITY_LECTURE_VIEW = 214;
+   */
+  WEBSITE_UNIVERSITY_LECTURE_VIEW = 214,
+
+  /**
+   * @generated from enum value: BROWSER_INSERT_TEXT_CONTENT = 215;
+   */
+  BROWSER_INSERT_TEXT_CONTENT = 215,
+
+  /**
+   * @generated from enum value: BROWSER_INSERT_SCREENSHOT = 216;
+   */
+  BROWSER_INSERT_SCREENSHOT = 216,
+
+  /**
+   * @generated from enum value: BROWSER_INSERT_CODE_BLOCK = 217;
+   */
+  BROWSER_INSERT_CODE_BLOCK = 217,
+
+  /**
+   * @generated from enum value: BROWSER_INSERT_LOG_BLOCK = 218;
+   */
+  BROWSER_INSERT_LOG_BLOCK = 218,
+
+  /**
+   * @generated from enum value: BROWSER_INSERT_CONSOLE_OUTPUT = 219;
+   */
+  BROWSER_INSERT_CONSOLE_OUTPUT = 219,
+
+  /**
+   * @generated from enum value: BROWSER_INSERT_DOM_ELEMENT = 220;
+   */
+  BROWSER_INSERT_DOM_ELEMENT = 220,
+
+  /**
+   * @generated from enum value: AUTOCOMPLETE_CHAT_NO_RESPONSE = 221;
+   */
+  AUTOCOMPLETE_CHAT_NO_RESPONSE = 221,
+
+  /**
+   * @generated from enum value: AUTOCOMPLETE_CHAT_ERROR_GETTING_RESPONSE = 222;
+   */
+  AUTOCOMPLETE_CHAT_ERROR_GETTING_RESPONSE = 222,
+
+  /**
+   * @generated from enum value: AUTOCOMPLETE_CHAT_REQUEST_ACCEPTED = 223;
+   */
+  AUTOCOMPLETE_CHAT_REQUEST_ACCEPTED = 223,
+
+  /**
+   * @generated from enum value: WEBSITE_DISALLOW_ENTERPRISE_LOGIN = 224;
+   */
+  WEBSITE_DISALLOW_ENTERPRISE_LOGIN = 224,
+
+  /**
+   * @generated from enum value: WEBSITE_SSO_LOGIN_REDIRECT = 225;
+   */
+  WEBSITE_SSO_LOGIN_REDIRECT = 225,
+
+  /**
+   * @generated from enum value: WEBSITE_ATTEMPT_TO_LOGIN = 226;
+   */
+  WEBSITE_ATTEMPT_TO_LOGIN = 226,
+
+  /**
+   * @generated from enum value: WEBSITE_SUCCESSFUL_LOGIN = 227;
+   */
+  WEBSITE_SUCCESSFUL_LOGIN = 227,
+
+  /**
+   * @generated from enum value: WEBSITE_FAILED_LOGIN = 228;
+   */
+  WEBSITE_FAILED_LOGIN = 228,
+
+  /**
+   * @generated from enum value: LS_BINARY_STARTUP = 250;
+   */
+  LS_BINARY_STARTUP = 250,
+
+  /**
+   * @generated from enum value: WINDSURF_EDITOR_READY = 251;
+   */
+  WINDSURF_EDITOR_READY = 251,
+
+  /**
+   * @generated from enum value: WINDSURF_EXTENSION_START = 253;
+   */
+  WINDSURF_EXTENSION_START = 253,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ProductEventType)
+proto3.util.setEnumType(ProductEventType, "exa.codeium_common_pb.ProductEventType", [
+  { no: 0, name: "EVENT_UNSPECIFIED" },
+  { no: 1, name: "LS_DOWNLOAD_START" },
+  { no: 2, name: "LS_DOWNLOAD_COMPLETE" },
+  { no: 3, name: "LS_STARTUP" },
+  { no: 4, name: "LS_FAILURE" },
+  { no: 5, name: "LS_DOWNLOAD_FAILURE" },
+  { no: 6, name: "AUTOCOMPLETE_ACCEPTED" },
+  { no: 7, name: "AUTOCOMPLETE_ONE_WORD_ACCEPTED" },
+  { no: 8, name: "CHAT_MESSAGE_SENT" },
+  { no: 9, name: "COMMAND_BOX_OPENED" },
+  { no: 10, name: "COMMAND_SUBMITTED" },
+  { no: 11, name: "COMMAND_ACCEPTED" },
+  { no: 12, name: "COMMAND_REJECTED" },
+  { no: 13, name: "CHAT_MENTION_INSERT" },
+  { no: 14, name: "CHAT_OPEN_SETTINGS" },
+  { no: 15, name: "CHAT_OPEN_CONTEXT_SETTINGS" },
+  { no: 16, name: "CHAT_WITH_CODEBASE" },
+  { no: 17, name: "CHAT_NEW_CONVERSATION" },
+  { no: 18, name: "CHAT_CHANGE_MODEL" },
+  { no: 19, name: "CHAT_MENTION_MENU_OPEN" },
+  { no: 20, name: "WS_ONBOARDING_LANDING_PAGE_OPENED" },
+  { no: 21, name: "WS_ONBOARDING_SETUP_PAGE_OPENED" },
+  { no: 22, name: "WS_ONBOARDING_KEYBINDINGS_PAGE_OPENED" },
+  { no: 23, name: "WS_ONBOARDING_MIGRATION_SCOPE_PAGE_OPENED" },
+  { no: 24, name: "WS_ONBOARDING_IMPORT_PAGE_OPENED" },
+  { no: 25, name: "WS_ONBOARDING_AUTH_PAGE_OPENED" },
+  { no: 26, name: "WS_ONBOARDING_AUTH_MANUAL_PAGE_OPENED" },
+  { no: 27, name: "WS_ONBOARDING_COMPLETED" },
+  { no: 28, name: "FUNCTION_REFACTOR" },
+  { no: 29, name: "EXPLAIN_CODE_BLOCK" },
+  { no: 30, name: "FUNCTION_ADD_DOCSTRING" },
+  { no: 31, name: "EXPLAIN_PROBLEM" },
+  { no: 32, name: "WINDSURF_EXTENSION_ACTIVATED" },
+  { no: 33, name: "PROVIDE_FEEDBACK" },
+  { no: 34, name: "CHAT_TOGGLE_FOCUS_INSERT_TEXT" },
+  { no: 35, name: "WS_ONBOARDING_CHOOSE_THEME_PAGE_OPENED" },
+  { no: 36, name: "CASCADE_MESSAGE_SENT" },
+  { no: 37, name: "OPEN_CHANGELOG" },
+  { no: 38, name: "WS_OPEN_CASCADE_MEMORIES_PANEL" },
+  { no: 39, name: "CURSOR_DETECTED" },
+  { no: 40, name: "VSCODE_DETECTED" },
+  { no: 41, name: "PROVIDE_MESSAGE_FEEDBACK" },
+  { no: 42, name: "CASCADE_MEMORY_DELETED" },
+  { no: 43, name: "CASCADE_STEP_COMPLETED" },
+  { no: 44, name: "ACKNOWLEDGE_CASCADE_CODE_EDIT" },
+  { no: 45, name: "CASCADE_WEB_TOOLS_OPEN_READ_URL_MARKDOWN" },
+  { no: 46, name: "CASCADE_WEB_TOOLS_OPEN_CHUNK_MARKDOWN" },
+  { no: 47, name: "CROSS_SELL_EXTENSION_DOWNLOAD_WINDSURF_CLICK" },
+  { no: 48, name: "CROSS_SELL_EXTENSION_DOWNLOAD_WINDSURF_NUDGE_IMPRESSION" },
+  { no: 49, name: "WS_PROBLEMS_TAB_SEND_ALL_TO_CASCADE" },
+  { no: 50, name: "WS_PROBLEMS_TAB_SEND_ALL_IN_FILE_TO_CASCADE" },
+  { no: 51, name: "WS_CASCADE_BAR_FILE_NAV" },
+  { no: 52, name: "WS_CASCADE_BAR_HUNK_NAV" },
+  { no: 53, name: "WS_CASCADE_BAR_ACCEPT_FILE" },
+  { no: 54, name: "WS_CASCADE_BAR_REJECT_FILE" },
+  { no: 55, name: "WS_CUSTOM_APP_ICON_MODAL_OPEN" },
+  { no: 56, name: "WS_CUSTOM_APP_ICON_SELECT_CLASSIC" },
+  { no: 57, name: "WS_CUSTOM_APP_ICON_SELECT_CLASSIC_LIGHT" },
+  { no: 58, name: "WS_CUSTOM_APP_ICON_SELECT_RETRO" },
+  { no: 59, name: "WS_CUSTOM_APP_ICON_SELECT_BLUEPRINT" },
+  { no: 60, name: "WS_CUSTOM_APP_ICON_SELECT_HAND_DRAWN" },
+  { no: 61, name: "WS_CUSTOM_APP_ICON_SELECT_SUNSET" },
+  { no: 62, name: "CLICKED_TO_CONFIGURE_MCP" },
+  { no: 63, name: "ENTERED_MCP_TOOLBAR_TAB" },
+  { no: 64, name: "CASCADE_MCP_SERVER_INIT" },
+  { no: 65, name: "CASCADE_CLICK_EVENT" },
+  { no: 66, name: "WS_CUSTOM_APP_ICON_SELECT_VALENTINE" },
+  { no: 67, name: "CASCADE_IMPRESSION_EVENT" },
+  { no: 68, name: "WS_SETTINGS_UPDATED" },
+  { no: 69, name: "WS_SKIPPED_ONBOARDING" },
+  { no: 70, name: "BROWSER_PREVIEW_DOM_ELEMENT" },
+  { no: 71, name: "BROWSER_PREVIEW_CONSOLE_OUTPUT" },
+  { no: 72, name: "WS_SETTINGS_PAGE_OPEN" },
+  { no: 73, name: "WS_SETTINGS_PAGE_OPEN_WITH_SETTING_FOCUS" },
+  { no: 74, name: "WS_SETTINGS_CHANGED_BY_USER" },
+  { no: 75, name: "WS_GENERATE_COMMIT_MESSAGE_CLICKED" },
+  { no: 76, name: "WS_GENERATE_COMMIT_MESSAGE_ERRORED" },
+  { no: 77, name: "WS_CLICKED_COMMIT_FROM_SCM_PANEL" },
+  { no: 78, name: "USING_DEV_EXTENSION" },
+  { no: 79, name: "WS_CANCELED_GENERATE_COMMIT_MESSAGE" },
+  { no: 80, name: "WS_APP_DEPLOYMENT_CREATE_PROJECT" },
+  { no: 81, name: "WS_APP_DEPLOYMENT_DEPLOY_PROJECT" },
+  { no: 82, name: "WS_CUSTOM_APP_ICON_SELECT_PIXEL_SURF" },
+  { no: 83, name: "CASCADE_CHANGES_ACCEPT_ALL" },
+  { no: 84, name: "CASCADE_CHANGES_REJECT_ALL" },
+  { no: 85, name: "CASCADE_MEMORIES_EDIT" },
+  { no: 86, name: "CASCADE_MEMORIES_VIEW" },
+  { no: 87, name: "CASCADE_INSERT_AT_MENTION" },
+  { no: 88, name: "WEBSITE_NOT_FOUND_PAGE" },
+  { no: 89, name: "WEBSITE_AUTH_REDIRECT_LONG_WAIT" },
+  { no: 90, name: "WEBSITE_AUTH_REDIRECT_ERROR" },
+  { no: 91, name: "JB_OPEN_PLAN_INFO" },
+  { no: 92, name: "JB_SNOOZE_PLUGIN" },
+  { no: 93, name: "JB_TOGGLE_PLUGIN_STATUS" },
+  { no: 94, name: "JB_SWITCH_CHANNEL" },
+  { no: 95, name: "JB_OPEN_SETTINGS" },
+  { no: 96, name: "JB_PLUGIN_LOG_IN" },
+  { no: 97, name: "JB_PLUGIN_LOG_OUT" },
+  { no: 98, name: "JB_OPEN_QUICK_REFERENCE" },
+  { no: 99, name: "JB_EDIT_KEYBOARD_SHORTCUTS" },
+  { no: 100, name: "JB_CASCADE_BAR_CASCADE_ICON" },
+  { no: 101, name: "JB_CASCADE_BAR_FILE_NAV" },
+  { no: 102, name: "JB_CASCADE_BAR_HUNK_NAV" },
+  { no: 103, name: "JB_CASCADE_BAR_ACCEPT_FILE" },
+  { no: 104, name: "JB_CASCADE_BAR_REJECT_FILE" },
+  { no: 105, name: "JB_INLAY_HUNK_ACCEPT" },
+  { no: 106, name: "JB_INLAY_HUNK_REJECT" },
+  { no: 107, name: "JB_DIFF_RE_RENDER" },
+  { no: 108, name: "JB_ONBOARDING_OPENED" },
+  { no: 109, name: "JB_ONBOARDING_COMPLETED" },
+  { no: 110, name: "JB_ONBOARDING_SKIPPED" },
+  { no: 111, name: "JB_ONBOARDING_LEARN_MORE" },
+  { no: 112, name: "WEBSITE_AUTH_REDIRECT_SUCCESS" },
+  { no: 113, name: "CASCADE_KNOWLEDGE_BASE_ITEM_OPENED" },
+  { no: 114, name: "CASCADE_OPEN_ACTIVE_CONVERSATION_DROPDOWN" },
+  { no: 115, name: "CASCADE_SELECT_ACTIVE_CONVERSATION_ON_DROPDOWN" },
+  { no: 116, name: "JB_DIFF_RESOLUTION_ERRORED" },
+  { no: 117, name: "JB_ACKNOWLEDGE_CODE_EDIT_ERRORED" },
+  { no: 118, name: "JB_OPEN_SETTINGS_NOTIFICATION" },
+  { no: 119, name: "CASCADE_VIEW_LOADED" },
+  { no: 120, name: "CASCADE_ERROR_STEP" },
+  { no: 121, name: "CASCADE_SUGGESTED_RESPONSES_SUGGESTION_CLICKED" },
+  { no: 122, name: "CASCADE_NAVIGATE_ACTIVE_CONVERSATION_ON_DROPDOWN" },
+  { no: 123, name: "CASCADE_SNOOZE_CONVERSATION_ON_DROPDOWN" },
+  { no: 124, name: "CASCADE_TOGGLE_NOTIFICATION_ON_DROPDOWN" },
+  { no: 125, name: "CASCADE_SELECT_NOTIFICATION_ON_DROPDOWN" },
+  { no: 126, name: "CASCADE_NAVIGATE_NOTIFICATION_ON_DROPDOWN" },
+  { no: 127, name: "CASCADE_DISMISS_NOTIFICATION_ON_DROPDOWN" },
+  { no: 128, name: "CASCADE_PLUGIN_PANEL_OPENED" },
+  { no: 129, name: "CASCADE_PLUGIN_PAGE_OPENED" },
+  { no: 130, name: "CASCADE_PLUGIN_INSTALLED" },
+  { no: 131, name: "CASCADE_PLUGIN_DISABLED" },
+  { no: 132, name: "CASCADE_PLUGIN_ENABLED" },
+  { no: 133, name: "CASCADE_PLUGIN_INSTALLATION_ERROR" },
+  { no: 134, name: "CASCADE_PLUGIN_TOOL_ENABLED" },
+  { no: 135, name: "CASCADE_PLUGIN_TOOL_DISABLED" },
+  { no: 136, name: "KEYBOARD_SHORTCUT" },
+  { no: 137, name: "CASCADE_TRAJECTORY_SHARE_COPY_LINK" },
+  { no: 138, name: "CASCADE_TRAJECTORY_SHARE_CREATE_LINK" },
+  { no: 139, name: "CASCADE_CUSTOMIZATIONS_TAB_CHANGE" },
+  { no: 140, name: "CASCADE_WORKFLOW_OPEN" },
+  { no: 141, name: "CASCADE_NEW_WORKFLOW_CLICKED" },
+  { no: 142, name: "CASCADE_WORKFLOW_REFRESH_CLICKED" },
+  { no: 143, name: "CASCADE_RULE_OPEN" },
+  { no: 144, name: "CASCADE_NEW_RULE_CLICKED" },
+  { no: 145, name: "CASCADE_NEW_GLOBAL_RULE_CLICKED" },
+  { no: 146, name: "CASCADE_RULE_REFRESH_CLICKED" },
+  { no: 147, name: "CASCADE_IMPORT_RULES_FROM_CURSOR_CLICKED" },
+  { no: 148, name: "JB_MCP_ADD_SERVER" },
+  { no: 149, name: "JB_MCP_SAVE_CONFIG" },
+  { no: 150, name: "JB_MCP_EXPAND_TOOLS" },
+  { no: 151, name: "JB_DISABLE_AUTOGEN_MEMORY" },
+  { no: 152, name: "WS_IMPORT_CURSOR_RULES_COMMAND_PALETTE" },
+  { no: 153, name: "JETBRAINS_DETECTED" },
+  { no: 154, name: "JB_TOGGLE_AUTOCOMPLETE" },
+  { no: 155, name: "WS_TERMINAL_INTEGRATION_FORCE_EXIT" },
+  { no: 156, name: "KNOWLEDGE_BASE_ITEM_CREATED" },
+  { no: 157, name: "KNOWLEDGE_BASE_ITEM_EDITED" },
+  { no: 158, name: "KNOWLEDGE_BASE_ITEM_DELETED" },
+  { no: 159, name: "KNOWLEDGE_BASE_ITEM_READ" },
+  { no: 160, name: "KNOWLEDGE_BASE_CONNECTION_CREATE" },
+  { no: 161, name: "KNOWLEDGE_BASE_CONNECTION_REMOVE" },
+  { no: 162, name: "TEAM_CONFIG_TOGGLE_AUTO_RUN_COMMANDS" },
+  { no: 163, name: "TEAM_CONFIG_TOGGLE_MCP_SERVERS" },
+  { no: 164, name: "TEAM_CONFIG_TOGGLE_APP_DEPLOYMENTS" },
+  { no: 165, name: "TEAM_CONFIG_TOGGLE_SANDBOX_APP_DEPLOYMENTS" },
+  { no: 166, name: "TEAM_CONFIG_TOGGLE_TEAMS_APP_DEPLOYMENTS" },
+  { no: 167, name: "TEAM_CONFIG_TOGGLE_GITHUB_REVIEWS" },
+  { no: 168, name: "TEAM_CONFIG_TOGGLE_GITHUB_DESCRIPTION_EDITS" },
+  { no: 169, name: "TEAM_CONFIG_TOGGLE_PR_REVIEW_GUIDELINES" },
+  { no: 170, name: "TEAM_CONFIG_TOGGLE_PR_DESCRIPTION_GUIDELINES" },
+  { no: 171, name: "TEAM_CONFIG_TOGGLE_INDIVIDUAL_LEVEL_ANALYTICS" },
+  { no: 172, name: "TEAM_CONFIG_TOGGLE_CONVERSATION_SHARING" },
+  { no: 173, name: "CASCADE_CONTEXT_SCOPE_ITEM_ATTACHED" },
+  { no: 174, name: "JB_LOGIN_MANUAL_AUTH_TOKEN" },
+  { no: 175, name: "WEBSITE_PAGE_VISIT" },
+  { no: 176, name: "WEBSITE_SIGNUP_INFO" },
+  { no: 177, name: "WEBSITE_START_PLAN_CHECKOUT" },
+  { no: 178, name: "TEAM_CONFIG_UPDATE_MCP_SERVERS" },
+  { no: 179, name: "JB_AUTO_UPDATED" },
+  { no: 180, name: "BROWSER_OPEN" },
+  { no: 181, name: "CASCADE_WEB_TOOLS_OPEN_BROWSER_MARKDOWN" },
+  { no: 182, name: "JB_DRAG_DROP_FILE" },
+  { no: 183, name: "JB_AUTO_OPEN_CHAT_WINDOW" },
+  { no: 184, name: "CASCADE_NEW_GLOBAL_WORKFLOW_CLICKED" },
+  { no: 185, name: "SUPERCOMPLETE_NO_RESPONSE" },
+  { no: 186, name: "SUPERCOMPLETE_REQUEST_SUCCEEDED" },
+  { no: 187, name: "SUPERCOMPLETE_FILTERED" },
+  { no: 188, name: "TAB_JUMP_REQUEST_STARTED" },
+  { no: 189, name: "TAB_JUMP_CACHE_HIT" },
+  { no: 190, name: "TAB_JUMP_ERROR_GETTING_RESPONSE" },
+  { no: 191, name: "TAB_JUMP_NO_RESPONSE" },
+  { no: 192, name: "TAB_JUMP_PROCESSING_COMPLETE" },
+  { no: 193, name: "TAB_JUMP_FILTERED" },
+  { no: 194, name: "TAB_JUMP_ERROR_UI_RENDERED" },
+  { no: 195, name: "SUPERCOMPLETE_REQUEST_STARTED" },
+  { no: 196, name: "SUPERCOMPLETE_CACHE_HIT" },
+  { no: 197, name: "SUPERCOMPLETE_ERROR_GETTING_RESPONSE" },
+  { no: 198, name: "AUTO_CASCADE_PR_TITLE_GENERATED" },
+  { no: 199, name: "AUTO_CASCADE_PR_DESCRIPTION_GENERATED" },
+  { no: 200, name: "AUTO_CASCADE_PR_REVIEW_REQUESTED" },
+  { no: 201, name: "AUTO_CASCADE_PR_REVIEW_GENERATED" },
+  { no: 202, name: "WEBSITE_START_UPDATE_PAYMENT" },
+  { no: 203, name: "WEBSITE_START_VIEW_INVOICES" },
+  { no: 204, name: "AUTO_CASCADE_GITHUB_CONNECTION_ADDED" },
+  { no: 205, name: "AUTO_CASCADE_GITHUB_CONNECTION_REMOVED" },
+  { no: 206, name: "BROWSER_PAGE_LOAD_SUCCESS" },
+  { no: 207, name: "TEAM_CONFIG_TOGGLE_GITHUB_AUTO_REVIEWS" },
+  { no: 208, name: "BROWSER_TOOLBAR_INSERT_PAGE_MENTION" },
+  { no: 209, name: "EMPTY_WORKSPACE_PAGE_OPENED" },
+  { no: 210, name: "EMPTY_WORKSPACE_PAGE_RECENT_FOLDERS_CLICKED" },
+  { no: 211, name: "EMPTY_WORKSPACE_PAGE_OPEN_FOLDER_CLICKED" },
+  { no: 212, name: "EMPTY_WORKSPACE_PAGE_GENERATE_PROJECT_CLICKED" },
+  { no: 213, name: "TEAM_CONFIG_UPDATE_TOP_UP_SETTINGS" },
+  { no: 214, name: "WEBSITE_UNIVERSITY_LECTURE_VIEW" },
+  { no: 215, name: "BROWSER_INSERT_TEXT_CONTENT" },
+  { no: 216, name: "BROWSER_INSERT_SCREENSHOT" },
+  { no: 217, name: "BROWSER_INSERT_CODE_BLOCK" },
+  { no: 218, name: "BROWSER_INSERT_LOG_BLOCK" },
+  { no: 219, name: "BROWSER_INSERT_CONSOLE_OUTPUT" },
+  { no: 220, name: "BROWSER_INSERT_DOM_ELEMENT" },
+  { no: 221, name: "AUTOCOMPLETE_CHAT_NO_RESPONSE" },
+  { no: 222, name: "AUTOCOMPLETE_CHAT_ERROR_GETTING_RESPONSE" },
+  { no: 223, name: "AUTOCOMPLETE_CHAT_REQUEST_ACCEPTED" },
+  { no: 224, name: "WEBSITE_DISALLOW_ENTERPRISE_LOGIN" },
+  { no: 225, name: "WEBSITE_SSO_LOGIN_REDIRECT" },
+  { no: 226, name: "WEBSITE_ATTEMPT_TO_LOGIN" },
+  { no: 227, name: "WEBSITE_SUCCESSFUL_LOGIN" },
+  { no: 228, name: "WEBSITE_FAILED_LOGIN" },
+  { no: 250, name: "LS_BINARY_STARTUP" },
+  { no: 251, name: "WINDSURF_EDITOR_READY" },
+  { no: 253, name: "WINDSURF_EXTENSION_START" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.IndexChoice
+ */
+export enum IndexChoice {
+  /**
+   * @generated from enum value: INDEX_CHOICE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: INDEX_CHOICE_GITHUB_BASE = 1;
+   */
+  GITHUB_BASE = 1,
+
+  /**
+   * @generated from enum value: INDEX_CHOICE_SLACK_BASE = 2;
+   */
+  SLACK_BASE = 2,
+
+  /**
+   * @generated from enum value: INDEX_CHOICE_SLACK_AGGREGATE = 3;
+   */
+  SLACK_AGGREGATE = 3,
+
+  /**
+   * @generated from enum value: INDEX_CHOICE_GOOGLE_DRIVE_BASE = 4;
+   */
+  GOOGLE_DRIVE_BASE = 4,
+
+  /**
+   * @generated from enum value: INDEX_CHOICE_JIRA_BASE = 5;
+   */
+  JIRA_BASE = 5,
+
+  /**
+   * @generated from enum value: INDEX_CHOICE_SCM = 6;
+   */
+  SCM = 6,
+}
+// Retrieve enum metadata with: proto3.getEnumType(IndexChoice)
+proto3.util.setEnumType(IndexChoice, "exa.codeium_common_pb.IndexChoice", [
+  { no: 0, name: "INDEX_CHOICE_UNSPECIFIED" },
+  { no: 1, name: "INDEX_CHOICE_GITHUB_BASE" },
+  { no: 2, name: "INDEX_CHOICE_SLACK_BASE" },
+  { no: 3, name: "INDEX_CHOICE_SLACK_AGGREGATE" },
+  { no: 4, name: "INDEX_CHOICE_GOOGLE_DRIVE_BASE" },
+  { no: 5, name: "INDEX_CHOICE_JIRA_BASE" },
+  { no: 6, name: "INDEX_CHOICE_SCM" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.MarkdownNodeType
+ */
+export enum MarkdownNodeType {
+  /**
+   * @generated from enum value: MARKDOWN_NODE_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: MARKDOWN_NODE_TYPE_HEADER_1 = 1;
+   */
+  HEADER_1 = 1,
+
+  /**
+   * @generated from enum value: MARKDOWN_NODE_TYPE_HEADER_2 = 2;
+   */
+  HEADER_2 = 2,
+
+  /**
+   * @generated from enum value: MARKDOWN_NODE_TYPE_HEADER_3 = 3;
+   */
+  HEADER_3 = 3,
+
+  /**
+   * @generated from enum value: MARKDOWN_NODE_TYPE_HEADER_4 = 4;
+   */
+  HEADER_4 = 4,
+
+  /**
+   * @generated from enum value: MARKDOWN_NODE_TYPE_HEADER_5 = 5;
+   */
+  HEADER_5 = 5,
+
+  /**
+   * @generated from enum value: MARKDOWN_NODE_TYPE_HEADER_6 = 6;
+   */
+  HEADER_6 = 6,
+}
+// Retrieve enum metadata with: proto3.getEnumType(MarkdownNodeType)
+proto3.util.setEnumType(MarkdownNodeType, "exa.codeium_common_pb.MarkdownNodeType", [
+  { no: 0, name: "MARKDOWN_NODE_TYPE_UNSPECIFIED" },
+  { no: 1, name: "MARKDOWN_NODE_TYPE_HEADER_1" },
+  { no: 2, name: "MARKDOWN_NODE_TYPE_HEADER_2" },
+  { no: 3, name: "MARKDOWN_NODE_TYPE_HEADER_3" },
+  { no: 4, name: "MARKDOWN_NODE_TYPE_HEADER_4" },
+  { no: 5, name: "MARKDOWN_NODE_TYPE_HEADER_5" },
+  { no: 6, name: "MARKDOWN_NODE_TYPE_HEADER_6" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.TerminalShellCommandSource
+ */
+export enum TerminalShellCommandSource {
+  /**
+   * @generated from enum value: TERMINAL_SHELL_COMMAND_SOURCE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: TERMINAL_SHELL_COMMAND_SOURCE_USER = 1;
+   */
+  USER = 1,
+
+  /**
+   * @generated from enum value: TERMINAL_SHELL_COMMAND_SOURCE_CASCADE = 2;
+   */
+  CASCADE = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(TerminalShellCommandSource)
+proto3.util.setEnumType(TerminalShellCommandSource, "exa.codeium_common_pb.TerminalShellCommandSource", [
+  { no: 0, name: "TERMINAL_SHELL_COMMAND_SOURCE_UNSPECIFIED" },
+  { no: 1, name: "TERMINAL_SHELL_COMMAND_SOURCE_USER" },
+  { no: 2, name: "TERMINAL_SHELL_COMMAND_SOURCE_CASCADE" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.TerminalShellCommandStatus
+ */
+export enum TerminalShellCommandStatus {
+  /**
+   * @generated from enum value: TERMINAL_SHELL_COMMAND_STATUS_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: TERMINAL_SHELL_COMMAND_STATUS_RUNNING = 1;
+   */
+  RUNNING = 1,
+
+  /**
+   * @generated from enum value: TERMINAL_SHELL_COMMAND_STATUS_COMPLETED = 2;
+   */
+  COMPLETED = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(TerminalShellCommandStatus)
+proto3.util.setEnumType(TerminalShellCommandStatus, "exa.codeium_common_pb.TerminalShellCommandStatus", [
+  { no: 0, name: "TERMINAL_SHELL_COMMAND_STATUS_UNSPECIFIED" },
+  { no: 1, name: "TERMINAL_SHELL_COMMAND_STATUS_RUNNING" },
+  { no: 2, name: "TERMINAL_SHELL_COMMAND_STATUS_COMPLETED" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.DeploymentBuildStatus
+ */
+export enum DeploymentBuildStatus {
+  /**
+   * @generated from enum value: DEPLOYMENT_BUILD_STATUS_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: DEPLOYMENT_BUILD_STATUS_QUEUED = 1;
+   */
+  QUEUED = 1,
+
+  /**
+   * @generated from enum value: DEPLOYMENT_BUILD_STATUS_INITIALIZING = 2;
+   */
+  INITIALIZING = 2,
+
+  /**
+   * @generated from enum value: DEPLOYMENT_BUILD_STATUS_BUILDING = 3;
+   */
+  BUILDING = 3,
+
+  /**
+   * @generated from enum value: DEPLOYMENT_BUILD_STATUS_ERROR = 4;
+   */
+  ERROR = 4,
+
+  /**
+   * @generated from enum value: DEPLOYMENT_BUILD_STATUS_READY = 5;
+   */
+  READY = 5,
+
+  /**
+   * @generated from enum value: DEPLOYMENT_BUILD_STATUS_CANCELED = 6;
+   */
+  CANCELED = 6,
+}
+// Retrieve enum metadata with: proto3.getEnumType(DeploymentBuildStatus)
+proto3.util.setEnumType(DeploymentBuildStatus, "exa.codeium_common_pb.DeploymentBuildStatus", [
+  { no: 0, name: "DEPLOYMENT_BUILD_STATUS_UNSPECIFIED" },
+  { no: 1, name: "DEPLOYMENT_BUILD_STATUS_QUEUED" },
+  { no: 2, name: "DEPLOYMENT_BUILD_STATUS_INITIALIZING" },
+  { no: 3, name: "DEPLOYMENT_BUILD_STATUS_BUILDING" },
+  { no: 4, name: "DEPLOYMENT_BUILD_STATUS_ERROR" },
+  { no: 5, name: "DEPLOYMENT_BUILD_STATUS_READY" },
+  { no: 6, name: "DEPLOYMENT_BUILD_STATUS_CANCELED" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.DeploymentProvider
+ */
+export enum DeploymentProvider {
+  /**
+   * @generated from enum value: DEPLOYMENT_PROVIDER_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: DEPLOYMENT_PROVIDER_VERCEL = 1;
+   */
+  VERCEL = 1,
+
+  /**
+   * @generated from enum value: DEPLOYMENT_PROVIDER_NETLIFY = 2;
+   */
+  NETLIFY = 2,
+
+  /**
+   * @generated from enum value: DEPLOYMENT_PROVIDER_CLOUDFLARE = 3;
+   */
+  CLOUDFLARE = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(DeploymentProvider)
+proto3.util.setEnumType(DeploymentProvider, "exa.codeium_common_pb.DeploymentProvider", [
+  { no: 0, name: "DEPLOYMENT_PROVIDER_UNSPECIFIED" },
+  { no: 1, name: "DEPLOYMENT_PROVIDER_VERCEL" },
+  { no: 2, name: "DEPLOYMENT_PROVIDER_NETLIFY" },
+  { no: 3, name: "DEPLOYMENT_PROVIDER_CLOUDFLARE" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.ValidationStatus
+ */
+export enum ValidationStatus {
+  /**
+   * @generated from enum value: VALIDATION_STATUS_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: VALIDATION_STATUS_AVAILABLE = 1;
+   */
+  AVAILABLE = 1,
+
+  /**
+   * @generated from enum value: VALIDATION_STATUS_IN_USE = 2;
+   */
+  IN_USE = 2,
+
+  /**
+   * @generated from enum value: VALIDATION_STATUS_TAKEN = 3;
+   */
+  TAKEN = 3,
+
+  /**
+   * @generated from enum value: VALIDATION_STATUS_INVALID = 4;
+   */
+  INVALID = 4,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ValidationStatus)
+proto3.util.setEnumType(ValidationStatus, "exa.codeium_common_pb.ValidationStatus", [
+  { no: 0, name: "VALIDATION_STATUS_UNSPECIFIED" },
+  { no: 1, name: "VALIDATION_STATUS_AVAILABLE" },
+  { no: 2, name: "VALIDATION_STATUS_IN_USE" },
+  { no: 3, name: "VALIDATION_STATUS_TAKEN" },
+  { no: 4, name: "VALIDATION_STATUS_INVALID" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.PromptTemplaterType
+ */
+export enum PromptTemplaterType {
+  /**
+   * @generated from enum value: PROMPT_TEMPLATER_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: PROMPT_TEMPLATER_TYPE_LLAMA_2 = 1;
+   */
+  LLAMA_2 = 1,
+
+  /**
+   * @generated from enum value: PROMPT_TEMPLATER_TYPE_LLAMA_3 = 2;
+   */
+  LLAMA_3 = 2,
+
+  /**
+   * @generated from enum value: PROMPT_TEMPLATER_TYPE_CHATML = 3;
+   */
+  CHATML = 3,
+
+  /**
+   * @generated from enum value: PROMPT_TEMPLATER_TYPE_CHAT_TRANSCRIPT = 4;
+   */
+  CHAT_TRANSCRIPT = 4,
+
+  /**
+   * @generated from enum value: PROMPT_TEMPLATER_TYPE_DEEPSEEK_V2 = 5;
+   */
+  DEEPSEEK_V2 = 5,
+
+  /**
+   * @generated from enum value: PROMPT_TEMPLATER_TYPE_DEEPSEEK_V3 = 6;
+   */
+  DEEPSEEK_V3 = 6,
+
+  /**
+   * @generated from enum value: PROMPT_TEMPLATER_TYPE_KIMI = 7;
+   */
+  KIMI = 7,
+}
+// Retrieve enum metadata with: proto3.getEnumType(PromptTemplaterType)
+proto3.util.setEnumType(PromptTemplaterType, "exa.codeium_common_pb.PromptTemplaterType", [
+  { no: 0, name: "PROMPT_TEMPLATER_TYPE_UNSPECIFIED" },
+  { no: 1, name: "PROMPT_TEMPLATER_TYPE_LLAMA_2" },
+  { no: 2, name: "PROMPT_TEMPLATER_TYPE_LLAMA_3" },
+  { no: 3, name: "PROMPT_TEMPLATER_TYPE_CHATML" },
+  { no: 4, name: "PROMPT_TEMPLATER_TYPE_CHAT_TRANSCRIPT" },
+  { no: 5, name: "PROMPT_TEMPLATER_TYPE_DEEPSEEK_V2" },
+  { no: 6, name: "PROMPT_TEMPLATER_TYPE_DEEPSEEK_V3" },
+  { no: 7, name: "PROMPT_TEMPLATER_TYPE_KIMI" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.ToolFormatterType
+ */
+export enum ToolFormatterType {
+  /**
+   * @generated from enum value: TOOL_FORMATTER_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: TOOL_FORMATTER_TYPE_LLAMA_3 = 1;
+   */
+  LLAMA_3 = 1,
+
+  /**
+   * @generated from enum value: TOOL_FORMATTER_TYPE_HERMES = 2;
+   */
+  HERMES = 2,
+
+  /**
+   * @generated from enum value: TOOL_FORMATTER_TYPE_XML = 3;
+   */
+  XML = 3,
+
+  /**
+   * @generated from enum value: TOOL_FORMATTER_TYPE_CHAT_TRANSCRIPT = 4;
+   */
+  CHAT_TRANSCRIPT = 4,
+
+  /**
+   * @generated from enum value: TOOL_FORMATTER_TYPE_KIMI = 5;
+   */
+  KIMI = 5,
+
+  /**
+   * @generated from enum value: TOOL_FORMATTER_TYPE_QWENCODER = 6;
+   */
+  QWENCODER = 6,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ToolFormatterType)
+proto3.util.setEnumType(ToolFormatterType, "exa.codeium_common_pb.ToolFormatterType", [
+  { no: 0, name: "TOOL_FORMATTER_TYPE_UNSPECIFIED" },
+  { no: 1, name: "TOOL_FORMATTER_TYPE_LLAMA_3" },
+  { no: 2, name: "TOOL_FORMATTER_TYPE_HERMES" },
+  { no: 3, name: "TOOL_FORMATTER_TYPE_XML" },
+  { no: 4, name: "TOOL_FORMATTER_TYPE_CHAT_TRANSCRIPT" },
+  { no: 5, name: "TOOL_FORMATTER_TYPE_KIMI" },
+  { no: 6, name: "TOOL_FORMATTER_TYPE_QWENCODER" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.BrowserInstallationStatus
+ */
+export enum BrowserInstallationStatus {
+  /**
+   * @generated from enum value: BROWSER_INSTALLATION_STATUS_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: BROWSER_INSTALLATION_STATUS_NOT_INSTALLED = 1;
+   */
+  NOT_INSTALLED = 1,
+
+  /**
+   * @generated from enum value: BROWSER_INSTALLATION_STATUS_IN_PROGRESS = 2;
+   */
+  IN_PROGRESS = 2,
+
+  /**
+   * @generated from enum value: BROWSER_INSTALLATION_STATUS_COMPLETE = 3;
+   */
+  COMPLETE = 3,
+
+  /**
+   * @generated from enum value: BROWSER_INSTALLATION_STATUS_ERROR = 4;
+   */
+  ERROR = 4,
+}
+// Retrieve enum metadata with: proto3.getEnumType(BrowserInstallationStatus)
+proto3.util.setEnumType(BrowserInstallationStatus, "exa.codeium_common_pb.BrowserInstallationStatus", [
+  { no: 0, name: "BROWSER_INSTALLATION_STATUS_UNSPECIFIED" },
+  { no: 1, name: "BROWSER_INSTALLATION_STATUS_NOT_INSTALLED" },
+  { no: 2, name: "BROWSER_INSTALLATION_STATUS_IN_PROGRESS" },
+  { no: 3, name: "BROWSER_INSTALLATION_STATUS_COMPLETE" },
+  { no: 4, name: "BROWSER_INSTALLATION_STATUS_ERROR" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.TrajectoryType
+ */
+export enum TrajectoryType {
+  /**
+   * @generated from enum value: TRAJECTORY_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: TRAJECTORY_TYPE_CASCADE = 1;
+   */
+  CASCADE = 1,
+
+  /**
+   * @generated from enum value: TRAJECTORY_TYPE_MAINLINE_TRAJECTORY = 2;
+   */
+  MAINLINE_TRAJECTORY = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(TrajectoryType)
+proto3.util.setEnumType(TrajectoryType, "exa.codeium_common_pb.TrajectoryType", [
+  { no: 0, name: "TRAJECTORY_TYPE_UNSPECIFIED" },
+  { no: 1, name: "TRAJECTORY_TYPE_CASCADE" },
+  { no: 2, name: "TRAJECTORY_TYPE_MAINLINE_TRAJECTORY" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.RefreshCustomizationType
+ */
+export enum RefreshCustomizationType {
+  /**
+   * @generated from enum value: REFRESH_CUSTOMIZATION_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: REFRESH_CUSTOMIZATION_TYPE_RULE = 1;
+   */
+  RULE = 1,
+
+  /**
+   * @generated from enum value: REFRESH_CUSTOMIZATION_TYPE_WORKFLOW = 2;
+   */
+  WORKFLOW = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(RefreshCustomizationType)
+proto3.util.setEnumType(RefreshCustomizationType, "exa.codeium_common_pb.RefreshCustomizationType", [
+  { no: 0, name: "REFRESH_CUSTOMIZATION_TYPE_UNSPECIFIED" },
+  { no: 1, name: "REFRESH_CUSTOMIZATION_TYPE_RULE" },
+  { no: 2, name: "REFRESH_CUSTOMIZATION_TYPE_WORKFLOW" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.ThirdPartyWebSearchProvider
+ */
+export enum ThirdPartyWebSearchProvider {
+  /**
+   * @generated from enum value: THIRD_PARTY_WEB_SEARCH_PROVIDER_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: THIRD_PARTY_WEB_SEARCH_PROVIDER_OPENAI = 1;
+   */
+  OPENAI = 1,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ThirdPartyWebSearchProvider)
+proto3.util.setEnumType(ThirdPartyWebSearchProvider, "exa.codeium_common_pb.ThirdPartyWebSearchProvider", [
+  { no: 0, name: "THIRD_PARTY_WEB_SEARCH_PROVIDER_UNSPECIFIED" },
+  { no: 1, name: "THIRD_PARTY_WEB_SEARCH_PROVIDER_OPENAI" },
+]);
+
+/**
+ * @generated from enum exa.codeium_common_pb.ThirdPartyWebSearchModel
+ */
+export enum ThirdPartyWebSearchModel {
+  /**
+   * @generated from enum value: THIRD_PARTY_WEB_SEARCH_MODEL_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: THIRD_PARTY_WEB_SEARCH_MODEL_O3 = 1;
+   */
+  O3 = 1,
+
+  /**
+   * @generated from enum value: THIRD_PARTY_WEB_SEARCH_MODEL_GPT_4_1 = 2;
+   */
+  GPT_4_1 = 2,
+
+  /**
+   * @generated from enum value: THIRD_PARTY_WEB_SEARCH_MODEL_O4_MINI = 3;
+   */
+  O4_MINI = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ThirdPartyWebSearchModel)
+proto3.util.setEnumType(ThirdPartyWebSearchModel, "exa.codeium_common_pb.ThirdPartyWebSearchModel", [
+  { no: 0, name: "THIRD_PARTY_WEB_SEARCH_MODEL_UNSPECIFIED" },
+  { no: 1, name: "THIRD_PARTY_WEB_SEARCH_MODEL_O3" },
+  { no: 2, name: "THIRD_PARTY_WEB_SEARCH_MODEL_GPT_4_1" },
+  { no: 3, name: "THIRD_PARTY_WEB_SEARCH_MODEL_O4_MINI" },
+]);
+
+/**
+ * @generated from message exa.codeium_common_pb.CodeContextItem
+ */
+export class CodeContextItem extends Message<CodeContextItem> {
+  /**
+   * @generated from field: string absolute_path_migrate_me_to_uri = 1;
+   */
+  absolutePathMigrateMeToUri = "";
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.WorkspacePath workspace_paths = 2;
+   */
+  workspacePaths: WorkspacePath[] = [];
+
+  /**
+   * @generated from field: string node_name = 3;
+   */
+  nodeName = "";
+
+  /**
+   * @generated from field: repeated string node_lineage = 4;
+   */
+  nodeLineage: string[] = [];
+
+  /**
+   * @generated from field: uint32 start_line = 5;
+   */
+  startLine = 0;
+
+  /**
+   * @generated from field: uint32 end_line = 6;
+   */
+  endLine = 0;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.CodeContextType context_type = 7;
+   */
+  contextType = CodeContextType.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.Language language = 10;
+   */
+  language = Language.UNSPECIFIED;
+
+  /**
+   * @generated from field: map<string, exa.codeium_common_pb.SnippetWithWordCount> snippet_by_type = 11;
+   */
+  snippetByType: { [key: string]: SnippetWithWordCount } = {};
+
+  /**
+   * @generated from field: uint32 start_col = 12;
+   */
+  startCol = 0;
+
+  /**
+   * @generated from field: uint32 end_col = 13;
+   */
+  endCol = 0;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.GitRepoInfo repo_info = 14;
+   */
+  repoInfo?: GitRepoInfo;
+
+  /**
+   * @generated from field: bytes file_content_hash = 15;
+   */
+  fileContentHash = new Uint8Array(0);
+
+  /**
+   * @generated from field: string absolute_uri = 16;
+   */
+  absoluteUri = "";
+
+  constructor(data?: PartialMessage<CodeContextItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CodeContextItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "absolute_path_migrate_me_to_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "workspace_paths", kind: "message", T: WorkspacePath, repeated: true },
+    { no: 3, name: "node_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "node_lineage", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 5, name: "start_line", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 6, name: "end_line", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 7, name: "context_type", kind: "enum", T: proto3.getEnumType(CodeContextType) },
+    { no: 10, name: "language", kind: "enum", T: proto3.getEnumType(Language) },
+    { no: 11, name: "snippet_by_type", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: SnippetWithWordCount} },
+    { no: 12, name: "start_col", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 13, name: "end_col", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 14, name: "repo_info", kind: "message", T: GitRepoInfo },
+    { no: 15, name: "file_content_hash", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 16, name: "absolute_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CodeContextItem {
+    return new CodeContextItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CodeContextItem {
+    return new CodeContextItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CodeContextItem {
+    return new CodeContextItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CodeContextItem | PlainMessage<CodeContextItem> | undefined, b: CodeContextItem | PlainMessage<CodeContextItem> | undefined): boolean {
+    return proto3.util.equals(CodeContextItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.Rule
+ */
+export class Rule extends Message<Rule> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  /**
+   * @generated from field: string prompt = 2;
+   */
+  prompt = "";
+
+  constructor(data?: PartialMessage<Rule>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.Rule";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "prompt", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Rule {
+    return new Rule().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Rule {
+    return new Rule().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Rule {
+    return new Rule().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Rule | PlainMessage<Rule> | undefined, b: Rule | PlainMessage<Rule> | undefined): boolean {
+    return proto3.util.equals(Rule, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CompletionsRequest
+ */
+export class CompletionsRequest extends Message<CompletionsRequest> {
+  /**
+   * @generated from field: exa.codeium_common_pb.CompletionConfiguration configuration = 1;
+   */
+  configuration?: CompletionConfiguration;
+
+  /**
+   * @generated from field: string prompt = 2;
+   */
+  prompt = "";
+
+  /**
+   * @generated from field: string editor_language = 3;
+   */
+  editorLanguage = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.Language language = 4;
+   */
+  language = Language.UNSPECIFIED;
+
+  /**
+   * @generated from field: string absolute_path_uri_for_telemetry = 5;
+   */
+  absolutePathUriForTelemetry = "";
+
+  /**
+   * @generated from field: string relative_path_for_telemetry = 6;
+   */
+  relativePathForTelemetry = "";
+
+  /**
+   * @generated from field: string experiment_features_json = 7;
+   */
+  experimentFeaturesJson = "";
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.PromptElementRange prompt_element_ranges = 8;
+   */
+  promptElementRanges: PromptElementRange[] = [];
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.PromptElementKindInfo prompt_element_kind_infos = 9;
+   */
+  promptElementKindInfos: PromptElementKindInfo[] = [];
+
+  /**
+   * @generated from field: exa.codeium_common_pb.Model model = 10;
+   */
+  model = Model.MODEL_UNSPECIFIED;
+
+  /**
+   * @generated from field: uint64 prompt_latency_ms = 11;
+   */
+  promptLatencyMs = protoInt64.zero;
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.PromptStageLatency prompt_stage_latencies = 12;
+   */
+  promptStageLatencies: PromptStageLatency[] = [];
+
+  /**
+   * @generated from field: string workspace_uri_for_telemetry = 13;
+   */
+  workspaceUriForTelemetry = "";
+
+  /**
+   * @generated from field: bool has_line_suffix = 14;
+   */
+  hasLineSuffix = false;
+
+  /**
+   * @generated from field: bool should_inline_fim = 15;
+   */
+  shouldInlineFim = false;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.Repository repository = 16;
+   */
+  repository?: Repository;
+
+  /**
+   * @generated from field: string model_tag = 17;
+   */
+  modelTag = "";
+
+  /**
+   * @generated from field: repeated string experiment_tags = 18;
+   */
+  experimentTags: string[] = [];
+
+  /**
+   * @generated from field: string experiment_variant_json = 19;
+   */
+  experimentVariantJson = "";
+
+  /**
+   * @generated from field: uint64 num_tokenized_bytes = 20;
+   */
+  numTokenizedBytes = protoInt64.zero;
+
+  /**
+   * @generated from field: string context_prompt = 21;
+   */
+  contextPrompt = "";
+
+  /**
+   * @generated from field: string eval_suffix = 22;
+   */
+  evalSuffix = "";
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.PromptAnnotationRange prompt_annotation_ranges = 23;
+   */
+  promptAnnotationRanges: PromptAnnotationRange[] = [];
+
+  /**
+   * @generated from field: bool supports_packed_streaming_completion_maps = 24;
+   */
+  supportsPackedStreamingCompletionMaps = false;
+
+  /**
+   * @generated from field: string uid = 25;
+   */
+  uid = "";
+
+  constructor(data?: PartialMessage<CompletionsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CompletionsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "configuration", kind: "message", T: CompletionConfiguration },
+    { no: 2, name: "prompt", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "editor_language", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "language", kind: "enum", T: proto3.getEnumType(Language) },
+    { no: 5, name: "absolute_path_uri_for_telemetry", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "relative_path_for_telemetry", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "experiment_features_json", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "prompt_element_ranges", kind: "message", T: PromptElementRange, repeated: true },
+    { no: 9, name: "prompt_element_kind_infos", kind: "message", T: PromptElementKindInfo, repeated: true },
+    { no: 10, name: "model", kind: "enum", T: proto3.getEnumType(Model) },
+    { no: 11, name: "prompt_latency_ms", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 12, name: "prompt_stage_latencies", kind: "message", T: PromptStageLatency, repeated: true },
+    { no: 13, name: "workspace_uri_for_telemetry", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 14, name: "has_line_suffix", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 15, name: "should_inline_fim", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 16, name: "repository", kind: "message", T: Repository },
+    { no: 17, name: "model_tag", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 18, name: "experiment_tags", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 19, name: "experiment_variant_json", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 20, name: "num_tokenized_bytes", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 21, name: "context_prompt", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 22, name: "eval_suffix", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 23, name: "prompt_annotation_ranges", kind: "message", T: PromptAnnotationRange, repeated: true },
+    { no: 24, name: "supports_packed_streaming_completion_maps", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 25, name: "uid", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CompletionsRequest {
+    return new CompletionsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CompletionsRequest {
+    return new CompletionsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CompletionsRequest {
+    return new CompletionsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CompletionsRequest | PlainMessage<CompletionsRequest> | undefined, b: CompletionsRequest | PlainMessage<CompletionsRequest> | undefined): boolean {
+    return proto3.util.equals(CompletionsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ModelOrAlias
+ */
+export class ModelOrAlias extends Message<ModelOrAlias> {
+  /**
+   * @generated from oneof exa.codeium_common_pb.ModelOrAlias.choice
+   */
+  choice: {
+    /**
+     * @generated from field: exa.codeium_common_pb.Model model = 1;
+     */
+    value: Model;
+    case: "model";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.ModelAlias alias = 2;
+     */
+    value: ModelAlias;
+    case: "alias";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<ModelOrAlias>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ModelOrAlias";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "model", kind: "enum", T: proto3.getEnumType(Model), oneof: "choice" },
+    { no: 2, name: "alias", kind: "enum", T: proto3.getEnumType(ModelAlias), oneof: "choice" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModelOrAlias {
+    return new ModelOrAlias().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ModelOrAlias {
+    return new ModelOrAlias().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ModelOrAlias {
+    return new ModelOrAlias().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ModelOrAlias | PlainMessage<ModelOrAlias> | undefined, b: ModelOrAlias | PlainMessage<ModelOrAlias> | undefined): boolean {
+    return proto3.util.equals(ModelOrAlias, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.LspReference
+ */
+export class LspReference extends Message<LspReference> {
+  /**
+   * @generated from field: string uri = 1;
+   */
+  uri = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.Range range = 2;
+   */
+  range?: Range;
+
+  /**
+   * @generated from field: optional string snippet = 3;
+   */
+  snippet?: string;
+
+  constructor(data?: PartialMessage<LspReference>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.LspReference";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "range", kind: "message", T: Range },
+    { no: 3, name: "snippet", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): LspReference {
+    return new LspReference().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): LspReference {
+    return new LspReference().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): LspReference {
+    return new LspReference().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: LspReference | PlainMessage<LspReference> | undefined, b: LspReference | PlainMessage<LspReference> | undefined): boolean {
+    return proto3.util.equals(LspReference, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ModelStatusInfo
+ */
+export class ModelStatusInfo extends Message<ModelStatusInfo> {
+  /**
+   * @generated from field: exa.codeium_common_pb.Model model = 1;
+   */
+  model = Model.MODEL_UNSPECIFIED;
+
+  /**
+   * @generated from field: string message = 2;
+   */
+  message = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.ModelStatus status = 3;
+   */
+  status = ModelStatus.UNSPECIFIED;
+
+  constructor(data?: PartialMessage<ModelStatusInfo>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ModelStatusInfo";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "model", kind: "enum", T: proto3.getEnumType(Model) },
+    { no: 2, name: "message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "status", kind: "enum", T: proto3.getEnumType(ModelStatus) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModelStatusInfo {
+    return new ModelStatusInfo().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ModelStatusInfo {
+    return new ModelStatusInfo().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ModelStatusInfo {
+    return new ModelStatusInfo().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ModelStatusInfo | PlainMessage<ModelStatusInfo> | undefined, b: ModelStatusInfo | PlainMessage<ModelStatusInfo> | undefined): boolean {
+    return proto3.util.equals(ModelStatusInfo, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.EmbeddingResponse
+ */
+export class EmbeddingResponse extends Message<EmbeddingResponse> {
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.Embedding embeddings = 1;
+   */
+  embeddings: Embedding[] = [];
+
+  /**
+   * @generated from field: bool prompts_exceeded_context_length = 2;
+   */
+  promptsExceededContextLength = false;
+
+  constructor(data?: PartialMessage<EmbeddingResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.EmbeddingResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "embeddings", kind: "message", T: Embedding, repeated: true },
+    { no: 2, name: "prompts_exceeded_context_length", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EmbeddingResponse {
+    return new EmbeddingResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EmbeddingResponse {
+    return new EmbeddingResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EmbeddingResponse {
+    return new EmbeddingResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: EmbeddingResponse | PlainMessage<EmbeddingResponse> | undefined, b: EmbeddingResponse | PlainMessage<EmbeddingResponse> | undefined): boolean {
+    return proto3.util.equals(EmbeddingResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.Document
+ */
+export class Document extends Message<Document> {
+  /**
+   * @generated from field: string absolute_path_migrate_me_to_uri = 1;
+   */
+  absolutePathMigrateMeToUri = "";
+
+  /**
+   * @generated from field: string relative_path_migrate_me_to_workspace_uri = 2;
+   */
+  relativePathMigrateMeToWorkspaceUri = "";
+
+  /**
+   * @generated from field: string text = 3;
+   */
+  text = "";
+
+  /**
+   * @generated from field: string editor_language = 4;
+   */
+  editorLanguage = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.Language language = 5;
+   */
+  language = Language.UNSPECIFIED;
+
+  /**
+   * @generated from field: uint64 cursor_offset = 6;
+   */
+  cursorOffset = protoInt64.zero;
+
+  /**
+   * @generated from field: string line_ending = 7;
+   */
+  lineEnding = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.DocumentPosition cursor_position = 8;
+   */
+  cursorPosition?: DocumentPosition;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.Range visible_range = 9;
+   */
+  visibleRange?: Range;
+
+  /**
+   * @generated from field: bool is_cutoff_start = 10;
+   */
+  isCutoffStart = false;
+
+  /**
+   * @generated from field: bool is_cutoff_end = 11;
+   */
+  isCutoffEnd = false;
+
+  /**
+   * @generated from field: string absolute_uri = 12;
+   */
+  absoluteUri = "";
+
+  /**
+   * @generated from field: string workspace_uri = 13;
+   */
+  workspaceUri = "";
+
+  /**
+   * @generated from field: int32 lines_cutoff_start = 14;
+   */
+  linesCutoffStart = 0;
+
+  /**
+   * @generated from field: int32 lines_cutoff_end = 15;
+   */
+  linesCutoffEnd = 0;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 16;
+   */
+  timestamp?: Timestamp;
+
+  /**
+   * @generated from field: bool is_dirty = 17;
+   */
+  isDirty = false;
+
+  /**
+   * @generated from field: bool is_synthetic = 18;
+   */
+  isSynthetic = false;
+
+  constructor(data?: PartialMessage<Document>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.Document";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "absolute_path_migrate_me_to_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "relative_path_migrate_me_to_workspace_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "editor_language", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "language", kind: "enum", T: proto3.getEnumType(Language) },
+    { no: 6, name: "cursor_offset", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 7, name: "line_ending", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "cursor_position", kind: "message", T: DocumentPosition },
+    { no: 9, name: "visible_range", kind: "message", T: Range },
+    { no: 10, name: "is_cutoff_start", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 11, name: "is_cutoff_end", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 12, name: "absolute_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 13, name: "workspace_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 14, name: "lines_cutoff_start", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 15, name: "lines_cutoff_end", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 16, name: "timestamp", kind: "message", T: Timestamp },
+    { no: 17, name: "is_dirty", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 18, name: "is_synthetic", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Document {
+    return new Document().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Document {
+    return new Document().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Document {
+    return new Document().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Document | PlainMessage<Document> | undefined, b: Document | PlainMessage<Document> | undefined): boolean {
+    return proto3.util.equals(Document, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.WebDocsOption
+ */
+export class WebDocsOption extends Message<WebDocsOption> {
+  /**
+   * @generated from field: string label = 1;
+   */
+  label = "";
+
+  /**
+   * @generated from field: repeated string synonyms = 4;
+   */
+  synonyms: string[] = [];
+
+  /**
+   * @generated from field: bool is_featured = 5;
+   */
+  isFeatured = false;
+
+  /**
+   * @generated from oneof exa.codeium_common_pb.WebDocsOption.value
+   */
+  value: {
+    /**
+     * @generated from field: string docs_url = 2;
+     */
+    value: string;
+    case: "docsUrl";
+  } | {
+    /**
+     * @generated from field: string docs_search_domain = 3;
+     */
+    value: string;
+    case: "docsSearchDomain";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<WebDocsOption>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.WebDocsOption";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "label", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "synonyms", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 5, name: "is_featured", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 2, name: "docs_url", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "value" },
+    { no: 3, name: "docs_search_domain", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "value" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): WebDocsOption {
+    return new WebDocsOption().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): WebDocsOption {
+    return new WebDocsOption().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): WebDocsOption {
+    return new WebDocsOption().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: WebDocsOption | PlainMessage<WebDocsOption> | undefined, b: WebDocsOption | PlainMessage<WebDocsOption> | undefined): boolean {
+    return proto3.util.equals(WebDocsOption, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.Embedding
+ */
+export class Embedding extends Message<Embedding> {
+  /**
+   * @generated from field: repeated float values = 1;
+   */
+  values: number[] = [];
+
+  constructor(data?: PartialMessage<Embedding>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.Embedding";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "values", kind: "scalar", T: 2 /* ScalarType.FLOAT */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Embedding {
+    return new Embedding().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Embedding {
+    return new Embedding().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Embedding {
+    return new Embedding().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Embedding | PlainMessage<Embedding> | undefined, b: Embedding | PlainMessage<Embedding> | undefined): boolean {
+    return proto3.util.equals(Embedding, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ContextScope
+ */
+export class ContextScope extends Message<ContextScope> {
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.ContextScopeItem items = 1;
+   */
+  items: ContextScopeItem[] = [];
+
+  constructor(data?: PartialMessage<ContextScope>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ContextScope";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "items", kind: "message", T: ContextScopeItem, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ContextScope {
+    return new ContextScope().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ContextScope {
+    return new ContextScope().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ContextScope {
+    return new ContextScope().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ContextScope | PlainMessage<ContextScope> | undefined, b: ContextScope | PlainMessage<ContextScope> | undefined): boolean {
+    return proto3.util.equals(ContextScope, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CompletionResponse
+ */
+export class CompletionResponse extends Message<CompletionResponse> {
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.Completion completions = 1;
+   */
+  completions: Completion[] = [];
+
+  /**
+   * @generated from field: uint64 max_tokens = 2;
+   */
+  maxTokens = protoInt64.zero;
+
+  /**
+   * @generated from field: double temperature = 3;
+   */
+  temperature = 0;
+
+  /**
+   * @generated from field: uint64 top_k = 4;
+   */
+  topK = protoInt64.zero;
+
+  /**
+   * @generated from field: double top_p = 5;
+   */
+  topP = 0;
+
+  /**
+   * @generated from field: repeated string stop_patterns = 6;
+   */
+  stopPatterns: string[] = [];
+
+  /**
+   * @generated from field: uint64 prompt_length = 7;
+   */
+  promptLength = protoInt64.zero;
+
+  /**
+   * @generated from field: string prompt_id = 8;
+   */
+  promptId = "";
+
+  /**
+   * @generated from field: string model_tag = 10;
+   */
+  modelTag = "";
+
+  /**
+   * @generated from field: optional exa.codeium_common_pb.CompletionProfile completion_profile = 11;
+   */
+  completionProfile?: CompletionProfile;
+
+  constructor(data?: PartialMessage<CompletionResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CompletionResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "completions", kind: "message", T: Completion, repeated: true },
+    { no: 2, name: "max_tokens", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 3, name: "temperature", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 4, name: "top_k", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 5, name: "top_p", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 6, name: "stop_patterns", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 7, name: "prompt_length", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 8, name: "prompt_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 10, name: "model_tag", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 11, name: "completion_profile", kind: "message", T: CompletionProfile, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CompletionResponse {
+    return new CompletionResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CompletionResponse {
+    return new CompletionResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CompletionResponse {
+    return new CompletionResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CompletionResponse | PlainMessage<CompletionResponse> | undefined, b: CompletionResponse | PlainMessage<CompletionResponse> | undefined): boolean {
+    return proto3.util.equals(CompletionResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ChatStats
+ */
+export class ChatStats extends Message<ChatStats> {
+  /**
+   * @generated from field: uint64 chats_sent = 1;
+   */
+  chatsSent = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 chats_received = 2;
+   */
+  chatsReceived = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 chats_accepted = 3;
+   */
+  chatsAccepted = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 chats_inserted_at_cursor = 4;
+   */
+  chatsInsertedAtCursor = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 chats_applied = 5;
+   */
+  chatsApplied = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 chat_loc_used = 6;
+   */
+  chatLocUsed = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 chat_code_blocks_used = 7;
+   */
+  chatCodeBlocksUsed = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 function_explain_count = 8;
+   */
+  functionExplainCount = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 function_docstring_count = 9;
+   */
+  functionDocstringCount = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 function_refactor_count = 10;
+   */
+  functionRefactorCount = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 code_block_explain_count = 11;
+   */
+  codeBlockExplainCount = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 code_block_refactor_count = 12;
+   */
+  codeBlockRefactorCount = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 problem_explain_count = 13;
+   */
+  problemExplainCount = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 function_unit_tests_count = 14;
+   */
+  functionUnitTestsCount = protoInt64.zero;
+
+  /**
+   * @generated from field: uint32 active_developer_days = 15;
+   */
+  activeDeveloperDays = 0;
+
+  constructor(data?: PartialMessage<ChatStats>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ChatStats";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "chats_sent", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 2, name: "chats_received", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 3, name: "chats_accepted", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 4, name: "chats_inserted_at_cursor", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 5, name: "chats_applied", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 6, name: "chat_loc_used", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 7, name: "chat_code_blocks_used", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 8, name: "function_explain_count", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 9, name: "function_docstring_count", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 10, name: "function_refactor_count", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 11, name: "code_block_explain_count", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 12, name: "code_block_refactor_count", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 13, name: "problem_explain_count", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 14, name: "function_unit_tests_count", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 15, name: "active_developer_days", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ChatStats {
+    return new ChatStats().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ChatStats {
+    return new ChatStats().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ChatStats {
+    return new ChatStats().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ChatStats | PlainMessage<ChatStats> | undefined, b: ChatStats | PlainMessage<ChatStats> | undefined): boolean {
+    return proto3.util.equals(ChatStats, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.IntellisenseSuggestion
+ */
+export class IntellisenseSuggestion extends Message<IntellisenseSuggestion> {
+  /**
+   * @generated from field: exa.codeium_common_pb.Range range = 1;
+   */
+  range?: Range;
+
+  /**
+   * @generated from field: string text = 2;
+   */
+  text = "";
+
+  /**
+   * @generated from field: string label = 3;
+   */
+  label = "";
+
+  /**
+   * @generated from field: string label_detail = 4;
+   */
+  labelDetail = "";
+
+  /**
+   * @generated from field: string description = 5;
+   */
+  description = "";
+
+  /**
+   * @generated from field: string detail = 6;
+   */
+  detail = "";
+
+  /**
+   * @generated from field: string documentation = 7;
+   */
+  documentation = "";
+
+  /**
+   * @generated from field: string kind = 8;
+   */
+  kind = "";
+
+  /**
+   * @generated from field: bool selected = 9;
+   */
+  selected = false;
+
+  constructor(data?: PartialMessage<IntellisenseSuggestion>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.IntellisenseSuggestion";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "range", kind: "message", T: Range },
+    { no: 2, name: "text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "label", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "label_detail", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "detail", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "documentation", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "kind", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 9, name: "selected", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): IntellisenseSuggestion {
+    return new IntellisenseSuggestion().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): IntellisenseSuggestion {
+    return new IntellisenseSuggestion().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): IntellisenseSuggestion {
+    return new IntellisenseSuggestion().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: IntellisenseSuggestion | PlainMessage<IntellisenseSuggestion> | undefined, b: IntellisenseSuggestion | PlainMessage<IntellisenseSuggestion> | undefined): boolean {
+    return proto3.util.equals(IntellisenseSuggestion, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.IndexerStats
+ */
+export class IndexerStats extends Message<IndexerStats> {
+  /**
+   * @generated from field: exa.codeium_common_pb.IndexerDbStats database = 1;
+   */
+  database?: IndexerDbStats;
+
+  constructor(data?: PartialMessage<IndexerStats>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.IndexerStats";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "database", kind: "message", T: IndexerDbStats },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): IndexerStats {
+    return new IndexerStats().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): IndexerStats {
+    return new IndexerStats().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): IndexerStats {
+    return new IndexerStats().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: IndexerStats | PlainMessage<IndexerStats> | undefined, b: IndexerStats | PlainMessage<IndexerStats> | undefined): boolean {
+    return proto3.util.equals(IndexerStats, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CodeAnnotation
+ */
+export class CodeAnnotation extends Message<CodeAnnotation> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  /**
+   * @generated from field: string uri = 2;
+   */
+  uri = "";
+
+  /**
+   * @generated from field: uint32 line = 3;
+   */
+  line = 0;
+
+  /**
+   * @generated from field: string content = 4;
+   */
+  content = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp created_at = 5;
+   */
+  createdAt?: Timestamp;
+
+  constructor(data?: PartialMessage<CodeAnnotation>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CodeAnnotation";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "line", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 4, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "created_at", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CodeAnnotation {
+    return new CodeAnnotation().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CodeAnnotation {
+    return new CodeAnnotation().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CodeAnnotation {
+    return new CodeAnnotation().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CodeAnnotation | PlainMessage<CodeAnnotation> | undefined, b: CodeAnnotation | PlainMessage<CodeAnnotation> | undefined): boolean {
+    return proto3.util.equals(CodeAnnotation, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.WorkspacePath
+ */
+export class WorkspacePath extends Message<WorkspacePath> {
+  /**
+   * @generated from field: string workspace_migrate_me_to_uri = 1;
+   */
+  workspaceMigrateMeToUri = "";
+
+  /**
+   * @generated from field: string relative_path = 2;
+   */
+  relativePath = "";
+
+  /**
+   * @generated from field: string workspace_uri = 3;
+   */
+  workspaceUri = "";
+
+  constructor(data?: PartialMessage<WorkspacePath>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.WorkspacePath";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "workspace_migrate_me_to_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "relative_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "workspace_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): WorkspacePath {
+    return new WorkspacePath().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): WorkspacePath {
+    return new WorkspacePath().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): WorkspacePath {
+    return new WorkspacePath().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: WorkspacePath | PlainMessage<WorkspacePath> | undefined, b: WorkspacePath | PlainMessage<WorkspacePath> | undefined): boolean {
+    return proto3.util.equals(WorkspacePath, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.WindsurfProject
+ */
+export class WindsurfProject extends Message<WindsurfProject> {
+  /**
+   * @generated from field: string windsurf_project_id = 1;
+   */
+  windsurfProjectId = "";
+
+  /**
+   * @generated from field: string auth_uid = 2;
+   */
+  authUid = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.DeploymentProvider deployment_provider = 3;
+   */
+  deploymentProvider = DeploymentProvider.UNSPECIFIED;
+
+  /**
+   * @generated from field: string provider_project_id = 4;
+   */
+  providerProjectId = "";
+
+  /**
+   * @generated from field: string project_name = 5;
+   */
+  projectName = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp created_at = 6;
+   */
+  createdAt?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp updated_at = 7;
+   */
+  updatedAt?: Timestamp;
+
+  /**
+   * @generated from field: string domain = 8;
+   */
+  domain = "";
+
+  /**
+   * @generated from field: string subdomain_name = 9;
+   */
+  subdomainName = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp expires_at = 10;
+   */
+  expiresAt?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp claimed_at = 11;
+   */
+  claimedAt?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp deprovisioned_at = 12;
+   */
+  deprovisionedAt?: Timestamp;
+
+  /**
+   * @generated from field: string project_url = 13;
+   */
+  projectUrl = "";
+
+  /**
+   * @generated from field: string provider_team_id = 14;
+   */
+  providerTeamId = "";
+
+  constructor(data?: PartialMessage<WindsurfProject>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.WindsurfProject";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "windsurf_project_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "auth_uid", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "deployment_provider", kind: "enum", T: proto3.getEnumType(DeploymentProvider) },
+    { no: 4, name: "provider_project_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "project_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "created_at", kind: "message", T: Timestamp },
+    { no: 7, name: "updated_at", kind: "message", T: Timestamp },
+    { no: 8, name: "domain", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 9, name: "subdomain_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 10, name: "expires_at", kind: "message", T: Timestamp },
+    { no: 11, name: "claimed_at", kind: "message", T: Timestamp },
+    { no: 12, name: "deprovisioned_at", kind: "message", T: Timestamp },
+    { no: 13, name: "project_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 14, name: "provider_team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): WindsurfProject {
+    return new WindsurfProject().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): WindsurfProject {
+    return new WindsurfProject().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): WindsurfProject {
+    return new WindsurfProject().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: WindsurfProject | PlainMessage<WindsurfProject> | undefined, b: WindsurfProject | PlainMessage<WindsurfProject> | undefined): boolean {
+    return proto3.util.equals(WindsurfProject, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.TextData
+ */
+export class TextData extends Message<TextData> {
+  /**
+   * @generated from field: string text = 1;
+   */
+  text = "";
+
+  /**
+   * @generated from field: string mime_type = 2;
+   */
+  mimeType = "";
+
+  constructor(data?: PartialMessage<TextData>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.TextData";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "mime_type", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TextData {
+    return new TextData().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TextData {
+    return new TextData().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TextData {
+    return new TextData().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: TextData | PlainMessage<TextData> | undefined, b: TextData | PlainMessage<TextData> | undefined): boolean {
+    return proto3.util.equals(TextData, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.UserStatus
+ */
+export class UserStatus extends Message<UserStatus> {
+  /**
+   * @generated from field: bool pro = 1;
+   */
+  pro = false;
+
+  /**
+   * @generated from field: bool disable_telemetry = 2;
+   */
+  disableTelemetry = false;
+
+  /**
+   * @generated from field: string name = 3;
+   */
+  name = "";
+
+  /**
+   * @generated from field: bool ignore_chat_telemetry_setting = 4;
+   */
+  ignoreChatTelemetrySetting = false;
+
+  /**
+   * @generated from field: string team_id = 5;
+   */
+  teamId = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.UserTeamStatus team_status = 6;
+   */
+  teamStatus = UserTeamStatus.UNSPECIFIED;
+
+  /**
+   * @generated from field: string email = 7;
+   */
+  email = "";
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.TeamsFeatures teams_features = 8;
+   */
+  teamsFeatures: TeamsFeatures[] = [];
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.UserFeatures user_features = 9;
+   */
+  userFeatures: UserFeatures[] = [];
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.Permission permissions = 11;
+   */
+  permissions: Permission[] = [];
+
+  /**
+   * @generated from field: exa.codeium_common_pb.PlanInfo plan_info = 12;
+   */
+  planInfo?: PlanInfo;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.PlanStatus plan_status = 13;
+   */
+  planStatus?: PlanStatus;
+
+  /**
+   * @generated from field: int64 user_used_prompt_credits = 28;
+   */
+  userUsedPromptCredits = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 user_used_flow_credits = 29;
+   */
+  userUsedFlowCredits = protoInt64.zero;
+
+  /**
+   * @generated from field: bool has_fingerprint_set = 30;
+   */
+  hasFingerprintSet = false;
+
+  /**
+   * @generated from field: bool has_used_windsurf = 31;
+   */
+  hasUsedWindsurf = false;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.TeamConfig team_config = 32;
+   */
+  teamConfig?: TeamConfig;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.CascadeModelConfigData cascade_model_config_data = 33;
+   */
+  cascadeModelConfigData?: CascadeModelConfigData;
+
+  constructor(data?: PartialMessage<UserStatus>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.UserStatus";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "pro", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 2, name: "disable_telemetry", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "ignore_chat_telemetry_setting", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 5, name: "team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "team_status", kind: "enum", T: proto3.getEnumType(UserTeamStatus) },
+    { no: 7, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "teams_features", kind: "enum", T: proto3.getEnumType(TeamsFeatures), repeated: true },
+    { no: 9, name: "user_features", kind: "enum", T: proto3.getEnumType(UserFeatures), repeated: true },
+    { no: 11, name: "permissions", kind: "enum", T: proto3.getEnumType(Permission), repeated: true },
+    { no: 12, name: "plan_info", kind: "message", T: PlanInfo },
+    { no: 13, name: "plan_status", kind: "message", T: PlanStatus },
+    { no: 28, name: "user_used_prompt_credits", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 29, name: "user_used_flow_credits", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 30, name: "has_fingerprint_set", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 31, name: "has_used_windsurf", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 32, name: "team_config", kind: "message", T: TeamConfig },
+    { no: 33, name: "cascade_model_config_data", kind: "message", T: CascadeModelConfigData },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserStatus {
+    return new UserStatus().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserStatus {
+    return new UserStatus().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserStatus {
+    return new UserStatus().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserStatus | PlainMessage<UserStatus> | undefined, b: UserStatus | PlainMessage<UserStatus> | undefined): boolean {
+    return proto3.util.equals(UserStatus, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.GitRepoInfo
+ */
+export class GitRepoInfo extends Message<GitRepoInfo> {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string owner = 2;
+   */
+  owner = "";
+
+  /**
+   * @generated from field: string commit = 3;
+   */
+  commit = "";
+
+  /**
+   * @generated from field: string version_alias = 4;
+   */
+  versionAlias = "";
+
+  /**
+   * @generated from field: string repo_name = 5;
+   */
+  repoName = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.ScmProvider scm_provider = 6;
+   */
+  scmProvider = ScmProvider.UNSPECIFIED;
+
+  /**
+   * @generated from field: string base_git_url = 7;
+   */
+  baseGitUrl = "";
+
+  constructor(data?: PartialMessage<GitRepoInfo>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.GitRepoInfo";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "owner", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "commit", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "version_alias", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "repo_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "scm_provider", kind: "enum", T: proto3.getEnumType(ScmProvider) },
+    { no: 7, name: "base_git_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GitRepoInfo {
+    return new GitRepoInfo().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GitRepoInfo {
+    return new GitRepoInfo().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GitRepoInfo {
+    return new GitRepoInfo().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GitRepoInfo | PlainMessage<GitRepoInfo> | undefined, b: GitRepoInfo | PlainMessage<GitRepoInfo> | undefined): boolean {
+    return proto3.util.equals(GitRepoInfo, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ClientModelSort
+ */
+export class ClientModelSort extends Message<ClientModelSort> {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name = "";
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.ClientModelGroup groups = 2;
+   */
+  groups: ClientModelGroup[] = [];
+
+  constructor(data?: PartialMessage<ClientModelSort>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ClientModelSort";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "groups", kind: "message", T: ClientModelGroup, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClientModelSort {
+    return new ClientModelSort().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ClientModelSort {
+    return new ClientModelSort().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClientModelSort {
+    return new ClientModelSort().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ClientModelSort | PlainMessage<ClientModelSort> | undefined, b: ClientModelSort | PlainMessage<ClientModelSort> | undefined): boolean {
+    return proto3.util.equals(ClientModelSort, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.StreamingCompletionResponse
+ */
+export class StreamingCompletionResponse extends Message<StreamingCompletionResponse> {
+  /**
+   * @generated from field: optional exa.codeium_common_pb.CompletionProfile completion_profile = 5;
+   */
+  completionProfile?: CompletionProfile;
+
+  /**
+   * @generated from oneof exa.codeium_common_pb.StreamingCompletionResponse.payload
+   */
+  payload: {
+    /**
+     * @generated from field: exa.codeium_common_pb.StreamingCompletionInfo completion_info = 1;
+     */
+    value: StreamingCompletionInfo;
+    case: "completionInfo";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.StreamingCompletionMap completion_map = 2;
+     */
+    value: StreamingCompletionMap;
+    case: "completionMap";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.PackedStreamingCompletionMaps packed_completion_maps = 4;
+     */
+    value: PackedStreamingCompletionMaps;
+    case: "packedCompletionMaps";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<StreamingCompletionResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.StreamingCompletionResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 5, name: "completion_profile", kind: "message", T: CompletionProfile, opt: true },
+    { no: 1, name: "completion_info", kind: "message", T: StreamingCompletionInfo, oneof: "payload" },
+    { no: 2, name: "completion_map", kind: "message", T: StreamingCompletionMap, oneof: "payload" },
+    { no: 4, name: "packed_completion_maps", kind: "message", T: PackedStreamingCompletionMaps, oneof: "payload" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StreamingCompletionResponse {
+    return new StreamingCompletionResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): StreamingCompletionResponse {
+    return new StreamingCompletionResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): StreamingCompletionResponse {
+    return new StreamingCompletionResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: StreamingCompletionResponse | PlainMessage<StreamingCompletionResponse> | undefined, b: StreamingCompletionResponse | PlainMessage<StreamingCompletionResponse> | undefined): boolean {
+    return proto3.util.equals(StreamingCompletionResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.KnowledgeBaseItemWithMetadata
+ */
+export class KnowledgeBaseItemWithMetadata extends Message<KnowledgeBaseItemWithMetadata> {
+  /**
+   * @generated from field: exa.codeium_common_pb.KnowledgeBaseItem knowledge_base_item = 1;
+   */
+  knowledgeBaseItem?: KnowledgeBaseItem;
+
+  /**
+   * @generated from field: float score = 2;
+   */
+  score = 0;
+
+  /**
+   * @generated from field: string index_name = 3;
+   */
+  indexName = "";
+
+  /**
+   * @generated from field: string document_source_name = 4;
+   */
+  documentSourceName = "";
+
+  constructor(data?: PartialMessage<KnowledgeBaseItemWithMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.KnowledgeBaseItemWithMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "knowledge_base_item", kind: "message", T: KnowledgeBaseItem },
+    { no: 2, name: "score", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 3, name: "index_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "document_source_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): KnowledgeBaseItemWithMetadata {
+    return new KnowledgeBaseItemWithMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): KnowledgeBaseItemWithMetadata {
+    return new KnowledgeBaseItemWithMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): KnowledgeBaseItemWithMetadata {
+    return new KnowledgeBaseItemWithMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: KnowledgeBaseItemWithMetadata | PlainMessage<KnowledgeBaseItemWithMetadata> | undefined, b: KnowledgeBaseItemWithMetadata | PlainMessage<KnowledgeBaseItemWithMetadata> | undefined): boolean {
+    return proto3.util.equals(KnowledgeBaseItemWithMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.UserSettings
+ */
+export class UserSettings extends Message<UserSettings> {
+  /**
+   * @generated from field: bool open_most_recent_chat_conversation = 1;
+   */
+  openMostRecentChatConversation = false;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.Model last_selected_model = 2;
+   */
+  lastSelectedModel = Model.MODEL_UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.ThemePreference theme_preference = 3;
+   */
+  themePreference = ThemePreference.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.ExtensionPanelTab extension_panel_tab = 4;
+   */
+  extensionPanelTab = ExtensionPanelTab.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.FontSize font_size = 5;
+   */
+  fontSize = FontSize.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.AutocompleteSpeed autocomplete_speed = 6;
+   */
+  autocompleteSpeed = AutocompleteSpeed.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.RememberLastModelSelection remember_last_model_selection = 7;
+   */
+  rememberLastModelSelection = RememberLastModelSelection.UNSPECIFIED;
+
+  /**
+   * @generated from field: string last_selected_model_name = 8;
+   */
+  lastSelectedModelName = "";
+
+  /**
+   * @generated from field: optional exa.codeium_common_pb.Model last_selected_cascade_model = 9;
+   */
+  lastSelectedCascadeModel?: Model;
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.CascadeNUXState cascade_nux_states = 11;
+   */
+  cascadeNuxStates: CascadeNUXState[] = [];
+
+  /**
+   * @generated from field: optional exa.codeium_common_pb.ConversationalPlannerMode cascade_planner_mode = 13;
+   */
+  cascadePlannerMode?: ConversationalPlannerMode;
+
+  /**
+   * @generated from field: repeated string cascade_allowed_commands = 14;
+   */
+  cascadeAllowedCommands: string[] = [];
+
+  /**
+   * @generated from field: repeated string cascade_denied_commands = 15;
+   */
+  cascadeDeniedCommands: string[] = [];
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.UserNUXState user_nux_states = 17;
+   */
+  userNuxStates: UserNUXState[] = [];
+
+  /**
+   * @generated from field: bool cascade_web_search_disabled = 18;
+   */
+  cascadeWebSearchDisabled = false;
+
+  /**
+   * @generated from field: bool disable_autocomplete = 19;
+   */
+  disableAutocomplete = false;
+
+  /**
+   * @generated from field: bool disable_supercomplete = 20;
+   */
+  disableSupercomplete = false;
+
+  /**
+   * @generated from field: bool disable_selection_popup = 21;
+   */
+  disableSelectionPopup = false;
+
+  /**
+   * @generated from field: bool disable_explain_problem_inlay_hint = 22;
+   */
+  disableExplainProblemInlayHint = false;
+
+  /**
+   * @generated from field: bool disable_inlay_hint_shortcuts = 23;
+   */
+  disableInlayHintShortcuts = false;
+
+  /**
+   * @generated from field: bool disable_open_cascade_on_reload = 24;
+   */
+  disableOpenCascadeOnReload = false;
+
+  /**
+   * @generated from field: bool disable_auto_open_edited_files = 25;
+   */
+  disableAutoOpenEditedFiles = false;
+
+  /**
+   * @generated from field: bool disable_tab_to_jump = 26;
+   */
+  disableTabToJump = false;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.CascadeCommandsAutoExecution cascade_auto_execution_policy = 27;
+   */
+  cascadeAutoExecutionPolicy = CascadeCommandsAutoExecution.UNSPECIFIED;
+
+  /**
+   * @generated from field: optional string last_selected_cascade_id = 28;
+   */
+  lastSelectedCascadeId?: string;
+
+  /**
+   * @generated from field: bool explain_and_fix_in_current_conversation = 29;
+   */
+  explainAndFixInCurrentConversation = false;
+
+  /**
+   * @generated from field: optional exa.codeium_common_pb.ModelOrAlias last_selected_cascade_model_or_alias = 30;
+   */
+  lastSelectedCascadeModelOrAlias?: ModelOrAlias;
+
+  /**
+   * @generated from field: bool allow_cascade_access_gitignore_files = 31;
+   */
+  allowCascadeAccessGitignoreFiles = false;
+
+  /**
+   * @generated from field: bool disable_cascade_auto_fix_lints = 32;
+   */
+  disableCascadeAutoFixLints = false;
+
+  /**
+   * @generated from field: bool disable_cascade_browser_previews = 33;
+   */
+  disableCascadeBrowserPreviews = false;
+
+  /**
+   * @generated from field: bool detect_proxy = 34;
+   */
+  detectProxy = false;
+
+  /**
+   * @generated from field: bool disable_tab_to_import = 35;
+   */
+  disableTabToImport = false;
+
+  /**
+   * @generated from field: bool use_clipboard_for_completions = 36;
+   */
+  useClipboardForCompletions = false;
+
+  /**
+   * @generated from field: bool disable_highlight_after_accept = 37;
+   */
+  disableHighlightAfterAccept = false;
+
+  /**
+   * @generated from field: string last_selected_new_convo_tab = 38;
+   */
+  lastSelectedNewConvoTab = "";
+
+  /**
+   * @generated from field: bool disable_auto_generate_memories = 39;
+   */
+  disableAutoGenerateMemories = false;
+
+  /**
+   * @generated from field: bool enable_sounds_for_special_events = 40;
+   */
+  enableSoundsForSpecialEvents = false;
+
+  /**
+   * @generated from field: bool enable_tab_sounds = 41;
+   */
+  enableTabSounds = false;
+
+  /**
+   * @generated from field: bool allow_cascade_in_background = 42;
+   */
+  allowCascadeInBackground = false;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.TabToJump tab_to_jump = 43;
+   */
+  tabToJump = TabToJump.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.CascadeWebSearchTool cascade_web_search = 44;
+   */
+  cascadeWebSearch = CascadeWebSearchTool.UNSPECIFIED;
+
+  /**
+   * @generated from field: bool enable_terminal_completion = 45;
+   */
+  enableTerminalCompletion = false;
+
+  /**
+   * @generated from field: optional exa.codeium_common_pb.Model last_model_override = 46;
+   */
+  lastModelOverride?: Model;
+
+  /**
+   * @generated from field: map<string, exa.codeium_common_pb.FeatureUsageData> feature_usage_data = 47;
+   */
+  featureUsageData: { [key: string]: FeatureUsageData } = {};
+
+  /**
+   * @generated from field: bool disable_cascade_in_background = 48;
+   */
+  disableCascadeInBackground = false;
+
+  /**
+   * @generated from field: bool enable_command_cascade_mode = 49;
+   */
+  enableCommandCascadeMode = false;
+
+  /**
+   * @generated from field: repeated string custom_workspace = 50;
+   */
+  customWorkspace: string[] = [];
+
+  /**
+   * @generated from field: map<string, exa.codeium_common_pb.ConversationBrainConfig> conversation_brain_configs = 51;
+   */
+  conversationBrainConfigs: { [key: string]: ConversationBrainConfig } = {};
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.ClientModelConfig cached_cascade_model_configs = 52;
+   */
+  cachedCascadeModelConfigs: ClientModelConfig[] = [];
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.ClientModelSort cached_cascade_model_sorts = 53;
+   */
+  cachedCascadeModelSorts: ClientModelSort[] = [];
+
+  /**
+   * @generated from field: exa.codeium_common_pb.PlanMode global_plan_mode_preference = 54;
+   */
+  globalPlanModePreference = PlanMode.UNSPECIFIED;
+
+  /**
+   * @generated from field: bool is_snoozed = 55;
+   */
+  isSnoozed = false;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.CascadeRunExtensionCode cascade_run_extension_code = 56;
+   */
+  cascadeRunExtensionCode = CascadeRunExtensionCode.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.CascadeRunExtensionCodeAutoRun cascade_run_extension_code_auto_run = 57;
+   */
+  cascadeRunExtensionCodeAutoRun = CascadeRunExtensionCodeAutoRun.UNSPECIFIED;
+
+  /**
+   * @generated from field: optional string last_model_default_override_version_id = 58;
+   */
+  lastModelDefaultOverrideVersionId?: string;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.AutoContinueOnMaxGeneratorInvocations auto_continue_on_max_generator_invocations = 59;
+   */
+  autoContinueOnMaxGeneratorInvocations = AutoContinueOnMaxGeneratorInvocations.UNSPECIFIED;
+
+  /**
+   * @generated from field: map<uint32, bool> seen_nux_uids = 60;
+   */
+  seenNuxUids: { [key: number]: boolean } = {};
+
+  /**
+   * @generated from field: repeated string recently_used_cascade_models = 61;
+   */
+  recentlyUsedCascadeModels: string[] = [];
+
+  /**
+   * @generated from field: repeated string cascade_dismissed_suggestion_workspaces = 62;
+   */
+  cascadeDismissedSuggestionWorkspaces: string[] = [];
+
+  /**
+   * @generated from field: exa.codeium_common_pb.AnnotationsConfig annotations_config = 63;
+   */
+  annotationsConfig = AnnotationsConfig.UNSPECIFIED;
+
+  /**
+   * @generated from field: bool enable_automatic_screenshot = 64;
+   */
+  enableAutomaticScreenshot = false;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.CascadeInputAutocomplete cascade_input_autocomplete = 65;
+   */
+  cascadeInputAutocomplete = CascadeInputAutocomplete.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.BrowserExperimentalFeaturesConfig browser_experimental_features_config = 66;
+   */
+  browserExperimentalFeaturesConfig = BrowserExperimentalFeaturesConfig.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.CommandPopupAutocomplete command_popup_autocomplete = 67;
+   */
+  commandPopupAutocomplete = CommandPopupAutocomplete.UNSPECIFIED;
+
+  /**
+   * @generated from field: string claude_code_cli_path = 68;
+   */
+  claudeCodeCliPath = "";
+
+  /**
+   * @generated from field: bool claude_code_append_system_prompt = 69;
+   */
+  claudeCodeAppendSystemPrompt = false;
+
+  /**
+   * @generated from field: string claude_code_system_prompt = 70;
+   */
+  claudeCodeSystemPrompt = "";
+
+  /**
+   * @generated from field: uint32 claude_code_max_turns = 71;
+   */
+  claudeCodeMaxTurns = 0;
+
+  /**
+   * @generated from field: string claude_code_mcp_config = 72;
+   */
+  claudeCodeMcpConfig = "";
+
+  constructor(data?: PartialMessage<UserSettings>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.UserSettings";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "open_most_recent_chat_conversation", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 2, name: "last_selected_model", kind: "enum", T: proto3.getEnumType(Model) },
+    { no: 3, name: "theme_preference", kind: "enum", T: proto3.getEnumType(ThemePreference) },
+    { no: 4, name: "extension_panel_tab", kind: "enum", T: proto3.getEnumType(ExtensionPanelTab) },
+    { no: 5, name: "font_size", kind: "enum", T: proto3.getEnumType(FontSize) },
+    { no: 6, name: "autocomplete_speed", kind: "enum", T: proto3.getEnumType(AutocompleteSpeed) },
+    { no: 7, name: "remember_last_model_selection", kind: "enum", T: proto3.getEnumType(RememberLastModelSelection) },
+    { no: 8, name: "last_selected_model_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 9, name: "last_selected_cascade_model", kind: "enum", T: proto3.getEnumType(Model), opt: true },
+    { no: 11, name: "cascade_nux_states", kind: "message", T: CascadeNUXState, repeated: true },
+    { no: 13, name: "cascade_planner_mode", kind: "enum", T: proto3.getEnumType(ConversationalPlannerMode), opt: true },
+    { no: 14, name: "cascade_allowed_commands", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 15, name: "cascade_denied_commands", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 17, name: "user_nux_states", kind: "message", T: UserNUXState, repeated: true },
+    { no: 18, name: "cascade_web_search_disabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 19, name: "disable_autocomplete", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 20, name: "disable_supercomplete", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 21, name: "disable_selection_popup", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 22, name: "disable_explain_problem_inlay_hint", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 23, name: "disable_inlay_hint_shortcuts", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 24, name: "disable_open_cascade_on_reload", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 25, name: "disable_auto_open_edited_files", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 26, name: "disable_tab_to_jump", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 27, name: "cascade_auto_execution_policy", kind: "enum", T: proto3.getEnumType(CascadeCommandsAutoExecution) },
+    { no: 28, name: "last_selected_cascade_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 29, name: "explain_and_fix_in_current_conversation", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 30, name: "last_selected_cascade_model_or_alias", kind: "message", T: ModelOrAlias, opt: true },
+    { no: 31, name: "allow_cascade_access_gitignore_files", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 32, name: "disable_cascade_auto_fix_lints", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 33, name: "disable_cascade_browser_previews", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 34, name: "detect_proxy", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 35, name: "disable_tab_to_import", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 36, name: "use_clipboard_for_completions", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 37, name: "disable_highlight_after_accept", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 38, name: "last_selected_new_convo_tab", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 39, name: "disable_auto_generate_memories", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 40, name: "enable_sounds_for_special_events", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 41, name: "enable_tab_sounds", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 42, name: "allow_cascade_in_background", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 43, name: "tab_to_jump", kind: "enum", T: proto3.getEnumType(TabToJump) },
+    { no: 44, name: "cascade_web_search", kind: "enum", T: proto3.getEnumType(CascadeWebSearchTool) },
+    { no: 45, name: "enable_terminal_completion", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 46, name: "last_model_override", kind: "enum", T: proto3.getEnumType(Model), opt: true },
+    { no: 47, name: "feature_usage_data", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: FeatureUsageData} },
+    { no: 48, name: "disable_cascade_in_background", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 49, name: "enable_command_cascade_mode", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 50, name: "custom_workspace", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 51, name: "conversation_brain_configs", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: ConversationBrainConfig} },
+    { no: 52, name: "cached_cascade_model_configs", kind: "message", T: ClientModelConfig, repeated: true },
+    { no: 53, name: "cached_cascade_model_sorts", kind: "message", T: ClientModelSort, repeated: true },
+    { no: 54, name: "global_plan_mode_preference", kind: "enum", T: proto3.getEnumType(PlanMode) },
+    { no: 55, name: "is_snoozed", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 56, name: "cascade_run_extension_code", kind: "enum", T: proto3.getEnumType(CascadeRunExtensionCode) },
+    { no: 57, name: "cascade_run_extension_code_auto_run", kind: "enum", T: proto3.getEnumType(CascadeRunExtensionCodeAutoRun) },
+    { no: 58, name: "last_model_default_override_version_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 59, name: "auto_continue_on_max_generator_invocations", kind: "enum", T: proto3.getEnumType(AutoContinueOnMaxGeneratorInvocations) },
+    { no: 60, name: "seen_nux_uids", kind: "map", K: 13 /* ScalarType.UINT32 */, V: {kind: "scalar", T: 8 /* ScalarType.BOOL */} },
+    { no: 61, name: "recently_used_cascade_models", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 62, name: "cascade_dismissed_suggestion_workspaces", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 63, name: "annotations_config", kind: "enum", T: proto3.getEnumType(AnnotationsConfig) },
+    { no: 64, name: "enable_automatic_screenshot", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 65, name: "cascade_input_autocomplete", kind: "enum", T: proto3.getEnumType(CascadeInputAutocomplete) },
+    { no: 66, name: "browser_experimental_features_config", kind: "enum", T: proto3.getEnumType(BrowserExperimentalFeaturesConfig) },
+    { no: 67, name: "command_popup_autocomplete", kind: "enum", T: proto3.getEnumType(CommandPopupAutocomplete) },
+    { no: 68, name: "claude_code_cli_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 69, name: "claude_code_append_system_prompt", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 70, name: "claude_code_system_prompt", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 71, name: "claude_code_max_turns", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 72, name: "claude_code_mcp_config", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserSettings {
+    return new UserSettings().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserSettings {
+    return new UserSettings().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserSettings {
+    return new UserSettings().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserSettings | PlainMessage<UserSettings> | undefined, b: UserSettings | PlainMessage<UserSettings> | undefined): boolean {
+    return proto3.util.equals(UserSettings, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.WorkspaceIndexData
+ */
+export class WorkspaceIndexData extends Message<WorkspaceIndexData> {
+  /**
+   * @generated from field: string workspace_uri_for_telemetry = 1;
+   */
+  workspaceUriForTelemetry = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp indexing_start = 2;
+   */
+  indexingStart?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp indexing_end = 3;
+   */
+  indexingEnd?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Duration embedding_duration = 4;
+   */
+  embeddingDuration?: Duration;
+
+  /**
+   * @generated from field: int64 num_files_total = 5;
+   */
+  numFilesTotal = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 num_files_to_embed = 6;
+   */
+  numFilesToEmbed = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 num_nodes_total = 7;
+   */
+  numNodesTotal = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 num_nodes_to_embed = 8;
+   */
+  numNodesToEmbed = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 num_tokens = 9;
+   */
+  numTokens = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 num_high_priority_nodes_to_embed = 10;
+   */
+  numHighPriorityNodesToEmbed = protoInt64.zero;
+
+  /**
+   * @generated from field: string error = 11;
+   */
+  error = "";
+
+  constructor(data?: PartialMessage<WorkspaceIndexData>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.WorkspaceIndexData";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "workspace_uri_for_telemetry", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "indexing_start", kind: "message", T: Timestamp },
+    { no: 3, name: "indexing_end", kind: "message", T: Timestamp },
+    { no: 4, name: "embedding_duration", kind: "message", T: Duration },
+    { no: 5, name: "num_files_total", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 6, name: "num_files_to_embed", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 7, name: "num_nodes_total", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 8, name: "num_nodes_to_embed", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 9, name: "num_tokens", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 10, name: "num_high_priority_nodes_to_embed", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 11, name: "error", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): WorkspaceIndexData {
+    return new WorkspaceIndexData().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): WorkspaceIndexData {
+    return new WorkspaceIndexData().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): WorkspaceIndexData {
+    return new WorkspaceIndexData().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: WorkspaceIndexData | PlainMessage<WorkspaceIndexData> | undefined, b: WorkspaceIndexData | PlainMessage<WorkspaceIndexData> | undefined): boolean {
+    return proto3.util.equals(WorkspaceIndexData, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.TextOrScopeItem
+ */
+export class TextOrScopeItem extends Message<TextOrScopeItem> {
+  /**
+   * @generated from oneof exa.codeium_common_pb.TextOrScopeItem.chunk
+   */
+  chunk: {
+    /**
+     * @generated from field: string text = 1;
+     */
+    value: string;
+    case: "text";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.ContextScopeItem item = 2;
+     */
+    value: ContextScopeItem;
+    case: "item";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<TextOrScopeItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.TextOrScopeItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "text", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "chunk" },
+    { no: 2, name: "item", kind: "message", T: ContextScopeItem, oneof: "chunk" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TextOrScopeItem {
+    return new TextOrScopeItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TextOrScopeItem {
+    return new TextOrScopeItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TextOrScopeItem {
+    return new TextOrScopeItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: TextOrScopeItem | PlainMessage<TextOrScopeItem> | undefined, b: TextOrScopeItem | PlainMessage<TextOrScopeItem> | undefined): boolean {
+    return proto3.util.equals(TextOrScopeItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.KnowledgeBaseItem
+ */
+export class KnowledgeBaseItem extends Message<KnowledgeBaseItem> {
+  /**
+   * @generated from field: string document_id = 1;
+   */
+  documentId = "";
+
+  /**
+   * @generated from field: string text = 2;
+   */
+  text = "";
+
+  /**
+   * @generated from field: string url = 3;
+   */
+  url = "";
+
+  /**
+   * @generated from field: string title = 4;
+   */
+  title = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 5;
+   */
+  timestamp?: Timestamp;
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.KnowledgeBaseChunk chunks = 6;
+   */
+  chunks: KnowledgeBaseChunk[] = [];
+
+  /**
+   * @generated from field: string summary = 7;
+   */
+  summary = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.ImageData image = 8;
+   */
+  image?: ImageData;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.DOMTree dom_tree = 9;
+   */
+  domTree?: DOMTree;
+
+  constructor(data?: PartialMessage<KnowledgeBaseItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.KnowledgeBaseItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "document_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "timestamp", kind: "message", T: Timestamp },
+    { no: 6, name: "chunks", kind: "message", T: KnowledgeBaseChunk, repeated: true },
+    { no: 7, name: "summary", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "image", kind: "message", T: ImageData },
+    { no: 9, name: "dom_tree", kind: "message", T: DOMTree },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): KnowledgeBaseItem {
+    return new KnowledgeBaseItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): KnowledgeBaseItem {
+    return new KnowledgeBaseItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): KnowledgeBaseItem {
+    return new KnowledgeBaseItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: KnowledgeBaseItem | PlainMessage<KnowledgeBaseItem> | undefined, b: KnowledgeBaseItem | PlainMessage<KnowledgeBaseItem> | undefined): boolean {
+    return proto3.util.equals(KnowledgeBaseItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CompletionExampleWithMetadata
+ */
+export class CompletionExampleWithMetadata extends Message<CompletionExampleWithMetadata> {
+  /**
+   * @generated from field: exa.codeium_common_pb.CompletionExample example = 1;
+   */
+  example?: CompletionExample;
+
+  /**
+   * @generated from field: string name = 2;
+   */
+  name = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp time = 4;
+   */
+  time?: Timestamp;
+
+  constructor(data?: PartialMessage<CompletionExampleWithMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CompletionExampleWithMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "example", kind: "message", T: CompletionExample },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "time", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CompletionExampleWithMetadata {
+    return new CompletionExampleWithMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CompletionExampleWithMetadata {
+    return new CompletionExampleWithMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CompletionExampleWithMetadata {
+    return new CompletionExampleWithMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CompletionExampleWithMetadata | PlainMessage<CompletionExampleWithMetadata> | undefined, b: CompletionExampleWithMetadata | PlainMessage<CompletionExampleWithMetadata> | undefined): boolean {
+    return proto3.util.equals(CompletionExampleWithMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ConsoleLogScopeItem
+ */
+export class ConsoleLogScopeItem extends Message<ConsoleLogScopeItem> {
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.ConsoleLogLine lines = 1;
+   */
+  lines: ConsoleLogLine[] = [];
+
+  /**
+   * @generated from field: string server_address = 2;
+   */
+  serverAddress = "";
+
+  constructor(data?: PartialMessage<ConsoleLogScopeItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ConsoleLogScopeItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "lines", kind: "message", T: ConsoleLogLine, repeated: true },
+    { no: 2, name: "server_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConsoleLogScopeItem {
+    return new ConsoleLogScopeItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConsoleLogScopeItem {
+    return new ConsoleLogScopeItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConsoleLogScopeItem {
+    return new ConsoleLogScopeItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ConsoleLogScopeItem | PlainMessage<ConsoleLogScopeItem> | undefined, b: ConsoleLogScopeItem | PlainMessage<ConsoleLogScopeItem> | undefined): boolean {
+    return proto3.util.equals(ConsoleLogScopeItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ClientModelConfig
+ */
+export class ClientModelConfig extends Message<ClientModelConfig> {
+  /**
+   * @generated from field: string label = 1;
+   */
+  label = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.ModelOrAlias model_or_alias = 2;
+   */
+  modelOrAlias?: ModelOrAlias;
+
+  /**
+   * @generated from field: float credit_multiplier = 3;
+   */
+  creditMultiplier = 0;
+
+  /**
+   * @generated from field: bool disabled = 4;
+   */
+  disabled = false;
+
+  /**
+   * @generated from field: bool supports_images = 5;
+   */
+  supportsImages = false;
+
+  /**
+   * @generated from field: bool supports_legacy = 6;
+   */
+  supportsLegacy = false;
+
+  /**
+   * @generated from field: bool is_premium = 7;
+   */
+  isPremium = false;
+
+  /**
+   * @generated from field: string beta_warning_message = 8;
+   */
+  betaWarningMessage = "";
+
+  /**
+   * @generated from field: bool is_beta = 9;
+   */
+  isBeta = false;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.ModelProvider provider = 10;
+   */
+  provider = ModelProvider.UNSPECIFIED;
+
+  /**
+   * @generated from field: bool is_recommended = 11;
+   */
+  isRecommended = false;
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.TeamsTier allowed_tiers = 12;
+   */
+  allowedTiers: TeamsTier[] = [];
+
+  /**
+   * @generated from field: exa.codeium_common_pb.ModelPricingType pricing_type = 13;
+   */
+  pricingType = ModelPricingType.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.APIProvider api_provider = 14;
+   */
+  apiProvider = APIProvider.API_PROVIDER_UNSPECIFIED;
+
+  /**
+   * @generated from field: bool is_new = 15;
+   */
+  isNew = false;
+
+  constructor(data?: PartialMessage<ClientModelConfig>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ClientModelConfig";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "label", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "model_or_alias", kind: "message", T: ModelOrAlias },
+    { no: 3, name: "credit_multiplier", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 4, name: "disabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 5, name: "supports_images", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 6, name: "supports_legacy", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 7, name: "is_premium", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 8, name: "beta_warning_message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 9, name: "is_beta", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 10, name: "provider", kind: "enum", T: proto3.getEnumType(ModelProvider) },
+    { no: 11, name: "is_recommended", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 12, name: "allowed_tiers", kind: "enum", T: proto3.getEnumType(TeamsTier), repeated: true },
+    { no: 13, name: "pricing_type", kind: "enum", T: proto3.getEnumType(ModelPricingType) },
+    { no: 14, name: "api_provider", kind: "enum", T: proto3.getEnumType(APIProvider) },
+    { no: 15, name: "is_new", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClientModelConfig {
+    return new ClientModelConfig().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ClientModelConfig {
+    return new ClientModelConfig().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClientModelConfig {
+    return new ClientModelConfig().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ClientModelConfig | PlainMessage<ClientModelConfig> | undefined, b: ClientModelConfig | PlainMessage<ClientModelConfig> | undefined): boolean {
+    return proto3.util.equals(ClientModelConfig, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ImageData
+ */
+export class ImageData extends Message<ImageData> {
+  /**
+   * @generated from field: string base64_data = 1;
+   */
+  base64Data = "";
+
+  /**
+   * @generated from field: string mime_type = 2;
+   */
+  mimeType = "";
+
+  /**
+   * @generated from field: string caption = 3;
+   */
+  caption = "";
+
+  constructor(data?: PartialMessage<ImageData>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ImageData";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "base64_data", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "mime_type", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "caption", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ImageData {
+    return new ImageData().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ImageData {
+    return new ImageData().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ImageData {
+    return new ImageData().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ImageData | PlainMessage<ImageData> | undefined, b: ImageData | PlainMessage<ImageData> | undefined): boolean {
+    return proto3.util.equals(ImageData, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ChatToolCall
+ */
+export class ChatToolCall extends Message<ChatToolCall> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  /**
+   * @generated from field: string name = 2;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string arguments_json = 3;
+   */
+  argumentsJson = "";
+
+  /**
+   * @generated from field: string invalid_json_str = 4;
+   */
+  invalidJsonStr = "";
+
+  /**
+   * @generated from field: string invalid_json_err = 5;
+   */
+  invalidJsonErr = "";
+
+  constructor(data?: PartialMessage<ChatToolCall>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ChatToolCall";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "arguments_json", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "invalid_json_str", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "invalid_json_err", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ChatToolCall {
+    return new ChatToolCall().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ChatToolCall {
+    return new ChatToolCall().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ChatToolCall {
+    return new ChatToolCall().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ChatToolCall | PlainMessage<ChatToolCall> | undefined, b: ChatToolCall | PlainMessage<ChatToolCall> | undefined): boolean {
+    return proto3.util.equals(ChatToolCall, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.Metadata
+ */
+export class Metadata extends Message<Metadata> {
+  /**
+   * @generated from field: string ide_name = 1;
+   */
+  ideName = "";
+
+  /**
+   * @generated from field: string extension_version = 2;
+   */
+  extensionVersion = "";
+
+  /**
+   * @generated from field: string api_key = 3;
+   */
+  apiKey = "";
+
+  /**
+   * @generated from field: string locale = 4;
+   */
+  locale = "";
+
+  /**
+   * @generated from field: string os = 5;
+   */
+  os = "";
+
+  /**
+   * @generated from field: bool disable_telemetry = 6;
+   */
+  disableTelemetry = false;
+
+  /**
+   * @generated from field: string ide_version = 7;
+   */
+  ideVersion = "";
+
+  /**
+   * @generated from field: string hardware = 8;
+   */
+  hardware = "";
+
+  /**
+   * @generated from field: uint64 request_id = 9;
+   */
+  requestId = protoInt64.zero;
+
+  /**
+   * @generated from field: string session_id = 10;
+   */
+  sessionId = "";
+
+  /**
+   * @generated from field: string source_address = 11;
+   */
+  sourceAddress = "";
+
+  /**
+   * @generated from field: string extension_name = 12;
+   */
+  extensionName = "";
+
+  /**
+   * @generated from field: string user_agent = 13;
+   */
+  userAgent = "";
+
+  /**
+   * @generated from field: string url = 14;
+   */
+  url = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.AuthSource auth_source = 15;
+   */
+  authSource = AuthSource.CODEIUM;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp ls_timestamp = 16;
+   */
+  lsTimestamp?: Timestamp;
+
+  /**
+   * @generated from field: string extension_path = 17;
+   */
+  extensionPath = "";
+
+  /**
+   * @generated from field: string user_id = 20;
+   */
+  userId = "";
+
+  /**
+   * @generated from field: string user_jwt = 21;
+   */
+  userJwt = "";
+
+  /**
+   * @generated from field: string force_team_id = 22;
+   */
+  forceTeamId = "";
+
+  /**
+   * @generated from field: string device_fingerprint = 24;
+   */
+  deviceFingerprint = "";
+
+  /**
+   * @generated from field: string trigger_id = 25;
+   */
+  triggerId = "";
+
+  /**
+   * @generated from field: string plan_name = 26;
+   */
+  planName = "";
+
+  /**
+   * @generated from field: string id = 27;
+   */
+  id = "";
+
+  /**
+   * @generated from field: string ide_type = 28;
+   */
+  ideType = "";
+
+  constructor(data?: PartialMessage<Metadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.Metadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "ide_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "extension_version", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "locale", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "os", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "disable_telemetry", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 7, name: "ide_version", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "hardware", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 9, name: "request_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 10, name: "session_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 11, name: "source_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 12, name: "extension_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 13, name: "user_agent", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 14, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 15, name: "auth_source", kind: "enum", T: proto3.getEnumType(AuthSource) },
+    { no: 16, name: "ls_timestamp", kind: "message", T: Timestamp },
+    { no: 17, name: "extension_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 20, name: "user_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 21, name: "user_jwt", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 22, name: "force_team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 24, name: "device_fingerprint", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 25, name: "trigger_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 26, name: "plan_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 27, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 28, name: "ide_type", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Metadata {
+    return new Metadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Metadata {
+    return new Metadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Metadata {
+    return new Metadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Metadata | PlainMessage<Metadata> | undefined, b: Metadata | PlainMessage<Metadata> | undefined): boolean {
+    return proto3.util.equals(Metadata, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.KnowledgeBaseScopeItem
+ */
+export class KnowledgeBaseScopeItem extends Message<KnowledgeBaseScopeItem> {
+  /**
+   * @generated from field: string document_id = 1;
+   */
+  documentId = "";
+
+  /**
+   * @generated from field: string display_name = 3;
+   */
+  displayName = "";
+
+  /**
+   * @generated from field: string description = 4;
+   */
+  description = "";
+
+  /**
+   * @generated from field: string display_source = 5;
+   */
+  displaySource = "";
+
+  /**
+   * @generated from field: string url = 6;
+   */
+  url = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.IndexChoice index = 7;
+   */
+  index = IndexChoice.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.DocumentType document_type = 8;
+   */
+  documentType = DocumentType.UNSPECIFIED;
+
+  constructor(data?: PartialMessage<KnowledgeBaseScopeItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.KnowledgeBaseScopeItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "document_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "display_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "display_source", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "index", kind: "enum", T: proto3.getEnumType(IndexChoice) },
+    { no: 8, name: "document_type", kind: "enum", T: proto3.getEnumType(DocumentType) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): KnowledgeBaseScopeItem {
+    return new KnowledgeBaseScopeItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): KnowledgeBaseScopeItem {
+    return new KnowledgeBaseScopeItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): KnowledgeBaseScopeItem {
+    return new KnowledgeBaseScopeItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: KnowledgeBaseScopeItem | PlainMessage<KnowledgeBaseScopeItem> | undefined, b: KnowledgeBaseScopeItem | PlainMessage<KnowledgeBaseScopeItem> | undefined): boolean {
+    return proto3.util.equals(KnowledgeBaseScopeItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.TeamConfig
+ */
+export class TeamConfig extends Message<TeamConfig> {
+  /**
+   * @generated from field: string team_id = 1;
+   */
+  teamId = "";
+
+  /**
+   * @generated from field: int32 user_prompt_credit_cap = 2;
+   */
+  userPromptCreditCap = 0;
+
+  /**
+   * @generated from field: int32 user_flow_credit_cap = 3;
+   */
+  userFlowCreditCap = 0;
+
+  /**
+   * @generated from field: bool auto_provision_cascade_seat = 4;
+   */
+  autoProvisionCascadeSeat = false;
+
+  /**
+   * @generated from field: bool allow_mcp_servers = 5;
+   */
+  allowMcpServers = false;
+
+  /**
+   * @generated from field: bool allow_auto_run_commands = 7;
+   */
+  allowAutoRunCommands = false;
+
+  /**
+   * @generated from field: bool allow_custom_recipes = 8;
+   */
+  allowCustomRecipes = false;
+
+  /**
+   * @generated from field: int32 max_unclaimed_sites = 9;
+   */
+  maxUnclaimedSites = 0;
+
+  /**
+   * @generated from field: bool allow_app_deployments = 10;
+   */
+  allowAppDeployments = false;
+
+  /**
+   * @generated from field: int32 max_new_sites_per_day = 11;
+   */
+  maxNewSitesPerDay = 0;
+
+  /**
+   * @generated from field: bool allow_github_reviews = 12;
+   */
+  allowGithubReviews = false;
+
+  /**
+   * @generated from field: bool allow_github_description_edits = 13;
+   */
+  allowGithubDescriptionEdits = false;
+
+  /**
+   * @generated from field: string pull_request_review_guidelines = 14;
+   */
+  pullRequestReviewGuidelines = "";
+
+  /**
+   * @generated from field: bool disable_tool_calls = 15;
+   */
+  disableToolCalls = false;
+
+  /**
+   * @generated from field: string pull_request_description_guidelines = 16;
+   */
+  pullRequestDescriptionGuidelines = "";
+
+  /**
+   * @generated from field: bool allow_individual_level_analytics = 17;
+   */
+  allowIndividualLevelAnalytics = false;
+
+  /**
+   * @generated from field: optional bool allow_conversation_sharing = 18;
+   */
+  allowConversationSharing?: boolean;
+
+  /**
+   * @generated from field: bool allow_sandbox_app_deployments = 19;
+   */
+  allowSandboxAppDeployments = false;
+
+  /**
+   * @generated from field: bool allow_teams_app_deployments = 20;
+   */
+  allowTeamsAppDeployments = false;
+
+  /**
+   * @generated from field: optional int32 pull_request_review_rate_limit = 21;
+   */
+  pullRequestReviewRateLimit?: number;
+
+  /**
+   * @generated from field: bool allow_attribution = 22;
+   */
+  allowAttribution = false;
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.McpServerConfig allowed_mcp_servers = 23;
+   */
+  allowedMcpServers: McpServerConfig[] = [];
+
+  /**
+   * @generated from field: bool allow_github_auto_reviews = 24;
+   */
+  allowGithubAutoReviews = false;
+
+  /**
+   * @generated from field: bool allow_browser_experimental_features = 25;
+   */
+  allowBrowserExperimentalFeatures = false;
+
+  /**
+   * @generated from field: bool disable_tool_call_execution_outside_workspace = 26;
+   */
+  disableToolCallExecutionOutsideWorkspace = false;
+
+  /**
+   * @generated from field: bool allow_vibe_and_replace = 27;
+   */
+  allowVibeAndReplace = false;
+
+  /**
+   * @generated from field: bool disable_deepwiki = 28;
+   */
+  disableDeepwiki = false;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.CustomProviderSettings custom_provider_settings = 29;
+   */
+  customProviderSettings?: CustomProviderSettings;
+
+  constructor(data?: PartialMessage<TeamConfig>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.TeamConfig";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "user_prompt_credit_cap", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 3, name: "user_flow_credit_cap", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 4, name: "auto_provision_cascade_seat", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 5, name: "allow_mcp_servers", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 7, name: "allow_auto_run_commands", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 8, name: "allow_custom_recipes", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 9, name: "max_unclaimed_sites", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 10, name: "allow_app_deployments", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 11, name: "max_new_sites_per_day", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 12, name: "allow_github_reviews", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 13, name: "allow_github_description_edits", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 14, name: "pull_request_review_guidelines", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 15, name: "disable_tool_calls", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 16, name: "pull_request_description_guidelines", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 17, name: "allow_individual_level_analytics", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 18, name: "allow_conversation_sharing", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 19, name: "allow_sandbox_app_deployments", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 20, name: "allow_teams_app_deployments", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 21, name: "pull_request_review_rate_limit", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
+    { no: 22, name: "allow_attribution", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 23, name: "allowed_mcp_servers", kind: "message", T: McpServerConfig, repeated: true },
+    { no: 24, name: "allow_github_auto_reviews", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 25, name: "allow_browser_experimental_features", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 26, name: "disable_tool_call_execution_outside_workspace", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 27, name: "allow_vibe_and_replace", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 28, name: "disable_deepwiki", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 29, name: "custom_provider_settings", kind: "message", T: CustomProviderSettings },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TeamConfig {
+    return new TeamConfig().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TeamConfig {
+    return new TeamConfig().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TeamConfig {
+    return new TeamConfig().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: TeamConfig | PlainMessage<TeamConfig> | undefined, b: TeamConfig | PlainMessage<TeamConfig> | undefined): boolean {
+    return proto3.util.equals(TeamConfig, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.SearchResultRecord
+ */
+export class SearchResultRecord extends Message<SearchResultRecord> {
+  /**
+   * @generated from field: string search_id = 1;
+   */
+  searchId = "";
+
+  /**
+   * @generated from field: string result_id = 2;
+   */
+  resultId = "";
+
+  /**
+   * @generated from field: string absolute_path = 3;
+   */
+  absolutePath = "";
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.WorkspacePath workspace_paths = 4;
+   */
+  workspacePaths: WorkspacePath[] = [];
+
+  /**
+   * @generated from field: string text = 5;
+   */
+  text = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.EmbeddingMetadata embedding_metadata = 6;
+   */
+  embeddingMetadata?: EmbeddingMetadata;
+
+  /**
+   * @generated from field: float similarity_score = 7;
+   */
+  similarityScore = 0;
+
+  /**
+   * @generated from field: int64 num_results_in_cluster = 8;
+   */
+  numResultsInCluster = protoInt64.zero;
+
+  /**
+   * @generated from field: string representative_path = 9;
+   */
+  representativePath = "";
+
+  /**
+   * @generated from field: float mean_similarity_score = 10;
+   */
+  meanSimilarityScore = 0;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.SearchResultType search_result_type = 11;
+   */
+  searchResultType = SearchResultType.UNSPECIFIED;
+
+  constructor(data?: PartialMessage<SearchResultRecord>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.SearchResultRecord";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "search_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "result_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "absolute_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "workspace_paths", kind: "message", T: WorkspacePath, repeated: true },
+    { no: 5, name: "text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "embedding_metadata", kind: "message", T: EmbeddingMetadata },
+    { no: 7, name: "similarity_score", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 8, name: "num_results_in_cluster", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 9, name: "representative_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 10, name: "mean_similarity_score", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 11, name: "search_result_type", kind: "enum", T: proto3.getEnumType(SearchResultType) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SearchResultRecord {
+    return new SearchResultRecord().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SearchResultRecord {
+    return new SearchResultRecord().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SearchResultRecord {
+    return new SearchResultRecord().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SearchResultRecord | PlainMessage<SearchResultRecord> | undefined, b: SearchResultRecord | PlainMessage<SearchResultRecord> | undefined): boolean {
+    return proto3.util.equals(SearchResultRecord, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.TerminalShellCommand
+ */
+export class TerminalShellCommand extends Message<TerminalShellCommand> {
+  /**
+   * @generated from field: uint32 shell_pid = 1;
+   */
+  shellPid = 0;
+
+  /**
+   * @generated from field: string command_line = 2;
+   */
+  commandLine = "";
+
+  /**
+   * @generated from field: string cwd = 3;
+   */
+  cwd = "";
+
+  /**
+   * @generated from field: bytes output = 4;
+   */
+  output = new Uint8Array(0);
+
+  /**
+   * @generated from field: optional int32 exit_code = 5;
+   */
+  exitCode?: number;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp start_time = 6;
+   */
+  startTime?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp end_time = 7;
+   */
+  endTime?: Timestamp;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.TerminalShellCommandStatus status = 8;
+   */
+  status = TerminalShellCommandStatus.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.TerminalShellCommandSource source = 9;
+   */
+  source = TerminalShellCommandSource.UNSPECIFIED;
+
+  /**
+   * @generated from field: string id = 10;
+   */
+  id = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp last_updated_time = 11;
+   */
+  lastUpdatedTime?: Timestamp;
+
+  constructor(data?: PartialMessage<TerminalShellCommand>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.TerminalShellCommand";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "shell_pid", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "command_line", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "cwd", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "output", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 5, name: "exit_code", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
+    { no: 6, name: "start_time", kind: "message", T: Timestamp },
+    { no: 7, name: "end_time", kind: "message", T: Timestamp },
+    { no: 8, name: "status", kind: "enum", T: proto3.getEnumType(TerminalShellCommandStatus) },
+    { no: 9, name: "source", kind: "enum", T: proto3.getEnumType(TerminalShellCommandSource) },
+    { no: 10, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 11, name: "last_updated_time", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TerminalShellCommand {
+    return new TerminalShellCommand().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TerminalShellCommand {
+    return new TerminalShellCommand().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TerminalShellCommand {
+    return new TerminalShellCommand().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: TerminalShellCommand | PlainMessage<TerminalShellCommand> | undefined, b: TerminalShellCommand | PlainMessage<TerminalShellCommand> | undefined): boolean {
+    return proto3.util.equals(TerminalShellCommand, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CompletionConfiguration
+ */
+export class CompletionConfiguration extends Message<CompletionConfiguration> {
+  /**
+   * @generated from field: uint64 num_completions = 1;
+   */
+  numCompletions = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 max_tokens = 2;
+   */
+  maxTokens = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 max_newlines = 3;
+   */
+  maxNewlines = protoInt64.zero;
+
+  /**
+   * @generated from field: double min_log_probability = 4;
+   */
+  minLogProbability = 0;
+
+  /**
+   * @generated from field: double temperature = 5;
+   */
+  temperature = 0;
+
+  /**
+   * @generated from field: double first_temperature = 6;
+   */
+  firstTemperature = 0;
+
+  /**
+   * @generated from field: uint64 top_k = 7;
+   */
+  topK = protoInt64.zero;
+
+  /**
+   * @generated from field: double top_p = 8;
+   */
+  topP = 0;
+
+  /**
+   * @generated from field: repeated string stop_patterns = 9;
+   */
+  stopPatterns: string[] = [];
+
+  /**
+   * @generated from field: uint64 seed = 10;
+   */
+  seed = protoInt64.zero;
+
+  /**
+   * @generated from field: double fim_eot_prob_threshold = 11;
+   */
+  fimEotProbThreshold = 0;
+
+  /**
+   * @generated from field: bool use_fim_eot_threshold = 12;
+   */
+  useFimEotThreshold = false;
+
+  /**
+   * @generated from field: bool do_not_score_stop_tokens = 13;
+   */
+  doNotScoreStopTokens = false;
+
+  /**
+   * @generated from field: bool sqrt_len_normalized_log_prob_score = 14;
+   */
+  sqrtLenNormalizedLogProbScore = false;
+
+  /**
+   * @generated from field: bool last_message_is_partial = 15;
+   */
+  lastMessageIsPartial = false;
+
+  /**
+   * @generated from field: bool return_logprob = 16;
+   */
+  returnLogprob = false;
+
+  constructor(data?: PartialMessage<CompletionConfiguration>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CompletionConfiguration";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "num_completions", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 2, name: "max_tokens", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 3, name: "max_newlines", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 4, name: "min_log_probability", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 5, name: "temperature", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 6, name: "first_temperature", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 7, name: "top_k", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 8, name: "top_p", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 9, name: "stop_patterns", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 10, name: "seed", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 11, name: "fim_eot_prob_threshold", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 12, name: "use_fim_eot_threshold", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 13, name: "do_not_score_stop_tokens", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 14, name: "sqrt_len_normalized_log_prob_score", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 15, name: "last_message_is_partial", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 16, name: "return_logprob", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CompletionConfiguration {
+    return new CompletionConfiguration().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CompletionConfiguration {
+    return new CompletionConfiguration().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CompletionConfiguration {
+    return new CompletionConfiguration().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CompletionConfiguration | PlainMessage<CompletionConfiguration> | undefined, b: CompletionConfiguration | PlainMessage<CompletionConfiguration> | undefined): boolean {
+    return proto3.util.equals(CompletionConfiguration, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.TerminalCommandData
+ */
+export class TerminalCommandData extends Message<TerminalCommandData> {
+  /**
+   * @generated from field: string terminal_id = 1;
+   */
+  terminalId = "";
+
+  /**
+   * @generated from field: string platform = 2;
+   */
+  platform = "";
+
+  /**
+   * @generated from field: string cwd = 3;
+   */
+  cwd = "";
+
+  /**
+   * @generated from field: string shell_name = 4;
+   */
+  shellName = "";
+
+  constructor(data?: PartialMessage<TerminalCommandData>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.TerminalCommandData";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "terminal_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "platform", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "cwd", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "shell_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TerminalCommandData {
+    return new TerminalCommandData().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TerminalCommandData {
+    return new TerminalCommandData().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TerminalCommandData {
+    return new TerminalCommandData().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: TerminalCommandData | PlainMessage<TerminalCommandData> | undefined, b: TerminalCommandData | PlainMessage<TerminalCommandData> | undefined): boolean {
+    return proto3.util.equals(TerminalCommandData, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ExternalModel
+ */
+export class ExternalModel extends Message<ExternalModel> {
+  /**
+   * @generated from field: bool is_internal = 1;
+   */
+  isInternal = false;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.Model model_id = 2;
+   */
+  modelId = Model.MODEL_UNSPECIFIED;
+
+  /**
+   * @generated from field: string model_name = 3;
+   */
+  modelName = "";
+
+  /**
+   * @generated from field: string base_url = 4;
+   */
+  baseUrl = "";
+
+  /**
+   * @generated from field: string api_key = 5;
+   */
+  apiKey = "";
+
+  /**
+   * @generated from field: string access_key = 6;
+   */
+  accessKey = "";
+
+  /**
+   * @generated from field: string secret_access_key = 7;
+   */
+  secretAccessKey = "";
+
+  /**
+   * @generated from field: string region = 8;
+   */
+  region = "";
+
+  /**
+   * @generated from field: string project_id = 9;
+   */
+  projectId = "";
+
+  /**
+   * @generated from field: uint32 id = 10;
+   */
+  id = 0;
+
+  /**
+   * @generated from field: int32 max_completion_tokens = 11;
+   */
+  maxCompletionTokens = 0;
+
+  /**
+   * @generated from field: int32 max_input_tokens = 12;
+   */
+  maxInputTokens = 0;
+
+  constructor(data?: PartialMessage<ExternalModel>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ExternalModel";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "is_internal", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 2, name: "model_id", kind: "enum", T: proto3.getEnumType(Model) },
+    { no: 3, name: "model_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "base_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "access_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "secret_access_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "region", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 9, name: "project_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 10, name: "id", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 11, name: "max_completion_tokens", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 12, name: "max_input_tokens", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ExternalModel {
+    return new ExternalModel().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ExternalModel {
+    return new ExternalModel().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ExternalModel {
+    return new ExternalModel().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ExternalModel | PlainMessage<ExternalModel> | undefined, b: ExternalModel | PlainMessage<ExternalModel> | undefined): boolean {
+    return proto3.util.equals(ExternalModel, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.MetricsRecord
+ */
+export class MetricsRecord extends Message<MetricsRecord> {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name = "";
+
+  /**
+   * @generated from field: float value = 2;
+   */
+  value = 0;
+
+  /**
+   * @generated from field: map<string, string> details = 3;
+   */
+  details: { [key: string]: string } = {};
+
+  /**
+   * @generated from field: bool lower_better = 4;
+   */
+  lowerBetter = false;
+
+  /**
+   * @generated from field: bool is_bool = 5;
+   */
+  isBool = false;
+
+  /**
+   * @generated from field: string error = 6;
+   */
+  error = "";
+
+  /**
+   * @generated from field: string trajectory_id = 7;
+   */
+  trajectoryId = "";
+
+  constructor(data?: PartialMessage<MetricsRecord>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.MetricsRecord";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "value", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 3, name: "details", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "scalar", T: 9 /* ScalarType.STRING */} },
+    { no: 4, name: "lower_better", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 5, name: "is_bool", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 6, name: "error", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "trajectory_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MetricsRecord {
+    return new MetricsRecord().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MetricsRecord {
+    return new MetricsRecord().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MetricsRecord {
+    return new MetricsRecord().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: MetricsRecord | PlainMessage<MetricsRecord> | undefined, b: MetricsRecord | PlainMessage<MetricsRecord> | undefined): boolean {
+    return proto3.util.equals(MetricsRecord, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.PromptAnnotationRange
+ */
+export class PromptAnnotationRange extends Message<PromptAnnotationRange> {
+  /**
+   * @generated from field: exa.codeium_common_pb.PromptAnnotationKind kind = 1;
+   */
+  kind = PromptAnnotationKind.UNSPECIFIED;
+
+  /**
+   * @generated from field: uint64 byte_offset_start = 2;
+   */
+  byteOffsetStart = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 byte_offset_end = 3;
+   */
+  byteOffsetEnd = protoInt64.zero;
+
+  /**
+   * @generated from field: string suffix = 4;
+   */
+  suffix = "";
+
+  constructor(data?: PartialMessage<PromptAnnotationRange>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.PromptAnnotationRange";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "kind", kind: "enum", T: proto3.getEnumType(PromptAnnotationKind) },
+    { no: 2, name: "byte_offset_start", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 3, name: "byte_offset_end", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 4, name: "suffix", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PromptAnnotationRange {
+    return new PromptAnnotationRange().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PromptAnnotationRange {
+    return new PromptAnnotationRange().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PromptAnnotationRange {
+    return new PromptAnnotationRange().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PromptAnnotationRange | PlainMessage<PromptAnnotationRange> | undefined, b: PromptAnnotationRange | PlainMessage<PromptAnnotationRange> | undefined): boolean {
+    return proto3.util.equals(PromptAnnotationRange, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ModelInfo
+ */
+export class ModelInfo extends Message<ModelInfo> {
+  /**
+   * @generated from field: exa.codeium_common_pb.Model model_id = 1;
+   */
+  modelId = Model.MODEL_UNSPECIFIED;
+
+  /**
+   * @generated from field: bool is_internal = 2;
+   */
+  isInternal = false;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.ModelType model_type = 3;
+   */
+  modelType = ModelType.UNSPECIFIED;
+
+  /**
+   * @generated from field: int32 max_tokens = 4;
+   */
+  maxTokens = 0;
+
+  /**
+   * @generated from field: string tokenizer_type = 5;
+   */
+  tokenizerType = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.ModelFeatures model_features = 6;
+   */
+  modelFeatures?: ModelFeatures;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.APIProvider api_provider = 7;
+   */
+  apiProvider = APIProvider.API_PROVIDER_UNSPECIFIED;
+
+  /**
+   * @generated from field: string model_name = 8;
+   */
+  modelName = "";
+
+  /**
+   * @generated from field: bool supports_context = 9;
+   */
+  supportsContext = false;
+
+  /**
+   * @generated from field: int32 embed_dim = 10;
+   */
+  embedDim = 0;
+
+  /**
+   * @generated from field: string base_url = 11;
+   */
+  baseUrl = "";
+
+  /**
+   * @generated from field: string chat_model_name = 12;
+   */
+  chatModelName = "";
+
+  /**
+   * @generated from field: int32 max_output_tokens = 13;
+   */
+  maxOutputTokens = 0;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.PromptTemplaterType prompt_templater_type = 14;
+   */
+  promptTemplaterType = PromptTemplaterType.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.ToolFormatterType tool_formatter_type = 15;
+   */
+  toolFormatterType = ToolFormatterType.UNSPECIFIED;
+
+  constructor(data?: PartialMessage<ModelInfo>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ModelInfo";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "model_id", kind: "enum", T: proto3.getEnumType(Model) },
+    { no: 2, name: "is_internal", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "model_type", kind: "enum", T: proto3.getEnumType(ModelType) },
+    { no: 4, name: "max_tokens", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 5, name: "tokenizer_type", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "model_features", kind: "message", T: ModelFeatures },
+    { no: 7, name: "api_provider", kind: "enum", T: proto3.getEnumType(APIProvider) },
+    { no: 8, name: "model_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 9, name: "supports_context", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 10, name: "embed_dim", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 11, name: "base_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 12, name: "chat_model_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 13, name: "max_output_tokens", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 14, name: "prompt_templater_type", kind: "enum", T: proto3.getEnumType(PromptTemplaterType) },
+    { no: 15, name: "tool_formatter_type", kind: "enum", T: proto3.getEnumType(ToolFormatterType) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModelInfo {
+    return new ModelInfo().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ModelInfo {
+    return new ModelInfo().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ModelInfo {
+    return new ModelInfo().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ModelInfo | PlainMessage<ModelInfo> | undefined, b: ModelInfo | PlainMessage<ModelInfo> | undefined): boolean {
+    return proto3.util.equals(ModelInfo, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CompletionDeltaMap
+ */
+export class CompletionDeltaMap extends Message<CompletionDeltaMap> {
+  /**
+   * @generated from field: map<int32, exa.codeium_common_pb.CompletionDelta> deltas = 1;
+   */
+  deltas: { [key: number]: CompletionDelta } = {};
+
+  /**
+   * @generated from field: string prompt = 2;
+   */
+  prompt = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.CompletionProfile completion_profile = 3;
+   */
+  completionProfile?: CompletionProfile;
+
+  constructor(data?: PartialMessage<CompletionDeltaMap>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CompletionDeltaMap";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "deltas", kind: "map", K: 5 /* ScalarType.INT32 */, V: {kind: "message", T: CompletionDelta} },
+    { no: 2, name: "prompt", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "completion_profile", kind: "message", T: CompletionProfile },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CompletionDeltaMap {
+    return new CompletionDeltaMap().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CompletionDeltaMap {
+    return new CompletionDeltaMap().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CompletionDeltaMap {
+    return new CompletionDeltaMap().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CompletionDeltaMap | PlainMessage<CompletionDeltaMap> | undefined, b: CompletionDeltaMap | PlainMessage<CompletionDeltaMap> | undefined): boolean {
+    return proto3.util.equals(CompletionDeltaMap, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.Guideline
+ */
+export class Guideline extends Message<Guideline> {
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.GuidelineItem items = 1;
+   */
+  items: GuidelineItem[] = [];
+
+  constructor(data?: PartialMessage<Guideline>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.Guideline";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "items", kind: "message", T: GuidelineItem, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Guideline {
+    return new Guideline().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Guideline {
+    return new Guideline().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Guideline {
+    return new Guideline().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Guideline | PlainMessage<Guideline> | undefined, b: Guideline | PlainMessage<Guideline> | undefined): boolean {
+    return proto3.util.equals(Guideline, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.PromptStageLatency
+ */
+export class PromptStageLatency extends Message<PromptStageLatency> {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name = "";
+
+  /**
+   * @generated from field: uint64 latency_ms = 2;
+   */
+  latencyMs = protoInt64.zero;
+
+  constructor(data?: PartialMessage<PromptStageLatency>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.PromptStageLatency";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "latency_ms", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PromptStageLatency {
+    return new PromptStageLatency().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PromptStageLatency {
+    return new PromptStageLatency().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PromptStageLatency {
+    return new PromptStageLatency().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PromptStageLatency | PlainMessage<PromptStageLatency> | undefined, b: PromptStageLatency | PlainMessage<PromptStageLatency> | undefined): boolean {
+    return proto3.util.equals(PromptStageLatency, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.DOMTree
+ */
+export class DOMTree extends Message<DOMTree> {
+  /**
+   * @generated from field: exa.codeium_common_pb.DOMNode root = 1;
+   */
+  root?: DOMNode;
+
+  /**
+   * @generated from field: uint32 num_nodes = 2;
+   */
+  numNodes = 0;
+
+  constructor(data?: PartialMessage<DOMTree>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.DOMTree";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "root", kind: "message", T: DOMNode },
+    { no: 2, name: "num_nodes", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DOMTree {
+    return new DOMTree().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DOMTree {
+    return new DOMTree().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DOMTree {
+    return new DOMTree().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DOMTree | PlainMessage<DOMTree> | undefined, b: DOMTree | PlainMessage<DOMTree> | undefined): boolean {
+    return proto3.util.equals(DOMTree, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.EmbeddingsRequest
+ */
+export class EmbeddingsRequest extends Message<EmbeddingsRequest> {
+  /**
+   * @generated from field: repeated string prompts = 1;
+   */
+  prompts: string[] = [];
+
+  /**
+   * @generated from field: exa.codeium_common_pb.EmbeddingPriority priority = 2;
+   */
+  priority = EmbeddingPriority.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.EmbeddingPrefix prefix = 3;
+   */
+  prefix = EmbeddingPrefix.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.Model model = 4;
+   */
+  model = Model.MODEL_UNSPECIFIED;
+
+  constructor(data?: PartialMessage<EmbeddingsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.EmbeddingsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "prompts", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 2, name: "priority", kind: "enum", T: proto3.getEnumType(EmbeddingPriority) },
+    { no: 3, name: "prefix", kind: "enum", T: proto3.getEnumType(EmbeddingPrefix) },
+    { no: 4, name: "model", kind: "enum", T: proto3.getEnumType(Model) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EmbeddingsRequest {
+    return new EmbeddingsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EmbeddingsRequest {
+    return new EmbeddingsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EmbeddingsRequest {
+    return new EmbeddingsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: EmbeddingsRequest | PlainMessage<EmbeddingsRequest> | undefined, b: EmbeddingsRequest | PlainMessage<EmbeddingsRequest> | undefined): boolean {
+    return proto3.util.equals(EmbeddingsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.DeployTarget
+ */
+export class DeployTarget extends Message<DeployTarget> {
+  /**
+   * @generated from field: exa.codeium_common_pb.DeploymentProvider deployment_provider = 1;
+   */
+  deploymentProvider = DeploymentProvider.UNSPECIFIED;
+
+  /**
+   * @generated from field: bool is_sandbox = 2;
+   */
+  isSandbox = false;
+
+  /**
+   * @generated from field: string provider_team_id = 3;
+   */
+  providerTeamId = "";
+
+  /**
+   * @generated from field: string provider_team_slug = 4;
+   */
+  providerTeamSlug = "";
+
+  /**
+   * @generated from field: string domain = 5;
+   */
+  domain = "";
+
+  constructor(data?: PartialMessage<DeployTarget>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.DeployTarget";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "deployment_provider", kind: "enum", T: proto3.getEnumType(DeploymentProvider) },
+    { no: 2, name: "is_sandbox", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "provider_team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "provider_team_slug", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "domain", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeployTarget {
+    return new DeployTarget().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeployTarget {
+    return new DeployTarget().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeployTarget {
+    return new DeployTarget().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeployTarget | PlainMessage<DeployTarget> | undefined, b: DeployTarget | PlainMessage<DeployTarget> | undefined): boolean {
+    return proto3.util.equals(DeployTarget, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ChatNodeConfig
+ */
+export class ChatNodeConfig extends Message<ChatNodeConfig> {
+  /**
+   * @generated from field: exa.codeium_common_pb.Model model = 1;
+   */
+  model = Model.MODEL_UNSPECIFIED;
+
+  /**
+   * @generated from field: uint32 max_input_tokens = 2;
+   */
+  maxInputTokens = 0;
+
+  /**
+   * @generated from field: float temperature = 3;
+   */
+  temperature = 0;
+
+  /**
+   * @generated from field: uint32 max_output_tokens = 4;
+   */
+  maxOutputTokens = 0;
+
+  /**
+   * @generated from field: bool order_snippets_by_file = 5;
+   */
+  orderSnippetsByFile = false;
+
+  constructor(data?: PartialMessage<ChatNodeConfig>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ChatNodeConfig";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "model", kind: "enum", T: proto3.getEnumType(Model) },
+    { no: 2, name: "max_input_tokens", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 3, name: "temperature", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 4, name: "max_output_tokens", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 5, name: "order_snippets_by_file", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ChatNodeConfig {
+    return new ChatNodeConfig().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ChatNodeConfig {
+    return new ChatNodeConfig().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ChatNodeConfig {
+    return new ChatNodeConfig().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ChatNodeConfig | PlainMessage<ChatNodeConfig> | undefined, b: ChatNodeConfig | PlainMessage<ChatNodeConfig> | undefined): boolean {
+    return proto3.util.equals(ChatNodeConfig, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.Repository
+ */
+export class Repository extends Message<Repository> {
+  /**
+   * @generated from field: string computed_name = 1;
+   */
+  computedName = "";
+
+  /**
+   * @generated from field: string git_origin_url = 2;
+   */
+  gitOriginUrl = "";
+
+  /**
+   * @generated from field: string git_upstream_url = 3;
+   */
+  gitUpstreamUrl = "";
+
+  /**
+   * @generated from field: string reported_name = 4;
+   */
+  reportedName = "";
+
+  /**
+   * @generated from field: string model_name = 5;
+   */
+  modelName = "";
+
+  /**
+   * @generated from field: string submodule_url = 6;
+   */
+  submoduleUrl = "";
+
+  /**
+   * @generated from field: string submodule_path = 7;
+   */
+  submodulePath = "";
+
+  constructor(data?: PartialMessage<Repository>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.Repository";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "computed_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "git_origin_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "git_upstream_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "reported_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "model_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "submodule_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "submodule_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Repository {
+    return new Repository().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Repository {
+    return new Repository().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Repository {
+    return new Repository().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Repository | PlainMessage<Repository> | undefined, b: Repository | PlainMessage<Repository> | undefined): boolean {
+    return proto3.util.equals(Repository, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.PlanStatus
+ */
+export class PlanStatus extends Message<PlanStatus> {
+  /**
+   * @generated from field: exa.codeium_common_pb.PlanInfo plan_info = 1;
+   */
+  planInfo?: PlanInfo;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp plan_start = 2;
+   */
+  planStart?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp plan_end = 3;
+   */
+  planEnd?: Timestamp;
+
+  /**
+   * @generated from field: int32 available_flex_credits = 4;
+   */
+  availableFlexCredits = 0;
+
+  /**
+   * @generated from field: int32 used_flow_credits = 5;
+   */
+  usedFlowCredits = 0;
+
+  /**
+   * @generated from field: int32 used_prompt_credits = 6;
+   */
+  usedPromptCredits = 0;
+
+  /**
+   * @generated from field: int32 used_flex_credits = 7;
+   */
+  usedFlexCredits = 0;
+
+  /**
+   * @generated from field: int32 available_prompt_credits = 8;
+   */
+  availablePromptCredits = 0;
+
+  /**
+   * @generated from field: int32 available_flow_credits = 9;
+   */
+  availableFlowCredits = 0;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.TopUpStatus top_up_status = 10;
+   */
+  topUpStatus?: TopUpStatus;
+
+  constructor(data?: PartialMessage<PlanStatus>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.PlanStatus";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "plan_info", kind: "message", T: PlanInfo },
+    { no: 2, name: "plan_start", kind: "message", T: Timestamp },
+    { no: 3, name: "plan_end", kind: "message", T: Timestamp },
+    { no: 4, name: "available_flex_credits", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 5, name: "used_flow_credits", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 6, name: "used_prompt_credits", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 7, name: "used_flex_credits", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 8, name: "available_prompt_credits", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 9, name: "available_flow_credits", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 10, name: "top_up_status", kind: "message", T: TopUpStatus },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlanStatus {
+    return new PlanStatus().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlanStatus {
+    return new PlanStatus().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlanStatus {
+    return new PlanStatus().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlanStatus | PlainMessage<PlanStatus> | undefined, b: PlanStatus | PlainMessage<PlanStatus> | undefined): boolean {
+    return proto3.util.equals(PlanStatus, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CaptureFileRequestData
+ */
+export class CaptureFileRequestData extends Message<CaptureFileRequestData> {
+  /**
+   * @generated from field: exa.codeium_common_pb.Metadata metadata = 1;
+   */
+  metadata?: Metadata;
+
+  /**
+   * @generated from field: string prompt_id = 2;
+   */
+  promptId = "";
+
+  /**
+   * @generated from field: string file_path = 3;
+   */
+  filePath = "";
+
+  /**
+   * @generated from field: string original_file_content = 4;
+   */
+  originalFileContent = "";
+
+  /**
+   * @generated from field: string completion_text = 5;
+   */
+  completionText = "";
+
+  /**
+   * @generated from field: uint64 start_offset = 6;
+   */
+  startOffset = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 end_offset = 7;
+   */
+  endOffset = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 cursor_line = 8;
+   */
+  cursorLine = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 cursor_column = 9;
+   */
+  cursorColumn = protoInt64.zero;
+
+  constructor(data?: PartialMessage<CaptureFileRequestData>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CaptureFileRequestData";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "metadata", kind: "message", T: Metadata },
+    { no: 2, name: "prompt_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "file_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "original_file_content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "completion_text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "start_offset", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 7, name: "end_offset", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 8, name: "cursor_line", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 9, name: "cursor_column", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CaptureFileRequestData {
+    return new CaptureFileRequestData().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CaptureFileRequestData {
+    return new CaptureFileRequestData().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CaptureFileRequestData {
+    return new CaptureFileRequestData().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CaptureFileRequestData | PlainMessage<CaptureFileRequestData> | undefined, b: CaptureFileRequestData | PlainMessage<CaptureFileRequestData> | undefined): boolean {
+    return proto3.util.equals(CaptureFileRequestData, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CodebaseCluster
+ */
+export class CodebaseCluster extends Message<CodebaseCluster> {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string description = 2;
+   */
+  description = "";
+
+  /**
+   * @generated from field: repeated string file_names = 3;
+   */
+  fileNames: string[] = [];
+
+  /**
+   * @generated from field: repeated string commit_messages = 4;
+   */
+  commitMessages: string[] = [];
+
+  /**
+   * @generated from field: string id = 5;
+   */
+  id = "";
+
+  /**
+   * @generated from field: string codebase_root_uri = 6;
+   */
+  codebaseRootUri = "";
+
+  /**
+   * @generated from field: repeated string commit_sha = 7;
+   */
+  commitSha: string[] = [];
+
+  /**
+   * @generated from field: repeated string commit_descriptions = 8;
+   */
+  commitDescriptions: string[] = [];
+
+  /**
+   * @generated from field: repeated string file_descriptions = 9;
+   */
+  fileDescriptions: string[] = [];
+
+  /**
+   * @generated from field: string intent = 10;
+   */
+  intent = "";
+
+  constructor(data?: PartialMessage<CodebaseCluster>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CodebaseCluster";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "file_names", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 4, name: "commit_messages", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 5, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "codebase_root_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "commit_sha", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 8, name: "commit_descriptions", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 9, name: "file_descriptions", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 10, name: "intent", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CodebaseCluster {
+    return new CodebaseCluster().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CodebaseCluster {
+    return new CodebaseCluster().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CodebaseCluster {
+    return new CodebaseCluster().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CodebaseCluster | PlainMessage<CodebaseCluster> | undefined, b: CodebaseCluster | PlainMessage<CodebaseCluster> | undefined): boolean {
+    return proto3.util.equals(CodebaseCluster, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.WindsurfDeployment
+ */
+export class WindsurfDeployment extends Message<WindsurfDeployment> {
+  /**
+   * @generated from field: string windsurf_deployment_id = 1;
+   */
+  windsurfDeploymentId = "";
+
+  /**
+   * @generated from field: string auth_uid = 2;
+   */
+  authUid = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.DeploymentProvider deployment_provider = 3;
+   */
+  deploymentProvider = DeploymentProvider.UNSPECIFIED;
+
+  /**
+   * @generated from field: string project_id = 4;
+   */
+  projectId = "";
+
+  /**
+   * @generated from field: string project_name = 5;
+   */
+  projectName = "";
+
+  /**
+   * @generated from field: string workspace_path = 6;
+   */
+  workspacePath = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp created_at = 7;
+   */
+  createdAt?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp updated_at = 8;
+   */
+  updatedAt?: Timestamp;
+
+  /**
+   * @generated from field: string build_status_url = 9;
+   */
+  buildStatusUrl = "";
+
+  /**
+   * @generated from field: string project_url = 10;
+   */
+  projectUrl = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp expires_at = 11;
+   */
+  expiresAt?: Timestamp;
+
+  /**
+   * @generated from field: string deployment_url = 12;
+   */
+  deploymentUrl = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp deprovisioned_at = 13;
+   */
+  deprovisionedAt?: Timestamp;
+
+  /**
+   * @generated from field: string provider_deployment_id = 14;
+   */
+  providerDeploymentId = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp claimed_at = 15;
+   */
+  claimedAt?: Timestamp;
+
+  /**
+   * @generated from field: string domain = 16;
+   */
+  domain = "";
+
+  /**
+   * @generated from field: string subdomain_name = 17;
+   */
+  subdomainName = "";
+
+  /**
+   * @generated from field: string windsurf_project_id = 19;
+   */
+  windsurfProjectId = "";
+
+  /**
+   * @generated from field: string provider_team_id = 20;
+   */
+  providerTeamId = "";
+
+  constructor(data?: PartialMessage<WindsurfDeployment>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.WindsurfDeployment";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "windsurf_deployment_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "auth_uid", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "deployment_provider", kind: "enum", T: proto3.getEnumType(DeploymentProvider) },
+    { no: 4, name: "project_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "project_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "workspace_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "created_at", kind: "message", T: Timestamp },
+    { no: 8, name: "updated_at", kind: "message", T: Timestamp },
+    { no: 9, name: "build_status_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 10, name: "project_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 11, name: "expires_at", kind: "message", T: Timestamp },
+    { no: 12, name: "deployment_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 13, name: "deprovisioned_at", kind: "message", T: Timestamp },
+    { no: 14, name: "provider_deployment_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 15, name: "claimed_at", kind: "message", T: Timestamp },
+    { no: 16, name: "domain", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 17, name: "subdomain_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 19, name: "windsurf_project_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 20, name: "provider_team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): WindsurfDeployment {
+    return new WindsurfDeployment().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): WindsurfDeployment {
+    return new WindsurfDeployment().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): WindsurfDeployment {
+    return new WindsurfDeployment().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: WindsurfDeployment | PlainMessage<WindsurfDeployment> | undefined, b: WindsurfDeployment | PlainMessage<WindsurfDeployment> | undefined): boolean {
+    return proto3.util.equals(WindsurfDeployment, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.MockResponseData
+ */
+export class MockResponseData extends Message<MockResponseData> {
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.Completion completions = 1;
+   */
+  completions: Completion[] = [];
+
+  constructor(data?: PartialMessage<MockResponseData>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.MockResponseData";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "completions", kind: "message", T: Completion, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MockResponseData {
+    return new MockResponseData().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MockResponseData {
+    return new MockResponseData().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MockResponseData {
+    return new MockResponseData().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: MockResponseData | PlainMessage<MockResponseData> | undefined, b: MockResponseData | PlainMessage<MockResponseData> | undefined): boolean {
+    return proto3.util.equals(MockResponseData, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.DefaultOverrideModelConfig
+ */
+export class DefaultOverrideModelConfig extends Message<DefaultOverrideModelConfig> {
+  /**
+   * @generated from field: exa.codeium_common_pb.ModelOrAlias model_or_alias = 1;
+   */
+  modelOrAlias?: ModelOrAlias;
+
+  /**
+   * @generated from field: string version_id = 2;
+   */
+  versionId = "";
+
+  constructor(data?: PartialMessage<DefaultOverrideModelConfig>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.DefaultOverrideModelConfig";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "model_or_alias", kind: "message", T: ModelOrAlias },
+    { no: 2, name: "version_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DefaultOverrideModelConfig {
+    return new DefaultOverrideModelConfig().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DefaultOverrideModelConfig {
+    return new DefaultOverrideModelConfig().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DefaultOverrideModelConfig {
+    return new DefaultOverrideModelConfig().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DefaultOverrideModelConfig | PlainMessage<DefaultOverrideModelConfig> | undefined, b: DefaultOverrideModelConfig | PlainMessage<DefaultOverrideModelConfig> | undefined): boolean {
+    return proto3.util.equals(DefaultOverrideModelConfig, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.WebAppDeploymentConfig
+ */
+export class WebAppDeploymentConfig extends Message<WebAppDeploymentConfig> {
+  /**
+   * @generated from field: string project_id = 1;
+   */
+  projectId = "";
+
+  /**
+   * @generated from field: string framework = 2;
+   */
+  framework = "";
+
+  constructor(data?: PartialMessage<WebAppDeploymentConfig>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.WebAppDeploymentConfig";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "project_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "framework", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): WebAppDeploymentConfig {
+    return new WebAppDeploymentConfig().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): WebAppDeploymentConfig {
+    return new WebAppDeploymentConfig().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): WebAppDeploymentConfig {
+    return new WebAppDeploymentConfig().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: WebAppDeploymentConfig | PlainMessage<WebAppDeploymentConfig> | undefined, b: WebAppDeploymentConfig | PlainMessage<WebAppDeploymentConfig> | undefined): boolean {
+    return proto3.util.equals(WebAppDeploymentConfig, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.RuleViolation
+ */
+export class RuleViolation extends Message<RuleViolation> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.Rule rule = 2;
+   */
+  rule?: Rule;
+
+  /**
+   * @generated from field: int32 start_line = 3;
+   */
+  startLine = 0;
+
+  /**
+   * @generated from field: int32 end_line = 4;
+   */
+  endLine = 0;
+
+  constructor(data?: PartialMessage<RuleViolation>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.RuleViolation";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "rule", kind: "message", T: Rule },
+    { no: 3, name: "start_line", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 4, name: "end_line", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RuleViolation {
+    return new RuleViolation().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RuleViolation {
+    return new RuleViolation().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RuleViolation {
+    return new RuleViolation().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RuleViolation | PlainMessage<RuleViolation> | undefined, b: RuleViolation | PlainMessage<RuleViolation> | undefined): boolean {
+    return proto3.util.equals(RuleViolation, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.PathScopeItem
+ */
+export class PathScopeItem extends Message<PathScopeItem> {
+  /**
+   * @generated from field: string absolute_path_migrate_me_to_uri = 1;
+   */
+  absolutePathMigrateMeToUri = "";
+
+  /**
+   * @generated from field: map<string, string> workspace_relative_paths_migrate_me_to_workspace_uris = 2;
+   */
+  workspaceRelativePathsMigrateMeToWorkspaceUris: { [key: string]: string } = {};
+
+  /**
+   * @generated from field: uint32 num_files = 3;
+   */
+  numFiles = 0;
+
+  /**
+   * @generated from field: uint64 num_bytes = 4;
+   */
+  numBytes = protoInt64.zero;
+
+  /**
+   * @generated from field: string absolute_uri = 5;
+   */
+  absoluteUri = "";
+
+  /**
+   * @generated from field: map<string, string> workspace_uris_to_relative_paths = 6;
+   */
+  workspaceUrisToRelativePaths: { [key: string]: string } = {};
+
+  constructor(data?: PartialMessage<PathScopeItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.PathScopeItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "absolute_path_migrate_me_to_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "workspace_relative_paths_migrate_me_to_workspace_uris", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "scalar", T: 9 /* ScalarType.STRING */} },
+    { no: 3, name: "num_files", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 4, name: "num_bytes", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 5, name: "absolute_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "workspace_uris_to_relative_paths", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "scalar", T: 9 /* ScalarType.STRING */} },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PathScopeItem {
+    return new PathScopeItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PathScopeItem {
+    return new PathScopeItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PathScopeItem {
+    return new PathScopeItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PathScopeItem | PlainMessage<PathScopeItem> | undefined, b: PathScopeItem | PlainMessage<PathScopeItem> | undefined): boolean {
+    return proto3.util.equals(PathScopeItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.TeamOrganizationalControls
+ */
+export class TeamOrganizationalControls extends Message<TeamOrganizationalControls> {
+  /**
+   * @generated from field: string team_id = 1;
+   */
+  teamId = "";
+
+  /**
+   * @generated from field: repeated string cascade_model_labels = 2;
+   */
+  cascadeModelLabels: string[] = [];
+
+  /**
+   * @generated from field: repeated string command_model_labels = 3;
+   */
+  commandModelLabels: string[] = [];
+
+  /**
+   * @generated from field: google.protobuf.Timestamp created_at = 4;
+   */
+  createdAt?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp updated_at = 5;
+   */
+  updatedAt?: Timestamp;
+
+  /**
+   * @generated from field: repeated string extension_model_labels = 6;
+   */
+  extensionModelLabels: string[] = [];
+
+  constructor(data?: PartialMessage<TeamOrganizationalControls>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.TeamOrganizationalControls";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "cascade_model_labels", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 3, name: "command_model_labels", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 4, name: "created_at", kind: "message", T: Timestamp },
+    { no: 5, name: "updated_at", kind: "message", T: Timestamp },
+    { no: 6, name: "extension_model_labels", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TeamOrganizationalControls {
+    return new TeamOrganizationalControls().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TeamOrganizationalControls {
+    return new TeamOrganizationalControls().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TeamOrganizationalControls {
+    return new TeamOrganizationalControls().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: TeamOrganizationalControls | PlainMessage<TeamOrganizationalControls> | undefined, b: TeamOrganizationalControls | PlainMessage<TeamOrganizationalControls> | undefined): boolean {
+    return proto3.util.equals(TeamOrganizationalControls, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.PromptComponents
+ */
+export class PromptComponents extends Message<PromptComponents> {
+  /**
+   * @generated from field: exa.codeium_common_pb.Document document = 1;
+   */
+  document?: Document;
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.Document other_documents = 2;
+   */
+  otherDocuments: Document[] = [];
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.CodeContextItem code_context_items = 3;
+   */
+  codeContextItems: CodeContextItem[] = [];
+
+  constructor(data?: PartialMessage<PromptComponents>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.PromptComponents";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "document", kind: "message", T: Document },
+    { no: 2, name: "other_documents", kind: "message", T: Document, repeated: true },
+    { no: 3, name: "code_context_items", kind: "message", T: CodeContextItem, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PromptComponents {
+    return new PromptComponents().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PromptComponents {
+    return new PromptComponents().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PromptComponents {
+    return new PromptComponents().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PromptComponents | PlainMessage<PromptComponents> | undefined, b: PromptComponents | PlainMessage<PromptComponents> | undefined): boolean {
+    return proto3.util.equals(PromptComponents, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.FunctionInfo
+ */
+export class FunctionInfo extends Message<FunctionInfo> {
+  /**
+   * @generated from field: string raw_source = 1;
+   */
+  rawSource = "";
+
+  /**
+   * @generated from field: string clean_function = 2;
+   */
+  cleanFunction = "";
+
+  /**
+   * @generated from field: string docstring = 3;
+   */
+  docstring = "";
+
+  /**
+   * @generated from field: string node_name = 4;
+   */
+  nodeName = "";
+
+  /**
+   * @generated from field: string params = 5;
+   */
+  params = "";
+
+  /**
+   * @generated from field: int32 definition_line = 6;
+   */
+  definitionLine = 0;
+
+  /**
+   * @generated from field: int32 start_line = 7;
+   */
+  startLine = 0;
+
+  /**
+   * @generated from field: int32 end_line = 8;
+   */
+  endLine = 0;
+
+  /**
+   * @generated from field: int32 start_col = 9;
+   */
+  startCol = 0;
+
+  /**
+   * @generated from field: int32 end_col = 10;
+   */
+  endCol = 0;
+
+  /**
+   * @generated from field: string leading_whitespace = 11;
+   */
+  leadingWhitespace = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.Language language = 12;
+   */
+  language = Language.UNSPECIFIED;
+
+  /**
+   * @generated from field: int32 body_start_line = 13;
+   */
+  bodyStartLine = 0;
+
+  /**
+   * @generated from field: int32 body_start_col = 14;
+   */
+  bodyStartCol = 0;
+
+  constructor(data?: PartialMessage<FunctionInfo>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.FunctionInfo";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "raw_source", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "clean_function", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "docstring", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "node_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "params", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "definition_line", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 7, name: "start_line", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 8, name: "end_line", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 9, name: "start_col", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 10, name: "end_col", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 11, name: "leading_whitespace", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 12, name: "language", kind: "enum", T: proto3.getEnumType(Language) },
+    { no: 13, name: "body_start_line", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 14, name: "body_start_col", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): FunctionInfo {
+    return new FunctionInfo().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): FunctionInfo {
+    return new FunctionInfo().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): FunctionInfo {
+    return new FunctionInfo().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: FunctionInfo | PlainMessage<FunctionInfo> | undefined, b: FunctionInfo | PlainMessage<FunctionInfo> | undefined): boolean {
+    return proto3.util.equals(FunctionInfo, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ContextScopeItem
+ */
+export class ContextScopeItem extends Message<ContextScopeItem> {
+  /**
+   * @generated from oneof exa.codeium_common_pb.ContextScopeItem.scope_item
+   */
+  scopeItem: {
+    /**
+     * @generated from field: exa.codeium_common_pb.PathScopeItem file = 1;
+     */
+    value: PathScopeItem;
+    case: "file";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.PathScopeItem directory = 2;
+     */
+    value: PathScopeItem;
+    case: "directory";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.RepositoryScopeItem repository = 3;
+     */
+    value: RepositoryScopeItem;
+    case: "repository";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.CodeContextItem code_context = 4;
+     */
+    value: CodeContextItem;
+    case: "codeContext";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.CciWithSubrange cci_with_subrange = 6;
+     */
+    value: CciWithSubrange;
+    case: "cciWithSubrange";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.RepositoryPathScopeItem repository_path = 7;
+     */
+    value: RepositoryPathScopeItem;
+    case: "repositoryPath";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.KnowledgeBaseScopeItem slack = 8;
+     */
+    value: KnowledgeBaseScopeItem;
+    case: "slack";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.KnowledgeBaseScopeItem github = 9;
+     */
+    value: KnowledgeBaseScopeItem;
+    case: "github";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.FileLineRange file_line_range = 10;
+     */
+    value: FileLineRange;
+    case: "fileLineRange";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.TextBlock text_block = 11;
+     */
+    value: TextBlock;
+    case: "textBlock";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.KnowledgeBaseScopeItem jira = 12;
+     */
+    value: KnowledgeBaseScopeItem;
+    case: "jira";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.KnowledgeBaseScopeItem google_drive = 13;
+     */
+    value: KnowledgeBaseScopeItem;
+    case: "googleDrive";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.ConsoleLogScopeItem console_log = 14;
+     */
+    value: ConsoleLogScopeItem;
+    case: "consoleLog";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.DOMElementScopeItem dom_element = 15;
+     */
+    value: DOMElementScopeItem;
+    case: "domElement";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.RecipeScopeItem recipe = 16;
+     */
+    value: RecipeScopeItem;
+    case: "recipe";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.KnowledgeBaseScopeItem knowledge = 17;
+     */
+    value: KnowledgeBaseScopeItem;
+    case: "knowledge";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.RuleScopeItem rule = 18;
+     */
+    value: RuleScopeItem;
+    case: "rule";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.McpResourceItem mcp_resource = 19;
+     */
+    value: McpResourceItem;
+    case: "mcpResource";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.BrowserPageScopeItem browser_page = 20;
+     */
+    value: BrowserPageScopeItem;
+    case: "browserPage";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.BrowserCodeBlockScopeItem browser_code_block = 21;
+     */
+    value: BrowserCodeBlockScopeItem;
+    case: "browserCodeBlock";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.BrowserTextScopeItem browser_text = 22;
+     */
+    value: BrowserTextScopeItem;
+    case: "browserText";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.ConversationScopeItem conversation = 23;
+     */
+    value: ConversationScopeItem;
+    case: "conversation";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.UserActivityScopeItem user_activity = 24;
+     */
+    value: UserActivityScopeItem;
+    case: "userActivity";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.TerminalScopeItem terminal = 25;
+     */
+    value: TerminalScopeItem;
+    case: "terminal";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.GithubPullRequestItem github_pull_request = 26;
+     */
+    value: GithubPullRequestItem;
+    case: "githubPullRequest";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<ContextScopeItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ContextScopeItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "file", kind: "message", T: PathScopeItem, oneof: "scope_item" },
+    { no: 2, name: "directory", kind: "message", T: PathScopeItem, oneof: "scope_item" },
+    { no: 3, name: "repository", kind: "message", T: RepositoryScopeItem, oneof: "scope_item" },
+    { no: 4, name: "code_context", kind: "message", T: CodeContextItem, oneof: "scope_item" },
+    { no: 6, name: "cci_with_subrange", kind: "message", T: CciWithSubrange, oneof: "scope_item" },
+    { no: 7, name: "repository_path", kind: "message", T: RepositoryPathScopeItem, oneof: "scope_item" },
+    { no: 8, name: "slack", kind: "message", T: KnowledgeBaseScopeItem, oneof: "scope_item" },
+    { no: 9, name: "github", kind: "message", T: KnowledgeBaseScopeItem, oneof: "scope_item" },
+    { no: 10, name: "file_line_range", kind: "message", T: FileLineRange, oneof: "scope_item" },
+    { no: 11, name: "text_block", kind: "message", T: TextBlock, oneof: "scope_item" },
+    { no: 12, name: "jira", kind: "message", T: KnowledgeBaseScopeItem, oneof: "scope_item" },
+    { no: 13, name: "google_drive", kind: "message", T: KnowledgeBaseScopeItem, oneof: "scope_item" },
+    { no: 14, name: "console_log", kind: "message", T: ConsoleLogScopeItem, oneof: "scope_item" },
+    { no: 15, name: "dom_element", kind: "message", T: DOMElementScopeItem, oneof: "scope_item" },
+    { no: 16, name: "recipe", kind: "message", T: RecipeScopeItem, oneof: "scope_item" },
+    { no: 17, name: "knowledge", kind: "message", T: KnowledgeBaseScopeItem, oneof: "scope_item" },
+    { no: 18, name: "rule", kind: "message", T: RuleScopeItem, oneof: "scope_item" },
+    { no: 19, name: "mcp_resource", kind: "message", T: McpResourceItem, oneof: "scope_item" },
+    { no: 20, name: "browser_page", kind: "message", T: BrowserPageScopeItem, oneof: "scope_item" },
+    { no: 21, name: "browser_code_block", kind: "message", T: BrowserCodeBlockScopeItem, oneof: "scope_item" },
+    { no: 22, name: "browser_text", kind: "message", T: BrowserTextScopeItem, oneof: "scope_item" },
+    { no: 23, name: "conversation", kind: "message", T: ConversationScopeItem, oneof: "scope_item" },
+    { no: 24, name: "user_activity", kind: "message", T: UserActivityScopeItem, oneof: "scope_item" },
+    { no: 25, name: "terminal", kind: "message", T: TerminalScopeItem, oneof: "scope_item" },
+    { no: 26, name: "github_pull_request", kind: "message", T: GithubPullRequestItem, oneof: "scope_item" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ContextScopeItem {
+    return new ContextScopeItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ContextScopeItem {
+    return new ContextScopeItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ContextScopeItem {
+    return new ContextScopeItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ContextScopeItem | PlainMessage<ContextScopeItem> | undefined, b: ContextScopeItem | PlainMessage<ContextScopeItem> | undefined): boolean {
+    return proto3.util.equals(ContextScopeItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.UserTableStats
+ */
+export class UserTableStats extends Message<UserTableStats> {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string email = 2;
+   */
+  email = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp last_update_time = 3;
+   */
+  lastUpdateTime?: Timestamp;
+
+  /**
+   * @generated from field: string api_key = 4;
+   */
+  apiKey = "";
+
+  /**
+   * @generated from field: bool disable_codeium = 5;
+   */
+  disableCodeium = false;
+
+  /**
+   * @generated from field: uint32 active_days = 6;
+   */
+  activeDays = 0;
+
+  /**
+   * @generated from field: string role = 7;
+   */
+  role = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp signup_time = 8;
+   */
+  signupTime?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp last_autocomplete_usage_time = 9;
+   */
+  lastAutocompleteUsageTime?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp last_chat_usage_time = 10;
+   */
+  lastChatUsageTime?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp last_command_usage_time = 11;
+   */
+  lastCommandUsageTime?: Timestamp;
+
+  /**
+   * @generated from field: int64 prompt_credits_used = 12;
+   */
+  promptCreditsUsed = protoInt64.zero;
+
+  constructor(data?: PartialMessage<UserTableStats>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.UserTableStats";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "last_update_time", kind: "message", T: Timestamp },
+    { no: 4, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "disable_codeium", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 6, name: "active_days", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 7, name: "role", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "signup_time", kind: "message", T: Timestamp },
+    { no: 9, name: "last_autocomplete_usage_time", kind: "message", T: Timestamp },
+    { no: 10, name: "last_chat_usage_time", kind: "message", T: Timestamp },
+    { no: 11, name: "last_command_usage_time", kind: "message", T: Timestamp },
+    { no: 12, name: "prompt_credits_used", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserTableStats {
+    return new UserTableStats().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserTableStats {
+    return new UserTableStats().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserTableStats {
+    return new UserTableStats().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserTableStats | PlainMessage<UserTableStats> | undefined, b: UserTableStats | PlainMessage<UserTableStats> | undefined): boolean {
+    return proto3.util.equals(UserTableStats, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.Event
+ */
+export class Event extends Message<Event> {
+  /**
+   * @generated from field: exa.codeium_common_pb.EventType event_type = 1;
+   */
+  eventType = EventType.UNSPECIFIED;
+
+  /**
+   * @generated from field: string event_json = 2;
+   */
+  eventJson = "";
+
+  /**
+   * @generated from field: int64 timestamp_unix_ms = 3;
+   */
+  timestampUnixMs = protoInt64.zero;
+
+  constructor(data?: PartialMessage<Event>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.Event";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "event_type", kind: "enum", T: proto3.getEnumType(EventType) },
+    { no: 2, name: "event_json", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "timestamp_unix_ms", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Event {
+    return new Event().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Event {
+    return new Event().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Event {
+    return new Event().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Event | PlainMessage<Event> | undefined, b: Event | PlainMessage<Event> | undefined): boolean {
+    return proto3.util.equals(Event, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.DocumentOutline
+ */
+export class DocumentOutline extends Message<DocumentOutline> {
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.DocumentOutlineElement elements = 1;
+   */
+  elements: DocumentOutlineElement[] = [];
+
+  /**
+   * @generated from field: int64 start_index = 2;
+   */
+  startIndex = protoInt64.zero;
+
+  constructor(data?: PartialMessage<DocumentOutline>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.DocumentOutline";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "elements", kind: "message", T: DocumentOutlineElement, repeated: true },
+    { no: 2, name: "start_index", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DocumentOutline {
+    return new DocumentOutline().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DocumentOutline {
+    return new DocumentOutline().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DocumentOutline {
+    return new DocumentOutline().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DocumentOutline | PlainMessage<DocumentOutline> | undefined, b: DocumentOutline | PlainMessage<DocumentOutline> | undefined): boolean {
+    return proto3.util.equals(DocumentOutline, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CompletionByDateEntry
+ */
+export class CompletionByDateEntry extends Message<CompletionByDateEntry> {
+  /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 1;
+   */
+  timestamp?: Timestamp;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.CompletionStatistics completion_statistics = 2;
+   */
+  completionStatistics?: CompletionStatistics;
+
+  constructor(data?: PartialMessage<CompletionByDateEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CompletionByDateEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "timestamp", kind: "message", T: Timestamp },
+    { no: 2, name: "completion_statistics", kind: "message", T: CompletionStatistics },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CompletionByDateEntry {
+    return new CompletionByDateEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CompletionByDateEntry {
+    return new CompletionByDateEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CompletionByDateEntry {
+    return new CompletionByDateEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CompletionByDateEntry | PlainMessage<CompletionByDateEntry> | undefined, b: CompletionByDateEntry | PlainMessage<CompletionByDateEntry> | undefined): boolean {
+    return proto3.util.equals(CompletionByDateEntry, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.SuperCompleteFilterReason
+ */
+export class SuperCompleteFilterReason extends Message<SuperCompleteFilterReason> {
+  /**
+   * @generated from field: string reason = 1;
+   */
+  reason = "";
+
+  constructor(data?: PartialMessage<SuperCompleteFilterReason>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.SuperCompleteFilterReason";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "reason", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SuperCompleteFilterReason {
+    return new SuperCompleteFilterReason().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SuperCompleteFilterReason {
+    return new SuperCompleteFilterReason().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SuperCompleteFilterReason {
+    return new SuperCompleteFilterReason().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SuperCompleteFilterReason | PlainMessage<SuperCompleteFilterReason> | undefined, b: SuperCompleteFilterReason | PlainMessage<SuperCompleteFilterReason> | undefined): boolean {
+    return proto3.util.equals(SuperCompleteFilterReason, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.McpServerTemplate
+ */
+export class McpServerTemplate extends Message<McpServerTemplate> {
+  /**
+   * @generated from field: string title = 1;
+   */
+  title = "";
+
+  /**
+   * @generated from field: string id = 2;
+   */
+  id = "";
+
+  /**
+   * @generated from field: string link = 3;
+   */
+  link = "";
+
+  /**
+   * @generated from field: string description = 4;
+   */
+  description = "";
+
+  /**
+   * @generated from field: map<string, exa.codeium_common_pb.McpServerCommand> commands = 5;
+   */
+  commands: { [key: string]: McpServerCommand } = {};
+
+  constructor(data?: PartialMessage<McpServerTemplate>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.McpServerTemplate";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "link", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "commands", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: McpServerCommand} },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): McpServerTemplate {
+    return new McpServerTemplate().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): McpServerTemplate {
+    return new McpServerTemplate().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): McpServerTemplate {
+    return new McpServerTemplate().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: McpServerTemplate | PlainMessage<McpServerTemplate> | undefined, b: McpServerTemplate | PlainMessage<McpServerTemplate> | undefined): boolean {
+    return proto3.util.equals(McpServerTemplate, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.TeamsFeaturesMetadata
+ */
+export class TeamsFeaturesMetadata extends Message<TeamsFeaturesMetadata> {
+  /**
+   * @generated from field: bool is_active = 1;
+   */
+  isActive = false;
+
+  /**
+   * @generated from field: string stripe_subscription_id = 2;
+   */
+  stripeSubscriptionId = "";
+
+  /**
+   * @generated from field: bool has_access = 3;
+   */
+  hasAccess = false;
+
+  constructor(data?: PartialMessage<TeamsFeaturesMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.TeamsFeaturesMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "is_active", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 2, name: "stripe_subscription_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "has_access", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TeamsFeaturesMetadata {
+    return new TeamsFeaturesMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TeamsFeaturesMetadata {
+    return new TeamsFeaturesMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TeamsFeaturesMetadata {
+    return new TeamsFeaturesMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: TeamsFeaturesMetadata | PlainMessage<TeamsFeaturesMetadata> | undefined, b: TeamsFeaturesMetadata | PlainMessage<TeamsFeaturesMetadata> | undefined): boolean {
+    return proto3.util.equals(TeamsFeaturesMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.MQueryConfig
+ */
+export class MQueryConfig extends Message<MQueryConfig> {
+  /**
+   * @generated from field: bool should_batch_ccis = 1;
+   */
+  shouldBatchCcis = false;
+
+  /**
+   * @generated from field: int64 max_tokens_per_subrange = 2;
+   */
+  maxTokensPerSubrange = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 num_parser_workers = 3;
+   */
+  numParserWorkers = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 num_workers_per_distributed_scorer = 4;
+   */
+  numWorkersPerDistributedScorer = protoInt64.zero;
+
+  /**
+   * @generated from field: bool verbose = 5;
+   */
+  verbose = false;
+
+  /**
+   * @generated from field: repeated string ignore_extensions = 6;
+   */
+  ignoreExtensions: string[] = [];
+
+  /**
+   * @generated from field: repeated string ignore_directory_stubs = 7;
+   */
+  ignoreDirectoryStubs: string[] = [];
+
+  /**
+   * @generated from field: uint32 min_token_space_for_context = 8;
+   */
+  minTokenSpaceForContext = 0;
+
+  /**
+   * @generated from field: uint32 max_target_files = 9;
+   */
+  maxTargetFiles = 0;
+
+  /**
+   * @generated from field: uint32 top_cci_count = 10;
+   */
+  topCciCount = 0;
+
+  constructor(data?: PartialMessage<MQueryConfig>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.MQueryConfig";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "should_batch_ccis", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 2, name: "max_tokens_per_subrange", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 3, name: "num_parser_workers", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 4, name: "num_workers_per_distributed_scorer", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 5, name: "verbose", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 6, name: "ignore_extensions", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 7, name: "ignore_directory_stubs", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 8, name: "min_token_space_for_context", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 9, name: "max_target_files", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 10, name: "top_cci_count", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MQueryConfig {
+    return new MQueryConfig().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MQueryConfig {
+    return new MQueryConfig().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MQueryConfig {
+    return new MQueryConfig().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: MQueryConfig | PlainMessage<MQueryConfig> | undefined, b: MQueryConfig | PlainMessage<MQueryConfig> | undefined): boolean {
+    return proto3.util.equals(MQueryConfig, a, b);
+  }
+}
 
 /**
  * @generated from message exa.codeium_common_pb.PlanInfo
@@ -2328,244 +14706,2342 @@ export class PlanInfo extends Message<PlanInfo> {
 }
 
 /**
- * @generated from message exa.codeium_common_pb.AllowedModelConfig
+ * @generated from message exa.codeium_common_pb.ChatStatsByModelEntry
  */
-export class AllowedModelConfig extends Message<AllowedModelConfig> {
+export class ChatStatsByModelEntry extends Message<ChatStatsByModelEntry> {
   /**
-   * @generated from field: exa.codeium_common_pb.ModelOrAlias model_or_alias = 1;
+   * @generated from field: exa.codeium_common_pb.Model model_id = 1;
    */
-  modelOrAlias?: ModelOrAlias;
+  modelId = Model.MODEL_UNSPECIFIED;
 
   /**
-   * @generated from field: float credit_multiplier = 2;
+   * @generated from field: exa.codeium_common_pb.ChatStats chat_stats = 2;
    */
-  creditMultiplier = 0;
+  chatStats?: ChatStats;
 
-  constructor(data?: PartialMessage<AllowedModelConfig>) {
+  constructor(data?: PartialMessage<ChatStatsByModelEntry>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.codeium_common_pb.AllowedModelConfig";
+  static readonly typeName = "exa.codeium_common_pb.ChatStatsByModelEntry";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "model_or_alias", kind: "message", T: ModelOrAlias },
-    { no: 2, name: "credit_multiplier", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 1, name: "model_id", kind: "enum", T: proto3.getEnumType(Model) },
+    { no: 2, name: "chat_stats", kind: "message", T: ChatStats },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AllowedModelConfig {
-    return new AllowedModelConfig().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ChatStatsByModelEntry {
+    return new ChatStatsByModelEntry().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AllowedModelConfig {
-    return new AllowedModelConfig().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ChatStatsByModelEntry {
+    return new ChatStatsByModelEntry().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AllowedModelConfig {
-    return new AllowedModelConfig().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ChatStatsByModelEntry {
+    return new ChatStatsByModelEntry().fromJsonString(jsonString, options);
   }
 
-  static equals(a: AllowedModelConfig | PlainMessage<AllowedModelConfig> | undefined, b: AllowedModelConfig | PlainMessage<AllowedModelConfig> | undefined): boolean {
-    return proto3.util.equals(AllowedModelConfig, a, b);
+  static equals(a: ChatStatsByModelEntry | PlainMessage<ChatStatsByModelEntry> | undefined, b: ChatStatsByModelEntry | PlainMessage<ChatStatsByModelEntry> | undefined): boolean {
+    return proto3.util.equals(ChatStatsByModelEntry, a, b);
   }
 }
 
 /**
- * @generated from message exa.codeium_common_pb.TeamConfig
+ * @generated from message exa.codeium_common_pb.CascadeNUXConfig
  */
-export class TeamConfig extends Message<TeamConfig> {
+export class CascadeNUXConfig extends Message<CascadeNUXConfig> {
   /**
-   * @generated from field: string team_id = 1;
+   * @generated from field: uint32 uid = 1;
    */
-  teamId = "";
+  uid = 0;
 
   /**
-   * @generated from field: int32 user_prompt_credit_cap = 2;
+   * @generated from field: exa.codeium_common_pb.CascadeNUXLocation location = 2;
    */
-  userPromptCreditCap = 0;
+  location = CascadeNUXLocation.CASCADE_NUX_LOCATION_UNSPECIFIED;
 
   /**
-   * @generated from field: int32 user_flow_credit_cap = 3;
+   * @generated from field: exa.codeium_common_pb.CascadeNUXTrigger trigger = 3;
    */
-  userFlowCreditCap = 0;
+  trigger = CascadeNUXTrigger.CASCADE_NUX_TRIGGER_UNSPECIFIED;
 
   /**
-   * @generated from field: bool auto_provision_cascade_seat = 4;
+   * @generated from field: string analytics_event_name = 4;
    */
-  autoProvisionCascadeSeat = false;
+  analyticsEventName = "";
 
   /**
-   * @generated from field: bool allow_mcp_servers = 5;
+   * @generated from field: string main_text = 5;
    */
-  allowMcpServers = false;
+  mainText = "";
 
   /**
-   * @generated from field: bool allow_auto_run_commands = 7;
+   * @generated from field: string on_hover_explanation = 6;
    */
-  allowAutoRunCommands = false;
+  onHoverExplanation = "";
 
   /**
-   * @generated from field: bool allow_custom_recipes = 8;
+   * @generated from field: string learn_more_url = 7;
    */
-  allowCustomRecipes = false;
+  learnMoreUrl = "";
 
   /**
-   * @generated from field: int32 max_unclaimed_sites = 9;
+   * @generated from field: int32 priority = 8;
    */
-  maxUnclaimedSites = 0;
+  priority = 0;
 
   /**
-   * @generated from field: bool allow_app_deployments = 10;
+   * @generated from field: exa.codeium_common_pb.CascadeNUXEvent old_nux_event = 9;
    */
-  allowAppDeployments = false;
+  oldNuxEvent = CascadeNUXEvent.CASCADE_NUX_EVENT_UNSPECIFIED;
 
   /**
-   * @generated from field: int32 max_new_sites_per_day = 11;
+   * @generated from field: exa.codeium_common_pb.CascadeNUXIcon icon = 10;
    */
-  maxNewSitesPerDay = 0;
+  icon = CascadeNUXIcon.CASCADE_NUX_ICON_UNSPECIFIED;
 
   /**
-   * @generated from field: bool allow_github_reviews = 12;
+   * @generated from field: bool requires_idle_cascade = 11;
    */
-  allowGithubReviews = false;
+  requiresIdleCascade = false;
 
-  /**
-   * @generated from field: bool allow_github_description_edits = 13;
-   */
-  allowGithubDescriptionEdits = false;
-
-  /**
-   * @generated from field: string pull_request_review_guidelines = 14;
-   */
-  pullRequestReviewGuidelines = "";
-
-  /**
-   * @generated from field: bool disable_tool_calls = 15;
-   */
-  disableToolCalls = false;
-
-  /**
-   * @generated from field: string pull_request_description_guidelines = 16;
-   */
-  pullRequestDescriptionGuidelines = "";
-
-  /**
-   * @generated from field: bool allow_individual_level_analytics = 17;
-   */
-  allowIndividualLevelAnalytics = false;
-
-  /**
-   * @generated from field: bool allow_conversation_sharing = 18;
-   */
-  allowConversationSharing = false;
-
-  /**
-   * @generated from field: bool allow_sandbox_app_deployments = 19;
-   */
-  allowSandboxAppDeployments = false;
-
-  /**
-   * @generated from field: bool allow_teams_app_deployments = 20;
-   */
-  allowTeamsAppDeployments = false;
-
-  /**
-   * @generated from field: int32 pull_request_review_rate_limit = 21;
-   */
-  pullRequestReviewRateLimit = 0;
-
-  /**
-   * @generated from field: bool allow_attribution = 22;
-   */
-  allowAttribution = false;
-
-  /**
-   * @generated from field: repeated exa.codeium_common_pb.McpServerConfig allowed_mcp_servers = 23;
-   */
-  allowedMcpServers: McpServerConfig[] = [];
-
-  /**
-   * @generated from field: bool allow_github_auto_reviews = 24;
-   */
-  allowGithubAutoReviews = false;
-
-  /**
-   * @generated from field: bool allow_browser_experimental_features = 25;
-   */
-  allowBrowserExperimentalFeatures = false;
-
-  /**
-   * @generated from field: bool disable_tool_call_execution_outside_workspace = 26;
-   */
-  disableToolCallExecutionOutsideWorkspace = false;
-
-  /**
-   * @generated from field: bool allow_vibe_and_replace = 27;
-   */
-  allowVibeAndReplace = false;
-
-  /**
-   * @generated from field: bool disable_deepwiki = 28;
-   */
-  disableDeepwiki = false;
-
-  /**
-   * @generated from field: exa.codeium_common_pb.CustomProviderSettings custom_provider_settings = 29;
-   */
-  customProviderSettings?: CustomProviderSettings;
-
-  constructor(data?: PartialMessage<TeamConfig>) {
+  constructor(data?: PartialMessage<CascadeNUXConfig>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.codeium_common_pb.TeamConfig";
+  static readonly typeName = "exa.codeium_common_pb.CascadeNUXConfig";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "user_prompt_credit_cap", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 3, name: "user_flow_credit_cap", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 4, name: "auto_provision_cascade_seat", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 5, name: "allow_mcp_servers", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 7, name: "allow_auto_run_commands", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 8, name: "allow_custom_recipes", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 9, name: "max_unclaimed_sites", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 10, name: "allow_app_deployments", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 11, name: "max_new_sites_per_day", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 12, name: "allow_github_reviews", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 13, name: "allow_github_description_edits", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 14, name: "pull_request_review_guidelines", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 15, name: "disable_tool_calls", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 16, name: "pull_request_description_guidelines", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 17, name: "allow_individual_level_analytics", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 18, name: "allow_conversation_sharing", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 19, name: "allow_sandbox_app_deployments", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 20, name: "allow_teams_app_deployments", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 21, name: "pull_request_review_rate_limit", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 22, name: "allow_attribution", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 23, name: "allowed_mcp_servers", kind: "message", T: McpServerConfig, repeated: true },
-    { no: 24, name: "allow_github_auto_reviews", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 25, name: "allow_browser_experimental_features", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 26, name: "disable_tool_call_execution_outside_workspace", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 27, name: "allow_vibe_and_replace", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 28, name: "disable_deepwiki", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 29, name: "custom_provider_settings", kind: "message", T: CustomProviderSettings },
+    { no: 1, name: "uid", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "location", kind: "enum", T: proto3.getEnumType(CascadeNUXLocation) },
+    { no: 3, name: "trigger", kind: "enum", T: proto3.getEnumType(CascadeNUXTrigger) },
+    { no: 4, name: "analytics_event_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "main_text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "on_hover_explanation", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "learn_more_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "priority", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 9, name: "old_nux_event", kind: "enum", T: proto3.getEnumType(CascadeNUXEvent) },
+    { no: 10, name: "icon", kind: "enum", T: proto3.getEnumType(CascadeNUXIcon) },
+    { no: 11, name: "requires_idle_cascade", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TeamConfig {
-    return new TeamConfig().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CascadeNUXConfig {
+    return new CascadeNUXConfig().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TeamConfig {
-    return new TeamConfig().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CascadeNUXConfig {
+    return new CascadeNUXConfig().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TeamConfig {
-    return new TeamConfig().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CascadeNUXConfig {
+    return new CascadeNUXConfig().fromJsonString(jsonString, options);
   }
 
-  static equals(a: TeamConfig | PlainMessage<TeamConfig> | undefined, b: TeamConfig | PlainMessage<TeamConfig> | undefined): boolean {
-    return proto3.util.equals(TeamConfig, a, b);
+  static equals(a: CascadeNUXConfig | PlainMessage<CascadeNUXConfig> | undefined, b: CascadeNUXConfig | PlainMessage<CascadeNUXConfig> | undefined): boolean {
+    return proto3.util.equals(CascadeNUXConfig, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ThirdPartyWebSearchConfig
+ */
+export class ThirdPartyWebSearchConfig extends Message<ThirdPartyWebSearchConfig> {
+  /**
+   * @generated from field: exa.codeium_common_pb.ThirdPartyWebSearchProvider provider = 1;
+   */
+  provider = ThirdPartyWebSearchProvider.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.ThirdPartyWebSearchModel model = 2;
+   */
+  model = ThirdPartyWebSearchModel.UNSPECIFIED;
+
+  constructor(data?: PartialMessage<ThirdPartyWebSearchConfig>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ThirdPartyWebSearchConfig";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "provider", kind: "enum", T: proto3.getEnumType(ThirdPartyWebSearchProvider) },
+    { no: 2, name: "model", kind: "enum", T: proto3.getEnumType(ThirdPartyWebSearchModel) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ThirdPartyWebSearchConfig {
+    return new ThirdPartyWebSearchConfig().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ThirdPartyWebSearchConfig {
+    return new ThirdPartyWebSearchConfig().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ThirdPartyWebSearchConfig {
+    return new ThirdPartyWebSearchConfig().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ThirdPartyWebSearchConfig | PlainMessage<ThirdPartyWebSearchConfig> | undefined, b: ThirdPartyWebSearchConfig | PlainMessage<ThirdPartyWebSearchConfig> | undefined): boolean {
+    return proto3.util.equals(ThirdPartyWebSearchConfig, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.KnowledgeBaseGroup
+ */
+export class KnowledgeBaseGroup extends Message<KnowledgeBaseGroup> {
+  /**
+   * @generated from field: string description = 1;
+   */
+  description = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.KnowledgeBaseItemWithMetadata item = 2;
+   */
+  item?: KnowledgeBaseItemWithMetadata;
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.KnowledgeBaseGroup children = 3;
+   */
+  children: KnowledgeBaseGroup[] = [];
+
+  constructor(data?: PartialMessage<KnowledgeBaseGroup>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.KnowledgeBaseGroup";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "item", kind: "message", T: KnowledgeBaseItemWithMetadata },
+    { no: 3, name: "children", kind: "message", T: KnowledgeBaseGroup, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): KnowledgeBaseGroup {
+    return new KnowledgeBaseGroup().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): KnowledgeBaseGroup {
+    return new KnowledgeBaseGroup().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): KnowledgeBaseGroup {
+    return new KnowledgeBaseGroup().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: KnowledgeBaseGroup | PlainMessage<KnowledgeBaseGroup> | undefined, b: KnowledgeBaseGroup | PlainMessage<KnowledgeBaseGroup> | undefined): boolean {
+    return proto3.util.equals(KnowledgeBaseGroup, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.LastUpdateRecord
+ */
+export class LastUpdateRecord extends Message<LastUpdateRecord> {
+  /**
+   * @generated from field: google.protobuf.Timestamp time = 1;
+   */
+  time?: Timestamp;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.LastUpdateType type = 2;
+   */
+  type = LastUpdateType.UNSPECIFIED;
+
+  constructor(data?: PartialMessage<LastUpdateRecord>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.LastUpdateRecord";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "time", kind: "message", T: Timestamp },
+    { no: 2, name: "type", kind: "enum", T: proto3.getEnumType(LastUpdateType) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): LastUpdateRecord {
+    return new LastUpdateRecord().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): LastUpdateRecord {
+    return new LastUpdateRecord().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): LastUpdateRecord {
+    return new LastUpdateRecord().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: LastUpdateRecord | PlainMessage<LastUpdateRecord> | undefined, b: LastUpdateRecord | PlainMessage<LastUpdateRecord> | undefined): boolean {
+    return proto3.util.equals(LastUpdateRecord, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ModelUsageStats
+ */
+export class ModelUsageStats extends Message<ModelUsageStats> {
+  /**
+   * @generated from field: exa.codeium_common_pb.Model model = 1;
+   */
+  model = Model.MODEL_UNSPECIFIED;
+
+  /**
+   * @generated from field: uint64 input_tokens = 2;
+   */
+  inputTokens = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 output_tokens = 3;
+   */
+  outputTokens = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 cache_write_tokens = 4;
+   */
+  cacheWriteTokens = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 cache_read_tokens = 5;
+   */
+  cacheReadTokens = protoInt64.zero;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.APIProvider api_provider = 6;
+   */
+  apiProvider = APIProvider.API_PROVIDER_UNSPECIFIED;
+
+  /**
+   * @generated from field: string message_id = 7;
+   */
+  messageId = "";
+
+  /**
+   * @generated from field: map<string, string> response_header = 8;
+   */
+  responseHeader: { [key: string]: string } = {};
+
+  constructor(data?: PartialMessage<ModelUsageStats>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ModelUsageStats";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "model", kind: "enum", T: proto3.getEnumType(Model) },
+    { no: 2, name: "input_tokens", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 3, name: "output_tokens", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 4, name: "cache_write_tokens", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 5, name: "cache_read_tokens", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 6, name: "api_provider", kind: "enum", T: proto3.getEnumType(APIProvider) },
+    { no: 7, name: "message_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "response_header", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "scalar", T: 9 /* ScalarType.STRING */} },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModelUsageStats {
+    return new ModelUsageStats().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ModelUsageStats {
+    return new ModelUsageStats().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ModelUsageStats {
+    return new ModelUsageStats().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ModelUsageStats | PlainMessage<ModelUsageStats> | undefined, b: ModelUsageStats | PlainMessage<ModelUsageStats> | undefined): boolean {
+    return proto3.util.equals(ModelUsageStats, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CompletionByLanguageEntry
+ */
+export class CompletionByLanguageEntry extends Message<CompletionByLanguageEntry> {
+  /**
+   * @generated from field: exa.codeium_common_pb.Language language = 1;
+   */
+  language = Language.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.CompletionStatistics completion_statistics = 2;
+   */
+  completionStatistics?: CompletionStatistics;
+
+  constructor(data?: PartialMessage<CompletionByLanguageEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CompletionByLanguageEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "language", kind: "enum", T: proto3.getEnumType(Language) },
+    { no: 2, name: "completion_statistics", kind: "message", T: CompletionStatistics },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CompletionByLanguageEntry {
+    return new CompletionByLanguageEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CompletionByLanguageEntry {
+    return new CompletionByLanguageEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CompletionByLanguageEntry {
+    return new CompletionByLanguageEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CompletionByLanguageEntry | PlainMessage<CompletionByLanguageEntry> | undefined, b: CompletionByLanguageEntry | PlainMessage<CompletionByLanguageEntry> | undefined): boolean {
+    return proto3.util.equals(CompletionByLanguageEntry, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.Status
+ */
+export class Status extends Message<Status> {
+  /**
+   * @generated from field: exa.codeium_common_pb.StatusLevel level = 1;
+   */
+  level = StatusLevel.UNSPECIFIED;
+
+  /**
+   * @generated from field: string message = 2;
+   */
+  message = "";
+
+  constructor(data?: PartialMessage<Status>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.Status";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "level", kind: "enum", T: proto3.getEnumType(StatusLevel) },
+    { no: 2, name: "message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Status {
+    return new Status().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Status {
+    return new Status().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Status {
+    return new Status().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Status | PlainMessage<Status> | undefined, b: Status | PlainMessage<Status> | undefined): boolean {
+    return proto3.util.equals(Status, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.BrowserPageMetadata
+ */
+export class BrowserPageMetadata extends Message<BrowserPageMetadata> {
+  /**
+   * @generated from field: string url = 1;
+   */
+  url = "";
+
+  /**
+   * @generated from field: string page_id = 2;
+   */
+  pageId = "";
+
+  /**
+   * @generated from field: string page_title = 3;
+   */
+  pageTitle = "";
+
+  /**
+   * @generated from field: uint32 viewport_width = 4;
+   */
+  viewportWidth = 0;
+
+  /**
+   * @generated from field: uint32 viewport_height = 5;
+   */
+  viewportHeight = 0;
+
+  /**
+   * @generated from field: string favicon_url = 6;
+   */
+  faviconUrl = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp last_visited_time = 7;
+   */
+  lastVisitedTime?: Timestamp;
+
+  constructor(data?: PartialMessage<BrowserPageMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.BrowserPageMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "page_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "page_title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "viewport_width", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 5, name: "viewport_height", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 6, name: "favicon_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "last_visited_time", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BrowserPageMetadata {
+    return new BrowserPageMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BrowserPageMetadata {
+    return new BrowserPageMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BrowserPageMetadata {
+    return new BrowserPageMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BrowserPageMetadata | PlainMessage<BrowserPageMetadata> | undefined, b: BrowserPageMetadata | PlainMessage<BrowserPageMetadata> | undefined): boolean {
+    return proto3.util.equals(BrowserPageMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ClassInfo
+ */
+export class ClassInfo extends Message<ClassInfo> {
+  /**
+   * @generated from field: string raw_source = 1;
+   */
+  rawSource = "";
+
+  /**
+   * @generated from field: int32 start_line = 2;
+   */
+  startLine = 0;
+
+  /**
+   * @generated from field: int32 end_line = 3;
+   */
+  endLine = 0;
+
+  /**
+   * @generated from field: int32 start_col = 4;
+   */
+  startCol = 0;
+
+  /**
+   * @generated from field: int32 end_col = 5;
+   */
+  endCol = 0;
+
+  /**
+   * @generated from field: string leading_whitespace = 6;
+   */
+  leadingWhitespace = "";
+
+  /**
+   * @generated from field: repeated string fields_and_constructors = 7;
+   */
+  fieldsAndConstructors: string[] = [];
+
+  /**
+   * @generated from field: string docstring = 8;
+   */
+  docstring = "";
+
+  /**
+   * @generated from field: string node_name = 9;
+   */
+  nodeName = "";
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.FunctionInfo methods = 10;
+   */
+  methods: FunctionInfo[] = [];
+
+  /**
+   * @generated from field: repeated string node_lineage = 11;
+   */
+  nodeLineage: string[] = [];
+
+  /**
+   * @generated from field: bool is_exported = 12;
+   */
+  isExported = false;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.Language language = 13;
+   */
+  language = Language.UNSPECIFIED;
+
+  /**
+   * @generated from field: int32 definition_line = 14;
+   */
+  definitionLine = 0;
+
+  constructor(data?: PartialMessage<ClassInfo>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ClassInfo";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "raw_source", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "start_line", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 3, name: "end_line", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 4, name: "start_col", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 5, name: "end_col", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 6, name: "leading_whitespace", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "fields_and_constructors", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 8, name: "docstring", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 9, name: "node_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 10, name: "methods", kind: "message", T: FunctionInfo, repeated: true },
+    { no: 11, name: "node_lineage", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 12, name: "is_exported", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 13, name: "language", kind: "enum", T: proto3.getEnumType(Language) },
+    { no: 14, name: "definition_line", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClassInfo {
+    return new ClassInfo().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ClassInfo {
+    return new ClassInfo().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClassInfo {
+    return new ClassInfo().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ClassInfo | PlainMessage<ClassInfo> | undefined, b: ClassInfo | PlainMessage<ClassInfo> | undefined): boolean {
+    return proto3.util.equals(ClassInfo, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CompletionWithLatencyInfo
+ */
+export class CompletionWithLatencyInfo extends Message<CompletionWithLatencyInfo> {
+  /**
+   * @generated from field: exa.codeium_common_pb.Completion completion = 1;
+   */
+  completion?: Completion;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.CompletionLatencyInfo latency_info = 2;
+   */
+  latencyInfo?: CompletionLatencyInfo;
+
+  constructor(data?: PartialMessage<CompletionWithLatencyInfo>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CompletionWithLatencyInfo";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "completion", kind: "message", T: Completion },
+    { no: 2, name: "latency_info", kind: "message", T: CompletionLatencyInfo },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CompletionWithLatencyInfo {
+    return new CompletionWithLatencyInfo().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CompletionWithLatencyInfo {
+    return new CompletionWithLatencyInfo().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CompletionWithLatencyInfo {
+    return new CompletionWithLatencyInfo().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CompletionWithLatencyInfo | PlainMessage<CompletionWithLatencyInfo> | undefined, b: CompletionWithLatencyInfo | PlainMessage<CompletionWithLatencyInfo> | undefined): boolean {
+    return proto3.util.equals(CompletionWithLatencyInfo, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ExperimentConfig
+ */
+export class ExperimentConfig extends Message<ExperimentConfig> {
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.ExperimentKey force_enable_experiments = 1;
+   */
+  forceEnableExperiments: ExperimentKey[] = [];
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.ExperimentKey force_disable_experiments = 2;
+   */
+  forceDisableExperiments: ExperimentKey[] = [];
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.ExperimentWithVariant force_enable_experiments_with_variants = 3;
+   */
+  forceEnableExperimentsWithVariants: ExperimentWithVariant[] = [];
+
+  /**
+   * @generated from field: repeated string force_enable_experiment_strings = 4;
+   */
+  forceEnableExperimentStrings: string[] = [];
+
+  /**
+   * @generated from field: repeated string force_disable_experiment_strings = 5;
+   */
+  forceDisableExperimentStrings: string[] = [];
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.ExperimentWithVariant experiments = 6;
+   */
+  experiments: ExperimentWithVariant[] = [];
+
+  /**
+   * @generated from field: bool dev_mode = 7;
+   */
+  devMode = false;
+
+  constructor(data?: PartialMessage<ExperimentConfig>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ExperimentConfig";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "force_enable_experiments", kind: "enum", T: proto3.getEnumType(ExperimentKey), repeated: true },
+    { no: 2, name: "force_disable_experiments", kind: "enum", T: proto3.getEnumType(ExperimentKey), repeated: true },
+    { no: 3, name: "force_enable_experiments_with_variants", kind: "message", T: ExperimentWithVariant, repeated: true },
+    { no: 4, name: "force_enable_experiment_strings", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 5, name: "force_disable_experiment_strings", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 6, name: "experiments", kind: "message", T: ExperimentWithVariant, repeated: true },
+    { no: 7, name: "dev_mode", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ExperimentConfig {
+    return new ExperimentConfig().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ExperimentConfig {
+    return new ExperimentConfig().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ExperimentConfig {
+    return new ExperimentConfig().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ExperimentConfig | PlainMessage<ExperimentConfig> | undefined, b: ExperimentConfig | PlainMessage<ExperimentConfig> | undefined): boolean {
+    return proto3.util.equals(ExperimentConfig, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ErrorTrace
+ */
+export class ErrorTrace extends Message<ErrorTrace> {
+  /**
+   * @generated from field: string error_id = 1;
+   */
+  errorId = "";
+
+  /**
+   * @generated from field: int64 timestamp_unix_ms = 2;
+   */
+  timestampUnixMs = protoInt64.zero;
+
+  /**
+   * @generated from field: string stacktrace = 3;
+   */
+  stacktrace = "";
+
+  /**
+   * @generated from field: bool recovered = 4;
+   */
+  recovered = false;
+
+  constructor(data?: PartialMessage<ErrorTrace>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ErrorTrace";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "error_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "timestamp_unix_ms", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 3, name: "stacktrace", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "recovered", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ErrorTrace {
+    return new ErrorTrace().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ErrorTrace {
+    return new ErrorTrace().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ErrorTrace {
+    return new ErrorTrace().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ErrorTrace | PlainMessage<ErrorTrace> | undefined, b: ErrorTrace | PlainMessage<ErrorTrace> | undefined): boolean {
+    return proto3.util.equals(ErrorTrace, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.WorkspaceStats
+ */
+export class WorkspaceStats extends Message<WorkspaceStats> {
+  /**
+   * @generated from field: map<int32, int64> num_files = 1;
+   */
+  numFiles: { [key: number]: bigint } = {};
+
+  /**
+   * @generated from field: map<int32, int64> num_bytes = 2;
+   */
+  numBytes: { [key: number]: bigint } = {};
+
+  /**
+   * @generated from field: string workspace = 3;
+   */
+  workspace = "";
+
+  /**
+   * @generated from field: bool initial_scan_completed = 4;
+   */
+  initialScanCompleted = false;
+
+  constructor(data?: PartialMessage<WorkspaceStats>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.WorkspaceStats";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "num_files", kind: "map", K: 5 /* ScalarType.INT32 */, V: {kind: "scalar", T: 3 /* ScalarType.INT64 */} },
+    { no: 2, name: "num_bytes", kind: "map", K: 5 /* ScalarType.INT32 */, V: {kind: "scalar", T: 3 /* ScalarType.INT64 */} },
+    { no: 3, name: "workspace", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "initial_scan_completed", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): WorkspaceStats {
+    return new WorkspaceStats().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): WorkspaceStats {
+    return new WorkspaceStats().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): WorkspaceStats {
+    return new WorkspaceStats().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: WorkspaceStats | PlainMessage<WorkspaceStats> | undefined, b: WorkspaceStats | PlainMessage<WorkspaceStats> | undefined): boolean {
+    return proto3.util.equals(WorkspaceStats, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CciWithSubrange
+ */
+export class CciWithSubrange extends Message<CciWithSubrange> {
+  /**
+   * @generated from field: exa.codeium_common_pb.CodeContextItem cci = 1;
+   */
+  cci?: CodeContextItem;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.ContextSubrange subrange = 2;
+   */
+  subrange?: ContextSubrange;
+
+  constructor(data?: PartialMessage<CciWithSubrange>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CciWithSubrange";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "cci", kind: "message", T: CodeContextItem },
+    { no: 2, name: "subrange", kind: "message", T: ContextSubrange },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CciWithSubrange {
+    return new CciWithSubrange().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CciWithSubrange {
+    return new CciWithSubrange().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CciWithSubrange {
+    return new CciWithSubrange().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CciWithSubrange | PlainMessage<CciWithSubrange> | undefined, b: CciWithSubrange | PlainMessage<CciWithSubrange> | undefined): boolean {
+    return proto3.util.equals(CciWithSubrange, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CompletionProfile
+ */
+export class CompletionProfile extends Message<CompletionProfile> {
+  /**
+   * @generated from field: exa.codeium_common_pb.SingleModelCompletionProfile model_profile = 1;
+   */
+  modelProfile?: SingleModelCompletionProfile;
+
+  /**
+   * @generated from field: optional exa.codeium_common_pb.SingleModelCompletionProfile draft_model_profile = 2;
+   */
+  draftModelProfile?: SingleModelCompletionProfile;
+
+  /**
+   * @generated from field: double time_to_first_prefill_pass = 3;
+   */
+  timeToFirstPrefillPass = 0;
+
+  /**
+   * @generated from field: double time_to_first_token = 4;
+   */
+  timeToFirstToken = 0;
+
+  /**
+   * @generated from field: double total_completion_time = 5;
+   */
+  totalCompletionTime = 0;
+
+  /**
+   * @generated from field: optional exa.codeium_common_pb.ModelUsageStats model_usage = 6;
+   */
+  modelUsage?: ModelUsageStats;
+
+  constructor(data?: PartialMessage<CompletionProfile>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CompletionProfile";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "model_profile", kind: "message", T: SingleModelCompletionProfile },
+    { no: 2, name: "draft_model_profile", kind: "message", T: SingleModelCompletionProfile, opt: true },
+    { no: 3, name: "time_to_first_prefill_pass", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 4, name: "time_to_first_token", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 5, name: "total_completion_time", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 6, name: "model_usage", kind: "message", T: ModelUsageStats, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CompletionProfile {
+    return new CompletionProfile().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CompletionProfile {
+    return new CompletionProfile().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CompletionProfile {
+    return new CompletionProfile().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CompletionProfile | PlainMessage<CompletionProfile> | undefined, b: CompletionProfile | PlainMessage<CompletionProfile> | undefined): boolean {
+    return proto3.util.equals(CompletionProfile, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CommandStats
+ */
+export class CommandStats extends Message<CommandStats> {
+  /**
+   * @generated from field: uint64 num_commands = 1;
+   */
+  numCommands = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 num_commands_accepted = 2;
+   */
+  numCommandsAccepted = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 num_commands_rejected = 3;
+   */
+  numCommandsRejected = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 num_edits = 4;
+   */
+  numEdits = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 num_generations = 5;
+   */
+  numGenerations = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 loc_added = 6;
+   */
+  locAdded = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 loc_removed = 7;
+   */
+  locRemoved = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 bytes_added = 8;
+   */
+  bytesAdded = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 bytes_removed = 9;
+   */
+  bytesRemoved = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 loc_selected = 10;
+   */
+  locSelected = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 bytes_selected = 11;
+   */
+  bytesSelected = protoInt64.zero;
+
+  /**
+   * @generated from field: map<string, uint64> num_commands_by_source = 12;
+   */
+  numCommandsBySource: { [key: string]: bigint } = {};
+
+  constructor(data?: PartialMessage<CommandStats>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CommandStats";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "num_commands", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 2, name: "num_commands_accepted", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 3, name: "num_commands_rejected", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 4, name: "num_edits", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 5, name: "num_generations", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 6, name: "loc_added", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 7, name: "loc_removed", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 8, name: "bytes_added", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 9, name: "bytes_removed", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 10, name: "loc_selected", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 11, name: "bytes_selected", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 12, name: "num_commands_by_source", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "scalar", T: 4 /* ScalarType.UINT64 */} },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CommandStats {
+    return new CommandStats().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CommandStats {
+    return new CommandStats().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CommandStats {
+    return new CommandStats().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CommandStats | PlainMessage<CommandStats> | undefined, b: CommandStats | PlainMessage<CommandStats> | undefined): boolean {
+    return proto3.util.equals(CommandStats, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CompletionStatistics
+ */
+export class CompletionStatistics extends Message<CompletionStatistics> {
+  /**
+   * @generated from field: uint32 num_acceptances = 1;
+   */
+  numAcceptances = 0;
+
+  /**
+   * @generated from field: uint32 num_rejections = 2;
+   */
+  numRejections = 0;
+
+  /**
+   * @generated from field: uint32 num_lines_accepted = 3;
+   */
+  numLinesAccepted = 0;
+
+  /**
+   * @generated from field: uint32 num_bytes_accepted = 4;
+   */
+  numBytesAccepted = 0;
+
+  /**
+   * @generated from field: uint32 num_users = 5;
+   */
+  numUsers = 0;
+
+  /**
+   * @generated from field: uint32 active_developer_days = 6;
+   */
+  activeDeveloperDays = 0;
+
+  /**
+   * @generated from field: uint32 active_developer_hours = 7;
+   */
+  activeDeveloperHours = 0;
+
+  constructor(data?: PartialMessage<CompletionStatistics>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CompletionStatistics";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "num_acceptances", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "num_rejections", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 3, name: "num_lines_accepted", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 4, name: "num_bytes_accepted", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 5, name: "num_users", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 6, name: "active_developer_days", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 7, name: "active_developer_hours", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CompletionStatistics {
+    return new CompletionStatistics().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CompletionStatistics {
+    return new CompletionStatistics().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CompletionStatistics {
+    return new CompletionStatistics().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CompletionStatistics | PlainMessage<CompletionStatistics> | undefined, b: CompletionStatistics | PlainMessage<CompletionStatistics> | undefined): boolean {
+    return proto3.util.equals(CompletionStatistics, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ChatStatsByDateEntry
+ */
+export class ChatStatsByDateEntry extends Message<ChatStatsByDateEntry> {
+  /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 1;
+   */
+  timestamp?: Timestamp;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.ChatStats chat_stats = 2;
+   */
+  chatStats?: ChatStats;
+
+  constructor(data?: PartialMessage<ChatStatsByDateEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ChatStatsByDateEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "timestamp", kind: "message", T: Timestamp },
+    { no: 2, name: "chat_stats", kind: "message", T: ChatStats },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ChatStatsByDateEntry {
+    return new ChatStatsByDateEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ChatStatsByDateEntry {
+    return new ChatStatsByDateEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ChatStatsByDateEntry {
+    return new ChatStatsByDateEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ChatStatsByDateEntry | PlainMessage<ChatStatsByDateEntry> | undefined, b: ChatStatsByDateEntry | PlainMessage<ChatStatsByDateEntry> | undefined): boolean {
+    return proto3.util.equals(ChatStatsByDateEntry, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CodeDiagnostic
+ */
+export class CodeDiagnostic extends Message<CodeDiagnostic> {
+  /**
+   * @generated from field: exa.codeium_common_pb.Range range = 1;
+   */
+  range?: Range;
+
+  /**
+   * @generated from field: string message = 2;
+   */
+  message = "";
+
+  /**
+   * @generated from field: string severity = 3;
+   */
+  severity = "";
+
+  /**
+   * @generated from field: string source = 4;
+   */
+  source = "";
+
+  /**
+   * @generated from field: string uri = 5;
+   */
+  uri = "";
+
+  /**
+   * @generated from field: optional string id = 6;
+   */
+  id?: string;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.Language language = 7;
+   */
+  language = Language.UNSPECIFIED;
+
+  /**
+   * @generated from field: int64 score = 8;
+   */
+  score = protoInt64.zero;
+
+  constructor(data?: PartialMessage<CodeDiagnostic>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CodeDiagnostic";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "range", kind: "message", T: Range },
+    { no: 2, name: "message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "severity", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "source", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 7, name: "language", kind: "enum", T: proto3.getEnumType(Language) },
+    { no: 8, name: "score", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CodeDiagnostic {
+    return new CodeDiagnostic().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CodeDiagnostic {
+    return new CodeDiagnostic().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CodeDiagnostic {
+    return new CodeDiagnostic().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CodeDiagnostic | PlainMessage<CodeDiagnostic> | undefined, b: CodeDiagnostic | PlainMessage<CodeDiagnostic> | undefined): boolean {
+    return proto3.util.equals(CodeDiagnostic, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.GraphExecutionState
+ */
+export class GraphExecutionState extends Message<GraphExecutionState> {
+  /**
+   * @generated from field: exa.codeium_common_pb.NodeExecutionRecord current = 1;
+   */
+  current?: NodeExecutionRecord;
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.NodeExecutionRecord history = 2;
+   */
+  history: NodeExecutionRecord[] = [];
+
+  constructor(data?: PartialMessage<GraphExecutionState>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.GraphExecutionState";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "current", kind: "message", T: NodeExecutionRecord },
+    { no: 2, name: "history", kind: "message", T: NodeExecutionRecord, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GraphExecutionState {
+    return new GraphExecutionState().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GraphExecutionState {
+    return new GraphExecutionState().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GraphExecutionState {
+    return new GraphExecutionState().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GraphExecutionState | PlainMessage<GraphExecutionState> | undefined, b: GraphExecutionState | PlainMessage<GraphExecutionState> | undefined): boolean {
+    return proto3.util.equals(GraphExecutionState, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CompletionExample
+ */
+export class CompletionExample extends Message<CompletionExample> {
+  /**
+   * @generated from field: string uid = 1;
+   */
+  uid = "";
+
+  /**
+   * @generated from field: string completion_id = 2;
+   */
+  completionId = "";
+
+  /**
+   * @generated from field: string file_path = 3;
+   */
+  filePath = "";
+
+  /**
+   * @generated from field: string short_prefix = 4;
+   */
+  shortPrefix = "";
+
+  /**
+   * @generated from field: string completion_text = 5;
+   */
+  completionText = "";
+
+  /**
+   * @generated from field: string short_suffix = 6;
+   */
+  shortSuffix = "";
+
+  constructor(data?: PartialMessage<CompletionExample>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CompletionExample";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "uid", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "completion_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "file_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "short_prefix", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "completion_text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "short_suffix", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CompletionExample {
+    return new CompletionExample().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CompletionExample {
+    return new CompletionExample().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CompletionExample {
+    return new CompletionExample().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CompletionExample | PlainMessage<CompletionExample> | undefined, b: CompletionExample | PlainMessage<CompletionExample> | undefined): boolean {
+    return proto3.util.equals(CompletionExample, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.SnippetWithWordCount
+ */
+export class SnippetWithWordCount extends Message<SnippetWithWordCount> {
+  /**
+   * @generated from field: string snippet = 1;
+   */
+  snippet = "";
+
+  /**
+   * @generated from field: map<string, exa.codeium_common_pb.WordCount> word_count_by_splitter = 2;
+   */
+  wordCountBySplitter: { [key: string]: WordCount } = {};
+
+  constructor(data?: PartialMessage<SnippetWithWordCount>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.SnippetWithWordCount";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "snippet", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "word_count_by_splitter", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: WordCount} },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SnippetWithWordCount {
+    return new SnippetWithWordCount().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SnippetWithWordCount {
+    return new SnippetWithWordCount().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SnippetWithWordCount {
+    return new SnippetWithWordCount().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SnippetWithWordCount | PlainMessage<SnippetWithWordCount> | undefined, b: SnippetWithWordCount | PlainMessage<SnippetWithWordCount> | undefined): boolean {
+    return proto3.util.equals(SnippetWithWordCount, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.PromptElementRange
+ */
+export class PromptElementRange extends Message<PromptElementRange> {
+  /**
+   * @generated from field: exa.codeium_common_pb.PromptElementKind kind = 1;
+   */
+  kind = PromptElementKind.UNSPECIFIED;
+
+  /**
+   * @generated from field: uint64 byte_offset_start = 2;
+   */
+  byteOffsetStart = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 byte_offset_end = 3;
+   */
+  byteOffsetEnd = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 token_offset_start = 4;
+   */
+  tokenOffsetStart = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 token_offset_end = 5;
+   */
+  tokenOffsetEnd = protoInt64.zero;
+
+  constructor(data?: PartialMessage<PromptElementRange>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.PromptElementRange";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "kind", kind: "enum", T: proto3.getEnumType(PromptElementKind) },
+    { no: 2, name: "byte_offset_start", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 3, name: "byte_offset_end", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 4, name: "token_offset_start", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 5, name: "token_offset_end", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PromptElementRange {
+    return new PromptElementRange().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PromptElementRange {
+    return new PromptElementRange().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PromptElementRange {
+    return new PromptElementRange().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PromptElementRange | PlainMessage<PromptElementRange> | undefined, b: PromptElementRange | PlainMessage<PromptElementRange> | undefined): boolean {
+    return proto3.util.equals(PromptElementRange, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.PromptElementKindInfo
+ */
+export class PromptElementKindInfo extends Message<PromptElementKindInfo> {
+  /**
+   * @generated from field: exa.codeium_common_pb.PromptElementKind kind = 1;
+   */
+  kind = PromptElementKind.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.ExperimentKey experiment_key = 2;
+   */
+  experimentKey = ExperimentKey.UNSPECIFIED;
+
+  /**
+   * @generated from field: bool enabled = 3;
+   */
+  enabled = false;
+
+  /**
+   * @generated from field: uint64 num_considered = 4;
+   */
+  numConsidered = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 num_included = 5;
+   */
+  numIncluded = protoInt64.zero;
+
+  constructor(data?: PartialMessage<PromptElementKindInfo>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.PromptElementKindInfo";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "kind", kind: "enum", T: proto3.getEnumType(PromptElementKind) },
+    { no: 2, name: "experiment_key", kind: "enum", T: proto3.getEnumType(ExperimentKey) },
+    { no: 3, name: "enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 4, name: "num_considered", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 5, name: "num_included", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PromptElementKindInfo {
+    return new PromptElementKindInfo().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PromptElementKindInfo {
+    return new PromptElementKindInfo().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PromptElementKindInfo {
+    return new PromptElementKindInfo().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PromptElementKindInfo | PlainMessage<PromptElementKindInfo> | undefined, b: PromptElementKindInfo | PlainMessage<PromptElementKindInfo> | undefined): boolean {
+    return proto3.util.equals(PromptElementKindInfo, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.Range
+ */
+export class Range extends Message<Range> {
+  /**
+   * @generated from field: uint64 start_offset = 1;
+   */
+  startOffset = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 end_offset = 2;
+   */
+  endOffset = protoInt64.zero;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.DocumentPosition start_position = 3;
+   */
+  startPosition?: DocumentPosition;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.DocumentPosition end_position = 4;
+   */
+  endPosition?: DocumentPosition;
+
+  constructor(data?: PartialMessage<Range>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.Range";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "start_offset", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 2, name: "end_offset", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 3, name: "start_position", kind: "message", T: DocumentPosition },
+    { no: 4, name: "end_position", kind: "message", T: DocumentPosition },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Range {
+    return new Range().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Range {
+    return new Range().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Range {
+    return new Range().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Range | PlainMessage<Range> | undefined, b: Range | PlainMessage<Range> | undefined): boolean {
+    return proto3.util.equals(Range, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.DocumentPosition
+ */
+export class DocumentPosition extends Message<DocumentPosition> {
+  /**
+   * @generated from field: uint64 row = 1;
+   */
+  row = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 col = 2;
+   */
+  col = protoInt64.zero;
+
+  constructor(data?: PartialMessage<DocumentPosition>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.DocumentPosition";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "row", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 2, name: "col", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DocumentPosition {
+    return new DocumentPosition().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DocumentPosition {
+    return new DocumentPosition().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DocumentPosition {
+    return new DocumentPosition().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DocumentPosition | PlainMessage<DocumentPosition> | undefined, b: DocumentPosition | PlainMessage<DocumentPosition> | undefined): boolean {
+    return proto3.util.equals(DocumentPosition, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.Completion
+ */
+export class Completion extends Message<Completion> {
+  /**
+   * @generated from field: string completion_id = 1;
+   */
+  completionId = "";
+
+  /**
+   * @generated from field: string text = 2;
+   */
+  text = "";
+
+  /**
+   * @generated from field: string stop = 4;
+   */
+  stop = "";
+
+  /**
+   * @generated from field: double score = 5;
+   */
+  score = 0;
+
+  /**
+   * @generated from field: repeated uint64 tokens = 6;
+   */
+  tokens: bigint[] = [];
+
+  /**
+   * @generated from field: repeated string decoded_tokens = 7;
+   */
+  decodedTokens: string[] = [];
+
+  /**
+   * @generated from field: repeated double probabilities = 8;
+   */
+  probabilities: number[] = [];
+
+  /**
+   * @generated from field: repeated double adjusted_probabilities = 9;
+   */
+  adjustedProbabilities: number[] = [];
+
+  /**
+   * @generated from field: uint64 generated_length = 10;
+   */
+  generatedLength = protoInt64.zero;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.StopReason stop_reason = 12;
+   */
+  stopReason = StopReason.UNSPECIFIED;
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.FilterReason filter_reasons = 13;
+   */
+  filterReasons: FilterReason[] = [];
+
+  /**
+   * @generated from field: string original_text = 14;
+   */
+  originalText = "";
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.ChatToolCall tool_calls = 15;
+   */
+  toolCalls: ChatToolCall[] = [];
+
+  /**
+   * @generated from field: repeated double logprobs = 16;
+   */
+  logprobs: number[] = [];
+
+  /**
+   * @generated from field: string request_uid = 17;
+   */
+  requestUid = "";
+
+  constructor(data?: PartialMessage<Completion>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.Completion";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "completion_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "stop", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "score", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 6, name: "tokens", kind: "scalar", T: 4 /* ScalarType.UINT64 */, repeated: true },
+    { no: 7, name: "decoded_tokens", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 8, name: "probabilities", kind: "scalar", T: 1 /* ScalarType.DOUBLE */, repeated: true },
+    { no: 9, name: "adjusted_probabilities", kind: "scalar", T: 1 /* ScalarType.DOUBLE */, repeated: true },
+    { no: 10, name: "generated_length", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 12, name: "stop_reason", kind: "enum", T: proto3.getEnumType(StopReason) },
+    { no: 13, name: "filter_reasons", kind: "enum", T: proto3.getEnumType(FilterReason), repeated: true },
+    { no: 14, name: "original_text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 15, name: "tool_calls", kind: "message", T: ChatToolCall, repeated: true },
+    { no: 16, name: "logprobs", kind: "scalar", T: 1 /* ScalarType.DOUBLE */, repeated: true },
+    { no: 17, name: "request_uid", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Completion {
+    return new Completion().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Completion {
+    return new Completion().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Completion {
+    return new Completion().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Completion | PlainMessage<Completion> | undefined, b: Completion | PlainMessage<Completion> | undefined): boolean {
+    return proto3.util.equals(Completion, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.IndexerDbStats
+ */
+export class IndexerDbStats extends Message<IndexerDbStats> {
+  /**
+   * @generated from oneof exa.codeium_common_pb.IndexerDbStats.backend
+   */
+  backend: {
+    /**
+     * @generated from field: exa.codeium_common_pb.LocalSqliteFaissDbStats local_sqlite_faiss = 1;
+     */
+    value: LocalSqliteFaissDbStats;
+    case: "localSqliteFaiss";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.PostgresDbStats postgres = 2;
+     */
+    value: PostgresDbStats;
+    case: "postgres";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<IndexerDbStats>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.IndexerDbStats";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "local_sqlite_faiss", kind: "message", T: LocalSqliteFaissDbStats, oneof: "backend" },
+    { no: 2, name: "postgres", kind: "message", T: PostgresDbStats, oneof: "backend" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): IndexerDbStats {
+    return new IndexerDbStats().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): IndexerDbStats {
+    return new IndexerDbStats().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): IndexerDbStats {
+    return new IndexerDbStats().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: IndexerDbStats | PlainMessage<IndexerDbStats> | undefined, b: IndexerDbStats | PlainMessage<IndexerDbStats> | undefined): boolean {
+    return proto3.util.equals(IndexerDbStats, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CascadeModelConfigData
+ */
+export class CascadeModelConfigData extends Message<CascadeModelConfigData> {
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.ClientModelConfig client_model_configs = 1;
+   */
+  clientModelConfigs: ClientModelConfig[] = [];
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.ClientModelSort client_model_sorts = 2;
+   */
+  clientModelSorts: ClientModelSort[] = [];
+
+  /**
+   * @generated from field: optional exa.codeium_common_pb.DefaultOverrideModelConfig default_override_model_config = 3;
+   */
+  defaultOverrideModelConfig?: DefaultOverrideModelConfig;
+
+  constructor(data?: PartialMessage<CascadeModelConfigData>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CascadeModelConfigData";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "client_model_configs", kind: "message", T: ClientModelConfig, repeated: true },
+    { no: 2, name: "client_model_sorts", kind: "message", T: ClientModelSort, repeated: true },
+    { no: 3, name: "default_override_model_config", kind: "message", T: DefaultOverrideModelConfig, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CascadeModelConfigData {
+    return new CascadeModelConfigData().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CascadeModelConfigData {
+    return new CascadeModelConfigData().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CascadeModelConfigData {
+    return new CascadeModelConfigData().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CascadeModelConfigData | PlainMessage<CascadeModelConfigData> | undefined, b: CascadeModelConfigData | PlainMessage<CascadeModelConfigData> | undefined): boolean {
+    return proto3.util.equals(CascadeModelConfigData, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ClientModelGroup
+ */
+export class ClientModelGroup extends Message<ClientModelGroup> {
+  /**
+   * @generated from field: string group_name = 1;
+   */
+  groupName = "";
+
+  /**
+   * @generated from field: repeated string model_labels = 2;
+   */
+  modelLabels: string[] = [];
+
+  constructor(data?: PartialMessage<ClientModelGroup>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ClientModelGroup";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "group_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "model_labels", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClientModelGroup {
+    return new ClientModelGroup().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ClientModelGroup {
+    return new ClientModelGroup().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClientModelGroup {
+    return new ClientModelGroup().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ClientModelGroup | PlainMessage<ClientModelGroup> | undefined, b: ClientModelGroup | PlainMessage<ClientModelGroup> | undefined): boolean {
+    return proto3.util.equals(ClientModelGroup, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.StreamingCompletionInfo
+ */
+export class StreamingCompletionInfo extends Message<StreamingCompletionInfo> {
+  /**
+   * @generated from field: repeated string completion_ids = 1;
+   */
+  completionIds: string[] = [];
+
+  /**
+   * @generated from field: uint64 max_tokens = 2;
+   */
+  maxTokens = protoInt64.zero;
+
+  /**
+   * @generated from field: double temperature = 3;
+   */
+  temperature = 0;
+
+  /**
+   * @generated from field: uint64 top_k = 4;
+   */
+  topK = protoInt64.zero;
+
+  /**
+   * @generated from field: double top_p = 5;
+   */
+  topP = 0;
+
+  /**
+   * @generated from field: repeated string stop_patterns = 6;
+   */
+  stopPatterns: string[] = [];
+
+  /**
+   * @generated from field: uint64 prompt_length = 7;
+   */
+  promptLength = protoInt64.zero;
+
+  /**
+   * @generated from field: string model_tag = 8;
+   */
+  modelTag = "";
+
+  /**
+   * @generated from field: string prompt_id = 9;
+   */
+  promptId = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.CompletionsRequest completions_request = 10;
+   */
+  completionsRequest?: CompletionsRequest;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.StreamingEvalSuffixInfo eval_suffix_info = 11;
+   */
+  evalSuffixInfo?: StreamingEvalSuffixInfo;
+
+  constructor(data?: PartialMessage<StreamingCompletionInfo>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.StreamingCompletionInfo";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "completion_ids", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 2, name: "max_tokens", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 3, name: "temperature", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 4, name: "top_k", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 5, name: "top_p", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 6, name: "stop_patterns", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 7, name: "prompt_length", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 8, name: "model_tag", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 9, name: "prompt_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 10, name: "completions_request", kind: "message", T: CompletionsRequest },
+    { no: 11, name: "eval_suffix_info", kind: "message", T: StreamingEvalSuffixInfo },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StreamingCompletionInfo {
+    return new StreamingCompletionInfo().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): StreamingCompletionInfo {
+    return new StreamingCompletionInfo().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): StreamingCompletionInfo {
+    return new StreamingCompletionInfo().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: StreamingCompletionInfo | PlainMessage<StreamingCompletionInfo> | undefined, b: StreamingCompletionInfo | PlainMessage<StreamingCompletionInfo> | undefined): boolean {
+    return proto3.util.equals(StreamingCompletionInfo, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.StreamingCompletionMap
+ */
+export class StreamingCompletionMap extends Message<StreamingCompletionMap> {
+  /**
+   * @generated from field: map<int32, exa.codeium_common_pb.StreamingCompletion> completions = 1;
+   */
+  completions: { [key: number]: StreamingCompletion } = {};
+
+  constructor(data?: PartialMessage<StreamingCompletionMap>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.StreamingCompletionMap";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "completions", kind: "map", K: 5 /* ScalarType.INT32 */, V: {kind: "message", T: StreamingCompletion} },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StreamingCompletionMap {
+    return new StreamingCompletionMap().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): StreamingCompletionMap {
+    return new StreamingCompletionMap().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): StreamingCompletionMap {
+    return new StreamingCompletionMap().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: StreamingCompletionMap | PlainMessage<StreamingCompletionMap> | undefined, b: StreamingCompletionMap | PlainMessage<StreamingCompletionMap> | undefined): boolean {
+    return proto3.util.equals(StreamingCompletionMap, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.PackedStreamingCompletionMaps
+ */
+export class PackedStreamingCompletionMaps extends Message<PackedStreamingCompletionMaps> {
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.StreamingCompletionMap completion_maps = 1;
+   */
+  completionMaps: StreamingCompletionMap[] = [];
+
+  constructor(data?: PartialMessage<PackedStreamingCompletionMaps>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.PackedStreamingCompletionMaps";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "completion_maps", kind: "message", T: StreamingCompletionMap, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PackedStreamingCompletionMaps {
+    return new PackedStreamingCompletionMaps().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PackedStreamingCompletionMaps {
+    return new PackedStreamingCompletionMaps().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PackedStreamingCompletionMaps {
+    return new PackedStreamingCompletionMaps().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PackedStreamingCompletionMaps | PlainMessage<PackedStreamingCompletionMaps> | undefined, b: PackedStreamingCompletionMaps | PlainMessage<PackedStreamingCompletionMaps> | undefined): boolean {
+    return proto3.util.equals(PackedStreamingCompletionMaps, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CascadeNUXState
+ */
+export class CascadeNUXState extends Message<CascadeNUXState> {
+  /**
+   * @generated from field: exa.codeium_common_pb.CascadeNUXEvent event = 1;
+   */
+  event = CascadeNUXEvent.CASCADE_NUX_EVENT_UNSPECIFIED;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 2;
+   */
+  timestamp?: Timestamp;
+
+  constructor(data?: PartialMessage<CascadeNUXState>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CascadeNUXState";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "event", kind: "enum", T: proto3.getEnumType(CascadeNUXEvent) },
+    { no: 2, name: "timestamp", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CascadeNUXState {
+    return new CascadeNUXState().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CascadeNUXState {
+    return new CascadeNUXState().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CascadeNUXState {
+    return new CascadeNUXState().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CascadeNUXState | PlainMessage<CascadeNUXState> | undefined, b: CascadeNUXState | PlainMessage<CascadeNUXState> | undefined): boolean {
+    return proto3.util.equals(CascadeNUXState, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.UserNUXState
+ */
+export class UserNUXState extends Message<UserNUXState> {
+  /**
+   * @generated from field: exa.codeium_common_pb.UserNUXEvent event = 1;
+   */
+  event = UserNUXEvent.USER_NUX_EVENT_UNSPECIFIED;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 2;
+   */
+  timestamp?: Timestamp;
+
+  constructor(data?: PartialMessage<UserNUXState>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.UserNUXState";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "event", kind: "enum", T: proto3.getEnumType(UserNUXEvent) },
+    { no: 2, name: "timestamp", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserNUXState {
+    return new UserNUXState().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserNUXState {
+    return new UserNUXState().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserNUXState {
+    return new UserNUXState().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserNUXState | PlainMessage<UserNUXState> | undefined, b: UserNUXState | PlainMessage<UserNUXState> | undefined): boolean {
+    return proto3.util.equals(UserNUXState, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.FeatureUsageData
+ */
+export class FeatureUsageData extends Message<FeatureUsageData> {
+  /**
+   * @generated from field: bool has_used = 1;
+   */
+  hasUsed = false;
+
+  constructor(data?: PartialMessage<FeatureUsageData>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.FeatureUsageData";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "has_used", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): FeatureUsageData {
+    return new FeatureUsageData().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): FeatureUsageData {
+    return new FeatureUsageData().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): FeatureUsageData {
+    return new FeatureUsageData().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: FeatureUsageData | PlainMessage<FeatureUsageData> | undefined, b: FeatureUsageData | PlainMessage<FeatureUsageData> | undefined): boolean {
+    return proto3.util.equals(FeatureUsageData, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ConversationBrainConfig
+ */
+export class ConversationBrainConfig extends Message<ConversationBrainConfig> {
+  /**
+   * @generated from field: exa.codeium_common_pb.PlanMode plan_mode = 1;
+   */
+  planMode = PlanMode.UNSPECIFIED;
+
+  constructor(data?: PartialMessage<ConversationBrainConfig>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ConversationBrainConfig";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "plan_mode", kind: "enum", T: proto3.getEnumType(PlanMode) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConversationBrainConfig {
+    return new ConversationBrainConfig().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConversationBrainConfig {
+    return new ConversationBrainConfig().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConversationBrainConfig {
+    return new ConversationBrainConfig().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ConversationBrainConfig | PlainMessage<ConversationBrainConfig> | undefined, b: ConversationBrainConfig | PlainMessage<ConversationBrainConfig> | undefined): boolean {
+    return proto3.util.equals(ConversationBrainConfig, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.KnowledgeBaseChunk
+ */
+export class KnowledgeBaseChunk extends Message<KnowledgeBaseChunk> {
+  /**
+   * @generated from field: int32 position = 2;
+   */
+  position = 0;
+
+  /**
+   * @generated from oneof exa.codeium_common_pb.KnowledgeBaseChunk.chunk_type
+   */
+  chunkType: {
+    /**
+     * @generated from field: string text = 1;
+     */
+    value: string;
+    case: "text";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.MarkdownChunk markdown_chunk = 3;
+     */
+    value: MarkdownChunk;
+    case: "markdownChunk";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<KnowledgeBaseChunk>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.KnowledgeBaseChunk";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 2, name: "position", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 1, name: "text", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "chunk_type" },
+    { no: 3, name: "markdown_chunk", kind: "message", T: MarkdownChunk, oneof: "chunk_type" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): KnowledgeBaseChunk {
+    return new KnowledgeBaseChunk().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): KnowledgeBaseChunk {
+    return new KnowledgeBaseChunk().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): KnowledgeBaseChunk {
+    return new KnowledgeBaseChunk().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: KnowledgeBaseChunk | PlainMessage<KnowledgeBaseChunk> | undefined, b: KnowledgeBaseChunk | PlainMessage<KnowledgeBaseChunk> | undefined): boolean {
+    return proto3.util.equals(KnowledgeBaseChunk, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ConsoleLogLine
+ */
+export class ConsoleLogLine extends Message<ConsoleLogLine> {
+  /**
+   * @generated from field: string timestamp_str = 1;
+   */
+  timestampStr = "";
+
+  /**
+   * @generated from field: string type = 2;
+   */
+  type = "";
+
+  /**
+   * @generated from field: string output = 3;
+   */
+  output = "";
+
+  /**
+   * @generated from field: string console_message_location = 4;
+   */
+  consoleMessageLocation = "";
+
+  constructor(data?: PartialMessage<ConsoleLogLine>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ConsoleLogLine";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "timestamp_str", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "type", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "output", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "console_message_location", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConsoleLogLine {
+    return new ConsoleLogLine().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConsoleLogLine {
+    return new ConsoleLogLine().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConsoleLogLine {
+    return new ConsoleLogLine().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ConsoleLogLine | PlainMessage<ConsoleLogLine> | undefined, b: ConsoleLogLine | PlainMessage<ConsoleLogLine> | undefined): boolean {
+    return proto3.util.equals(ConsoleLogLine, a, b);
   }
 }
 
@@ -2622,6 +17098,2165 @@ export class McpServerConfig extends Message<McpServerConfig> {
 
   static equals(a: McpServerConfig | PlainMessage<McpServerConfig> | undefined, b: McpServerConfig | PlainMessage<McpServerConfig> | undefined): boolean {
     return proto3.util.equals(McpServerConfig, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CustomProviderSettings
+ */
+export class CustomProviderSettings extends Message<CustomProviderSettings> {
+  /**
+   * @generated from field: string custom_api_server_endpoint = 1;
+   */
+  customApiServerEndpoint = "";
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.ClientModelConfig cascade_model_configs = 2;
+   */
+  cascadeModelConfigs: ClientModelConfig[] = [];
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.ClientModelConfig command_model_configs = 3;
+   */
+  commandModelConfigs: ClientModelConfig[] = [];
+
+  /**
+   * @generated from field: exa.codeium_common_pb.Model fallback_model = 4;
+   */
+  fallbackModel = Model.MODEL_UNSPECIFIED;
+
+  constructor(data?: PartialMessage<CustomProviderSettings>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CustomProviderSettings";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "custom_api_server_endpoint", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "cascade_model_configs", kind: "message", T: ClientModelConfig, repeated: true },
+    { no: 3, name: "command_model_configs", kind: "message", T: ClientModelConfig, repeated: true },
+    { no: 4, name: "fallback_model", kind: "enum", T: proto3.getEnumType(Model) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CustomProviderSettings {
+    return new CustomProviderSettings().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CustomProviderSettings {
+    return new CustomProviderSettings().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CustomProviderSettings {
+    return new CustomProviderSettings().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CustomProviderSettings | PlainMessage<CustomProviderSettings> | undefined, b: CustomProviderSettings | PlainMessage<CustomProviderSettings> | undefined): boolean {
+    return proto3.util.equals(CustomProviderSettings, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.EmbeddingMetadata
+ */
+export class EmbeddingMetadata extends Message<EmbeddingMetadata> {
+  /**
+   * @generated from field: string node_name = 1;
+   */
+  nodeName = "";
+
+  /**
+   * @generated from field: uint32 start_line = 2;
+   */
+  startLine = 0;
+
+  /**
+   * @generated from field: uint32 end_line = 3;
+   */
+  endLine = 0;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.EmbedType embed_type = 4;
+   */
+  embedType = EmbedType.UNSPECIFIED;
+
+  constructor(data?: PartialMessage<EmbeddingMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.EmbeddingMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "node_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "start_line", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 3, name: "end_line", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 4, name: "embed_type", kind: "enum", T: proto3.getEnumType(EmbedType) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EmbeddingMetadata {
+    return new EmbeddingMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EmbeddingMetadata {
+    return new EmbeddingMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EmbeddingMetadata {
+    return new EmbeddingMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: EmbeddingMetadata | PlainMessage<EmbeddingMetadata> | undefined, b: EmbeddingMetadata | PlainMessage<EmbeddingMetadata> | undefined): boolean {
+    return proto3.util.equals(EmbeddingMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ModelFeatures
+ */
+export class ModelFeatures extends Message<ModelFeatures> {
+  /**
+   * @generated from field: bool supports_context_tokens = 2;
+   */
+  supportsContextTokens = false;
+
+  /**
+   * @generated from field: bool requires_instruct_tags = 3;
+   */
+  requiresInstructTags = false;
+
+  /**
+   * @generated from field: bool requires_fim_context = 4;
+   */
+  requiresFimContext = false;
+
+  /**
+   * @generated from field: bool requires_context_snippet_prefix = 5;
+   */
+  requiresContextSnippetPrefix = false;
+
+  /**
+   * @generated from field: bool requires_context_relevance_tags = 6;
+   */
+  requiresContextRelevanceTags = false;
+
+  /**
+   * @generated from field: bool requires_llama3_tokens = 7;
+   */
+  requiresLlama3Tokens = false;
+
+  /**
+   * @generated from field: bool zero_shot_capable = 8;
+   */
+  zeroShotCapable = false;
+
+  /**
+   * @generated from field: bool requires_autocomplete_as_command = 9;
+   */
+  requiresAutocompleteAsCommand = false;
+
+  /**
+   * @generated from field: bool supports_cursor_aware_supercomplete = 10;
+   */
+  supportsCursorAwareSupercomplete = false;
+
+  /**
+   * @generated from field: bool supports_images = 11;
+   */
+  supportsImages = false;
+
+  /**
+   * @generated from field: bool supports_tool_calls = 12;
+   */
+  supportsToolCalls = false;
+
+  /**
+   * @generated from field: bool supports_cumulative_context = 13;
+   */
+  supportsCumulativeContext = false;
+
+  /**
+   * @generated from field: bool tab_jump_print_line_range = 14;
+   */
+  tabJumpPrintLineRange = false;
+
+  /**
+   * @generated from field: bool supports_thinking = 15;
+   */
+  supportsThinking = false;
+
+  /**
+   * @generated from field: bool supports_estimate_token_counter = 17;
+   */
+  supportsEstimateTokenCounter = false;
+
+  /**
+   * @generated from field: bool add_cursor_to_find_replace_target = 18;
+   */
+  addCursorToFindReplaceTarget = false;
+
+  /**
+   * @generated from field: bool supports_tab_jump_use_whole_document = 19;
+   */
+  supportsTabJumpUseWholeDocument = false;
+
+  /**
+   * @generated from field: bool supports_image_captions = 20;
+   */
+  supportsImageCaptions = false;
+
+  /**
+   * @generated from field: bool supports_parallel_tool_calls = 21;
+   */
+  supportsParallelToolCalls = false;
+
+  constructor(data?: PartialMessage<ModelFeatures>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ModelFeatures";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 2, name: "supports_context_tokens", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "requires_instruct_tags", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 4, name: "requires_fim_context", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 5, name: "requires_context_snippet_prefix", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 6, name: "requires_context_relevance_tags", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 7, name: "requires_llama3_tokens", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 8, name: "zero_shot_capable", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 9, name: "requires_autocomplete_as_command", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 10, name: "supports_cursor_aware_supercomplete", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 11, name: "supports_images", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 12, name: "supports_tool_calls", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 13, name: "supports_cumulative_context", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 14, name: "tab_jump_print_line_range", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 15, name: "supports_thinking", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 17, name: "supports_estimate_token_counter", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 18, name: "add_cursor_to_find_replace_target", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 19, name: "supports_tab_jump_use_whole_document", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 20, name: "supports_image_captions", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 21, name: "supports_parallel_tool_calls", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModelFeatures {
+    return new ModelFeatures().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ModelFeatures {
+    return new ModelFeatures().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ModelFeatures {
+    return new ModelFeatures().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ModelFeatures | PlainMessage<ModelFeatures> | undefined, b: ModelFeatures | PlainMessage<ModelFeatures> | undefined): boolean {
+    return proto3.util.equals(ModelFeatures, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CompletionDelta
+ */
+export class CompletionDelta extends Message<CompletionDelta> {
+  /**
+   * @generated from field: string delta_text = 1;
+   */
+  deltaText = "";
+
+  /**
+   * @generated from field: uint32 delta_tokens = 2;
+   */
+  deltaTokens = 0;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.StopReason stop_reason = 3;
+   */
+  stopReason = StopReason.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.ModelUsageStats usage = 4;
+   */
+  usage?: ModelUsageStats;
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.ChatToolCall delta_tool_calls = 5;
+   */
+  deltaToolCalls: ChatToolCall[] = [];
+
+  /**
+   * @generated from field: string delta_thinking = 6;
+   */
+  deltaThinking = "";
+
+  /**
+   * @generated from field: string delta_signature = 7;
+   */
+  deltaSignature = "";
+
+  /**
+   * @generated from field: bool thinking_redacted = 8;
+   */
+  thinkingRedacted = false;
+
+  /**
+   * @generated from field: string output_id = 9;
+   */
+  outputId = "";
+
+  /**
+   * @generated from field: string thinking_id = 10;
+   */
+  thinkingId = "";
+
+  constructor(data?: PartialMessage<CompletionDelta>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CompletionDelta";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "delta_text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "delta_tokens", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 3, name: "stop_reason", kind: "enum", T: proto3.getEnumType(StopReason) },
+    { no: 4, name: "usage", kind: "message", T: ModelUsageStats },
+    { no: 5, name: "delta_tool_calls", kind: "message", T: ChatToolCall, repeated: true },
+    { no: 6, name: "delta_thinking", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "delta_signature", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "thinking_redacted", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 9, name: "output_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 10, name: "thinking_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CompletionDelta {
+    return new CompletionDelta().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CompletionDelta {
+    return new CompletionDelta().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CompletionDelta {
+    return new CompletionDelta().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CompletionDelta | PlainMessage<CompletionDelta> | undefined, b: CompletionDelta | PlainMessage<CompletionDelta> | undefined): boolean {
+    return proto3.util.equals(CompletionDelta, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.GuidelineItem
+ */
+export class GuidelineItem extends Message<GuidelineItem> {
+  /**
+   * @generated from field: string guideline = 1;
+   */
+  guideline = "";
+
+  constructor(data?: PartialMessage<GuidelineItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.GuidelineItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "guideline", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GuidelineItem {
+    return new GuidelineItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GuidelineItem {
+    return new GuidelineItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GuidelineItem {
+    return new GuidelineItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GuidelineItem | PlainMessage<GuidelineItem> | undefined, b: GuidelineItem | PlainMessage<GuidelineItem> | undefined): boolean {
+    return proto3.util.equals(GuidelineItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.DOMNode
+ */
+export class DOMNode extends Message<DOMNode> {
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.DOMNode children = 1;
+   */
+  children: DOMNode[] = [];
+
+  /**
+   * @generated from field: string tag_name = 2;
+   */
+  tagName = "";
+
+  /**
+   * @generated from field: string id = 3;
+   */
+  id = "";
+
+  /**
+   * @generated from field: repeated string class_names = 4;
+   */
+  classNames: string[] = [];
+
+  /**
+   * @generated from field: string text_content = 5;
+   */
+  textContent = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.BoundingBox bbox = 6;
+   */
+  bbox?: BoundingBox;
+
+  /**
+   * @generated from field: string aria_label = 7;
+   */
+  ariaLabel = "";
+
+  /**
+   * @generated from field: string title = 8;
+   */
+  title = "";
+
+  /**
+   * @generated from field: string alt = 9;
+   */
+  alt = "";
+
+  /**
+   * @generated from field: string placeholder = 10;
+   */
+  placeholder = "";
+
+  /**
+   * @generated from field: string href = 11;
+   */
+  href = "";
+
+  constructor(data?: PartialMessage<DOMNode>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.DOMNode";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "children", kind: "message", T: DOMNode, repeated: true },
+    { no: 2, name: "tag_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "class_names", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 5, name: "text_content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "bbox", kind: "message", T: BoundingBox },
+    { no: 7, name: "aria_label", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 9, name: "alt", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 10, name: "placeholder", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 11, name: "href", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DOMNode {
+    return new DOMNode().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DOMNode {
+    return new DOMNode().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DOMNode {
+    return new DOMNode().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DOMNode | PlainMessage<DOMNode> | undefined, b: DOMNode | PlainMessage<DOMNode> | undefined): boolean {
+    return proto3.util.equals(DOMNode, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.TopUpStatus
+ */
+export class TopUpStatus extends Message<TopUpStatus> {
+  /**
+   * @generated from field: exa.codeium_common_pb.TransactionStatus top_up_transaction_status = 1;
+   */
+  topUpTransactionStatus = TransactionStatus.UNSPECIFIED;
+
+  /**
+   * @generated from field: bool top_up_enabled = 2;
+   */
+  topUpEnabled = false;
+
+  /**
+   * @generated from field: int32 monthly_top_up_amount = 3;
+   */
+  monthlyTopUpAmount = 0;
+
+  /**
+   * @generated from field: int32 top_up_spent = 4;
+   */
+  topUpSpent = 0;
+
+  /**
+   * @generated from field: int32 top_up_increment = 5;
+   */
+  topUpIncrement = 0;
+
+  /**
+   * @generated from field: bool top_up_criteria_met = 6;
+   */
+  topUpCriteriaMet = false;
+
+  constructor(data?: PartialMessage<TopUpStatus>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.TopUpStatus";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "top_up_transaction_status", kind: "enum", T: proto3.getEnumType(TransactionStatus) },
+    { no: 2, name: "top_up_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "monthly_top_up_amount", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 4, name: "top_up_spent", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 5, name: "top_up_increment", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 6, name: "top_up_criteria_met", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TopUpStatus {
+    return new TopUpStatus().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TopUpStatus {
+    return new TopUpStatus().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TopUpStatus {
+    return new TopUpStatus().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: TopUpStatus | PlainMessage<TopUpStatus> | undefined, b: TopUpStatus | PlainMessage<TopUpStatus> | undefined): boolean {
+    return proto3.util.equals(TopUpStatus, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.RepositoryScopeItem
+ */
+export class RepositoryScopeItem extends Message<RepositoryScopeItem> {
+  /**
+   * @generated from field: exa.codeium_common_pb.GitRepoInfo repo_info = 1;
+   */
+  repoInfo?: GitRepoInfo;
+
+  constructor(data?: PartialMessage<RepositoryScopeItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.RepositoryScopeItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "repo_info", kind: "message", T: GitRepoInfo },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RepositoryScopeItem {
+    return new RepositoryScopeItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RepositoryScopeItem {
+    return new RepositoryScopeItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RepositoryScopeItem {
+    return new RepositoryScopeItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RepositoryScopeItem | PlainMessage<RepositoryScopeItem> | undefined, b: RepositoryScopeItem | PlainMessage<RepositoryScopeItem> | undefined): boolean {
+    return proto3.util.equals(RepositoryScopeItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.RepositoryPathScopeItem
+ */
+export class RepositoryPathScopeItem extends Message<RepositoryPathScopeItem> {
+  /**
+   * @generated from field: exa.codeium_common_pb.GitRepoInfo repo_info = 1;
+   */
+  repoInfo?: GitRepoInfo;
+
+  /**
+   * @generated from field: string relative_path = 2;
+   */
+  relativePath = "";
+
+  /**
+   * @generated from field: bool is_dir = 3;
+   */
+  isDir = false;
+
+  constructor(data?: PartialMessage<RepositoryPathScopeItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.RepositoryPathScopeItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "repo_info", kind: "message", T: GitRepoInfo },
+    { no: 2, name: "relative_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "is_dir", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RepositoryPathScopeItem {
+    return new RepositoryPathScopeItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RepositoryPathScopeItem {
+    return new RepositoryPathScopeItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RepositoryPathScopeItem {
+    return new RepositoryPathScopeItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RepositoryPathScopeItem | PlainMessage<RepositoryPathScopeItem> | undefined, b: RepositoryPathScopeItem | PlainMessage<RepositoryPathScopeItem> | undefined): boolean {
+    return proto3.util.equals(RepositoryPathScopeItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.FileLineRange
+ */
+export class FileLineRange extends Message<FileLineRange> {
+  /**
+   * @generated from field: string absolute_uri = 1;
+   */
+  absoluteUri = "";
+
+  /**
+   * @generated from field: uint32 start_line = 2;
+   */
+  startLine = 0;
+
+  /**
+   * @generated from field: uint32 end_line = 3;
+   */
+  endLine = 0;
+
+  constructor(data?: PartialMessage<FileLineRange>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.FileLineRange";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "absolute_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "start_line", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 3, name: "end_line", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): FileLineRange {
+    return new FileLineRange().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): FileLineRange {
+    return new FileLineRange().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): FileLineRange {
+    return new FileLineRange().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: FileLineRange | PlainMessage<FileLineRange> | undefined, b: FileLineRange | PlainMessage<FileLineRange> | undefined): boolean {
+    return proto3.util.equals(FileLineRange, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.TextBlock
+ */
+export class TextBlock extends Message<TextBlock> {
+  /**
+   * @generated from field: string content = 1;
+   */
+  content = "";
+
+  /**
+   * @generated from oneof exa.codeium_common_pb.TextBlock.identifier
+   */
+  identifier: {
+    /**
+     * @generated from field: exa.codeium_common_pb.FileLineRange file_line_range = 2;
+     */
+    value: FileLineRange;
+    case: "fileLineRange";
+  } | {
+    /**
+     * @generated from field: string label = 3;
+     */
+    value: string;
+    case: "label";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<TextBlock>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.TextBlock";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "file_line_range", kind: "message", T: FileLineRange, oneof: "identifier" },
+    { no: 3, name: "label", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "identifier" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TextBlock {
+    return new TextBlock().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TextBlock {
+    return new TextBlock().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TextBlock {
+    return new TextBlock().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: TextBlock | PlainMessage<TextBlock> | undefined, b: TextBlock | PlainMessage<TextBlock> | undefined): boolean {
+    return proto3.util.equals(TextBlock, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.DOMElementScopeItem
+ */
+export class DOMElementScopeItem extends Message<DOMElementScopeItem> {
+  /**
+   * @generated from field: string tag_name = 1;
+   */
+  tagName = "";
+
+  /**
+   * @generated from field: string outer_html = 2;
+   */
+  outerHtml = "";
+
+  /**
+   * @generated from field: string id = 3;
+   */
+  id = "";
+
+  /**
+   * @generated from field: string react_component_name = 4;
+   */
+  reactComponentName = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.FileLineRange file_line_range = 5;
+   */
+  fileLineRange?: FileLineRange;
+
+  constructor(data?: PartialMessage<DOMElementScopeItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.DOMElementScopeItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "tag_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "outer_html", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "react_component_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "file_line_range", kind: "message", T: FileLineRange },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DOMElementScopeItem {
+    return new DOMElementScopeItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DOMElementScopeItem {
+    return new DOMElementScopeItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DOMElementScopeItem {
+    return new DOMElementScopeItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DOMElementScopeItem | PlainMessage<DOMElementScopeItem> | undefined, b: DOMElementScopeItem | PlainMessage<DOMElementScopeItem> | undefined): boolean {
+    return proto3.util.equals(DOMElementScopeItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.RecipeScopeItem
+ */
+export class RecipeScopeItem extends Message<RecipeScopeItem> {
+  /**
+   * @generated from field: string recipe_id = 1;
+   */
+  recipeId = "";
+
+  /**
+   * @generated from field: string title = 2;
+   */
+  title = "";
+
+  /**
+   * @generated from field: string description = 3;
+   */
+  description = "";
+
+  /**
+   * @generated from field: string system_prompt = 4;
+   */
+  systemPrompt = "";
+
+  /**
+   * @generated from field: optional string uri = 5;
+   */
+  uri?: string;
+
+  /**
+   * @generated from field: optional exa.codeium_common_pb.CascadeCommandsAutoExecution execution_mode = 6;
+   */
+  executionMode?: CascadeCommandsAutoExecution;
+
+  constructor(data?: PartialMessage<RecipeScopeItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.RecipeScopeItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "recipe_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "system_prompt", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "uri", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 6, name: "execution_mode", kind: "enum", T: proto3.getEnumType(CascadeCommandsAutoExecution), opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RecipeScopeItem {
+    return new RecipeScopeItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RecipeScopeItem {
+    return new RecipeScopeItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RecipeScopeItem {
+    return new RecipeScopeItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RecipeScopeItem | PlainMessage<RecipeScopeItem> | undefined, b: RecipeScopeItem | PlainMessage<RecipeScopeItem> | undefined): boolean {
+    return proto3.util.equals(RecipeScopeItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.RuleScopeItem
+ */
+export class RuleScopeItem extends Message<RuleScopeItem> {
+  /**
+   * @generated from field: string rule_path = 1;
+   */
+  rulePath = "";
+
+  /**
+   * @generated from field: string rule_name = 2;
+   */
+  ruleName = "";
+
+  /**
+   * @generated from field: string description = 3;
+   */
+  description = "";
+
+  constructor(data?: PartialMessage<RuleScopeItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.RuleScopeItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "rule_path", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "rule_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RuleScopeItem {
+    return new RuleScopeItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RuleScopeItem {
+    return new RuleScopeItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RuleScopeItem {
+    return new RuleScopeItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RuleScopeItem | PlainMessage<RuleScopeItem> | undefined, b: RuleScopeItem | PlainMessage<RuleScopeItem> | undefined): boolean {
+    return proto3.util.equals(RuleScopeItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.McpResourceItem
+ */
+export class McpResourceItem extends Message<McpResourceItem> {
+  /**
+   * @generated from field: string uri = 1;
+   */
+  uri = "";
+
+  /**
+   * @generated from field: string name = 2;
+   */
+  name = "";
+
+  /**
+   * @generated from field: optional string description = 3;
+   */
+  description?: string;
+
+  /**
+   * @generated from field: optional string mime_type = 4;
+   */
+  mimeType?: string;
+
+  /**
+   * @generated from field: string server_name = 5;
+   */
+  serverName = "";
+
+  constructor(data?: PartialMessage<McpResourceItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.McpResourceItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 4, name: "mime_type", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 5, name: "server_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): McpResourceItem {
+    return new McpResourceItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): McpResourceItem {
+    return new McpResourceItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): McpResourceItem {
+    return new McpResourceItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: McpResourceItem | PlainMessage<McpResourceItem> | undefined, b: McpResourceItem | PlainMessage<McpResourceItem> | undefined): boolean {
+    return proto3.util.equals(McpResourceItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.BrowserPageScopeItem
+ */
+export class BrowserPageScopeItem extends Message<BrowserPageScopeItem> {
+  /**
+   * @generated from field: string url = 1;
+   */
+  url = "";
+
+  /**
+   * @generated from field: string title = 2;
+   */
+  title = "";
+
+  /**
+   * @generated from field: string visible_text_content = 3;
+   */
+  visibleTextContent = "";
+
+  /**
+   * @generated from field: string page_id = 4;
+   */
+  pageId = "";
+
+  constructor(data?: PartialMessage<BrowserPageScopeItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.BrowserPageScopeItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "visible_text_content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "page_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BrowserPageScopeItem {
+    return new BrowserPageScopeItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BrowserPageScopeItem {
+    return new BrowserPageScopeItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BrowserPageScopeItem {
+    return new BrowserPageScopeItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BrowserPageScopeItem | PlainMessage<BrowserPageScopeItem> | undefined, b: BrowserPageScopeItem | PlainMessage<BrowserPageScopeItem> | undefined): boolean {
+    return proto3.util.equals(BrowserPageScopeItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.BrowserCodeBlockScopeItem
+ */
+export class BrowserCodeBlockScopeItem extends Message<BrowserCodeBlockScopeItem> {
+  /**
+   * @generated from field: string url = 1;
+   */
+  url = "";
+
+  /**
+   * @generated from field: string title = 2;
+   */
+  title = "";
+
+  /**
+   * @generated from field: string code_content = 3;
+   */
+  codeContent = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.Language language = 4;
+   */
+  language = Language.UNSPECIFIED;
+
+  /**
+   * @generated from field: optional string context_text = 5;
+   */
+  contextText?: string;
+
+  /**
+   * @generated from field: string page_id = 6;
+   */
+  pageId = "";
+
+  constructor(data?: PartialMessage<BrowserCodeBlockScopeItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.BrowserCodeBlockScopeItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "code_content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "language", kind: "enum", T: proto3.getEnumType(Language) },
+    { no: 5, name: "context_text", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 6, name: "page_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BrowserCodeBlockScopeItem {
+    return new BrowserCodeBlockScopeItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BrowserCodeBlockScopeItem {
+    return new BrowserCodeBlockScopeItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BrowserCodeBlockScopeItem {
+    return new BrowserCodeBlockScopeItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BrowserCodeBlockScopeItem | PlainMessage<BrowserCodeBlockScopeItem> | undefined, b: BrowserCodeBlockScopeItem | PlainMessage<BrowserCodeBlockScopeItem> | undefined): boolean {
+    return proto3.util.equals(BrowserCodeBlockScopeItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.BrowserTextScopeItem
+ */
+export class BrowserTextScopeItem extends Message<BrowserTextScopeItem> {
+  /**
+   * @generated from field: string url = 1;
+   */
+  url = "";
+
+  /**
+   * @generated from field: string visible_text = 2;
+   */
+  visibleText = "";
+
+  /**
+   * @generated from field: string page_id = 3;
+   */
+  pageId = "";
+
+  constructor(data?: PartialMessage<BrowserTextScopeItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.BrowserTextScopeItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "visible_text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "page_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BrowserTextScopeItem {
+    return new BrowserTextScopeItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BrowserTextScopeItem {
+    return new BrowserTextScopeItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BrowserTextScopeItem {
+    return new BrowserTextScopeItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BrowserTextScopeItem | PlainMessage<BrowserTextScopeItem> | undefined, b: BrowserTextScopeItem | PlainMessage<BrowserTextScopeItem> | undefined): boolean {
+    return proto3.util.equals(BrowserTextScopeItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ConversationScopeItem
+ */
+export class ConversationScopeItem extends Message<ConversationScopeItem> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  /**
+   * @generated from field: string title = 2;
+   */
+  title = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp last_modified_time = 3;
+   */
+  lastModifiedTime?: Timestamp;
+
+  constructor(data?: PartialMessage<ConversationScopeItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ConversationScopeItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "last_modified_time", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConversationScopeItem {
+    return new ConversationScopeItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConversationScopeItem {
+    return new ConversationScopeItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConversationScopeItem {
+    return new ConversationScopeItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ConversationScopeItem | PlainMessage<ConversationScopeItem> | undefined, b: ConversationScopeItem | PlainMessage<ConversationScopeItem> | undefined): boolean {
+    return proto3.util.equals(ConversationScopeItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.UserActivityScopeItem
+ */
+export class UserActivityScopeItem extends Message<UserActivityScopeItem> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  /**
+   * @generated from field: string branch = 2;
+   */
+  branch = "";
+
+  /**
+   * @generated from field: bool current = 3;
+   */
+  current = false;
+
+  constructor(data?: PartialMessage<UserActivityScopeItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.UserActivityScopeItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "branch", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "current", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserActivityScopeItem {
+    return new UserActivityScopeItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserActivityScopeItem {
+    return new UserActivityScopeItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserActivityScopeItem {
+    return new UserActivityScopeItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserActivityScopeItem | PlainMessage<UserActivityScopeItem> | undefined, b: UserActivityScopeItem | PlainMessage<UserActivityScopeItem> | undefined): boolean {
+    return proto3.util.equals(UserActivityScopeItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.TerminalScopeItem
+ */
+export class TerminalScopeItem extends Message<TerminalScopeItem> {
+  /**
+   * @generated from field: string process_id = 1;
+   */
+  processId = "";
+
+  /**
+   * @generated from field: string name = 2;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string last_command = 3;
+   */
+  lastCommand = "";
+
+  /**
+   * @generated from field: string content = 4;
+   */
+  content = "";
+
+  constructor(data?: PartialMessage<TerminalScopeItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.TerminalScopeItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "process_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "last_command", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TerminalScopeItem {
+    return new TerminalScopeItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TerminalScopeItem {
+    return new TerminalScopeItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TerminalScopeItem {
+    return new TerminalScopeItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: TerminalScopeItem | PlainMessage<TerminalScopeItem> | undefined, b: TerminalScopeItem | PlainMessage<TerminalScopeItem> | undefined): boolean {
+    return proto3.util.equals(TerminalScopeItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.GithubPullRequestItem
+ */
+export class GithubPullRequestItem extends Message<GithubPullRequestItem> {
+  /**
+   * @generated from field: string url = 1;
+   */
+  url = "";
+
+  /**
+   * @generated from field: string title = 2;
+   */
+  title = "";
+
+  /**
+   * @generated from field: string owner = 3;
+   */
+  owner = "";
+
+  /**
+   * @generated from field: string number = 4;
+   */
+  number = "";
+
+  constructor(data?: PartialMessage<GithubPullRequestItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.GithubPullRequestItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "owner", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "number", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GithubPullRequestItem {
+    return new GithubPullRequestItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GithubPullRequestItem {
+    return new GithubPullRequestItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GithubPullRequestItem {
+    return new GithubPullRequestItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GithubPullRequestItem | PlainMessage<GithubPullRequestItem> | undefined, b: GithubPullRequestItem | PlainMessage<GithubPullRequestItem> | undefined): boolean {
+    return proto3.util.equals(GithubPullRequestItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.DocumentOutlineElement
+ */
+export class DocumentOutlineElement extends Message<DocumentOutlineElement> {
+  /**
+   * @generated from oneof exa.codeium_common_pb.DocumentOutlineElement.element
+   */
+  element: {
+    /**
+     * @generated from field: exa.codeium_common_pb.CodeContextItem code_context_item = 1;
+     */
+    value: CodeContextItem;
+    case: "codeContextItem";
+  } | {
+    /**
+     * @generated from field: exa.codeium_common_pb.DocumentLinesElement document_lines_element = 2;
+     */
+    value: DocumentLinesElement;
+    case: "documentLinesElement";
+  } | {
+    /**
+     * @generated from field: string text = 3;
+     */
+    value: string;
+    case: "text";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<DocumentOutlineElement>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.DocumentOutlineElement";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "code_context_item", kind: "message", T: CodeContextItem, oneof: "element" },
+    { no: 2, name: "document_lines_element", kind: "message", T: DocumentLinesElement, oneof: "element" },
+    { no: 3, name: "text", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "element" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DocumentOutlineElement {
+    return new DocumentOutlineElement().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DocumentOutlineElement {
+    return new DocumentOutlineElement().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DocumentOutlineElement {
+    return new DocumentOutlineElement().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DocumentOutlineElement | PlainMessage<DocumentOutlineElement> | undefined, b: DocumentOutlineElement | PlainMessage<DocumentOutlineElement> | undefined): boolean {
+    return proto3.util.equals(DocumentOutlineElement, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.McpServerCommand
+ */
+export class McpServerCommand extends Message<McpServerCommand> {
+  /**
+   * @generated from field: exa.codeium_common_pb.McpCommandTemplate template = 1;
+   */
+  template?: McpCommandTemplate;
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.McpCommandVariable variables = 2;
+   */
+  variables: McpCommandVariable[] = [];
+
+  constructor(data?: PartialMessage<McpServerCommand>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.McpServerCommand";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "template", kind: "message", T: McpCommandTemplate },
+    { no: 2, name: "variables", kind: "message", T: McpCommandVariable, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): McpServerCommand {
+    return new McpServerCommand().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): McpServerCommand {
+    return new McpServerCommand().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): McpServerCommand {
+    return new McpServerCommand().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: McpServerCommand | PlainMessage<McpServerCommand> | undefined, b: McpServerCommand | PlainMessage<McpServerCommand> | undefined): boolean {
+    return proto3.util.equals(McpServerCommand, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.AllowedModelConfig
+ */
+export class AllowedModelConfig extends Message<AllowedModelConfig> {
+  /**
+   * @generated from field: exa.codeium_common_pb.ModelOrAlias model_or_alias = 1;
+   */
+  modelOrAlias?: ModelOrAlias;
+
+  /**
+   * @generated from field: float credit_multiplier = 2;
+   */
+  creditMultiplier = 0;
+
+  constructor(data?: PartialMessage<AllowedModelConfig>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.AllowedModelConfig";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "model_or_alias", kind: "message", T: ModelOrAlias },
+    { no: 2, name: "credit_multiplier", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AllowedModelConfig {
+    return new AllowedModelConfig().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AllowedModelConfig {
+    return new AllowedModelConfig().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AllowedModelConfig {
+    return new AllowedModelConfig().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AllowedModelConfig | PlainMessage<AllowedModelConfig> | undefined, b: AllowedModelConfig | PlainMessage<AllowedModelConfig> | undefined): boolean {
+    return proto3.util.equals(AllowedModelConfig, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.CompletionLatencyInfo
+ */
+export class CompletionLatencyInfo extends Message<CompletionLatencyInfo> {
+  /**
+   * @generated from field: uint64 api_server_latency_ms = 1;
+   */
+  apiServerLatencyMs = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 language_server_latency_ms = 2;
+   */
+  languageServerLatencyMs = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 network_latency_ms = 3;
+   */
+  networkLatencyMs = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 api_server_first_byte_latency_ms = 4;
+   */
+  apiServerFirstByteLatencyMs = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 language_server_first_byte_latency_ms = 5;
+   */
+  languageServerFirstByteLatencyMs = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 network_first_byte_latency_ms = 6;
+   */
+  networkFirstByteLatencyMs = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 api_server_first_line_latency_ms = 7;
+   */
+  apiServerFirstLineLatencyMs = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 language_server_first_line_latency_ms = 8;
+   */
+  languageServerFirstLineLatencyMs = protoInt64.zero;
+
+  /**
+   * @generated from field: uint64 network_first_line_latency_ms = 9;
+   */
+  networkFirstLineLatencyMs = protoInt64.zero;
+
+  constructor(data?: PartialMessage<CompletionLatencyInfo>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.CompletionLatencyInfo";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "api_server_latency_ms", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 2, name: "language_server_latency_ms", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 3, name: "network_latency_ms", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 4, name: "api_server_first_byte_latency_ms", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 5, name: "language_server_first_byte_latency_ms", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 6, name: "network_first_byte_latency_ms", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 7, name: "api_server_first_line_latency_ms", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 8, name: "language_server_first_line_latency_ms", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 9, name: "network_first_line_latency_ms", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CompletionLatencyInfo {
+    return new CompletionLatencyInfo().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CompletionLatencyInfo {
+    return new CompletionLatencyInfo().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CompletionLatencyInfo {
+    return new CompletionLatencyInfo().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CompletionLatencyInfo | PlainMessage<CompletionLatencyInfo> | undefined, b: CompletionLatencyInfo | PlainMessage<CompletionLatencyInfo> | undefined): boolean {
+    return proto3.util.equals(CompletionLatencyInfo, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ExperimentWithVariant
+ */
+export class ExperimentWithVariant extends Message<ExperimentWithVariant> {
+  /**
+   * @generated from field: exa.codeium_common_pb.ExperimentKey key = 1;
+   */
+  key = ExperimentKey.UNSPECIFIED;
+
+  /**
+   * @generated from field: string key_string = 5;
+   */
+  keyString = "";
+
+  /**
+   * @generated from field: bool disabled = 6;
+   */
+  disabled = false;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.ExperimentSource source = 7;
+   */
+  source = ExperimentSource.UNSPECIFIED;
+
+  /**
+   * @generated from oneof exa.codeium_common_pb.ExperimentWithVariant.payload
+   */
+  payload: {
+    /**
+     * @generated from field: string string = 2;
+     */
+    value: string;
+    case: "string";
+  } | {
+    /**
+     * @generated from field: string json = 3;
+     */
+    value: string;
+    case: "json";
+  } | {
+    /**
+     * @generated from field: string csv = 4;
+     */
+    value: string;
+    case: "csv";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<ExperimentWithVariant>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ExperimentWithVariant";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "key", kind: "enum", T: proto3.getEnumType(ExperimentKey) },
+    { no: 5, name: "key_string", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "disabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 7, name: "source", kind: "enum", T: proto3.getEnumType(ExperimentSource) },
+    { no: 2, name: "string", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "payload" },
+    { no: 3, name: "json", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "payload" },
+    { no: 4, name: "csv", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "payload" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ExperimentWithVariant {
+    return new ExperimentWithVariant().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ExperimentWithVariant {
+    return new ExperimentWithVariant().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ExperimentWithVariant {
+    return new ExperimentWithVariant().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ExperimentWithVariant | PlainMessage<ExperimentWithVariant> | undefined, b: ExperimentWithVariant | PlainMessage<ExperimentWithVariant> | undefined): boolean {
+    return proto3.util.equals(ExperimentWithVariant, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.ContextSubrange
+ */
+export class ContextSubrange extends Message<ContextSubrange> {
+  /**
+   * @generated from field: exa.codeium_common_pb.ContextSnippetType snippet_type = 1;
+   */
+  snippetType = ContextSnippetType.UNSPECIFIED;
+
+  /**
+   * @generated from field: int64 start_offset = 2;
+   */
+  startOffset = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 end_offset = 3;
+   */
+  endOffset = protoInt64.zero;
+
+  constructor(data?: PartialMessage<ContextSubrange>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.ContextSubrange";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "snippet_type", kind: "enum", T: proto3.getEnumType(ContextSnippetType) },
+    { no: 2, name: "start_offset", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 3, name: "end_offset", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ContextSubrange {
+    return new ContextSubrange().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ContextSubrange {
+    return new ContextSubrange().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ContextSubrange {
+    return new ContextSubrange().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ContextSubrange | PlainMessage<ContextSubrange> | undefined, b: ContextSubrange | PlainMessage<ContextSubrange> | undefined): boolean {
+    return proto3.util.equals(ContextSubrange, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.SingleModelCompletionProfile
+ */
+export class SingleModelCompletionProfile extends Message<SingleModelCompletionProfile> {
+  /**
+   * @generated from field: double total_prefill_pass_time = 1;
+   */
+  totalPrefillPassTime = 0;
+
+  /**
+   * @generated from field: double avg_prefill_pass_time = 2;
+   */
+  avgPrefillPassTime = 0;
+
+  /**
+   * @generated from field: uint64 num_prefill_passes = 3;
+   */
+  numPrefillPasses = protoInt64.zero;
+
+  /**
+   * @generated from field: double total_generation_pass_time = 4;
+   */
+  totalGenerationPassTime = 0;
+
+  /**
+   * @generated from field: double avg_generation_pass_time = 5;
+   */
+  avgGenerationPassTime = 0;
+
+  /**
+   * @generated from field: uint64 num_generation_passes = 6;
+   */
+  numGenerationPasses = protoInt64.zero;
+
+  /**
+   * @generated from field: double total_spec_copy_pass_time = 7;
+   */
+  totalSpecCopyPassTime = 0;
+
+  /**
+   * @generated from field: double avg_spec_copy_pass_time = 8;
+   */
+  avgSpecCopyPassTime = 0;
+
+  /**
+   * @generated from field: uint64 num_spec_copy_passes = 9;
+   */
+  numSpecCopyPasses = protoInt64.zero;
+
+  /**
+   * @generated from field: double total_model_time = 10;
+   */
+  totalModelTime = 0;
+
+  constructor(data?: PartialMessage<SingleModelCompletionProfile>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.SingleModelCompletionProfile";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "total_prefill_pass_time", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 2, name: "avg_prefill_pass_time", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 3, name: "num_prefill_passes", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 4, name: "total_generation_pass_time", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 5, name: "avg_generation_pass_time", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 6, name: "num_generation_passes", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 7, name: "total_spec_copy_pass_time", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 8, name: "avg_spec_copy_pass_time", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 9, name: "num_spec_copy_passes", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 10, name: "total_model_time", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SingleModelCompletionProfile {
+    return new SingleModelCompletionProfile().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SingleModelCompletionProfile {
+    return new SingleModelCompletionProfile().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SingleModelCompletionProfile {
+    return new SingleModelCompletionProfile().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SingleModelCompletionProfile | PlainMessage<SingleModelCompletionProfile> | undefined, b: SingleModelCompletionProfile | PlainMessage<SingleModelCompletionProfile> | undefined): boolean {
+    return proto3.util.equals(SingleModelCompletionProfile, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.NodeExecutionRecord
+ */
+export class NodeExecutionRecord extends Message<NodeExecutionRecord> {
+  /**
+   * @generated from field: string node_name = 1;
+   */
+  nodeName = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp start_time = 2;
+   */
+  startTime?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp end_time = 3;
+   */
+  endTime?: Timestamp;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.GraphExecutionState subgraph_execution = 4;
+   */
+  subgraphExecution?: GraphExecutionState;
+
+  /**
+   * @generated from field: bytes graph_state_json = 5;
+   */
+  graphStateJson = new Uint8Array(0);
+
+  /**
+   * @generated from field: uint64 graph_state_json_num_bytes = 6;
+   */
+  graphStateJsonNumBytes = protoInt64.zero;
+
+  constructor(data?: PartialMessage<NodeExecutionRecord>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.NodeExecutionRecord";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "node_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "start_time", kind: "message", T: Timestamp },
+    { no: 3, name: "end_time", kind: "message", T: Timestamp },
+    { no: 4, name: "subgraph_execution", kind: "message", T: GraphExecutionState },
+    { no: 5, name: "graph_state_json", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 6, name: "graph_state_json_num_bytes", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): NodeExecutionRecord {
+    return new NodeExecutionRecord().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): NodeExecutionRecord {
+    return new NodeExecutionRecord().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): NodeExecutionRecord {
+    return new NodeExecutionRecord().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: NodeExecutionRecord | PlainMessage<NodeExecutionRecord> | undefined, b: NodeExecutionRecord | PlainMessage<NodeExecutionRecord> | undefined): boolean {
+    return proto3.util.equals(NodeExecutionRecord, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.WordCount
+ */
+export class WordCount extends Message<WordCount> {
+  /**
+   * @generated from field: map<string, int64> word_count_map = 1;
+   */
+  wordCountMap: { [key: string]: bigint } = {};
+
+  constructor(data?: PartialMessage<WordCount>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.WordCount";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "word_count_map", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "scalar", T: 3 /* ScalarType.INT64 */} },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): WordCount {
+    return new WordCount().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): WordCount {
+    return new WordCount().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): WordCount {
+    return new WordCount().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: WordCount | PlainMessage<WordCount> | undefined, b: WordCount | PlainMessage<WordCount> | undefined): boolean {
+    return proto3.util.equals(WordCount, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.LocalSqliteFaissDbStats
+ */
+export class LocalSqliteFaissDbStats extends Message<LocalSqliteFaissDbStats> {
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.FaissStateStats faiss_state_stats = 1;
+   */
+  faissStateStats: FaissStateStats[] = [];
+
+  /**
+   * @generated from field: int64 total_item_count = 2;
+   */
+  totalItemCount = protoInt64.zero;
+
+  /**
+   * @generated from field: bool quantized = 3;
+   */
+  quantized = false;
+
+  constructor(data?: PartialMessage<LocalSqliteFaissDbStats>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.LocalSqliteFaissDbStats";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "faiss_state_stats", kind: "message", T: FaissStateStats, repeated: true },
+    { no: 2, name: "total_item_count", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 3, name: "quantized", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): LocalSqliteFaissDbStats {
+    return new LocalSqliteFaissDbStats().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): LocalSqliteFaissDbStats {
+    return new LocalSqliteFaissDbStats().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): LocalSqliteFaissDbStats {
+    return new LocalSqliteFaissDbStats().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: LocalSqliteFaissDbStats | PlainMessage<LocalSqliteFaissDbStats> | undefined, b: LocalSqliteFaissDbStats | PlainMessage<LocalSqliteFaissDbStats> | undefined): boolean {
+    return proto3.util.equals(LocalSqliteFaissDbStats, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.PostgresDbStats
+ */
+export class PostgresDbStats extends Message<PostgresDbStats> {
+  constructor(data?: PartialMessage<PostgresDbStats>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.PostgresDbStats";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PostgresDbStats {
+    return new PostgresDbStats().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PostgresDbStats {
+    return new PostgresDbStats().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PostgresDbStats {
+    return new PostgresDbStats().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PostgresDbStats | PlainMessage<PostgresDbStats> | undefined, b: PostgresDbStats | PlainMessage<PostgresDbStats> | undefined): boolean {
+    return proto3.util.equals(PostgresDbStats, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.StreamingEvalSuffixInfo
+ */
+export class StreamingEvalSuffixInfo extends Message<StreamingEvalSuffixInfo> {
+  /**
+   * @generated from field: repeated float per_token_log_likelihoods = 1;
+   */
+  perTokenLogLikelihoods: number[] = [];
+
+  /**
+   * @generated from field: bool is_greedy = 2;
+   */
+  isGreedy = false;
+
+  constructor(data?: PartialMessage<StreamingEvalSuffixInfo>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.StreamingEvalSuffixInfo";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "per_token_log_likelihoods", kind: "scalar", T: 2 /* ScalarType.FLOAT */, repeated: true },
+    { no: 2, name: "is_greedy", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StreamingEvalSuffixInfo {
+    return new StreamingEvalSuffixInfo().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): StreamingEvalSuffixInfo {
+    return new StreamingEvalSuffixInfo().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): StreamingEvalSuffixInfo {
+    return new StreamingEvalSuffixInfo().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: StreamingEvalSuffixInfo | PlainMessage<StreamingEvalSuffixInfo> | undefined, b: StreamingEvalSuffixInfo | PlainMessage<StreamingEvalSuffixInfo> | undefined): boolean {
+    return proto3.util.equals(StreamingEvalSuffixInfo, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.StreamingCompletion
+ */
+export class StreamingCompletion extends Message<StreamingCompletion> {
+  /**
+   * @generated from field: bytes decoded_token = 1;
+   */
+  decodedToken = new Uint8Array(0);
+
+  /**
+   * @generated from field: uint64 token = 2;
+   */
+  token = protoInt64.zero;
+
+  /**
+   * @generated from field: double probability = 3;
+   */
+  probability = 0;
+
+  /**
+   * @generated from field: double adjusted_probability = 4;
+   */
+  adjustedProbability = 0;
+
+  /**
+   * @generated from field: bool completion_finished = 5;
+   */
+  completionFinished = false;
+
+  /**
+   * @generated from field: string stop = 6;
+   */
+  stop = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.StopReason stop_reason = 7;
+   */
+  stopReason = StopReason.UNSPECIFIED;
+
+  /**
+   * @generated from field: map<uint32, exa.codeium_common_pb.AttributionStatus> attribution_statuses = 8;
+   */
+  attributionStatuses: { [key: number]: AttributionStatus } = {};
+
+  /**
+   * @generated from field: double logprob = 9;
+   */
+  logprob = 0;
+
+  constructor(data?: PartialMessage<StreamingCompletion>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.StreamingCompletion";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "decoded_token", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+    { no: 2, name: "token", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 3, name: "probability", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 4, name: "adjusted_probability", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 5, name: "completion_finished", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 6, name: "stop", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "stop_reason", kind: "enum", T: proto3.getEnumType(StopReason) },
+    { no: 8, name: "attribution_statuses", kind: "map", K: 13 /* ScalarType.UINT32 */, V: {kind: "enum", T: proto3.getEnumType(AttributionStatus)} },
+    { no: 9, name: "logprob", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StreamingCompletion {
+    return new StreamingCompletion().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): StreamingCompletion {
+    return new StreamingCompletion().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): StreamingCompletion {
+    return new StreamingCompletion().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: StreamingCompletion | PlainMessage<StreamingCompletion> | undefined, b: StreamingCompletion | PlainMessage<StreamingCompletion> | undefined): boolean {
+    return proto3.util.equals(StreamingCompletion, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.MarkdownChunk
+ */
+export class MarkdownChunk extends Message<MarkdownChunk> {
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.MarkdownHeader headers = 1;
+   */
+  headers: MarkdownHeader[] = [];
+
+  /**
+   * @generated from field: string text = 2;
+   */
+  text = "";
+
+  constructor(data?: PartialMessage<MarkdownChunk>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.MarkdownChunk";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "headers", kind: "message", T: MarkdownHeader, repeated: true },
+    { no: 2, name: "text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MarkdownChunk {
+    return new MarkdownChunk().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MarkdownChunk {
+    return new MarkdownChunk().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MarkdownChunk {
+    return new MarkdownChunk().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: MarkdownChunk | PlainMessage<MarkdownChunk> | undefined, b: MarkdownChunk | PlainMessage<MarkdownChunk> | undefined): boolean {
+    return proto3.util.equals(MarkdownChunk, a, b);
   }
 }
 
@@ -2724,277 +19359,369 @@ export class McpRemoteServer extends Message<McpRemoteServer> {
 }
 
 /**
- * @generated from message exa.codeium_common_pb.TeamsFeaturesMetadata
+ * @generated from message exa.codeium_common_pb.BoundingBox
  */
-export class TeamsFeaturesMetadata extends Message<TeamsFeaturesMetadata> {
+export class BoundingBox extends Message<BoundingBox> {
   /**
-   * @generated from field: bool is_active = 1;
+   * @generated from field: float x = 1;
    */
-  isActive = false;
+  x = 0;
 
   /**
-   * @generated from field: string stripe_subscription_id = 2;
+   * @generated from field: float y = 2;
    */
-  stripeSubscriptionId = "";
+  y = 0;
 
   /**
-   * @generated from field: bool has_access = 3;
+   * @generated from field: float width = 3;
    */
-  hasAccess = false;
+  width = 0;
 
-  constructor(data?: PartialMessage<TeamsFeaturesMetadata>) {
+  /**
+   * @generated from field: float height = 4;
+   */
+  height = 0;
+
+  constructor(data?: PartialMessage<BoundingBox>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.codeium_common_pb.TeamsFeaturesMetadata";
+  static readonly typeName = "exa.codeium_common_pb.BoundingBox";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "is_active", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 2, name: "stripe_subscription_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "has_access", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 1, name: "x", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 2, name: "y", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 3, name: "width", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 4, name: "height", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TeamsFeaturesMetadata {
-    return new TeamsFeaturesMetadata().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BoundingBox {
+    return new BoundingBox().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TeamsFeaturesMetadata {
-    return new TeamsFeaturesMetadata().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BoundingBox {
+    return new BoundingBox().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TeamsFeaturesMetadata {
-    return new TeamsFeaturesMetadata().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BoundingBox {
+    return new BoundingBox().fromJsonString(jsonString, options);
   }
 
-  static equals(a: TeamsFeaturesMetadata | PlainMessage<TeamsFeaturesMetadata> | undefined, b: TeamsFeaturesMetadata | PlainMessage<TeamsFeaturesMetadata> | undefined): boolean {
-    return proto3.util.equals(TeamsFeaturesMetadata, a, b);
+  static equals(a: BoundingBox | PlainMessage<BoundingBox> | undefined, b: BoundingBox | PlainMessage<BoundingBox> | undefined): boolean {
+    return proto3.util.equals(BoundingBox, a, b);
   }
 }
 
 /**
- * @generated from message exa.codeium_common_pb.CustomProviderSettings
+ * @generated from message exa.codeium_common_pb.DocumentLinesElement
  */
-export class CustomProviderSettings extends Message<CustomProviderSettings> {
+export class DocumentLinesElement extends Message<DocumentLinesElement> {
   /**
-   * @generated from field: string custom_api_server_endpoint = 1;
+   * @generated from field: exa.codeium_common_pb.DocumentQuery document_query = 1;
    */
-  customApiServerEndpoint = "";
+  documentQuery?: DocumentQuery;
 
   /**
-   * @generated from field: repeated exa.codeium_common_pb.ClientModelConfig cascade_model_configs = 2;
+   * @generated from field: repeated exa.codeium_common_pb.CodeContextItem overlapped_code_context_items = 2;
    */
-  cascadeModelConfigs: ClientModelConfig[] = [];
+  overlappedCodeContextItems: CodeContextItem[] = [];
 
   /**
-   * @generated from field: repeated exa.codeium_common_pb.ClientModelConfig command_model_configs = 3;
+   * @generated from field: uint32 first_element_suffix_overlap = 3;
    */
-  commandModelConfigs: ClientModelConfig[] = [];
+  firstElementSuffixOverlap = 0;
 
   /**
-   * @generated from field: exa.codeium_common_pb.Model fallback_model = 4;
+   * @generated from field: uint32 last_element_prefix_overlap = 4;
    */
-  fallbackModel = Model.MODEL_UNSPECIFIED;
+  lastElementPrefixOverlap = 0;
 
-  constructor(data?: PartialMessage<CustomProviderSettings>) {
+  constructor(data?: PartialMessage<DocumentLinesElement>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.codeium_common_pb.CustomProviderSettings";
+  static readonly typeName = "exa.codeium_common_pb.DocumentLinesElement";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "custom_api_server_endpoint", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "cascade_model_configs", kind: "message", T: ClientModelConfig, repeated: true },
-    { no: 3, name: "command_model_configs", kind: "message", T: ClientModelConfig, repeated: true },
-    { no: 4, name: "fallback_model", kind: "enum", T: proto3.getEnumType(Model) },
+    { no: 1, name: "document_query", kind: "message", T: DocumentQuery },
+    { no: 2, name: "overlapped_code_context_items", kind: "message", T: CodeContextItem, repeated: true },
+    { no: 3, name: "first_element_suffix_overlap", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 4, name: "last_element_prefix_overlap", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CustomProviderSettings {
-    return new CustomProviderSettings().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DocumentLinesElement {
+    return new DocumentLinesElement().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CustomProviderSettings {
-    return new CustomProviderSettings().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DocumentLinesElement {
+    return new DocumentLinesElement().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CustomProviderSettings {
-    return new CustomProviderSettings().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DocumentLinesElement {
+    return new DocumentLinesElement().fromJsonString(jsonString, options);
   }
 
-  static equals(a: CustomProviderSettings | PlainMessage<CustomProviderSettings> | undefined, b: CustomProviderSettings | PlainMessage<CustomProviderSettings> | undefined): boolean {
-    return proto3.util.equals(CustomProviderSettings, a, b);
+  static equals(a: DocumentLinesElement | PlainMessage<DocumentLinesElement> | undefined, b: DocumentLinesElement | PlainMessage<DocumentLinesElement> | undefined): boolean {
+    return proto3.util.equals(DocumentLinesElement, a, b);
   }
 }
 
 /**
- * @generated from message exa.codeium_common_pb.ClientModelConfig
+ * @generated from message exa.codeium_common_pb.McpCommandTemplate
  */
-export class ClientModelConfig extends Message<ClientModelConfig> {
+export class McpCommandTemplate extends Message<McpCommandTemplate> {
   /**
-   * @generated from field: string label = 1;
+   * @generated from field: string command = 1;
    */
-  label = "";
+  command = "";
 
   /**
-   * @generated from field: exa.codeium_common_pb.ModelOrAlias model_or_alias = 2;
+   * @generated from field: repeated string args = 2;
    */
-  modelOrAlias?: ModelOrAlias;
+  args: string[] = [];
 
   /**
-   * @generated from field: float credit_multiplier = 3;
+   * @generated from field: map<string, string> env = 3;
    */
-  creditMultiplier = 0;
+  env: { [key: string]: string } = {};
 
-  /**
-   * @generated from field: bool disabled = 4;
-   */
-  disabled = false;
-
-  /**
-   * @generated from field: bool supports_images = 5;
-   */
-  supportsImages = false;
-
-  /**
-   * @generated from field: bool supports_legacy = 6;
-   */
-  supportsLegacy = false;
-
-  /**
-   * @generated from field: bool is_premium = 7;
-   */
-  isPremium = false;
-
-  /**
-   * @generated from field: string beta_warning_message = 8;
-   */
-  betaWarningMessage = "";
-
-  /**
-   * @generated from field: bool is_beta = 9;
-   */
-  isBeta = false;
-
-  /**
-   * @generated from field: exa.codeium_common_pb.ModelProvider provider = 10;
-   */
-  provider = ModelProvider.UNSPECIFIED;
-
-  /**
-   * @generated from field: bool is_recommended = 11;
-   */
-  isRecommended = false;
-
-  /**
-   * @generated from field: repeated exa.codeium_common_pb.TeamsTier allowed_tiers = 12;
-   */
-  allowedTiers: TeamsTier[] = [];
-
-  /**
-   * @generated from field: exa.codeium_common_pb.ModelPricingType pricing_type = 13;
-   */
-  pricingType = ModelPricingType.UNSPECIFIED;
-
-  /**
-   * @generated from field: exa.codeium_common_pb.APIProvider api_provider = 14;
-   */
-  apiProvider = APIProvider.API_PROVIDER_UNSPECIFIED;
-
-  /**
-   * @generated from field: bool is_new = 15;
-   */
-  isNew = false;
-
-  constructor(data?: PartialMessage<ClientModelConfig>) {
+  constructor(data?: PartialMessage<McpCommandTemplate>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.codeium_common_pb.ClientModelConfig";
+  static readonly typeName = "exa.codeium_common_pb.McpCommandTemplate";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "label", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "model_or_alias", kind: "message", T: ModelOrAlias },
-    { no: 3, name: "credit_multiplier", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
-    { no: 4, name: "disabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 5, name: "supports_images", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 6, name: "supports_legacy", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 7, name: "is_premium", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 8, name: "beta_warning_message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 9, name: "is_beta", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 10, name: "provider", kind: "enum", T: proto3.getEnumType(ModelProvider) },
-    { no: 11, name: "is_recommended", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 12, name: "allowed_tiers", kind: "enum", T: proto3.getEnumType(TeamsTier), repeated: true },
-    { no: 13, name: "pricing_type", kind: "enum", T: proto3.getEnumType(ModelPricingType) },
-    { no: 14, name: "api_provider", kind: "enum", T: proto3.getEnumType(APIProvider) },
-    { no: 15, name: "is_new", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 1, name: "command", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "args", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 3, name: "env", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "scalar", T: 9 /* ScalarType.STRING */} },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClientModelConfig {
-    return new ClientModelConfig().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): McpCommandTemplate {
+    return new McpCommandTemplate().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ClientModelConfig {
-    return new ClientModelConfig().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): McpCommandTemplate {
+    return new McpCommandTemplate().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClientModelConfig {
-    return new ClientModelConfig().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): McpCommandTemplate {
+    return new McpCommandTemplate().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ClientModelConfig | PlainMessage<ClientModelConfig> | undefined, b: ClientModelConfig | PlainMessage<ClientModelConfig> | undefined): boolean {
-    return proto3.util.equals(ClientModelConfig, a, b);
+  static equals(a: McpCommandTemplate | PlainMessage<McpCommandTemplate> | undefined, b: McpCommandTemplate | PlainMessage<McpCommandTemplate> | undefined): boolean {
+    return proto3.util.equals(McpCommandTemplate, a, b);
   }
 }
 
 /**
- * @generated from message exa.codeium_common_pb.ModelOrAlias
+ * @generated from message exa.codeium_common_pb.McpCommandVariable
  */
-export class ModelOrAlias extends Message<ModelOrAlias> {
+export class McpCommandVariable extends Message<McpCommandVariable> {
   /**
-   * @generated from oneof exa.codeium_common_pb.ModelOrAlias.choice
+   * @generated from field: string name = 1;
    */
-  choice: {
-    /**
-     * @generated from field: exa.codeium_common_pb.Model model = 1;
-     */
-    value: Model;
-    case: "model";
-  } | {
-    /**
-     * @generated from field: exa.codeium_common_pb.ModelAlias alias = 2;
-     */
-    value: ModelAlias;
-    case: "alias";
-  } | { case: undefined; value?: undefined } = { case: undefined };
+  name = "";
 
-  constructor(data?: PartialMessage<ModelOrAlias>) {
+  /**
+   * @generated from field: string title = 2;
+   */
+  title = "";
+
+  /**
+   * @generated from field: string description = 3;
+   */
+  description = "";
+
+  /**
+   * @generated from field: string link = 4;
+   */
+  link = "";
+
+  constructor(data?: PartialMessage<McpCommandVariable>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.codeium_common_pb.ModelOrAlias";
+  static readonly typeName = "exa.codeium_common_pb.McpCommandVariable";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "model", kind: "enum", T: proto3.getEnumType(Model), oneof: "choice" },
-    { no: 2, name: "alias", kind: "enum", T: proto3.getEnumType(ModelAlias), oneof: "choice" },
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "link", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ModelOrAlias {
-    return new ModelOrAlias().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): McpCommandVariable {
+    return new McpCommandVariable().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ModelOrAlias {
-    return new ModelOrAlias().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): McpCommandVariable {
+    return new McpCommandVariable().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ModelOrAlias {
-    return new ModelOrAlias().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): McpCommandVariable {
+    return new McpCommandVariable().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ModelOrAlias | PlainMessage<ModelOrAlias> | undefined, b: ModelOrAlias | PlainMessage<ModelOrAlias> | undefined): boolean {
-    return proto3.util.equals(ModelOrAlias, a, b);
+  static equals(a: McpCommandVariable | PlainMessage<McpCommandVariable> | undefined, b: McpCommandVariable | PlainMessage<McpCommandVariable> | undefined): boolean {
+    return proto3.util.equals(McpCommandVariable, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.FaissStateStats
+ */
+export class FaissStateStats extends Message<FaissStateStats> {
+  /**
+   * @generated from field: exa.codeium_common_pb.EmbeddingSource embedding_source = 1;
+   */
+  embeddingSource = EmbeddingSource.UNSPECIFIED;
+
+  /**
+   * @generated from field: string workspace = 2;
+   */
+  workspace = "";
+
+  /**
+   * @generated from field: int64 item_count = 3;
+   */
+  itemCount = protoInt64.zero;
+
+  constructor(data?: PartialMessage<FaissStateStats>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.FaissStateStats";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "embedding_source", kind: "enum", T: proto3.getEnumType(EmbeddingSource) },
+    { no: 2, name: "workspace", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "item_count", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): FaissStateStats {
+    return new FaissStateStats().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): FaissStateStats {
+    return new FaissStateStats().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): FaissStateStats {
+    return new FaissStateStats().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: FaissStateStats | PlainMessage<FaissStateStats> | undefined, b: FaissStateStats | PlainMessage<FaissStateStats> | undefined): boolean {
+    return proto3.util.equals(FaissStateStats, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.MarkdownHeader
+ */
+export class MarkdownHeader extends Message<MarkdownHeader> {
+  /**
+   * @generated from field: exa.codeium_common_pb.MarkdownNodeType type = 1;
+   */
+  type = MarkdownNodeType.UNSPECIFIED;
+
+  /**
+   * @generated from field: string text = 2;
+   */
+  text = "";
+
+  constructor(data?: PartialMessage<MarkdownHeader>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.MarkdownHeader";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "type", kind: "enum", T: proto3.getEnumType(MarkdownNodeType) },
+    { no: 2, name: "text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MarkdownHeader {
+    return new MarkdownHeader().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MarkdownHeader {
+    return new MarkdownHeader().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MarkdownHeader {
+    return new MarkdownHeader().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: MarkdownHeader | PlainMessage<MarkdownHeader> | undefined, b: MarkdownHeader | PlainMessage<MarkdownHeader> | undefined): boolean {
+    return proto3.util.equals(MarkdownHeader, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.codeium_common_pb.DocumentQuery
+ */
+export class DocumentQuery extends Message<DocumentQuery> {
+  /**
+   * @generated from field: string text = 1;
+   */
+  text = "";
+
+  /**
+   * @generated from field: int32 cursor_offset = 2;
+   */
+  cursorOffset = 0;
+
+  /**
+   * @generated from field: uint32 start_line = 3;
+   */
+  startLine = 0;
+
+  /**
+   * @generated from field: uint32 end_line = 4;
+   */
+  endLine = 0;
+
+  /**
+   * @generated from field: bool use_character_position = 5;
+   */
+  useCharacterPosition = false;
+
+  constructor(data?: PartialMessage<DocumentQuery>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.codeium_common_pb.DocumentQuery";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "cursor_offset", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 3, name: "start_line", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 4, name: "end_line", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 5, name: "use_character_position", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DocumentQuery {
+    return new DocumentQuery().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DocumentQuery {
+    return new DocumentQuery().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DocumentQuery {
+    return new DocumentQuery().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DocumentQuery | PlainMessage<DocumentQuery> | undefined, b: DocumentQuery | PlainMessage<DocumentQuery> | undefined): boolean {
+    return proto3.util.equals(DocumentQuery, a, b);
   }
 }
 

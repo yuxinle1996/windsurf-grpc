@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package aiserver.v1;
+
+service DashboardService {
+  rpc GetCurrentPeriodUsage(GetCurrentPeriodUsageRequest) returns (GetCurrentPeriodUsageResponse);
+}
+
+message GetCurrentPeriodUsageRequest {}
+
+message GetCurrentPeriodUsageResponse {
+  int64 billing_cycle_start = 1;
+  int64 billing_cycle_end = 2;
+  PlanUsage  plan_usage = 3;
+  SpendLimitUsage  spend_limit_usage = 4;
+  optional int32 display_threshold = 5;
+  bool enabled = 6;
+  string display_message = 7;
+}
+
+message PlanUsage {
+  int32 total_spend = 1;
+  int32 included_spend = 2;
+  int32 bonus_spend = 3;
+  int32 remaining = 4;
+  int32 limit = 5;
+  optional bool remaining_bonus = 6;
+  optional string bonus_tooltip = 7;
+}
+
+message SpendLimitUsage {
+  int32 total_spend = 1;
+  optional int32 pooled_limit = 2;
+  optional int32 pooled_used = 3;
+  optional int32 pooled_remaining = 4;
+  optional int32 individual_limit = 5;
+  int32 individual_used = 6;
+  int32 individual_remaining = 7;
+  string limit_type = 8;
+}

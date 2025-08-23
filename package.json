@@ -10,10 +10,11 @@
     "start": "tsc && node ./dist/index.js",
     "build": "tsc",
     "generate": "buf generate",
-    "reverse": "node script/proto-reverse-engineer.js script/webpack-code/proto_fields.js script/proto-output",
+    "reverse": "node script/proto-reverse-engineer.js script/proto-output",
     "axios-advanced": "tsc && node ./dist/axios-protobuf-advanced.js",
     "axios-test": "tsc && node ./dist/axios-test-UserSSOLoginRedirect.js",
-    "axios-test2": "tsc && node ./dist/axios-test-GetCurrentUser.js"
+    "axios-test2": "tsc && node ./dist/axios-test-GetCurrentUser.js",
+    "axios-test3": "tsc && node ./dist/axios-test-GetCurrentPeriodUsage.js"
   },
   "dependencies": {
     "@bufbuild/protobuf": "^1.10.1",

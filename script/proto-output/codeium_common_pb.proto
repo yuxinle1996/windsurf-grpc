@@ -1,8 +1,1534 @@
 syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
 
 package exa.codeium_common_pb;
+
+message CodeContextItem {
+  string absolute_path_migrate_me_to_uri = 1;
+  repeated WorkspacePath workspace_paths = 2;
+  string node_name = 3;
+  repeated string node_lineage = 4;
+  uint32 start_line = 5;
+  uint32 end_line = 6;
+  CodeContextType context_type = 7;
+  Language language = 10;
+  map<string, SnippetWithWordCount> snippet_by_type = 11;
+  uint32 start_col = 12;
+  uint32 end_col = 13;
+  GitRepoInfo repo_info = 14;
+  bytes file_content_hash = 15;
+  string absolute_uri = 16;
+}
+
+message Rule {
+  string id = 1;
+  string prompt = 2;
+}
+
+message CompletionsRequest {
+  CompletionConfiguration configuration = 1;
+  string prompt = 2;
+  string editor_language = 3;
+  Language language = 4;
+  string absolute_path_uri_for_telemetry = 5;
+  string relative_path_for_telemetry = 6;
+  string experiment_features_json = 7;
+  repeated PromptElementRange prompt_element_ranges = 8;
+  repeated PromptElementKindInfo prompt_element_kind_infos = 9;
+  Model model = 10;
+  uint64 prompt_latency_ms = 11;
+  repeated PromptStageLatency prompt_stage_latencies = 12;
+  string workspace_uri_for_telemetry = 13;
+  bool has_line_suffix = 14;
+  bool should_inline_fim = 15;
+  Repository repository = 16;
+  string model_tag = 17;
+  repeated string experiment_tags = 18;
+  string experiment_variant_json = 19;
+  uint64 num_tokenized_bytes = 20;
+  string context_prompt = 21;
+  string eval_suffix = 22;
+  repeated PromptAnnotationRange prompt_annotation_ranges = 23;
+  bool supports_packed_streaming_completion_maps = 24;
+  string uid = 25;
+}
+
+message ModelOrAlias {
+  oneof choice {
+    Model model = 1;
+    ModelAlias alias = 2;
+  }
+}
+
+message LspReference {
+  string uri = 1;
+  Range range = 2;
+  optional string snippet = 3;
+}
+
+message ModelStatusInfo {
+  Model model = 1;
+  string message = 2;
+  ModelStatus status = 3;
+}
+
+message EmbeddingResponse {
+  repeated Embedding embeddings = 1;
+  bool prompts_exceeded_context_length = 2;
+}
+
+message Document {
+  string absolute_path_migrate_me_to_uri = 1;
+  string relative_path_migrate_me_to_workspace_uri = 2;
+  string text = 3;
+  string editor_language = 4;
+  Language language = 5;
+  uint64 cursor_offset = 6;
+  string line_ending = 7;
+  DocumentPosition cursor_position = 8;
+  Range visible_range = 9;
+  bool is_cutoff_start = 10;
+  bool is_cutoff_end = 11;
+  string absolute_uri = 12;
+  string workspace_uri = 13;
+  int32 lines_cutoff_start = 14;
+  int32 lines_cutoff_end = 15;
+  google.protobuf.Timestamp timestamp = 16;
+  bool is_dirty = 17;
+  bool is_synthetic = 18;
+}
+
+message WebDocsOption {
+  string label = 1;
+  repeated string synonyms = 4;
+  bool is_featured = 5;
+  oneof value {
+    string docs_url = 2;
+    string docs_search_domain = 3;
+  }
+}
+
+message Embedding {
+  repeated float values = 1;
+}
+
+message ContextScope {
+  repeated ContextScopeItem items = 1;
+}
+
+message CompletionResponse {
+  repeated Completion completions = 1;
+  uint64 max_tokens = 2;
+  double temperature = 3;
+  uint64 top_k = 4;
+  double top_p = 5;
+  repeated string stop_patterns = 6;
+  uint64 prompt_length = 7;
+  string prompt_id = 8;
+  string model_tag = 10;
+  optional CompletionProfile completion_profile = 11;
+}
+
+message ChatStats {
+  uint64 chats_sent = 1;
+  uint64 chats_received = 2;
+  uint64 chats_accepted = 3;
+  uint64 chats_inserted_at_cursor = 4;
+  uint64 chats_applied = 5;
+  uint64 chat_loc_used = 6;
+  uint64 chat_code_blocks_used = 7;
+  uint64 function_explain_count = 8;
+  uint64 function_docstring_count = 9;
+  uint64 function_refactor_count = 10;
+  uint64 code_block_explain_count = 11;
+  uint64 code_block_refactor_count = 12;
+  uint64 problem_explain_count = 13;
+  uint64 function_unit_tests_count = 14;
+  uint32 active_developer_days = 15;
+}
+
+message IntellisenseSuggestion {
+  Range range = 1;
+  string text = 2;
+  string label = 3;
+  string label_detail = 4;
+  string description = 5;
+  string detail = 6;
+  string documentation = 7;
+  string kind = 8;
+  bool selected = 9;
+}
+
+message IndexerStats {
+  IndexerDbStats database = 1;
+}
+
+message CodeAnnotation {
+  string id = 1;
+  string uri = 2;
+  uint32 line = 3;
+  string content = 4;
+  google.protobuf.Timestamp created_at = 5;
+}
+
+message WorkspacePath {
+  string workspace_migrate_me_to_uri = 1;
+  string relative_path = 2;
+  string workspace_uri = 3;
+}
+
+message WindsurfProject {
+  string windsurf_project_id = 1;
+  string auth_uid = 2;
+  DeploymentProvider deployment_provider = 3;
+  string provider_project_id = 4;
+  string project_name = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+  string domain = 8;
+  string subdomain_name = 9;
+  google.protobuf.Timestamp expires_at = 10;
+  google.protobuf.Timestamp claimed_at = 11;
+  google.protobuf.Timestamp deprovisioned_at = 12;
+  string project_url = 13;
+  string provider_team_id = 14;
+}
+
+message TextData {
+  string text = 1;
+  string mime_type = 2;
+}
+
+message UserStatus {
+  bool pro = 1;
+  bool disable_telemetry = 2;
+  string name = 3;
+  bool ignore_chat_telemetry_setting = 4;
+  string team_id = 5;
+  UserTeamStatus team_status = 6;
+  string email = 7;
+  repeated TeamsFeatures teams_features = 8;
+  repeated UserFeatures user_features = 9;
+  repeated Permission permissions = 11;
+  PlanInfo plan_info = 12;
+  PlanStatus plan_status = 13;
+  int64 user_used_prompt_credits = 28;
+  int64 user_used_flow_credits = 29;
+  bool has_fingerprint_set = 30;
+  bool has_used_windsurf = 31;
+  TeamConfig team_config = 32;
+  CascadeModelConfigData cascade_model_config_data = 33;
+}
+
+message GitRepoInfo {
+  string name = 1;
+  string owner = 2;
+  string commit = 3;
+  string version_alias = 4;
+  string repo_name = 5;
+  ScmProvider scm_provider = 6;
+  string base_git_url = 7;
+}
+
+message ClientModelSort {
+  string name = 1;
+  repeated ClientModelGroup groups = 2;
+}
+
+message StreamingCompletionResponse {
+  optional CompletionProfile completion_profile = 5;
+  oneof payload {
+    StreamingCompletionInfo completion_info = 1;
+    StreamingCompletionMap completion_map = 2;
+    PackedStreamingCompletionMaps packed_completion_maps = 4;
+  }
+}
+
+message KnowledgeBaseItemWithMetadata {
+  KnowledgeBaseItem knowledge_base_item = 1;
+  float score = 2;
+  string index_name = 3;
+  string document_source_name = 4;
+}
+
+message UserSettings {
+  bool open_most_recent_chat_conversation = 1;
+  Model last_selected_model = 2;
+  ThemePreference theme_preference = 3;
+  ExtensionPanelTab extension_panel_tab = 4;
+  FontSize font_size = 5;
+  AutocompleteSpeed autocomplete_speed = 6;
+  RememberLastModelSelection remember_last_model_selection = 7;
+  string last_selected_model_name = 8;
+  optional Model last_selected_cascade_model = 9;
+  repeated CascadeNUXState cascade_nux_states = 11;
+  optional ConversationalPlannerMode cascade_planner_mode = 13;
+  repeated string cascade_allowed_commands = 14;
+  repeated string cascade_denied_commands = 15;
+  repeated UserNUXState user_nux_states = 17;
+  bool cascade_web_search_disabled = 18;
+  bool disable_autocomplete = 19;
+  bool disable_supercomplete = 20;
+  bool disable_selection_popup = 21;
+  bool disable_explain_problem_inlay_hint = 22;
+  bool disable_inlay_hint_shortcuts = 23;
+  bool disable_open_cascade_on_reload = 24;
+  bool disable_auto_open_edited_files = 25;
+  bool disable_tab_to_jump = 26;
+  CascadeCommandsAutoExecution cascade_auto_execution_policy = 27;
+  optional string last_selected_cascade_id = 28;
+  bool explain_and_fix_in_current_conversation = 29;
+  optional ModelOrAlias last_selected_cascade_model_or_alias = 30;
+  bool allow_cascade_access_gitignore_files = 31;
+  bool disable_cascade_auto_fix_lints = 32;
+  bool disable_cascade_browser_previews = 33;
+  bool detect_proxy = 34;
+  bool disable_tab_to_import = 35;
+  bool use_clipboard_for_completions = 36;
+  bool disable_highlight_after_accept = 37;
+  string last_selected_new_convo_tab = 38;
+  bool disable_auto_generate_memories = 39;
+  bool enable_sounds_for_special_events = 40;
+  bool enable_tab_sounds = 41;
+  bool allow_cascade_in_background = 42;
+  TabToJump tab_to_jump = 43;
+  CascadeWebSearchTool cascade_web_search = 44;
+  bool enable_terminal_completion = 45;
+  optional Model last_model_override = 46;
+  map<string, FeatureUsageData> feature_usage_data = 47;
+  bool disable_cascade_in_background = 48;
+  bool enable_command_cascade_mode = 49;
+  repeated string custom_workspace = 50;
+  map<string, ConversationBrainConfig> conversation_brain_configs = 51;
+  repeated ClientModelConfig cached_cascade_model_configs = 52;
+  repeated ClientModelSort cached_cascade_model_sorts = 53;
+  PlanMode global_plan_mode_preference = 54;
+  bool is_snoozed = 55;
+  CascadeRunExtensionCode cascade_run_extension_code = 56;
+  CascadeRunExtensionCodeAutoRun cascade_run_extension_code_auto_run = 57;
+  optional string last_model_default_override_version_id = 58;
+  AutoContinueOnMaxGeneratorInvocations auto_continue_on_max_generator_invocations = 59;
+  map<uint32, bool> seen_nux_uids = 60;
+  repeated string recently_used_cascade_models = 61;
+  repeated string cascade_dismissed_suggestion_workspaces = 62;
+  AnnotationsConfig annotations_config = 63;
+  bool enable_automatic_screenshot = 64;
+  CascadeInputAutocomplete cascade_input_autocomplete = 65;
+  BrowserExperimentalFeaturesConfig browser_experimental_features_config = 66;
+  CommandPopupAutocomplete command_popup_autocomplete = 67;
+  string claude_code_cli_path = 68;
+  bool claude_code_append_system_prompt = 69;
+  string claude_code_system_prompt = 70;
+  uint32 claude_code_max_turns = 71;
+  string claude_code_mcp_config = 72;
+}
+
+message WorkspaceIndexData {
+  string workspace_uri_for_telemetry = 1;
+  google.protobuf.Timestamp indexing_start = 2;
+  google.protobuf.Timestamp indexing_end = 3;
+  google.protobuf.Duration embedding_duration = 4;
+  int64 num_files_total = 5;
+  int64 num_files_to_embed = 6;
+  int64 num_nodes_total = 7;
+  int64 num_nodes_to_embed = 8;
+  int64 num_tokens = 9;
+  int64 num_high_priority_nodes_to_embed = 10;
+  string error = 11;
+}
+
+message TextOrScopeItem {
+  oneof chunk {
+    string text = 1;
+    ContextScopeItem item = 2;
+  }
+}
+
+message KnowledgeBaseItem {
+  string document_id = 1;
+  string text = 2;
+  string url = 3;
+  string title = 4;
+  google.protobuf.Timestamp timestamp = 5;
+  repeated KnowledgeBaseChunk chunks = 6;
+  string summary = 7;
+  ImageData image = 8;
+  DOMTree dom_tree = 9;
+}
+
+message CompletionExampleWithMetadata {
+  CompletionExample example = 1;
+  string name = 2;
+  google.protobuf.Timestamp time = 4;
+}
+
+message ConsoleLogScopeItem {
+  repeated ConsoleLogLine lines = 1;
+  string server_address = 2;
+}
+
+message ClientModelConfig {
+  string label = 1;
+  ModelOrAlias model_or_alias = 2;
+  float credit_multiplier = 3;
+  bool disabled = 4;
+  bool supports_images = 5;
+  bool supports_legacy = 6;
+  bool is_premium = 7;
+  string beta_warning_message = 8;
+  bool is_beta = 9;
+  ModelProvider provider = 10;
+  bool is_recommended = 11;
+  repeated TeamsTier allowed_tiers = 12;
+  ModelPricingType pricing_type = 13;
+  APIProvider api_provider = 14;
+  bool is_new = 15;
+}
+
+message ImageData {
+  string base64_data = 1;
+  string mime_type = 2;
+  string caption = 3;
+}
+
+message ChatToolCall {
+  string id = 1;
+  string name = 2;
+  string arguments_json = 3;
+  string invalid_json_str = 4;
+  string invalid_json_err = 5;
+}
+
+message Metadata {
+  string ide_name = 1;
+  string extension_version = 2;
+  string api_key = 3;
+  string locale = 4;
+  string os = 5;
+  bool disable_telemetry = 6;
+  string ide_version = 7;
+  string hardware = 8;
+  uint64 request_id = 9;
+  string session_id = 10;
+  string source_address = 11;
+  string extension_name = 12;
+  string user_agent = 13;
+  string url = 14;
+  AuthSource auth_source = 15;
+  google.protobuf.Timestamp ls_timestamp = 16;
+  string extension_path = 17;
+  string user_id = 20;
+  string user_jwt = 21;
+  string force_team_id = 22;
+  string device_fingerprint = 24;
+  string trigger_id = 25;
+  string plan_name = 26;
+  string id = 27;
+  string ide_type = 28;
+}
+
+message KnowledgeBaseScopeItem {
+  string document_id = 1;
+  string display_name = 3;
+  string description = 4;
+  string display_source = 5;
+  string url = 6;
+  IndexChoice index = 7;
+  DocumentType document_type = 8;
+}
+
+message TeamConfig {
+  string team_id = 1;
+  int32 user_prompt_credit_cap = 2;
+  int32 user_flow_credit_cap = 3;
+  bool auto_provision_cascade_seat = 4;
+  bool allow_mcp_servers = 5;
+  bool allow_auto_run_commands = 7;
+  bool allow_custom_recipes = 8;
+  int32 max_unclaimed_sites = 9;
+  bool allow_app_deployments = 10;
+  int32 max_new_sites_per_day = 11;
+  bool allow_github_reviews = 12;
+  bool allow_github_description_edits = 13;
+  string pull_request_review_guidelines = 14;
+  bool disable_tool_calls = 15;
+  string pull_request_description_guidelines = 16;
+  bool allow_individual_level_analytics = 17;
+  optional bool allow_conversation_sharing = 18;
+  bool allow_sandbox_app_deployments = 19;
+  bool allow_teams_app_deployments = 20;
+  optional int32 pull_request_review_rate_limit = 21;
+  bool allow_attribution = 22;
+  repeated McpServerConfig allowed_mcp_servers = 23;
+  bool allow_github_auto_reviews = 24;
+  bool allow_browser_experimental_features = 25;
+  bool disable_tool_call_execution_outside_workspace = 26;
+  bool allow_vibe_and_replace = 27;
+  bool disable_deepwiki = 28;
+  CustomProviderSettings custom_provider_settings = 29;
+}
+
+message SearchResultRecord {
+  string search_id = 1;
+  string result_id = 2;
+  string absolute_path = 3;
+  repeated WorkspacePath workspace_paths = 4;
+  string text = 5;
+  EmbeddingMetadata embedding_metadata = 6;
+  float similarity_score = 7;
+  int64 num_results_in_cluster = 8;
+  string representative_path = 9;
+  float mean_similarity_score = 10;
+  SearchResultType search_result_type = 11;
+}
+
+message TerminalShellCommand {
+  uint32 shell_pid = 1;
+  string command_line = 2;
+  string cwd = 3;
+  bytes output = 4;
+  optional int32 exit_code = 5;
+  google.protobuf.Timestamp start_time = 6;
+  google.protobuf.Timestamp end_time = 7;
+  TerminalShellCommandStatus status = 8;
+  TerminalShellCommandSource source = 9;
+  string id = 10;
+  google.protobuf.Timestamp last_updated_time = 11;
+}
+
+message CompletionConfiguration {
+  uint64 num_completions = 1;
+  uint64 max_tokens = 2;
+  uint64 max_newlines = 3;
+  double min_log_probability = 4;
+  double temperature = 5;
+  double first_temperature = 6;
+  uint64 top_k = 7;
+  double top_p = 8;
+  repeated string stop_patterns = 9;
+  uint64 seed = 10;
+  double fim_eot_prob_threshold = 11;
+  bool use_fim_eot_threshold = 12;
+  bool do_not_score_stop_tokens = 13;
+  bool sqrt_len_normalized_log_prob_score = 14;
+  bool last_message_is_partial = 15;
+  bool return_logprob = 16;
+}
+
+message TerminalCommandData {
+  string terminal_id = 1;
+  string platform = 2;
+  string cwd = 3;
+  string shell_name = 4;
+}
+
+message ExternalModel {
+  bool is_internal = 1;
+  Model model_id = 2;
+  string model_name = 3;
+  string base_url = 4;
+  string api_key = 5;
+  string access_key = 6;
+  string secret_access_key = 7;
+  string region = 8;
+  string project_id = 9;
+  uint32 id = 10;
+  int32 max_completion_tokens = 11;
+  int32 max_input_tokens = 12;
+}
+
+message MetricsRecord {
+  string name = 1;
+  float value = 2;
+  map<string, string> details = 3;
+  bool lower_better = 4;
+  bool is_bool = 5;
+  string error = 6;
+  string trajectory_id = 7;
+}
+
+message PromptAnnotationRange {
+  PromptAnnotationKind kind = 1;
+  uint64 byte_offset_start = 2;
+  uint64 byte_offset_end = 3;
+  string suffix = 4;
+}
+
+message ModelInfo {
+  Model model_id = 1;
+  bool is_internal = 2;
+  ModelType model_type = 3;
+  int32 max_tokens = 4;
+  string tokenizer_type = 5;
+  ModelFeatures model_features = 6;
+  APIProvider api_provider = 7;
+  string model_name = 8;
+  bool supports_context = 9;
+  int32 embed_dim = 10;
+  string base_url = 11;
+  string chat_model_name = 12;
+  int32 max_output_tokens = 13;
+  PromptTemplaterType prompt_templater_type = 14;
+  ToolFormatterType tool_formatter_type = 15;
+}
+
+message CompletionDeltaMap {
+  map<int32, CompletionDelta> deltas = 1;
+  string prompt = 2;
+  CompletionProfile completion_profile = 3;
+}
+
+message Guideline {
+  repeated GuidelineItem items = 1;
+}
+
+message PromptStageLatency {
+  string name = 1;
+  uint64 latency_ms = 2;
+}
+
+message DOMTree {
+  DOMNode root = 1;
+  uint32 num_nodes = 2;
+}
+
+message EmbeddingsRequest {
+  repeated string prompts = 1;
+  EmbeddingPriority priority = 2;
+  EmbeddingPrefix prefix = 3;
+  Model model = 4;
+}
+
+message DeployTarget {
+  DeploymentProvider deployment_provider = 1;
+  bool is_sandbox = 2;
+  string provider_team_id = 3;
+  string provider_team_slug = 4;
+  string domain = 5;
+}
+
+message ChatNodeConfig {
+  Model model = 1;
+  uint32 max_input_tokens = 2;
+  float temperature = 3;
+  uint32 max_output_tokens = 4;
+  bool order_snippets_by_file = 5;
+}
+
+message Repository {
+  string computed_name = 1;
+  string git_origin_url = 2;
+  string git_upstream_url = 3;
+  string reported_name = 4;
+  string model_name = 5;
+  string submodule_url = 6;
+  string submodule_path = 7;
+}
+
+message PlanStatus {
+  PlanInfo plan_info = 1;
+  google.protobuf.Timestamp plan_start = 2;
+  google.protobuf.Timestamp plan_end = 3;
+  int32 available_flex_credits = 4;
+  int32 used_flow_credits = 5;
+  int32 used_prompt_credits = 6;
+  int32 used_flex_credits = 7;
+  int32 available_prompt_credits = 8;
+  int32 available_flow_credits = 9;
+  TopUpStatus top_up_status = 10;
+}
+
+message CaptureFileRequestData {
+  Metadata metadata = 1;
+  string prompt_id = 2;
+  string file_path = 3;
+  string original_file_content = 4;
+  string completion_text = 5;
+  uint64 start_offset = 6;
+  uint64 end_offset = 7;
+  uint64 cursor_line = 8;
+  uint64 cursor_column = 9;
+}
+
+message CodebaseCluster {
+  string name = 1;
+  string description = 2;
+  repeated string file_names = 3;
+  repeated string commit_messages = 4;
+  string id = 5;
+  string codebase_root_uri = 6;
+  repeated string commit_sha = 7;
+  repeated string commit_descriptions = 8;
+  repeated string file_descriptions = 9;
+  string intent = 10;
+}
+
+message WindsurfDeployment {
+  string windsurf_deployment_id = 1;
+  string auth_uid = 2;
+  DeploymentProvider deployment_provider = 3;
+  string project_id = 4;
+  string project_name = 5;
+  string workspace_path = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+  string build_status_url = 9;
+  string project_url = 10;
+  google.protobuf.Timestamp expires_at = 11;
+  string deployment_url = 12;
+  google.protobuf.Timestamp deprovisioned_at = 13;
+  string provider_deployment_id = 14;
+  google.protobuf.Timestamp claimed_at = 15;
+  string domain = 16;
+  string subdomain_name = 17;
+  string windsurf_project_id = 19;
+  string provider_team_id = 20;
+}
+
+message MockResponseData {
+  repeated Completion completions = 1;
+}
+
+message DefaultOverrideModelConfig {
+  ModelOrAlias model_or_alias = 1;
+  string version_id = 2;
+}
+
+message WebAppDeploymentConfig {
+  string project_id = 1;
+  string framework = 2;
+}
+
+message RuleViolation {
+  string id = 1;
+  Rule rule = 2;
+  int32 start_line = 3;
+  int32 end_line = 4;
+}
+
+message PathScopeItem {
+  string absolute_path_migrate_me_to_uri = 1;
+  map<string, string> workspace_relative_paths_migrate_me_to_workspace_uris = 2;
+  uint32 num_files = 3;
+  uint64 num_bytes = 4;
+  string absolute_uri = 5;
+  map<string, string> workspace_uris_to_relative_paths = 6;
+}
+
+message TeamOrganizationalControls {
+  string team_id = 1;
+  repeated string cascade_model_labels = 2;
+  repeated string command_model_labels = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+  repeated string extension_model_labels = 6;
+}
+
+message PromptComponents {
+  Document document = 1;
+  repeated Document other_documents = 2;
+  repeated CodeContextItem code_context_items = 3;
+}
+
+message FunctionInfo {
+  string raw_source = 1;
+  string clean_function = 2;
+  string docstring = 3;
+  string node_name = 4;
+  string params = 5;
+  int32 definition_line = 6;
+  int32 start_line = 7;
+  int32 end_line = 8;
+  int32 start_col = 9;
+  int32 end_col = 10;
+  string leading_whitespace = 11;
+  Language language = 12;
+  int32 body_start_line = 13;
+  int32 body_start_col = 14;
+}
+
+message ContextScopeItem {
+  oneof scope_item {
+    PathScopeItem file = 1;
+    PathScopeItem directory = 2;
+    RepositoryScopeItem repository = 3;
+    CodeContextItem code_context = 4;
+    CciWithSubrange cci_with_subrange = 6;
+    RepositoryPathScopeItem repository_path = 7;
+    KnowledgeBaseScopeItem slack = 8;
+    KnowledgeBaseScopeItem github = 9;
+    FileLineRange file_line_range = 10;
+    TextBlock text_block = 11;
+    KnowledgeBaseScopeItem jira = 12;
+    KnowledgeBaseScopeItem google_drive = 13;
+    ConsoleLogScopeItem console_log = 14;
+    DOMElementScopeItem dom_element = 15;
+    RecipeScopeItem recipe = 16;
+    KnowledgeBaseScopeItem knowledge = 17;
+    RuleScopeItem rule = 18;
+    McpResourceItem mcp_resource = 19;
+    BrowserPageScopeItem browser_page = 20;
+    BrowserCodeBlockScopeItem browser_code_block = 21;
+    BrowserTextScopeItem browser_text = 22;
+    ConversationScopeItem conversation = 23;
+    UserActivityScopeItem user_activity = 24;
+    TerminalScopeItem terminal = 25;
+    GithubPullRequestItem github_pull_request = 26;
+  }
+}
+
+message UserTableStats {
+  string name = 1;
+  string email = 2;
+  google.protobuf.Timestamp last_update_time = 3;
+  string api_key = 4;
+  bool disable_codeium = 5;
+  uint32 active_days = 6;
+  string role = 7;
+  google.protobuf.Timestamp signup_time = 8;
+  google.protobuf.Timestamp last_autocomplete_usage_time = 9;
+  google.protobuf.Timestamp last_chat_usage_time = 10;
+  google.protobuf.Timestamp last_command_usage_time = 11;
+  int64 prompt_credits_used = 12;
+}
+
+message Event {
+  EventType event_type = 1;
+  string event_json = 2;
+  int64 timestamp_unix_ms = 3;
+}
+
+message DocumentOutline {
+  repeated DocumentOutlineElement elements = 1;
+  int64 start_index = 2;
+}
+
+message CompletionByDateEntry {
+  google.protobuf.Timestamp timestamp = 1;
+  CompletionStatistics completion_statistics = 2;
+}
+
+message SuperCompleteFilterReason {
+  string reason = 1;
+}
+
+message McpServerTemplate {
+  string title = 1;
+  string id = 2;
+  string link = 3;
+  string description = 4;
+  map<string, McpServerCommand> commands = 5;
+}
+
+message TeamsFeaturesMetadata {
+  bool is_active = 1;
+  string stripe_subscription_id = 2;
+  bool has_access = 3;
+}
+
+message MQueryConfig {
+  bool should_batch_ccis = 1;
+  int64 max_tokens_per_subrange = 2;
+  int64 num_parser_workers = 3;
+  int64 num_workers_per_distributed_scorer = 4;
+  bool verbose = 5;
+  repeated string ignore_extensions = 6;
+  repeated string ignore_directory_stubs = 7;
+  uint32 min_token_space_for_context = 8;
+  uint32 max_target_files = 9;
+  uint32 top_cci_count = 10;
+}
+
+message PlanInfo {
+  TeamsTier teams_tier = 1;
+  string plan_name = 2;
+  bool has_autocomplete_fast_mode = 3;
+  bool allow_sticky_premium_models = 4;
+  bool has_forge_access = 5;
+  int64 max_num_premium_chat_messages = 6;
+  int64 max_num_chat_input_tokens = 7;
+  int64 max_custom_chat_instruction_characters = 8;
+  int64 max_num_pinned_context_items = 9;
+  int64 max_local_index_size = 10;
+  bool disable_code_snippet_telemetry = 11;
+  int32 monthly_prompt_credits = 12;
+  int32 monthly_flow_credits = 13;
+  int32 monthly_flex_credit_purchase_amount = 14;
+  bool allow_premium_command_models = 15;
+  bool is_enterprise = 16;
+  bool is_teams = 17;
+  bool can_buy_more_credits = 18;
+  bool cascade_web_search_enabled = 19;
+  bool can_customize_app_icon = 20;
+  repeated AllowedModelConfig cascade_allowed_models_config = 21;
+  bool cascade_can_auto_run_commands = 22;
+  bool has_tab_to_jump = 23;
+  TeamConfig default_team_config = 24;
+  bool can_generate_commit_messages = 25;
+  int32 max_unclaimed_sites = 26;
+  bool knowledge_base_enabled = 27;
+  bool can_share_conversations = 28;
+  bool can_allow_cascade_in_background = 29;
+  map<int32, TeamsFeaturesMetadata> default_team_features = 30;
+  bool browser_enabled = 31;
+}
+
+message ChatStatsByModelEntry {
+  Model model_id = 1;
+  ChatStats chat_stats = 2;
+}
+
+message CascadeNUXConfig {
+  uint32 uid = 1;
+  CascadeNUXLocation location = 2;
+  CascadeNUXTrigger trigger = 3;
+  string analytics_event_name = 4;
+  string main_text = 5;
+  string on_hover_explanation = 6;
+  string learn_more_url = 7;
+  int32 priority = 8;
+  CascadeNUXEvent old_nux_event = 9;
+  CascadeNUXIcon icon = 10;
+  bool requires_idle_cascade = 11;
+}
+
+message ThirdPartyWebSearchConfig {
+  ThirdPartyWebSearchProvider provider = 1;
+  ThirdPartyWebSearchModel model = 2;
+}
+
+message KnowledgeBaseGroup {
+  string description = 1;
+  KnowledgeBaseItemWithMetadata item = 2;
+  repeated KnowledgeBaseGroup children = 3;
+}
+
+message LastUpdateRecord {
+  google.protobuf.Timestamp time = 1;
+  LastUpdateType type = 2;
+}
+
+message ModelUsageStats {
+  Model model = 1;
+  uint64 input_tokens = 2;
+  uint64 output_tokens = 3;
+  uint64 cache_write_tokens = 4;
+  uint64 cache_read_tokens = 5;
+  APIProvider api_provider = 6;
+  string message_id = 7;
+  map<string, string> response_header = 8;
+}
+
+message CompletionByLanguageEntry {
+  Language language = 1;
+  CompletionStatistics completion_statistics = 2;
+}
+
+message Status {
+  StatusLevel level = 1;
+  string message = 2;
+}
+
+message BrowserPageMetadata {
+  string url = 1;
+  string page_id = 2;
+  string page_title = 3;
+  uint32 viewport_width = 4;
+  uint32 viewport_height = 5;
+  string favicon_url = 6;
+  google.protobuf.Timestamp last_visited_time = 7;
+}
+
+message ClassInfo {
+  string raw_source = 1;
+  int32 start_line = 2;
+  int32 end_line = 3;
+  int32 start_col = 4;
+  int32 end_col = 5;
+  string leading_whitespace = 6;
+  repeated string fields_and_constructors = 7;
+  string docstring = 8;
+  string node_name = 9;
+  repeated FunctionInfo methods = 10;
+  repeated string node_lineage = 11;
+  bool is_exported = 12;
+  Language language = 13;
+  int32 definition_line = 14;
+}
+
+message CompletionWithLatencyInfo {
+  Completion completion = 1;
+  CompletionLatencyInfo latency_info = 2;
+}
+
+message ExperimentConfig {
+  repeated ExperimentKey force_enable_experiments = 1;
+  repeated ExperimentKey force_disable_experiments = 2;
+  repeated ExperimentWithVariant force_enable_experiments_with_variants = 3;
+  repeated string force_enable_experiment_strings = 4;
+  repeated string force_disable_experiment_strings = 5;
+  repeated ExperimentWithVariant experiments = 6;
+  bool dev_mode = 7;
+}
+
+message ErrorTrace {
+  string error_id = 1;
+  int64 timestamp_unix_ms = 2;
+  string stacktrace = 3;
+  bool recovered = 4;
+}
+
+message WorkspaceStats {
+  map<int32, int64> num_files = 1;
+  map<int32, int64> num_bytes = 2;
+  string workspace = 3;
+  bool initial_scan_completed = 4;
+}
+
+message CciWithSubrange {
+  CodeContextItem cci = 1;
+  ContextSubrange subrange = 2;
+}
+
+message CompletionProfile {
+  SingleModelCompletionProfile model_profile = 1;
+  optional SingleModelCompletionProfile draft_model_profile = 2;
+  double time_to_first_prefill_pass = 3;
+  double time_to_first_token = 4;
+  double total_completion_time = 5;
+  optional ModelUsageStats model_usage = 6;
+}
+
+message CommandStats {
+  uint64 num_commands = 1;
+  uint64 num_commands_accepted = 2;
+  uint64 num_commands_rejected = 3;
+  uint64 num_edits = 4;
+  uint64 num_generations = 5;
+  uint64 loc_added = 6;
+  uint64 loc_removed = 7;
+  uint64 bytes_added = 8;
+  uint64 bytes_removed = 9;
+  uint64 loc_selected = 10;
+  uint64 bytes_selected = 11;
+  map<string, uint64> num_commands_by_source = 12;
+}
+
+message CompletionStatistics {
+  uint32 num_acceptances = 1;
+  uint32 num_rejections = 2;
+  uint32 num_lines_accepted = 3;
+  uint32 num_bytes_accepted = 4;
+  uint32 num_users = 5;
+  uint32 active_developer_days = 6;
+  uint32 active_developer_hours = 7;
+}
+
+message ChatStatsByDateEntry {
+  google.protobuf.Timestamp timestamp = 1;
+  ChatStats chat_stats = 2;
+}
+
+message CodeDiagnostic {
+  Range range = 1;
+  string message = 2;
+  string severity = 3;
+  string source = 4;
+  string uri = 5;
+  optional string id = 6;
+  Language language = 7;
+  int64 score = 8;
+}
+
+message GraphExecutionState {
+  NodeExecutionRecord current = 1;
+  repeated NodeExecutionRecord history = 2;
+}
+
+message CompletionExample {
+  string uid = 1;
+  string completion_id = 2;
+  string file_path = 3;
+  string short_prefix = 4;
+  string completion_text = 5;
+  string short_suffix = 6;
+}
+
+message SnippetWithWordCount {
+  string snippet = 1;
+  map<string, WordCount> word_count_by_splitter = 2;
+}
+
+message PromptElementRange {
+  PromptElementKind kind = 1;
+  uint64 byte_offset_start = 2;
+  uint64 byte_offset_end = 3;
+  uint64 token_offset_start = 4;
+  uint64 token_offset_end = 5;
+}
+
+message PromptElementKindInfo {
+  PromptElementKind kind = 1;
+  ExperimentKey experiment_key = 2;
+  bool enabled = 3;
+  uint64 num_considered = 4;
+  uint64 num_included = 5;
+}
+
+message Range {
+  uint64 start_offset = 1;
+  uint64 end_offset = 2;
+  DocumentPosition start_position = 3;
+  DocumentPosition end_position = 4;
+}
+
+message DocumentPosition {
+  uint64 row = 1;
+  uint64 col = 2;
+}
+
+message Completion {
+  string completion_id = 1;
+  string text = 2;
+  string stop = 4;
+  double score = 5;
+  repeated uint64 tokens = 6;
+  repeated string decoded_tokens = 7;
+  repeated double probabilities = 8;
+  repeated double adjusted_probabilities = 9;
+  uint64 generated_length = 10;
+  StopReason stop_reason = 12;
+  repeated FilterReason filter_reasons = 13;
+  string original_text = 14;
+  repeated ChatToolCall tool_calls = 15;
+  repeated double logprobs = 16;
+  string request_uid = 17;
+}
+
+message IndexerDbStats {
+  oneof backend {
+    LocalSqliteFaissDbStats local_sqlite_faiss = 1;
+    PostgresDbStats postgres = 2;
+  }
+}
+
+message CascadeModelConfigData {
+  repeated ClientModelConfig client_model_configs = 1;
+  repeated ClientModelSort client_model_sorts = 2;
+  optional DefaultOverrideModelConfig default_override_model_config = 3;
+}
+
+message ClientModelGroup {
+  string group_name = 1;
+  repeated string model_labels = 2;
+}
+
+message StreamingCompletionInfo {
+  repeated string completion_ids = 1;
+  uint64 max_tokens = 2;
+  double temperature = 3;
+  uint64 top_k = 4;
+  double top_p = 5;
+  repeated string stop_patterns = 6;
+  uint64 prompt_length = 7;
+  string model_tag = 8;
+  string prompt_id = 9;
+  CompletionsRequest completions_request = 10;
+  StreamingEvalSuffixInfo eval_suffix_info = 11;
+}
+
+message StreamingCompletionMap {
+  map<int32, StreamingCompletion> completions = 1;
+}
+
+message PackedStreamingCompletionMaps {
+  repeated StreamingCompletionMap completion_maps = 1;
+}
+
+message CascadeNUXState {
+  CascadeNUXEvent event = 1;
+  google.protobuf.Timestamp timestamp = 2;
+}
+
+message UserNUXState {
+  UserNUXEvent event = 1;
+  google.protobuf.Timestamp timestamp = 2;
+}
+
+message FeatureUsageData {
+  bool has_used = 1;
+}
+
+message ConversationBrainConfig {
+  PlanMode plan_mode = 1;
+}
+
+message KnowledgeBaseChunk {
+  int32 position = 2;
+  oneof chunk_type {
+    string text = 1;
+    MarkdownChunk markdown_chunk = 3;
+  }
+}
+
+message ConsoleLogLine {
+  string timestamp_str = 1;
+  string type = 2;
+  string output = 3;
+  string console_message_location = 4;
+}
+
+message McpServerConfig {
+  string server_id = 1;
+  oneof configuration {
+    McpLocalServer local = 2;
+    McpRemoteServer remote = 3;
+  }
+}
+
+message CustomProviderSettings {
+  string custom_api_server_endpoint = 1;
+  repeated ClientModelConfig cascade_model_configs = 2;
+  repeated ClientModelConfig command_model_configs = 3;
+  Model fallback_model = 4;
+}
+
+message EmbeddingMetadata {
+  string node_name = 1;
+  uint32 start_line = 2;
+  uint32 end_line = 3;
+  EmbedType embed_type = 4;
+}
+
+message ModelFeatures {
+  bool supports_context_tokens = 2;
+  bool requires_instruct_tags = 3;
+  bool requires_fim_context = 4;
+  bool requires_context_snippet_prefix = 5;
+  bool requires_context_relevance_tags = 6;
+  bool requires_llama3_tokens = 7;
+  bool zero_shot_capable = 8;
+  bool requires_autocomplete_as_command = 9;
+  bool supports_cursor_aware_supercomplete = 10;
+  bool supports_images = 11;
+  bool supports_tool_calls = 12;
+  bool supports_cumulative_context = 13;
+  bool tab_jump_print_line_range = 14;
+  bool supports_thinking = 15;
+  bool supports_estimate_token_counter = 17;
+  bool add_cursor_to_find_replace_target = 18;
+  bool supports_tab_jump_use_whole_document = 19;
+  bool supports_image_captions = 20;
+  bool supports_parallel_tool_calls = 21;
+}
+
+message CompletionDelta {
+  string delta_text = 1;
+  uint32 delta_tokens = 2;
+  StopReason stop_reason = 3;
+  ModelUsageStats usage = 4;
+  repeated ChatToolCall delta_tool_calls = 5;
+  string delta_thinking = 6;
+  string delta_signature = 7;
+  bool thinking_redacted = 8;
+  string output_id = 9;
+  string thinking_id = 10;
+}
+
+message GuidelineItem {
+  string guideline = 1;
+}
+
+message DOMNode {
+  repeated DOMNode children = 1;
+  string tag_name = 2;
+  string id = 3;
+  repeated string class_names = 4;
+  string text_content = 5;
+  BoundingBox bbox = 6;
+  string aria_label = 7;
+  string title = 8;
+  string alt = 9;
+  string placeholder = 10;
+  string href = 11;
+}
+
+message TopUpStatus {
+  TransactionStatus top_up_transaction_status = 1;
+  bool top_up_enabled = 2;
+  int32 monthly_top_up_amount = 3;
+  int32 top_up_spent = 4;
+  int32 top_up_increment = 5;
+  bool top_up_criteria_met = 6;
+}
+
+message RepositoryScopeItem {
+  GitRepoInfo repo_info = 1;
+}
+
+message RepositoryPathScopeItem {
+  GitRepoInfo repo_info = 1;
+  string relative_path = 2;
+  bool is_dir = 3;
+}
+
+message FileLineRange {
+  string absolute_uri = 1;
+  uint32 start_line = 2;
+  uint32 end_line = 3;
+}
+
+message TextBlock {
+  string content = 1;
+  oneof identifier {
+    FileLineRange file_line_range = 2;
+    string label = 3;
+  }
+}
+
+message DOMElementScopeItem {
+  string tag_name = 1;
+  string outer_html = 2;
+  string id = 3;
+  string react_component_name = 4;
+  FileLineRange file_line_range = 5;
+}
+
+message RecipeScopeItem {
+  string recipe_id = 1;
+  string title = 2;
+  string description = 3;
+  string system_prompt = 4;
+  optional string uri = 5;
+  optional CascadeCommandsAutoExecution execution_mode = 6;
+}
+
+message RuleScopeItem {
+  string rule_path = 1;
+  string rule_name = 2;
+  string description = 3;
+}
+
+message McpResourceItem {
+  string uri = 1;
+  string name = 2;
+  optional string description = 3;
+  optional string mime_type = 4;
+  string server_name = 5;
+}
+
+message BrowserPageScopeItem {
+  string url = 1;
+  string title = 2;
+  string visible_text_content = 3;
+  string page_id = 4;
+}
+
+message BrowserCodeBlockScopeItem {
+  string url = 1;
+  string title = 2;
+  string code_content = 3;
+  Language language = 4;
+  optional string context_text = 5;
+  string page_id = 6;
+}
+
+message BrowserTextScopeItem {
+  string url = 1;
+  string visible_text = 2;
+  string page_id = 3;
+}
+
+message ConversationScopeItem {
+  string id = 1;
+  string title = 2;
+  google.protobuf.Timestamp last_modified_time = 3;
+}
+
+message UserActivityScopeItem {
+  string id = 1;
+  string branch = 2;
+  bool current = 3;
+}
+
+message TerminalScopeItem {
+  string process_id = 1;
+  string name = 2;
+  string last_command = 3;
+  string content = 4;
+}
+
+message GithubPullRequestItem {
+  string url = 1;
+  string title = 2;
+  string owner = 3;
+  string number = 4;
+}
+
+message DocumentOutlineElement {
+  oneof element {
+    CodeContextItem code_context_item = 1;
+    DocumentLinesElement document_lines_element = 2;
+    string text = 3;
+  }
+}
+
+message McpServerCommand {
+  McpCommandTemplate template = 1;
+  repeated McpCommandVariable variables = 2;
+}
+
+message AllowedModelConfig {
+  ModelOrAlias model_or_alias = 1;
+  float credit_multiplier = 2;
+}
+
+message CompletionLatencyInfo {
+  uint64 api_server_latency_ms = 1;
+  uint64 language_server_latency_ms = 2;
+  uint64 network_latency_ms = 3;
+  uint64 api_server_first_byte_latency_ms = 4;
+  uint64 language_server_first_byte_latency_ms = 5;
+  uint64 network_first_byte_latency_ms = 6;
+  uint64 api_server_first_line_latency_ms = 7;
+  uint64 language_server_first_line_latency_ms = 8;
+  uint64 network_first_line_latency_ms = 9;
+}
+
+message ExperimentWithVariant {
+  ExperimentKey key = 1;
+  string key_string = 5;
+  bool disabled = 6;
+  ExperimentSource source = 7;
+  oneof payload {
+    string string = 2;
+    string json = 3;
+    string csv = 4;
+  }
+}
+
+message ContextSubrange {
+  ContextSnippetType snippet_type = 1;
+  int64 start_offset = 2;
+  int64 end_offset = 3;
+}
+
+message SingleModelCompletionProfile {
+  double total_prefill_pass_time = 1;
+  double avg_prefill_pass_time = 2;
+  uint64 num_prefill_passes = 3;
+  double total_generation_pass_time = 4;
+  double avg_generation_pass_time = 5;
+  uint64 num_generation_passes = 6;
+  double total_spec_copy_pass_time = 7;
+  double avg_spec_copy_pass_time = 8;
+  uint64 num_spec_copy_passes = 9;
+  double total_model_time = 10;
+}
+
+message NodeExecutionRecord {
+  string node_name = 1;
+  google.protobuf.Timestamp start_time = 2;
+  google.protobuf.Timestamp end_time = 3;
+  GraphExecutionState subgraph_execution = 4;
+  bytes graph_state_json = 5;
+  uint64 graph_state_json_num_bytes = 6;
+}
+
+message WordCount {
+  map<string, int64> word_count_map = 1;
+}
+
+message LocalSqliteFaissDbStats {
+  repeated FaissStateStats faiss_state_stats = 1;
+  int64 total_item_count = 2;
+  bool quantized = 3;
+}
+
+message PostgresDbStats {
+}
+
+message StreamingEvalSuffixInfo {
+  repeated float per_token_log_likelihoods = 1;
+  bool is_greedy = 2;
+}
+
+message StreamingCompletion {
+  bytes decoded_token = 1;
+  uint64 token = 2;
+  double probability = 3;
+  double adjusted_probability = 4;
+  bool completion_finished = 5;
+  string stop = 6;
+  StopReason stop_reason = 7;
+  map<uint32, AttributionStatus> attribution_statuses = 8;
+  double logprob = 9;
+}
+
+message MarkdownChunk {
+  repeated MarkdownHeader headers = 1;
+  string text = 2;
+}
+
+message McpLocalServer {
+  string command = 1;
+  repeated string args = 2;
+  map<string, string> env = 3;
+}
+
+message McpRemoteServer {
+  string type = 1;
+  string url = 2;
+  map<string, string> headers = 3;
+}
+
+message BoundingBox {
+  float x = 1;
+  float y = 2;
+  float width = 3;
+  float height = 4;
+}
+
+message DocumentLinesElement {
+  DocumentQuery document_query = 1;
+  repeated CodeContextItem overlapped_code_context_items = 2;
+  uint32 first_element_suffix_overlap = 3;
+  uint32 last_element_prefix_overlap = 4;
+}
+
+message McpCommandTemplate {
+  string command = 1;
+  repeated string args = 2;
+  map<string, string> env = 3;
+}
+
+message McpCommandVariable {
+  string name = 1;
+  string title = 2;
+  string description = 3;
+  string link = 4;
+}
+
+message FaissStateStats {
+  EmbeddingSource embedding_source = 1;
+  string workspace = 2;
+  int64 item_count = 3;
+}
+
+message MarkdownHeader {
+  MarkdownNodeType type = 1;
+  string text = 2;
+}
+
+message DocumentQuery {
+  string text = 1;
+  int32 cursor_offset = 2;
+  uint32 start_line = 3;
+  uint32 end_line = 4;
+  bool use_character_position = 5;
+}
 
 enum ProviderSource {
   PROVIDER_SOURCE_UNSPECIFIED = 0;
@@ -38,9 +1564,12 @@ enum PromptElementKind {
 
 enum PromptAnnotationKind {
   PROMPT_ANNOTATION_KIND_UNSPECIFIED = 0;
-  UNSPECIFIED = 0;
   PROMPT_ANNOTATION_KIND_COPY = 1;
   PROMPT_ANNOTATION_KIND_PROMPT_CACHE = 2;
+}
+
+enum ExperimentKey {
+  UNSPECIFIED = 0;
   USE_INTERNAL_CHAT_MODEL = 36;
   RECORD_FILES = 47;
   NO_SAMPLER_EARLY_STOP = 48;
@@ -492,14 +2021,17 @@ enum DeepWikiModelType {
 
 enum PromptElementExclusionReason {
   EXCLUSION_UNSPECIFIED = 0;
-  STOP_REASON_UNSPECIFIED = 0;
   EXCLUSION_ELEMENT_KIND_DISABLED = 1;
-  STOP_REASON_INCOMPLETE = 1;
   EXCLUSION_ELEMENT_MISSING_DEPENDENCY = 2;
-  STOP_REASON_STOP_PATTERN = 2;
   EXCLUSION_TOKEN_BUDGET = 3;
-  STOP_REASON_MAX_TOKENS = 3;
   EXCLUSION_ACTIVE_SOURCE_OVERLAP = 4;
+}
+
+enum StopReason {
+  STOP_REASON_UNSPECIFIED = 0;
+  STOP_REASON_INCOMPLETE = 1;
+  STOP_REASON_STOP_PATTERN = 2;
+  STOP_REASON_MAX_TOKENS = 3;
   STOP_REASON_MIN_LOG_PROB = 4;
   STOP_REASON_MAX_NEWLINES = 5;
   STOP_REASON_EXIT_SCOPE = 6;
@@ -882,10 +2414,13 @@ enum GpuType {
 
 enum ContextInclusionType {
   CONTEXT_INCLUSION_TYPE_UNSPECIFIED = 0;
-  THEME_PREFERENCE_UNSPECIFIED = 0;
   CONTEXT_INCLUSION_TYPE_INCLUDE = 1;
-  THEME_PREFERENCE_AUTO = 1;
   CONTEXT_INCLUSION_TYPE_EXCLUDE = 2;
+}
+
+enum ThemePreference {
+  THEME_PREFERENCE_UNSPECIFIED = 0;
+  THEME_PREFERENCE_AUTO = 1;
   THEME_PREFERENCE_LIGHT = 2;
   THEME_PREFERENCE_DARK = 3;
 }
@@ -906,12 +2441,15 @@ enum AutocompleteSpeed {
 
 enum CascadeCommandsAutoExecution {
   CASCADE_COMMANDS_AUTO_EXECUTION_UNSPECIFIED = 0;
-  EXTENSION_PANEL_TAB_UNSPECIFIED = 0;
   CASCADE_COMMANDS_AUTO_EXECUTION_OFF = 1;
-  EXTENSION_PANEL_TAB_CHAT = 1;
   CASCADE_COMMANDS_AUTO_EXECUTION_AUTO = 2;
-  EXTENSION_PANEL_TAB_PROFILE = 2;
   CASCADE_COMMANDS_AUTO_EXECUTION_EAGER = 3;
+}
+
+enum ExtensionPanelTab {
+  EXTENSION_PANEL_TAB_UNSPECIFIED = 0;
+  EXTENSION_PANEL_TAB_CHAT = 1;
+  EXTENSION_PANEL_TAB_PROFILE = 2;
   EXTENSION_PANEL_TAB_BRAIN = 4;
   EXTENSION_PANEL_TAB_COMMAND = 5;
   EXTENSION_PANEL_TAB_CORTEX = 6;
@@ -920,10 +2458,13 @@ enum CascadeCommandsAutoExecution {
 
 enum RememberLastModelSelection {
   REMEMBER_LAST_MODEL_SELECTION_UNSPECIFIED = 0;
-  CASCADE_NUX_EVENT_UNSPECIFIED = 0;
   REMEMBER_LAST_MODEL_SELECTION_ENABLED = 1;
-  CASCADE_NUX_EVENT_DIFF_OVERVIEW = 1;
   REMEMBER_LAST_MODEL_SELECTION_DISABLED = 2;
+}
+
+enum CascadeNUXEvent {
+  CASCADE_NUX_EVENT_UNSPECIFIED = 0;
+  CASCADE_NUX_EVENT_DIFF_OVERVIEW = 1;
   CASCADE_NUX_EVENT_WEB_SEARCH = 2;
   CASCADE_NUX_EVENT_NEW_MODELS_WAVE2 = 3;
   CASCADE_NUX_EVENT_TOOL_CALL = 4;
@@ -946,35 +2487,53 @@ enum UserNUXEvent {
 
 enum ConversationalPlannerMode {
   CONVERSATIONAL_PLANNER_MODE_UNSPECIFIED = 0;
-  TAB_TO_JUMP_UNSPECIFIED = 0;
   CONVERSATIONAL_PLANNER_MODE_DEFAULT = 1;
-  TAB_TO_JUMP_ENABLED = 1;
   CONVERSATIONAL_PLANNER_MODE_READ_ONLY = 2;
-  TAB_TO_JUMP_DISABLED = 2;
   CONVERSATIONAL_PLANNER_MODE_NO_TOOL = 3;
+}
+
+enum TabToJump {
+  TAB_TO_JUMP_UNSPECIFIED = 0;
+  TAB_TO_JUMP_ENABLED = 1;
+  TAB_TO_JUMP_DISABLED = 2;
 }
 
 enum CascadeWebSearchTool {
   CASCADE_WEB_SEARCH_TOOL_UNSPECIFIED = 0;
-  CASCADE_RUN_EXTENSION_CODE_UNSPECIFIED = 0;
-  CASCADE_INPUT_AUTOCOMPLETE_UNSPECIFIED = 0;
-  COMMAND_POPUP_AUTOCOMPLETE_UNSPECIFIED = 0;
-  CASCADE_RUN_EXTENSION_CODE_AUTO_RUN_UNSPECIFIED = 0;
-  FEATURE_USAGE_TYPE_UNSPECIFIED = 0;
   CASCADE_WEB_SEARCH_TOOL_ENABLED = 1;
-  CASCADE_RUN_EXTENSION_CODE_ENABLED = 1;
-  CASCADE_INPUT_AUTOCOMPLETE_ENABLED = 1;
-  COMMAND_POPUP_AUTOCOMPLETE_ENABLED = 1;
-  CASCADE_RUN_EXTENSION_CODE_AUTO_RUN_ENABLED = 1;
-  FEATURE_USAGE_TYPE_CASCADE_BROWSER = 1;
   CASCADE_WEB_SEARCH_TOOL_DISABLED = 2;
+}
+
+enum CascadeRunExtensionCode {
+  CASCADE_RUN_EXTENSION_CODE_UNSPECIFIED = 0;
+  CASCADE_RUN_EXTENSION_CODE_ENABLED = 1;
   CASCADE_RUN_EXTENSION_CODE_DISABLED = 2;
-  CASCADE_INPUT_AUTOCOMPLETE_DISABLED = 2;
-  COMMAND_POPUP_AUTOCOMPLETE_DISABLED = 2;
-  CASCADE_RUN_EXTENSION_CODE_AUTO_RUN_DISABLED = 2;
-  FEATURE_USAGE_TYPE_CASCADE_WEB_AT_MENTION = 2;
   CASCADE_RUN_EXTENSION_CODE_ONLY = 3;
+}
+
+enum CascadeInputAutocomplete {
+  CASCADE_INPUT_AUTOCOMPLETE_UNSPECIFIED = 0;
+  CASCADE_INPUT_AUTOCOMPLETE_ENABLED = 1;
+  CASCADE_INPUT_AUTOCOMPLETE_DISABLED = 2;
+}
+
+enum CommandPopupAutocomplete {
+  COMMAND_POPUP_AUTOCOMPLETE_UNSPECIFIED = 0;
+  COMMAND_POPUP_AUTOCOMPLETE_ENABLED = 1;
+  COMMAND_POPUP_AUTOCOMPLETE_DISABLED = 2;
+}
+
+enum CascadeRunExtensionCodeAutoRun {
+  CASCADE_RUN_EXTENSION_CODE_AUTO_RUN_UNSPECIFIED = 0;
+  CASCADE_RUN_EXTENSION_CODE_AUTO_RUN_ENABLED = 1;
+  CASCADE_RUN_EXTENSION_CODE_AUTO_RUN_DISABLED = 2;
   CASCADE_RUN_EXTENSION_CODE_AUTO_RUN_MODEL_DECIDES = 3;
+}
+
+enum FeatureUsageType {
+  FEATURE_USAGE_TYPE_UNSPECIFIED = 0;
+  FEATURE_USAGE_TYPE_CASCADE_BROWSER = 1;
+  FEATURE_USAGE_TYPE_CASCADE_WEB_AT_MENTION = 2;
   FEATURE_USAGE_TYPE_CASCADE_REVERT_TO_STEP = 3;
   FEATURE_USAGE_TYPE_CASCADE_CLICK_MODEL_SELECTOR = 4;
   FEATURE_USAGE_TYPE_CASCADE_MESSAGE_FEEDBACK = 5;
@@ -988,10 +2547,13 @@ enum PlanMode {
 
 enum AutoContinueOnMaxGeneratorInvocations {
   AUTO_CONTINUE_ON_MAX_GENERATOR_INVOCATIONS_UNSPECIFIED = 0;
-  CASCADE_NUX_LOCATION_UNSPECIFIED = 0;
   AUTO_CONTINUE_ON_MAX_GENERATOR_INVOCATIONS_ENABLED = 1;
-  CASCADE_NUX_LOCATION_CASCADE_INPUT = 1;
   AUTO_CONTINUE_ON_MAX_GENERATOR_INVOCATIONS_DISABLED = 2;
+}
+
+enum CascadeNUXLocation {
+  CASCADE_NUX_LOCATION_UNSPECIFIED = 0;
+  CASCADE_NUX_LOCATION_CASCADE_INPUT = 1;
   CASCADE_NUX_LOCATION_MODEL_SELECTOR = 2;
   CASCADE_NUX_LOCATION_RULES_TAB = 4;
   CASCADE_NUX_LOCATION_REVERT_STEP = 6;
@@ -1021,10 +2583,13 @@ enum AnnotationsConfig {
 
 enum BrowserExperimentalFeaturesConfig {
   BROWSER_EXPERIMENTAL_FEATURES_CONFIG_UNSPECIFIED = 0;
-  MODEL_TYPE_UNSPECIFIED = 0;
   BROWSER_EXPERIMENTAL_FEATURES_CONFIG_ENABLED = 1;
-  MODEL_TYPE_COMPLETION = 1;
   BROWSER_EXPERIMENTAL_FEATURES_CONFIG_DISABLED = 2;
+}
+
+enum ModelType {
+  MODEL_TYPE_UNSPECIFIED = 0;
+  MODEL_TYPE_COMPLETION = 1;
   MODEL_TYPE_CHAT = 2;
   MODEL_TYPE_EMBED = 3;
   MODEL_TYPE_QUERY = 4;
@@ -1126,15 +2691,10 @@ enum ContextScopeType {
 
 enum CommandRequestSource {
   COMMAND_REQUEST_SOURCE_UNSPECIFIED = 0;
-  STATUS_LEVEL_UNSPECIFIED = 0;
   COMMAND_REQUEST_SOURCE_DEFAULT = 1;
-  STATUS_LEVEL_ERROR = 1;
   COMMAND_REQUEST_SOURCE_FUNCTION_CODE_LENS = 2;
-  STATUS_LEVEL_WARNING = 2;
   COMMAND_REQUEST_SOURCE_CLASS_CODE_LENS = 3;
-  STATUS_LEVEL_INFO = 3;
   COMMAND_REQUEST_SOURCE_RIGHT_CLICK_REFACTOR = 4;
-  STATUS_LEVEL_DEBUG = 4;
   COMMAND_REQUEST_SOURCE_SELECTION_HINT_CODE_LENS = 5;
   COMMAND_REQUEST_SOURCE_LINE_HINT_CODE_LENS = 6;
   COMMAND_REQUEST_SOURCE_PLAN = 7;
@@ -1147,6 +2707,14 @@ enum CommandRequestSource {
   COMMAND_REQUEST_SOURCE_TAB_JUMP = 14;
   COMMAND_REQUEST_SOURCE_TERMINAL_SUGGESTIONS = 15;
   COMMAND_REQUEST_SOURCE_CASCADE_CHAT = 16;
+}
+
+enum StatusLevel {
+  STATUS_LEVEL_UNSPECIFIED = 0;
+  STATUS_LEVEL_ERROR = 1;
+  STATUS_LEVEL_WARNING = 2;
+  STATUS_LEVEL_INFO = 3;
+  STATUS_LEVEL_DEBUG = 4;
 }
 
 enum CortexErrorCategory {
@@ -1166,30 +2734,36 @@ enum LastUpdateType {
 
 enum OnboardingActionType {
   ONBOARDING_ACTION_TYPE_UNSPECIFIED = 0;
-  SUPERCOMPLETE_TRIGGER_CONDITION_UNSPECIFIED = 0;
-  EVENT_UNSPECIFIED = 0;
   ONBOARDING_ACTION_TYPE_AUTOCOMPLETE = 1;
-  SUPERCOMPLETE_TRIGGER_CONDITION_AUTOCOMPLETE_ACCEPT = 1;
-  LS_DOWNLOAD_START = 1;
   ONBOARDING_ACTION_TYPE_COMMAND = 2;
-  SUPERCOMPLETE_TRIGGER_CONDITION_CURSOR_LINE_NAVIGATION = 2;
-  LS_DOWNLOAD_COMPLETE = 2;
   ONBOARDING_ACTION_TYPE_CHAT = 3;
+}
+
+enum SupercompleteTriggerCondition {
+  SUPERCOMPLETE_TRIGGER_CONDITION_UNSPECIFIED = 0;
+  SUPERCOMPLETE_TRIGGER_CONDITION_AUTOCOMPLETE_ACCEPT = 1;
+  SUPERCOMPLETE_TRIGGER_CONDITION_CURSOR_LINE_NAVIGATION = 2;
   SUPERCOMPLETE_TRIGGER_CONDITION_TYPING = 3;
-  LS_STARTUP = 3;
   SUPERCOMPLETE_TRIGGER_CONDITION_FORCED = 4;
-  LS_FAILURE = 4;
   SUPERCOMPLETE_TRIGGER_CONDITION_TAB_JUMP_ACCEPT = 5;
-  LS_DOWNLOAD_FAILURE = 5;
   SUPERCOMPLETE_TRIGGER_CONDITION_SUPERCOMPLETE_ACCEPT = 6;
-  AUTOCOMPLETE_ACCEPTED = 6;
   SUPERCOMPLETE_TRIGGER_CONDITION_TAB_JUMP_PREDICTIVE = 7;
-  AUTOCOMPLETE_ONE_WORD_ACCEPTED = 7;
   SUPERCOMPLETE_TRIGGER_CONDITION_AUTOCOMPLETE_PREDICTIVE = 8;
-  CHAT_MESSAGE_SENT = 8;
   SUPERCOMPLETE_TRIGGER_CONDITION_SUPERCOMPLETE_PREDICTIVE = 9;
-  COMMAND_BOX_OPENED = 9;
   SUPERCOMPLETE_TRIGGER_CONDITION_TAB_JUMP_EDIT = 10;
+}
+
+enum ProductEventType {
+  EVENT_UNSPECIFIED = 0;
+  LS_DOWNLOAD_START = 1;
+  LS_DOWNLOAD_COMPLETE = 2;
+  LS_STARTUP = 3;
+  LS_FAILURE = 4;
+  LS_DOWNLOAD_FAILURE = 5;
+  AUTOCOMPLETE_ACCEPTED = 6;
+  AUTOCOMPLETE_ONE_WORD_ACCEPTED = 7;
+  CHAT_MESSAGE_SENT = 8;
+  COMMAND_BOX_OPENED = 9;
   COMMAND_SUBMITTED = 10;
   COMMAND_ACCEPTED = 11;
   COMMAND_REJECTED = 12;
@@ -1436,22 +3010,31 @@ enum MarkdownNodeType {
 
 enum TerminalShellCommandSource {
   TERMINAL_SHELL_COMMAND_SOURCE_UNSPECIFIED = 0;
-  TERMINAL_SHELL_COMMAND_STATUS_UNSPECIFIED = 0;
-  DEPLOYMENT_BUILD_STATUS_UNSPECIFIED = 0;
-  DEPLOYMENT_PROVIDER_UNSPECIFIED = 0;
   TERMINAL_SHELL_COMMAND_SOURCE_USER = 1;
-  TERMINAL_SHELL_COMMAND_STATUS_RUNNING = 1;
-  DEPLOYMENT_BUILD_STATUS_QUEUED = 1;
-  DEPLOYMENT_PROVIDER_VERCEL = 1;
   TERMINAL_SHELL_COMMAND_SOURCE_CASCADE = 2;
+}
+
+enum TerminalShellCommandStatus {
+  TERMINAL_SHELL_COMMAND_STATUS_UNSPECIFIED = 0;
+  TERMINAL_SHELL_COMMAND_STATUS_RUNNING = 1;
   TERMINAL_SHELL_COMMAND_STATUS_COMPLETED = 2;
+}
+
+enum DeploymentBuildStatus {
+  DEPLOYMENT_BUILD_STATUS_UNSPECIFIED = 0;
+  DEPLOYMENT_BUILD_STATUS_QUEUED = 1;
   DEPLOYMENT_BUILD_STATUS_INITIALIZING = 2;
-  DEPLOYMENT_PROVIDER_NETLIFY = 2;
   DEPLOYMENT_BUILD_STATUS_BUILDING = 3;
-  DEPLOYMENT_PROVIDER_CLOUDFLARE = 3;
   DEPLOYMENT_BUILD_STATUS_ERROR = 4;
   DEPLOYMENT_BUILD_STATUS_READY = 5;
   DEPLOYMENT_BUILD_STATUS_CANCELED = 6;
+}
+
+enum DeploymentProvider {
+  DEPLOYMENT_PROVIDER_UNSPECIFIED = 0;
+  DEPLOYMENT_PROVIDER_VERCEL = 1;
+  DEPLOYMENT_PROVIDER_NETLIFY = 2;
+  DEPLOYMENT_PROVIDER_CLOUDFLARE = 3;
 }
 
 enum ValidationStatus {
@@ -1485,1760 +3068,32 @@ enum ToolFormatterType {
 
 enum BrowserInstallationStatus {
   BROWSER_INSTALLATION_STATUS_UNSPECIFIED = 0;
-  TRAJECTORY_TYPE_UNSPECIFIED = 0;
   BROWSER_INSTALLATION_STATUS_NOT_INSTALLED = 1;
-  TRAJECTORY_TYPE_CASCADE = 1;
   BROWSER_INSTALLATION_STATUS_IN_PROGRESS = 2;
-  TRAJECTORY_TYPE_MAINLINE_TRAJECTORY = 2;
   BROWSER_INSTALLATION_STATUS_COMPLETE = 3;
   BROWSER_INSTALLATION_STATUS_ERROR = 4;
 }
 
+enum TrajectoryType {
+  TRAJECTORY_TYPE_UNSPECIFIED = 0;
+  TRAJECTORY_TYPE_CASCADE = 1;
+  TRAJECTORY_TYPE_MAINLINE_TRAJECTORY = 2;
+}
+
 enum RefreshCustomizationType {
   REFRESH_CUSTOMIZATION_TYPE_UNSPECIFIED = 0;
-  THIRD_PARTY_WEB_SEARCH_PROVIDER_UNSPECIFIED = 0;
-  THIRD_PARTY_WEB_SEARCH_MODEL_UNSPECIFIED = 0;
   REFRESH_CUSTOMIZATION_TYPE_RULE = 1;
-  THIRD_PARTY_WEB_SEARCH_PROVIDER_OPENAI = 1;
-  THIRD_PARTY_WEB_SEARCH_MODEL_O3 = 1;
   REFRESH_CUSTOMIZATION_TYPE_WORKFLOW = 2;
+}
+
+enum ThirdPartyWebSearchProvider {
+  THIRD_PARTY_WEB_SEARCH_PROVIDER_UNSPECIFIED = 0;
+  THIRD_PARTY_WEB_SEARCH_PROVIDER_OPENAI = 1;
+}
+
+enum ThirdPartyWebSearchModel {
+  THIRD_PARTY_WEB_SEARCH_MODEL_UNSPECIFIED = 0;
+  THIRD_PARTY_WEB_SEARCH_MODEL_O3 = 1;
   THIRD_PARTY_WEB_SEARCH_MODEL_GPT_4_1 = 2;
   THIRD_PARTY_WEB_SEARCH_MODEL_O4_MINI = 3;
 }
-
-message CompletionsRequest {
-  ti configuration = 1;
-  string prompt = 2;
-  string editor_language = 3;
-  n7.w.getEnumType(e4)_enum language = 4;
-  string absolute_path_uri_for_telemetry = 5;
-  string relative_path_for_telemetry = 6;
-  string experiment_features_json = 7;
-  repeated ts prompt_element_ranges = 8;
-  repeated tN prompt_element_kind_infos = 9;
-  Model model = 10;
-  uint64 prompt_latency_ms = 11;
-  repeated tf prompt_stage_latencies = 12;
-  string workspace_uri_for_telemetry = 13;
-  bool has_line_suffix = 14;
-  bool should_inline_fim = 15;
-  ai repository = 16;
-  string model_tag = 17;
-  repeated string experiment_tags = 18;
-  string experiment_variant_json = 19;
-  uint64 num_tokenized_bytes = 20;
-  string context_prompt = 21;
-  string eval_suffix = 22;
-  repeated t_ prompt_annotation_ranges = 23;
-  bool supports_packed_streaming_completion_maps = 24;
-  string uid = 25;
-}
-
-message CompletionConfiguration {
-  uint64 num_completions = 1;
-  uint64 max_tokens = 2;
-  uint64 max_newlines = 3;
-  double min_log_probability = 4;
-  double temperature = 5;
-  double first_temperature = 6;
-  uint64 top_k = 7;
-  double top_p = 8;
-  repeated string stop_patterns = 9;
-  uint64 seed = 10;
-  double fim_eot_prob_threshold = 11;
-  bool use_fim_eot_threshold = 12;
-  bool do_not_score_stop_tokens = 13;
-  bool sqrt_len_normalized_log_prob_score = 14;
-  bool last_message_is_partial = 15;
-  bool return_logprob = 16;
-}
-
-message PromptElementRange {
-  n7.w.getEnumType(ex)_enum kind = 1;
-  uint64 byte_offset_start = 2;
-  uint64 byte_offset_end = 3;
-  uint64 token_offset_start = 4;
-  uint64 token_offset_end = 5;
-}
-
-message ActionPointer {
-  string cortex_plan_id = 1;
-  string code_plan_id = 2;
-  int32 action_index = 3;
-}
-
-message PromptAnnotationRange {
-  n7.w.getEnumType(eq)_enum kind = 1;
-  uint64 byte_offset_start = 2;
-  uint64 byte_offset_end = 3;
-  string suffix = 4;
-}
-
-message ExperimentWithVariant {
-  n7.w.getEnumType(eb)_enum key = 1;
-  string string = 2;
-  string json = 3;
-  string csv = 4;
-  string key_string = 5;
-  bool disabled = 6;
-  n7.w.getEnumType(ev)_enum source = 7;
-}
-
-message ExperimentConfig {
-  repeated n7.w.getEnumType(eb)_enum force_enable_experiments = 1;
-  repeated n7.w.getEnumType(eb)_enum force_disable_experiments = 2;
-  repeated tm force_enable_experiments_with_variants = 3;
-  repeated string force_enable_experiment_strings = 4;
-  repeated string force_disable_experiment_strings = 5;
-  repeated tm experiments = 6;
-  bool dev_mode = 7;
-}
-
-message ExperimentLanguageServerVersionPayload {
-  string sha = 1;
-  string crc32c_linux_x64 = 2;
-  string crc32c_linux_arm = 3;
-  string crc32c_macos_x64 = 4;
-  string crc32c_macos_arm = 5;
-  string crc32c_windows_x64 = 6;
-}
-
-message ExperimentModelConfigPayload {
-  string model_name = 1;
-  string context_check_model_name = 2;
-}
-
-message ExperimentMiddleModeTokenPayload {
-  string mode_token = 1;
-}
-
-message ExperimentMultilineModelThresholdPayload {
-  float threshold = 1;
-}
-
-message ExperimentSentryPayload {
-  double sample_rate = 2;
-  map procedure_to_sample_rate = 3;
-  map error_match_to_sample_rate = 5;
-}
-
-message TeamOrganizationalControls {
-  string team_id = 1;
-  repeated string cascade_model_labels = 2;
-  repeated string command_model_labels = 3;
-  google.protobuf.Timestamp created_at = 4;
-  google.protobuf.Timestamp updated_at = 5;
-  repeated string extension_model_labels = 6;
-}
-
-message ExperimentProfilingTelemetrySampleRatePayload {
-  map memory_usage_to_sample_rate = 1;
-}
-
-message ModelOrAlias {
-  oneof choice {
-    Model model = 1;
-    ModelAlias alias = 2;
-  }
-}
-
-message PromptElementKindInfo {
-  n7.w.getEnumType(ex)_enum kind = 1;
-  n7.w.getEnumType(eb)_enum experiment_key = 2;
-  bool enabled = 3;
-  uint64 num_considered = 4;
-  uint64 num_included = 5;
-}
-
-message PromptElementInclusionMetadata {
-  bool included = 1;
-  n7.w.getEnumType(eK)_enum exclusion_reason = 2;
-}
-
-message PromptStageLatency {
-  string name = 1;
-  uint64 latency_ms = 2;
-}
-
-message CompletionResponse {
-  repeated tI completions = 1;
-  uint64 max_tokens = 2;
-  double temperature = 3;
-  uint64 top_k = 4;
-  double top_p = 5;
-  repeated string stop_patterns = 6;
-  uint64 prompt_length = 7;
-  string prompt_id = 8;
-  string model_tag = 10;
-  tp completion_profile = 11;
-}
-
-message Completion {
-  string completion_id = 1;
-  string text = 2;
-  string stop = 4;
-  double score = 5;
-  repeated uint64 tokens = 6;
-  repeated string decoded_tokens = 7;
-  repeated double probabilities = 8;
-  repeated double adjusted_probabilities = 9;
-  uint64 generated_length = 10;
-  n7.w.getEnumType(eX)_enum stop_reason = 12;
-  repeated n7.w.getEnumType(eY)_enum filter_reasons = 13;
-  string original_text = 14;
-  repeated ra tool_calls = 15;
-  repeated double logprobs = 16;
-  string request_uid = 17;
-}
-
-message StreamingCompletionInfo {
-  repeated string completion_ids = 1;
-  uint64 max_tokens = 2;
-  double temperature = 3;
-  uint64 top_k = 4;
-  double top_p = 5;
-  repeated string stop_patterns = 6;
-  uint64 prompt_length = 7;
-  string model_tag = 8;
-  string prompt_id = 9;
-  tr completions_request = 10;
-  ty eval_suffix_info = 11;
-}
-
-message SingleModelCompletionProfile {
-  double total_prefill_pass_time = 1;
-  double avg_prefill_pass_time = 2;
-  uint64 num_prefill_passes = 3;
-  double total_generation_pass_time = 4;
-  double avg_generation_pass_time = 5;
-  uint64 num_generation_passes = 6;
-  double total_spec_copy_pass_time = 7;
-  double avg_spec_copy_pass_time = 8;
-  uint64 num_spec_copy_passes = 9;
-  double total_model_time = 10;
-}
-
-message CompletionProfile {
-  tL model_profile = 1;
-  tL draft_model_profile = 2;
-  double time_to_first_prefill_pass = 3;
-  double time_to_first_token = 4;
-  double total_completion_time = 5;
-  rI model_usage = 6;
-}
-
-message StreamingCompletion {
-  bytes decoded_token = 1;
-  uint64 token = 2;
-  double probability = 3;
-  double adjusted_probability = 4;
-  bool completion_finished = 5;
-  string stop = 6;
-  n7.w.getEnumType(eX)_enum stop_reason = 7;
-  map attribution_statuses = 8;
-  double logprob = 9;
-}
-
-message StreamingCompletionMap {
-  map completions = 1;
-}
-
-message PackedStreamingCompletionMaps {
-  repeated tP completion_maps = 1;
-}
-
-message StreamingEvalSuffixInfo {
-  repeated float per_token_log_likelihoods = 1;
-  bool is_greedy = 2;
-}
-
-message StreamingCompletionResponse {
-  tR completion_info = 1;
-  tP completion_map = 2;
-  tM packed_completion_maps = 4;
-  tp completion_profile = 5;
-}
-
-message CompletionLatencyInfo {
-  uint64 api_server_latency_ms = 1;
-  uint64 language_server_latency_ms = 2;
-  uint64 network_latency_ms = 3;
-  uint64 api_server_first_byte_latency_ms = 4;
-  uint64 language_server_first_byte_latency_ms = 5;
-  uint64 network_first_byte_latency_ms = 6;
-  uint64 api_server_first_line_latency_ms = 7;
-  uint64 language_server_first_line_latency_ms = 8;
-  uint64 network_first_line_latency_ms = 9;
-}
-
-message CompletionWithLatencyInfo {
-  tI completion = 1;
-  tU latency_info = 2;
-}
-
-message EmbeddingsRequest {
-  repeated string prompts = 1;
-  n7.w.getEnumType(ez)_enum priority = 2;
-  n7.w.getEnumType(ej)_enum prefix = 3;
-  Model model = 4;
-}
-
-message Embedding {
-  repeated float values = 1;
-}
-
-message EmbeddingResponse {
-  repeated tk embeddings = 1;
-  bool prompts_exceeded_context_length = 2;
-}
-
-message RewardsRequest {
-  string prefix = 2;
-  repeated string items = 3;
-  bool has_instruct_tokens = 4;
-}
-
-message RewardsResponse {
-  repeated float values = 1;
-  bool prompts_exceeded_context_length = 2;
-}
-
-message Metadata {
-  string ide_name = 1;
-  string extension_version = 2;
-  string api_key = 3;
-  string locale = 4;
-  string os = 5;
-  bool disable_telemetry = 6;
-  string ide_version = 7;
-  string hardware = 8;
-  uint64 request_id = 9;
-  string session_id = 10;
-  string source_address = 11;
-  string extension_name = 12;
-  string user_agent = 13;
-  string url = 14;
-  n7.w.getEnumType(e$)_enum auth_source = 15;
-  google.protobuf.Timestamp ls_timestamp = 16;
-  string extension_path = 17;
-  string user_id = 20;
-  string user_jwt = 21;
-  string force_team_id = 22;
-  string device_fingerprint = 24;
-  string trigger_id = 25;
-  string plan_name = 26;
-  string id = 27;
-  string ide_type = 28;
-}
-
-message EditorOptions {
-  uint64 tab_size = 1;
-  bool insert_spaces = 2;
-  bool disable_autocomplete_in_comments = 3;
-}
-
-message ErrorTrace {
-  string error_id = 1;
-  int64 timestamp_unix_ms = 2;
-  string stacktrace = 3;
-  bool recovered = 4;
-}
-
-message Event {
-  n7.w.getEnumType(e1)_enum event_type = 1;
-  string event_json = 2;
-  int64 timestamp_unix_ms = 3;
-}
-
-message SearchResultRecord {
-  string search_id = 1;
-  string result_id = 2;
-  string absolute_path = 3;
-  repeated tV workspace_paths = 4;
-  string text = 5;
-  tW embedding_metadata = 6;
-  float similarity_score = 7;
-  int64 num_results_in_cluster = 8;
-  string representative_path = 9;
-  float mean_similarity_score = 10;
-  n7.w.getEnumType(e2)_enum search_result_type = 11;
-}
-
-message WorkspacePath {
-  string workspace_migrate_me_to_uri = 1;
-  string relative_path = 2;
-  string workspace_uri = 3;
-}
-
-message EmbeddingMetadata {
-  string node_name = 1;
-  uint32 start_line = 2;
-  uint32 end_line = 3;
-  n7.w.getEnumType(e0)_enum embed_type = 4;
-}
-
-message MockResponseData {
-  repeated tI completions = 1;
-}
-
-message WorkspaceIndexData {
-  string workspace_uri_for_telemetry = 1;
-  google.protobuf.Timestamp indexing_start = 2;
-  google.protobuf.Timestamp indexing_end = 3;
-  ta.n embedding_duration = 4;
-  int64 num_files_total = 5;
-  int64 num_files_to_embed = 6;
-  int64 num_nodes_total = 7;
-  int64 num_nodes_to_embed = 8;
-  int64 num_tokens = 9;
-  int64 num_high_priority_nodes_to_embed = 10;
-  string error = 11;
-}
-
-message WorkspaceStats {
-  map num_files = 1;
-  map num_bytes = 2;
-  string workspace = 3;
-  bool initial_scan_completed = 4;
-}
-
-message PartialIndexMetadata {
-  uint32 num_total_files = 1;
-  uint32 num_indexed_files = 2;
-  google.protobuf.Timestamp cutoff_timestamp = 3;
-}
-
-message FunctionInfo {
-  string raw_source = 1;
-  string clean_function = 2;
-  string docstring = 3;
-  string node_name = 4;
-  string params = 5;
-  int32 definition_line = 6;
-  int32 start_line = 7;
-  int32 end_line = 8;
-  int32 start_col = 9;
-  int32 end_col = 10;
-  string leading_whitespace = 11;
-  n7.w.getEnumType(e4)_enum language = 12;
-  int32 body_start_line = 13;
-  int32 body_start_col = 14;
-}
-
-message ClassInfo {
-  string raw_source = 1;
-  int32 start_line = 2;
-  int32 end_line = 3;
-  int32 start_col = 4;
-  int32 end_col = 5;
-  string leading_whitespace = 6;
-  repeated string fields_and_constructors = 7;
-  string docstring = 8;
-  string node_name = 9;
-  repeated tz methods = 10;
-  repeated string node_lineage = 11;
-  bool is_exported = 12;
-  n7.w.getEnumType(e4)_enum language = 13;
-  int32 definition_line = 14;
-}
-
-message TeamsFeaturesMetadata {
-  bool is_active = 1;
-  string stripe_subscription_id = 2;
-  bool has_access = 3;
-}
-
-message ClientModelConfig {
-  string label = 1;
-  ModelOrAlias model_or_alias = 2;
-  float credit_multiplier = 3;
-  bool disabled = 4;
-  bool supports_images = 5;
-  bool supports_legacy = 6;
-  bool is_premium = 7;
-  string beta_warning_message = 8;
-  bool is_beta = 9;
-  ModelProvider provider = 10;
-  bool is_recommended = 11;
-  repeated TeamsTier allowed_tiers = 12;
-  ModelPricingType pricing_type = 13;
-  APIProvider api_provider = 14;
-  bool is_new = 15;
-}
-
-message DefaultOverrideModelConfig {
-  ModelOrAlias model_or_alias = 1;
-  string version_id = 2;
-}
-
-message ClientModelSort {
-  string name = 1;
-  repeated t0 groups = 2;
-}
-
-message ClientModelGroup {
-  string group_name = 1;
-  repeated string model_labels = 2;
-}
-
-message CascadeModelConfigData {
-  repeated ClientModelConfig client_model_configs = 1;
-  repeated t2 client_model_sorts = 2;
-  t1 default_override_model_config = 3;
-}
-
-message AllowedModelConfig {
-  ModelOrAlias model_or_alias = 1;
-  float credit_multiplier = 2;
-}
-
-message PlanInfo {
-  TeamsTier teams_tier = 1;
-  string plan_name = 2;
-  bool has_autocomplete_fast_mode = 3;
-  bool allow_sticky_premium_models = 4;
-  bool has_forge_access = 5;
-  int64 max_num_premium_chat_messages = 6;
-  int64 max_num_chat_input_tokens = 7;
-  int64 max_custom_chat_instruction_characters = 8;
-  int64 max_num_pinned_context_items = 9;
-  int64 max_local_index_size = 10;
-  bool disable_code_snippet_telemetry = 11;
-  int32 monthly_prompt_credits = 12;
-  int32 monthly_flow_credits = 13;
-  int32 monthly_flex_credit_purchase_amount = 14;
-  bool allow_premium_command_models = 15;
-  bool is_enterprise = 16;
-  bool is_teams = 17;
-  bool can_buy_more_credits = 18;
-  bool cascade_web_search_enabled = 19;
-  bool can_customize_app_icon = 20;
-  repeated AllowedModelConfig cascade_allowed_models_config = 21;
-  bool cascade_can_auto_run_commands = 22;
-  bool has_tab_to_jump = 23;
-  TeamConfig default_team_config = 24;
-  bool can_generate_commit_messages = 25;
-  int32 max_unclaimed_sites = 26;
-  bool knowledge_base_enabled = 27;
-  bool can_share_conversations = 28;
-  bool can_allow_cascade_in_background = 29;
-  map<int32, TeamsFeaturesMetadata> default_team_features = 30;
-  bool browser_enabled = 31;
-}
-
-message TopUpStatus {
-  n7.w.getEnumType(nr)_enum top_up_transaction_status = 1;
-  bool top_up_enabled = 2;
-  int32 monthly_top_up_amount = 3;
-  int32 top_up_spent = 4;
-  int32 top_up_increment = 5;
-  bool top_up_criteria_met = 6;
-}
-
-message PlanStatus {
-  t4 plan_info = 1;
-  google.protobuf.Timestamp plan_start = 2;
-  google.protobuf.Timestamp plan_end = 3;
-  int32 available_flex_credits = 4;
-  int32 used_flow_credits = 5;
-  int32 used_prompt_credits = 6;
-  int32 used_flex_credits = 7;
-  int32 available_prompt_credits = 8;
-  int32 available_flow_credits = 9;
-  t5 top_up_status = 10;
-}
-
-message UserStatus {
-  bool pro = 1;
-  bool disable_telemetry = 2;
-  string name = 3;
-  bool ignore_chat_telemetry_setting = 4;
-  string team_id = 5;
-  n7.w.getEnumType(e8)_enum team_status = 6;
-  string email = 7;
-  repeated n7.w.getEnumType(e6)_enum teams_features = 8;
-  repeated n7.w.getEnumType(e7)_enum user_features = 9;
-  repeated n7.w.getEnumType(ne)_enum permissions = 11;
-  t4 plan_info = 12;
-  t8 plan_status = 13;
-  int64 user_used_prompt_credits = 28;
-  int64 user_used_flow_credits = 29;
-  bool has_fingerprint_set = 30;
-  bool has_used_windsurf = 31;
-  TeamConfig team_config = 32;
-  t9 cascade_model_config_data = 33;
-}
-
-message ScmWorkspaceInfo {
-  ae perforce_info = 1;
-  an git_info = 2;
-}
-
-message PerforceDepotInfo {
-  string depot_name = 1;
-  string version_alias = 2;
-  string base_p4d_url = 3;
-}
-
-message GitRepoInfo {
-  string name = 1;
-  string owner = 2;
-  string commit = 3;
-  string version_alias = 4;
-  string repo_name = 5;
-  n7.w.getEnumType(ni)_enum scm_provider = 6;
-  string base_git_url = 7;
-}
-
-message CodeContextItem {
-  string absolute_path_migrate_me_to_uri = 1;
-  repeated tV workspace_paths = 2;
-  string node_name = 3;
-  repeated string node_lineage = 4;
-  uint32 start_line = 5;
-  uint32 end_line = 6;
-  n7.w.getEnumType(no)_enum context_type = 7;
-  n7.w.getEnumType(e4)_enum language = 10;
-  map snippet_by_type = 11;
-  uint32 start_col = 12;
-  uint32 end_col = 13;
-  an repo_info = 14;
-  bytes file_content_hash = 15;
-  string absolute_uri = 16;
-}
-
-message SnippetWithWordCount {
-  string snippet = 1;
-  map word_count_by_splitter = 2;
-}
-
-message WordCount {
-  map word_count_map = 1;
-}
-
-message Repository {
-  string computed_name = 1;
-  string git_origin_url = 2;
-  string git_upstream_url = 3;
-  string reported_name = 4;
-  string model_name = 5;
-  string submodule_url = 6;
-  string submodule_path = 7;
-}
-
-message CaptureFileRequestData {
-  tx metadata = 1;
-  string prompt_id = 2;
-  string file_path = 3;
-  string original_file_content = 4;
-  string completion_text = 5;
-  uint64 start_offset = 6;
-  uint64 end_offset = 7;
-  uint64 cursor_line = 8;
-  uint64 cursor_column = 9;
-}
-
-message CompletionStatistics {
-  uint32 num_acceptances = 1;
-  uint32 num_rejections = 2;
-  uint32 num_lines_accepted = 3;
-  uint32 num_bytes_accepted = 4;
-  uint32 num_users = 5;
-  uint32 active_developer_days = 6;
-  uint32 active_developer_hours = 7;
-}
-
-message CompletionByDateEntry {
-  google.protobuf.Timestamp timestamp = 1;
-  ao completion_statistics = 2;
-}
-
-message CompletionByLanguageEntry {
-  n7.w.getEnumType(e4)_enum language = 1;
-  ao completion_statistics = 2;
-}
-
-message ChatStats {
-  uint64 chats_sent = 1;
-  uint64 chats_received = 2;
-  uint64 chats_accepted = 3;
-  uint64 chats_inserted_at_cursor = 4;
-  uint64 chats_applied = 5;
-  uint64 chat_loc_used = 6;
-  uint64 chat_code_blocks_used = 7;
-  uint64 function_explain_count = 8;
-  uint64 function_docstring_count = 9;
-  uint64 function_refactor_count = 10;
-  uint64 code_block_explain_count = 11;
-  uint64 code_block_refactor_count = 12;
-  uint64 problem_explain_count = 13;
-  uint64 function_unit_tests_count = 14;
-  uint32 active_developer_days = 15;
-}
-
-message ChatStatsByDateEntry {
-  google.protobuf.Timestamp timestamp = 1;
-  aE chat_stats = 2;
-}
-
-message ChatStatsByModelEntry {
-  Model model_id = 1;
-  aE chat_stats = 2;
-}
-
-message CommandStats {
-  uint64 num_commands = 1;
-  uint64 num_commands_accepted = 2;
-  uint64 num_commands_rejected = 3;
-  uint64 num_edits = 4;
-  uint64 num_generations = 5;
-  uint64 loc_added = 6;
-  uint64 loc_removed = 7;
-  uint64 bytes_added = 8;
-  uint64 bytes_removed = 9;
-  uint64 loc_selected = 10;
-  uint64 bytes_selected = 11;
-  map num_commands_by_source = 12;
-}
-
-message CommandStatsByDateEntry {
-  google.protobuf.Timestamp timestamp = 1;
-  ac command_stats = 2;
-}
-
-message UserTableStats {
-  string name = 1;
-  string email = 2;
-  google.protobuf.Timestamp last_update_time = 3;
-  string api_key = 4;
-  bool disable_codeium = 5;
-  uint32 active_days = 6;
-  string role = 7;
-  google.protobuf.Timestamp signup_time = 8;
-  google.protobuf.Timestamp last_autocomplete_usage_time = 9;
-  google.protobuf.Timestamp last_chat_usage_time = 10;
-  google.protobuf.Timestamp last_command_usage_time = 11;
-  int64 prompt_credits_used = 12;
-}
-
-message CascadeNUXState {
-  CascadeNUXEvent event = 1;
-  google.protobuf.Timestamp timestamp = 2;
-}
-
-message UserNUXState {
-  n7.w.getEnumType(nC)_enum event = 1;
-  google.protobuf.Timestamp timestamp = 2;
-}
-
-message ConversationBrainConfig {
-  n7.w.getEnumType(nM)_enum plan_mode = 1;
-}
-
-message FeatureUsageData {
-  bool has_used = 1;
-}
-
-message CascadeNUXConfig {
-  uint32 uid = 1;
-  CascadeNUXLocation location = 2;
-  CascadeNUXTrigger trigger = 3;
-  string analytics_event_name = 4;
-  string main_text = 5;
-  string on_hover_explanation = 6;
-  string learn_more_url = 7;
-  int32 priority = 8;
-  CascadeNUXEvent old_nux_event = 9;
-  CascadeNUXIcon icon = 10;
-  bool requires_idle_cascade = 11;
-}
-
-message UserSettings {
-  bool open_most_recent_chat_conversation = 1;
-  Model last_selected_model = 2;
-  n7.w.getEnumType(nc)_enum theme_preference = 3;
-  n7.w.getEnumType(nA)_enum extension_panel_tab = 4;
-  n7.w.getEnumType(nT)_enum font_size = 5;
-  n7.w.getEnumType(nd)_enum autocomplete_speed = 6;
-  n7.w.getEnumType(nO)_enum remember_last_model_selection = 7;
-  string last_selected_model_name = 8;
-  Model last_selected_cascade_model = 9;
-  repeated aS cascade_nux_states = 11;
-  n7.w.getEnumType(nf)_enum cascade_planner_mode = 13;
-  repeated string cascade_allowed_commands = 14;
-  repeated string cascade_denied_commands = 15;
-  repeated aA user_nux_states = 17;
-  bool cascade_web_search_disabled = 18;
-  bool disable_autocomplete = 19;
-  bool disable_supercomplete = 20;
-  bool disable_selection_popup = 21;
-  bool disable_explain_problem_inlay_hint = 22;
-  bool disable_inlay_hint_shortcuts = 23;
-  bool disable_open_cascade_on_reload = 24;
-  bool disable_auto_open_edited_files = 25;
-  bool disable_tab_to_jump = 26;
-  n7.w.getEnumType(nS)_enum cascade_auto_execution_policy = 27;
-  string last_selected_cascade_id = 28;
-  bool explain_and_fix_in_current_conversation = 29;
-  ModelOrAlias last_selected_cascade_model_or_alias = 30;
-  bool allow_cascade_access_gitignore_files = 31;
-  bool disable_cascade_auto_fix_lints = 32;
-  bool disable_cascade_browser_previews = 33;
-  bool detect_proxy = 34;
-  bool disable_tab_to_import = 35;
-  bool use_clipboard_for_completions = 36;
-  bool disable_highlight_after_accept = 37;
-  string last_selected_new_convo_tab = 38;
-  bool disable_auto_generate_memories = 39;
-  bool enable_sounds_for_special_events = 40;
-  bool enable_tab_sounds = 41;
-  bool allow_cascade_in_background = 42;
-  n7.w.getEnumType(nw)_enum tab_to_jump = 43;
-  n7.w.getEnumType(nI)_enum cascade_web_search = 44;
-  bool enable_terminal_completion = 45;
-  Model last_model_override = 46;
-  map feature_usage_data = 47;
-  bool disable_cascade_in_background = 48;
-  bool enable_command_cascade_mode = 49;
-  repeated string custom_workspace = 50;
-  map conversation_brain_configs = 51;
-  repeated ClientModelConfig cached_cascade_model_configs = 52;
-  repeated t2 cached_cascade_model_sorts = 53;
-  n7.w.getEnumType(nM)_enum global_plan_mode_preference = 54;
-  bool is_snoozed = 55;
-  n7.w.getEnumType(nR)_enum cascade_run_extension_code = 56;
-  n7.w.getEnumType(nD)_enum cascade_run_extension_code_auto_run = 57;
-  string last_model_default_override_version_id = 58;
-  n7.w.getEnumType(ny)_enum auto_continue_on_max_generator_invocations = 59;
-  map seen_nux_uids = 60;
-  repeated string recently_used_cascade_models = 61;
-  repeated string cascade_dismissed_suggestion_workspaces = 62;
-  n7.w.getEnumType(nJ)_enum annotations_config = 63;
-  bool enable_automatic_screenshot = 64;
-  n7.w.getEnumType(nL)_enum cascade_input_autocomplete = 65;
-  n7.w.getEnumType(nk)_enum browser_experimental_features_config = 66;
-  n7.w.getEnumType(np)_enum command_popup_autocomplete = 67;
-  string claude_code_cli_path = 68;
-  bool claude_code_append_system_prompt = 69;
-  string claude_code_system_prompt = 70;
-  uint32 claude_code_max_turns = 71;
-  string claude_code_mcp_config = 72;
-}
-
-message ModelFeatures {
-  bool supports_context_tokens = 2;
-  bool requires_instruct_tags = 3;
-  bool requires_fim_context = 4;
-  bool requires_context_snippet_prefix = 5;
-  bool requires_context_relevance_tags = 6;
-  bool requires_llama3_tokens = 7;
-  bool zero_shot_capable = 8;
-  bool requires_autocomplete_as_command = 9;
-  bool supports_cursor_aware_supercomplete = 10;
-  bool supports_images = 11;
-  bool supports_tool_calls = 12;
-  bool supports_cumulative_context = 13;
-  bool tab_jump_print_line_range = 14;
-  bool supports_thinking = 15;
-  bool supports_estimate_token_counter = 17;
-  bool add_cursor_to_find_replace_target = 18;
-  bool supports_tab_jump_use_whole_document = 19;
-  bool supports_image_captions = 20;
-  bool supports_parallel_tool_calls = 21;
-}
-
-message ExternalModel {
-  bool is_internal = 1;
-  Model model_id = 2;
-  string model_name = 3;
-  string base_url = 4;
-  string api_key = 5;
-  string access_key = 6;
-  string secret_access_key = 7;
-  string region = 8;
-  string project_id = 9;
-  uint32 id = 10;
-  int32 max_completion_tokens = 11;
-  int32 max_input_tokens = 12;
-}
-
-message ModelInfo {
-  Model model_id = 1;
-  bool is_internal = 2;
-  n7.w.getEnumType(nB)_enum model_type = 3;
-  int32 max_tokens = 4;
-  string tokenizer_type = 5;
-  aw model_features = 6;
-  n7.w.getEnumType(nG)_enum api_provider = 7;
-  string model_name = 8;
-  bool supports_context = 9;
-  int32 embed_dim = 10;
-  string base_url = 11;
-  string chat_model_name = 12;
-  int32 max_output_tokens = 13;
-  n7.w.getEnumType(n0)_enum prompt_templater_type = 14;
-  n7.w.getEnumType(n9)_enum tool_formatter_type = 15;
-}
-
-message ApiProviderRoutingConfig {
-  map model_map = 1;
-}
-
-message ApiProviderConfigMap {
-  map provider_map = 1;
-}
-
-message ApiProviderConfig {
-  uint32 weight = 1;
-  uint32 cache_ttl_minutes = 2;
-}
-
-message ModelConfig {
-  aR generation_model = 1;
-  aR context_check_model = 2;
-}
-
-message ModelStatusInfo {
-  Model model = 1;
-  string message = 2;
-  n7.w.getEnumType(nF)_enum status = 3;
-}
-
-message CompletionExample {
-  string uid = 1;
-  string completion_id = 2;
-  string file_path = 3;
-  string short_prefix = 4;
-  string completion_text = 5;
-  string short_suffix = 6;
-}
-
-message CompletionExampleWithMetadata {
-  ay example = 1;
-  string name = 2;
-  google.protobuf.Timestamp time = 4;
-}
-
-message CciWithSubrange {
-  at cci = 1;
-  ag subrange = 2;
-}
-
-message ContextSubrange {
-  n7.w.getEnumType(nm)_enum snippet_type = 1;
-  int64 start_offset = 2;
-  int64 end_offset = 3;
-}
-
-message PathScopeItem {
-  string absolute_path_migrate_me_to_uri = 1;
-  map workspace_relative_paths_migrate_me_to_workspace_uris = 2;
-  uint32 num_files = 3;
-  uint64 num_bytes = 4;
-  string absolute_uri = 5;
-  map workspace_uris_to_relative_paths = 6;
-}
-
-message FileLineRange {
-  string absolute_uri = 1;
-  uint32 start_line = 2;
-  uint32 end_line = 3;
-}
-
-message TextBlock {
-  string content = 1;
-  ak file_line_range = 2;
-  string label = 3;
-}
-
-message RepositoryScopeItem {
-  an repo_info = 1;
-}
-
-message RepositoryPathScopeItem {
-  an repo_info = 1;
-  string relative_path = 2;
-  bool is_dir = 3;
-}
-
-message KnowledgeBaseScopeItem {
-  string document_id = 1;
-  string display_name = 3;
-  string description = 4;
-  string display_source = 5;
-  string url = 6;
-  n7.w.getEnumType(nQ)_enum index = 7;
-  n7.w.getEnumType(nq)_enum document_type = 8;
-}
-
-message ConsoleLogLine {
-  string timestamp_str = 1;
-  string type = 2;
-  string output = 3;
-  string console_message_location = 4;
-}
-
-message ConsoleLogScopeItem {
-  repeated aq lines = 1;
-  string server_address = 2;
-}
-
-message DOMElementScopeItem {
-  string tag_name = 1;
-  string outer_html = 2;
-  string id = 3;
-  string react_component_name = 4;
-  ak file_line_range = 5;
-}
-
-message DOMTree {
-  aW root = 1;
-  uint32 num_nodes = 2;
-}
-
-message BoundingBox {
-  float x = 1;
-  float y = 2;
-  float width = 3;
-  float height = 4;
-}
-
-message DOMNode {
-  repeated aW children = 1;
-  string tag_name = 2;
-  string id = 3;
-  repeated string class_names = 4;
-  string text_content = 5;
-  aV bbox = 6;
-  string aria_label = 7;
-  string title = 8;
-  string alt = 9;
-  string placeholder = 10;
-  string href = 11;
-}
-
-message RecipeScopeItem {
-  string recipe_id = 1;
-  string title = 2;
-  string description = 3;
-  string system_prompt = 4;
-  string uri = 5;
-  n7.w.getEnumType(nS)_enum execution_mode = 6;
-}
-
-message RuleScopeItem {
-  string rule_path = 1;
-  string rule_name = 2;
-  string description = 3;
-}
-
-message McpResourceItem {
-  string uri = 1;
-  string name = 2;
-  string description = 3;
-  string mime_type = 4;
-  string server_name = 5;
-}
-
-message BrowserPageScopeItem {
-  string url = 1;
-  string title = 2;
-  string visible_text_content = 3;
-  string page_id = 4;
-}
-
-message BrowserCodeBlockScopeItem {
-  string url = 1;
-  string title = 2;
-  string code_content = 3;
-  n7.w.getEnumType(e4)_enum language = 4;
-  string context_text = 5;
-  string page_id = 6;
-}
-
-message BrowserTextScopeItem {
-  string url = 1;
-  string visible_text = 2;
-  string page_id = 3;
-}
-
-message ConversationScopeItem {
-  string id = 1;
-  string title = 2;
-  google.protobuf.Timestamp last_modified_time = 3;
-}
-
-message UserActivityScopeItem {
-  string id = 1;
-  string branch = 2;
-  bool current = 3;
-}
-
-message TerminalScopeItem {
-  string process_id = 1;
-  string name = 2;
-  string last_command = 3;
-  string content = 4;
-}
-
-message GithubPullRequestItem {
-  string url = 1;
-  string title = 2;
-  string owner = 3;
-  string number = 4;
-}
-
-message ContextScopeItem {
-  aJ file = 1;
-  aJ directory = 2;
-  aG repository = 3;
-  at code_context = 4;
-  aU cci_with_subrange = 6;
-  aF repository_path = 7;
-  ax slack = 8;
-  ax github = 9;
-  ak file_line_range = 10;
-  aB text_block = 11;
-  ax jira = 12;
-  ax google_drive = 13;
-  ab console_log = 14;
-  av dom_element = 15;
-  aK recipe = 16;
-  ax knowledge = 17;
-  aX rule = 18;
-  aY mcp_resource = 19;
-  aQ browser_page = 20;
-  az browser_code_block = 21;
-  aj browser_text = 22;
-  aZ conversation = 23;
-  a$ user_activity = 24;
-  a1 terminal = 25;
-  a2 github_pull_request = 26;
-}
-
-message ContextScope {
-  repeated a0 items = 1;
-}
-
-message NodeExecutionRecord {
-  string node_name = 1;
-  google.protobuf.Timestamp start_time = 2;
-  google.protobuf.Timestamp end_time = 3;
-  a4 subgraph_execution = 4;
-  bytes graph_state_json = 5;
-  uint64 graph_state_json_num_bytes = 6;
-}
-
-message GraphExecutionState {
-  a3 current = 1;
-  repeated a3 history = 2;
-}
-
-message Guideline {
-  repeated a8 items = 1;
-}
-
-message GuidelineItem {
-  string guideline = 1;
-}
-
-message ChatNodeConfig {
-  Model model = 1;
-  uint32 max_input_tokens = 2;
-  float temperature = 3;
-  uint32 max_output_tokens = 4;
-  bool order_snippets_by_file = 5;
-}
-
-message MQueryConfig {
-  bool should_batch_ccis = 1;
-  int64 max_tokens_per_subrange = 2;
-  int64 num_parser_workers = 3;
-  int64 num_workers_per_distributed_scorer = 4;
-  bool verbose = 5;
-  repeated string ignore_extensions = 6;
-  repeated string ignore_directory_stubs = 7;
-  uint32 min_token_space_for_context = 8;
-  uint32 max_target_files = 9;
-  uint32 top_cci_count = 10;
-}
-
-message CompletionDelta {
-  string delta_text = 1;
-  uint32 delta_tokens = 2;
-  n7.w.getEnumType(eX)_enum stop_reason = 3;
-  rI usage = 4;
-  repeated ra delta_tool_calls = 5;
-  string delta_thinking = 6;
-  string delta_signature = 7;
-  bool thinking_redacted = 8;
-  string output_id = 9;
-  string thinking_id = 10;
-}
-
-message CompletionDeltaMap {
-  map deltas = 1;
-  string prompt = 2;
-  tp completion_profile = 3;
-}
-
-message ChatCompletionInfo {
-  string prompt = 1;
-  string inference_address = 2;
-}
-
-message ChatToolCall {
-  string id = 1;
-  string name = 2;
-  string arguments_json = 3;
-  string invalid_json_str = 4;
-  string invalid_json_err = 5;
-}
-
-message Status {
-  n7.w.getEnumType(nH)_enum level = 1;
-  string message = 2;
-}
-
-message DocumentPosition {
-  uint64 row = 1;
-  uint64 col = 2;
-}
-
-message Range {
-  uint64 start_offset = 1;
-  uint64 end_offset = 2;
-  ri start_position = 3;
-  ri end_position = 4;
-}
-
-message Document {
-  string absolute_path_migrate_me_to_uri = 1;
-  string relative_path_migrate_me_to_workspace_uri = 2;
-  string text = 3;
-  string editor_language = 4;
-  n7.w.getEnumType(e4)_enum language = 5;
-  uint64 cursor_offset = 6;
-  string line_ending = 7;
-  ri cursor_position = 8;
-  rs visible_range = 9;
-  bool is_cutoff_start = 10;
-  bool is_cutoff_end = 11;
-  string absolute_uri = 12;
-  string workspace_uri = 13;
-  int32 lines_cutoff_start = 14;
-  int32 lines_cutoff_end = 15;
-  google.protobuf.Timestamp timestamp = 16;
-  bool is_dirty = 17;
-  bool is_synthetic = 18;
-}
-
-message PromptComponents {
-  ro document = 1;
-  repeated ro other_documents = 2;
-  repeated at code_context_items = 3;
-}
-
-message TextOrScopeItem {
-  string text = 1;
-  a0 item = 2;
-}
-
-message PinnedContextConfig {
-  string match_repo_name = 1;
-  string match_path = 2;
-  repeated ru pinned_contexts = 3;
-}
-
-message PinnedContext {
-  rl repository_path = 1;
-}
-
-message RepositoryPath {
-  string remote_repo_name = 1;
-  string version = 2;
-  string relative_path = 3;
-}
-
-message DefaultPinnedContextConfig {
-  repeated rE pinned_context_configs = 1;
-}
-
-message Rule {
-  string id = 1;
-  string prompt = 2;
-}
-
-message RuleViolation {
-  string id = 1;
-  rT rule = 2;
-  int32 start_line = 3;
-  int32 end_line = 4;
-}
-
-message LanguageServerDiagnostics {
-  repeated string logs = 1;
-}
-
-message IndexerStats {
-  rO database = 1;
-}
-
-message IndexerDbStats {
-  rN local_sqlite_faiss = 1;
-  rf postgres = 2;
-}
-
-message LocalSqliteFaissDbStats {
-  repeated rC faiss_state_stats = 1;
-  int64 total_item_count = 2;
-  bool quantized = 3;
-}
-
-message FaissStateStats {
-  n7.w.getEnumType(eZ)_enum embedding_source = 1;
-  string workspace = 2;
-  int64 item_count = 3;
-}
-
-message PostgresDbStats {
-}
-
-message LastUpdateRecord {
-  google.protobuf.Timestamp time = 1;
-  n7.w.getEnumType(nW)_enum type = 2;
-}
-
-message ModelUsageStats {
-  Model model = 1;
-  uint64 input_tokens = 2;
-  uint64 output_tokens = 3;
-  uint64 cache_write_tokens = 4;
-  uint64 cache_read_tokens = 5;
-  n7.w.getEnumType(nG)_enum api_provider = 6;
-  string message_id = 7;
-  map response_header = 8;
-}
-
-message SuperCompleteFilterReason {
-  string reason = 1;
-}
-
-message CodeDiagnostic {
-  rs range = 1;
-  string message = 2;
-  string severity = 3;
-  string source = 4;
-  string uri = 5;
-  string id = 6;
-  n7.w.getEnumType(e4)_enum language = 7;
-  int64 score = 8;
-}
-
-message IntellisenseSuggestion {
-  rs range = 1;
-  string text = 2;
-  string label = 3;
-  string label_detail = 4;
-  string description = 5;
-  string detail = 6;
-  string documentation = 7;
-  string kind = 8;
-  bool selected = 9;
-}
-
-message DocumentLinesElement {
-  rP document_query = 1;
-  repeated at overlapped_code_context_items = 2;
-  uint32 first_element_suffix_overlap = 3;
-  uint32 last_element_prefix_overlap = 4;
-}
-
-message DocumentQuery {
-  string text = 1;
-  int32 cursor_offset = 2;
-  uint32 start_line = 3;
-  uint32 end_line = 4;
-  bool use_character_position = 5;
-}
-
-message DocumentOutlineElement {
-  at code_context_item = 1;
-  rD document_lines_element = 2;
-  string text = 3;
-}
-
-message DocumentOutline {
-  repeated rM elements = 1;
-  int64 start_index = 2;
-}
-
-message ProductEvent {
-  string event_name = 1;
-  string api_key = 2;
-  string installation_id = 3;
-  string ide_name = 4;
-  string os = 5;
-  string codeium_version = 6;
-  string ide_version = 7;
-  uint64 duration_ms = 8;
-  map extra = 9;
-}
-
-message CodebaseCluster {
-  string name = 1;
-  string description = 2;
-  repeated string file_names = 3;
-  repeated string commit_messages = 4;
-  string id = 5;
-  string codebase_root_uri = 6;
-  repeated string commit_sha = 7;
-  repeated string commit_descriptions = 8;
-  repeated string file_descriptions = 9;
-  string intent = 10;
-}
-
-message CodebaseClusterList {
-  repeated rU clusters = 1;
-}
-
-message KnowledgeBaseChunk {
-  string text = 1;
-  int32 position = 2;
-  rq markdown_chunk = 3;
-}
-
-message KnowledgeBaseItem {
-  string document_id = 1;
-  string text = 2;
-  string url = 3;
-  string title = 4;
-  google.protobuf.Timestamp timestamp = 5;
-  repeated rJ chunks = 6;
-  string summary = 7;
-  rF image = 8;
-  aH dom_tree = 9;
-}
-
-message KnowledgeBaseItemWithMetadata {
-  rk knowledge_base_item = 1;
-  float score = 2;
-  string index_name = 3;
-  string document_source_name = 4;
-}
-
-message KnowledgeBaseGroup {
-  string description = 1;
-  rB item = 2;
-  repeated rG children = 3;
-}
-
-message ImageData {
-  string base64_data = 1;
-  string mime_type = 2;
-  string caption = 3;
-}
-
-message TextData {
-  string text = 1;
-  string mime_type = 2;
-}
-
-message MarkdownChunk {
-  repeated rb headers = 1;
-  string text = 2;
-}
-
-message MarkdownHeader {
-  n7.w.getEnumType(nz)_enum type = 1;
-  string text = 2;
-}
-
-message TerminalShellCommandHeader {
-  string terminal_id = 1;
-  uint32 shell_pid = 2;
-  string command_line = 3;
-  string cwd = 4;
-  google.protobuf.Timestamp start_time = 5;
-  n7.w.getEnumType(nj)_enum source = 6;
-  tx metadata = 7;
-}
-
-message TerminalShellCommandData {
-  bytes raw_data = 1;
-}
-
-message TerminalShellCommandTrailer {
-  int32 exit_code = 1;
-  google.protobuf.Timestamp end_time = 2;
-}
-
-message TerminalShellCommandStreamChunk {
-  rv header = 1;
-  rH data = 2;
-  rV trailer = 3;
-}
-
-message TerminalShellCommand {
-  uint32 shell_pid = 1;
-  string command_line = 2;
-  string cwd = 3;
-  bytes output = 4;
-  int32 exit_code = 5;
-  google.protobuf.Timestamp start_time = 6;
-  google.protobuf.Timestamp end_time = 7;
-  n7.w.getEnumType(nZ)_enum status = 8;
-  n7.w.getEnumType(nj)_enum source = 9;
-  string id = 10;
-  google.protobuf.Timestamp last_updated_time = 11;
-}
-
-message TerminalCommandData {
-  string terminal_id = 1;
-  string platform = 2;
-  string cwd = 3;
-  string shell_name = 4;
-}
-
-message WindsurfProject {
-  string windsurf_project_id = 1;
-  string auth_uid = 2;
-  n7.w.getEnumType(n1)_enum deployment_provider = 3;
-  string provider_project_id = 4;
-  string project_name = 5;
-  google.protobuf.Timestamp created_at = 6;
-  google.protobuf.Timestamp updated_at = 7;
-  string domain = 8;
-  string subdomain_name = 9;
-  google.protobuf.Timestamp expires_at = 10;
-  google.protobuf.Timestamp claimed_at = 11;
-  google.protobuf.Timestamp deprovisioned_at = 12;
-  string project_url = 13;
-  string provider_team_id = 14;
-}
-
-message WindsurfDeployment {
-  string windsurf_deployment_id = 1;
-  string auth_uid = 2;
-  n7.w.getEnumType(n1)_enum deployment_provider = 3;
-  string project_id = 4;
-  string project_name = 5;
-  string workspace_path = 6;
-  google.protobuf.Timestamp created_at = 7;
-  google.protobuf.Timestamp updated_at = 8;
-  string build_status_url = 9;
-  string project_url = 10;
-  google.protobuf.Timestamp expires_at = 11;
-  string deployment_url = 12;
-  google.protobuf.Timestamp deprovisioned_at = 13;
-  string provider_deployment_id = 14;
-  google.protobuf.Timestamp claimed_at = 15;
-  string domain = 16;
-  string subdomain_name = 17;
-  string windsurf_project_id = 19;
-  string provider_team_id = 20;
-}
-
-message DeployTarget {
-  n7.w.getEnumType(n1)_enum deployment_provider = 1;
-  bool is_sandbox = 2;
-  string provider_team_id = 3;
-  string provider_team_slug = 4;
-  string domain = 5;
-}
-
-message WebDocsOption {
-  string label = 1;
-  string docs_url = 2;
-  string docs_search_domain = 3;
-  repeated string synonyms = 4;
-  bool is_featured = 5;
-}
-
-message CustomProviderSettings {
-  string custom_api_server_endpoint = 1;
-  repeated ClientModelConfig cascade_model_configs = 2;
-  repeated ClientModelConfig command_model_configs = 3;
-  Model fallback_model = 4;
-}
-
-message TeamConfig {
-  string team_id = 1;
-  int32 user_prompt_credit_cap = 2;
-  int32 user_flow_credit_cap = 3;
-  bool auto_provision_cascade_seat = 4;
-  bool allow_mcp_servers = 5;
-  bool allow_auto_run_commands = 7;
-  bool allow_custom_recipes = 8;
-  int32 max_unclaimed_sites = 9;
-  bool allow_app_deployments = 10;
-  int32 max_new_sites_per_day = 11;
-  bool allow_github_reviews = 12;
-  bool allow_github_description_edits = 13;
-  string pull_request_review_guidelines = 14;
-  bool disable_tool_calls = 15;
-  string pull_request_description_guidelines = 16;
-  bool allow_individual_level_analytics = 17;
-  bool allow_conversation_sharing = 18;
-  bool allow_sandbox_app_deployments = 19;
-  bool allow_teams_app_deployments = 20;
-  int32 pull_request_review_rate_limit = 21;
-  bool allow_attribution = 22;
-  repeated McpServerConfig allowed_mcp_servers = 23;
-  bool allow_github_auto_reviews = 24;
-  bool allow_browser_experimental_features = 25;
-  bool disable_tool_call_execution_outside_workspace = 26;
-  bool allow_vibe_and_replace = 27;
-  bool disable_deepwiki = 28;
-  CustomProviderSettings custom_provider_settings = 29;
-}
-
-message WebAppDeploymentConfig {
-  string project_id = 1;
-  string framework = 2;
-}
-
-message McpServerTemplate {
-  string title = 1;
-  string id = 2;
-  string link = 3;
-  string description = 4;
-  map commands = 5;
-}
-
-message McpServerCommand {
-  r9 template = 1;
-  repeated r3 variables = 2;
-}
-
-message McpCommandTemplate {
-  string command = 1;
-  repeated string args = 2;
-  map env = 3;
-}
-
-message McpCommandVariable {
-  string name = 1;
-  string title = 2;
-  string description = 3;
-  string link = 4;
-}
-
-message McpServerConfig {
-  string server_id = 1;
-  oneof configuration {
-    McpLocalServer local = 2;
-    McpRemoteServer remote = 3;
-  }
-}
-
-message McpLocalServer {
-  string command = 1;
-  repeated string args = 2;
-  map<string, string> env = 3;
-}
-
-message McpRemoteServer {
-  string type = 1;
-  string url = 2;
-  map<string, string> headers = 3;
-}
-
-message UnleashContext {
-  string user_id = 1;
-  string session_id = 2;
-  map properties = 3;
-}
-
-message BrowserPageMetadata {
-  string url = 1;
-  string page_id = 2;
-  string page_title = 3;
-  uint32 viewport_width = 4;
-  uint32 viewport_height = 5;
-  string favicon_url = 6;
-  google.protobuf.Timestamp last_visited_time = 7;
-}
-
-message BrowserClickInteraction {
-  uint32 viewport_scroll_x = 1;
-  uint32 viewport_scroll_y = 2;
-  uint32 click_x = 3;
-  uint32 click_y = 4;
-  string target_element_tag_name = 5;
-  string target_element_x_path = 6;
-}
-
-message BrowserScrollInteraction {
-  uint32 viewport_scroll_x = 1;
-  uint32 viewport_scroll_y = 2;
-}
-
-message BrowserInteraction {
-  google.protobuf.Timestamp timestamp = 1;
-  r7 page_metadata = 2;
-  ie click = 3;
-  it scroll = 4;
-}
-
-message MetricsRecord {
-  string name = 1;
-  float value = 2;
-  map details = 3;
-  bool lower_better = 4;
-  bool is_bool = 5;
-  string error = 6;
-  string trajectory_id = 7;
-}
-
-message ModelNotification {
-  Model model = 1;
-  string message = 2;
-}
-
-message ModelNotificationExperimentPayload {
-  repeated ii model_notifications = 1;
-}
-
-message LspReference {
-  string uri = 1;
-  rs range = 2;
-  string snippet = 3;
-}
-
-message CascadeModelHeaderWarningExperimentPayload {
-  string text = 1;
-  string tooltip_text = 2;
-}
-
-message CodeAnnotation {
-  string id = 1;
-  string uri = 2;
-  uint32 line = 3;
-  string content = 4;
-  google.protobuf.Timestamp created_at = 5;
-}
-
-message CodeAnnotationsState {
-  repeated im annotations = 1;
-}
-
-message TrajectoryDescription {
-  string cascade_conversation_title = 1;
-  string mainline_branch_name = 2;
-}
-
-message ThirdPartyWebSearchConfig {
-  n7.w.getEnumType(n8)_enum provider = 1;
-  n7.w.getEnumType(n6)_enum model = 2;
-}
-
-message GRPCStatus {
-  int32 code = 1;
-  string message = 2;
-}
-
-message CascadeDataMetadata {
-  string ide_version = 1;
-}
-

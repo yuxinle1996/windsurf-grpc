@@ -5,7 +5,85 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, protoInt64, Timestamp } from "@bufbuild/protobuf";
-import { Permission, PlanInfo, TeamsFeaturesMetadata, TeamsTier, UserTeamStatus } from "./codeium_common_pb_pb.js";
+import { APIProvider, CompletionStatistics, Metadata, Permission, PlanInfo, PlanStatus, TeamConfig, TeamsFeatures, TeamsFeaturesMetadata, TeamsTier, TransactionStatus, UserFeatures, UserStatus, UserTeamStatus } from "./codeium_common_pb_pb.js";
+
+/**
+ * @generated from enum exa.seat_management_pb.PaymentPeriod
+ */
+export enum PaymentPeriod {
+  /**
+   * @generated from enum value: PAYMENT_PERIOD_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: PAYMENT_PERIOD_MONTH = 1;
+   */
+  MONTH = 1,
+
+  /**
+   * @generated from enum value: PAYMENT_PERIOD_YEAR = 2;
+   */
+  YEAR = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(PaymentPeriod)
+proto3.util.setEnumType(PaymentPeriod, "exa.seat_management_pb.PaymentPeriod", [
+  { no: 0, name: "PAYMENT_PERIOD_UNSPECIFIED" },
+  { no: 1, name: "PAYMENT_PERIOD_MONTH" },
+  { no: 2, name: "PAYMENT_PERIOD_YEAR" },
+]);
+
+/**
+ * @generated from enum exa.seat_management_pb.SubInterval
+ */
+export enum SubInterval {
+  /**
+   * @generated from enum value: SUB_INTERVAL_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: SUB_INTERVAL_MONTH = 1;
+   */
+  MONTH = 1,
+
+  /**
+   * @generated from enum value: SUB_INTERVAL_YEAR = 2;
+   */
+  YEAR = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(SubInterval)
+proto3.util.setEnumType(SubInterval, "exa.seat_management_pb.SubInterval", [
+  { no: 0, name: "SUB_INTERVAL_UNSPECIFIED" },
+  { no: 1, name: "SUB_INTERVAL_MONTH" },
+  { no: 2, name: "SUB_INTERVAL_YEAR" },
+]);
+
+/**
+ * @generated from enum exa.seat_management_pb.StripePrice
+ */
+export enum StripePrice {
+  /**
+   * @generated from enum value: STRIPE_PRICE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: STRIPE_PRICE_TEAMS_MONTHLY = 1;
+   */
+  TEAMS_MONTHLY = 1,
+
+  /**
+   * @generated from enum value: STRIPE_PRICE_TEAMS_YEARLY = 2;
+   */
+  TEAMS_YEARLY = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(StripePrice)
+proto3.util.setEnumType(StripePrice, "exa.seat_management_pb.StripePrice", [
+  { no: 0, name: "STRIPE_PRICE_UNSPECIFIED" },
+  { no: 1, name: "STRIPE_PRICE_TEAMS_MONTHLY" },
+  { no: 2, name: "STRIPE_PRICE_TEAMS_YEARLY" },
+]);
 
 /**
  * @generated from enum exa.seat_management_pb.CascadeSeatType
@@ -34,47 +112,686 @@ proto3.util.setEnumType(CascadeSeatType, "exa.seat_management_pb.CascadeSeatType
 ]);
 
 /**
- * UserSSOLoginRedirect接口请求
- *
- * @generated from message exa.seat_management_pb.UserSSOLoginRedirectRequest
+ * @generated from enum exa.seat_management_pb.UserTeamDetailsType
  */
-export class UserSSOLoginRedirectRequest extends Message<UserSSOLoginRedirectRequest> {
+export enum UserTeamDetailsType {
   /**
-   * @generated from field: string email = 1;
+   * @generated from enum value: USER_TEAM_DETAILS_TYPE_UNSPECIFIED = 0;
    */
-  email = "";
+  UNSPECIFIED = 0,
 
-  constructor(data?: PartialMessage<UserSSOLoginRedirectRequest>) {
+  /**
+   * @generated from enum value: USER_TEAM_DETAILS_TYPE_CASCADE_SEAT = 1;
+   */
+  CASCADE_SEAT = 1,
+}
+// Retrieve enum metadata with: proto3.getEnumType(UserTeamDetailsType)
+proto3.util.setEnumType(UserTeamDetailsType, "exa.seat_management_pb.UserTeamDetailsType", [
+  { no: 0, name: "USER_TEAM_DETAILS_TYPE_UNSPECIFIED" },
+  { no: 1, name: "USER_TEAM_DETAILS_TYPE_CASCADE_SEAT" },
+]);
+
+/**
+ * @generated from enum exa.seat_management_pb.PendingTransactionType
+ */
+export enum PendingTransactionType {
+  /**
+   * @generated from enum value: PENDING_TRANSACTION_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: PENDING_TRANSACTION_TYPE_TOP_UP = 1;
+   */
+  TOP_UP = 1,
+}
+// Retrieve enum metadata with: proto3.getEnumType(PendingTransactionType)
+proto3.util.setEnumType(PendingTransactionType, "exa.seat_management_pb.PendingTransactionType", [
+  { no: 0, name: "PENDING_TRANSACTION_TYPE_UNSPECIFIED" },
+  { no: 1, name: "PENDING_TRANSACTION_TYPE_TOP_UP" },
+]);
+
+/**
+ * @generated from enum exa.seat_management_pb.FlexCreditChronicleType
+ */
+export enum FlexCreditChronicleType {
+  /**
+   * @generated from enum value: FLEX_CREDIT_CHRONICLE_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: FLEX_CREDIT_CHRONICLE_TYPE_PURCHASE = 1;
+   */
+  PURCHASE = 1,
+
+  /**
+   * @generated from enum value: FLEX_CREDIT_CHRONICLE_TYPE_REFERRER = 2;
+   */
+  REFERRER = 2,
+
+  /**
+   * @generated from enum value: FLEX_CREDIT_CHRONICLE_TYPE_AVERY = 3;
+   */
+  AVERY = 3,
+
+  /**
+   * @generated from enum value: FLEX_CREDIT_CHRONICLE_TYPE_TOP_UP = 4;
+   */
+  TOP_UP = 4,
+
+  /**
+   * @generated from enum value: FLEX_CREDIT_CHRONICLE_TYPE_SUPPORT = 5;
+   */
+  SUPPORT = 5,
+
+  /**
+   * @generated from enum value: FLEX_CREDIT_CHRONICLE_TYPE_GTM = 6;
+   */
+  GTM = 6,
+}
+// Retrieve enum metadata with: proto3.getEnumType(FlexCreditChronicleType)
+proto3.util.setEnumType(FlexCreditChronicleType, "exa.seat_management_pb.FlexCreditChronicleType", [
+  { no: 0, name: "FLEX_CREDIT_CHRONICLE_TYPE_UNSPECIFIED" },
+  { no: 1, name: "FLEX_CREDIT_CHRONICLE_TYPE_PURCHASE" },
+  { no: 2, name: "FLEX_CREDIT_CHRONICLE_TYPE_REFERRER" },
+  { no: 3, name: "FLEX_CREDIT_CHRONICLE_TYPE_AVERY" },
+  { no: 4, name: "FLEX_CREDIT_CHRONICLE_TYPE_TOP_UP" },
+  { no: 5, name: "FLEX_CREDIT_CHRONICLE_TYPE_SUPPORT" },
+  { no: 6, name: "FLEX_CREDIT_CHRONICLE_TYPE_GTM" },
+]);
+
+/**
+ * @generated from enum exa.seat_management_pb.PurchaseReasonType
+ */
+export enum PurchaseReasonType {
+  /**
+   * @generated from enum value: PURCHASE_REASON_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: PURCHASE_REASON_TYPE_MANUAL = 1;
+   */
+  MANUAL = 1,
+
+  /**
+   * @generated from enum value: PURCHASE_REASON_TYPE_TOP_UP = 2;
+   */
+  TOP_UP = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(PurchaseReasonType)
+proto3.util.setEnumType(PurchaseReasonType, "exa.seat_management_pb.PurchaseReasonType", [
+  { no: 0, name: "PURCHASE_REASON_TYPE_UNSPECIFIED" },
+  { no: 1, name: "PURCHASE_REASON_TYPE_MANUAL" },
+  { no: 2, name: "PURCHASE_REASON_TYPE_TOP_UP" },
+]);
+
+/**
+ * @generated from message exa.seat_management_pb.GetSSOProviderRequest
+ */
+export class GetSSOProviderRequest extends Message<GetSSOProviderRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<GetSSOProviderRequest>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.seat_management_pb.UserSSOLoginRedirectRequest";
+  static readonly typeName = "exa.seat_management_pb.GetSSOProviderRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserSSOLoginRedirectRequest {
-    return new UserSSOLoginRedirectRequest().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetSSOProviderRequest {
+    return new GetSSOProviderRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserSSOLoginRedirectRequest {
-    return new UserSSOLoginRedirectRequest().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetSSOProviderRequest {
+    return new GetSSOProviderRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserSSOLoginRedirectRequest {
-    return new UserSSOLoginRedirectRequest().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetSSOProviderRequest {
+    return new GetSSOProviderRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: UserSSOLoginRedirectRequest | PlainMessage<UserSSOLoginRedirectRequest> | undefined, b: UserSSOLoginRedirectRequest | PlainMessage<UserSSOLoginRedirectRequest> | undefined): boolean {
-    return proto3.util.equals(UserSSOLoginRedirectRequest, a, b);
+  static equals(a: GetSSOProviderRequest | PlainMessage<GetSSOProviderRequest> | undefined, b: GetSSOProviderRequest | PlainMessage<GetSSOProviderRequest> | undefined): boolean {
+    return proto3.util.equals(GetSSOProviderRequest, a, b);
   }
 }
 
 /**
- * UserSSOLoginRedirect接口响应
- *
+ * @generated from message exa.seat_management_pb.GetCurrentUserResponse
+ */
+export class GetCurrentUserResponse extends Message<GetCurrentUserResponse> {
+  /**
+   * @generated from field: exa.seat_management_pb.User user = 1;
+   */
+  user?: User;
+
+  /**
+   * @generated from field: repeated string roles = 2;
+   */
+  roles: string[] = [];
+
+  /**
+   * @generated from field: exa.seat_management_pb.Team team = 4;
+   */
+  team?: Team;
+
+  /**
+   * @generated from field: exa.seat_management_pb.UserSettings subscription = 5;
+   */
+  subscription?: UserSettings;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.PlanInfo plan_info = 6;
+   */
+  planInfo?: PlanInfo;
+
+  /**
+   * @generated from field: exa.seat_management_pb.UserRole role = 7;
+   */
+  role?: UserRole;
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.Permission permissions = 8;
+   */
+  permissions: Permission[] = [];
+
+  /**
+   * @generated from field: exa.seat_management_pb.UserTeamDetails user_team_details = 9;
+   */
+  userTeamDetails?: UserTeamDetails;
+
+  /**
+   * @generated from field: exa.seat_management_pb.ReferralInfo referral = 10;
+   */
+  referral?: ReferralInfo;
+
+  /**
+   * @generated from field: map<int32, exa.codeium_common_pb.TeamsFeaturesMetadata> team_features = 11;
+   */
+  teamFeatures: { [key: number]: TeamsFeaturesMetadata } = {};
+
+  /**
+   * @generated from field: repeated string group_ids = 12;
+   */
+  groupIds: string[] = [];
+
+  constructor(data?: PartialMessage<GetCurrentUserResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetCurrentUserResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "user", kind: "message", T: User },
+    { no: 2, name: "roles", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 4, name: "team", kind: "message", T: Team },
+    { no: 5, name: "subscription", kind: "message", T: UserSettings },
+    { no: 6, name: "plan_info", kind: "message", T: PlanInfo },
+    { no: 7, name: "role", kind: "message", T: UserRole },
+    { no: 8, name: "permissions", kind: "enum", T: proto3.getEnumType(Permission), repeated: true },
+    { no: 9, name: "user_team_details", kind: "message", T: UserTeamDetails },
+    { no: 10, name: "referral", kind: "message", T: ReferralInfo },
+    { no: 11, name: "team_features", kind: "map", K: 5 /* ScalarType.INT32 */, V: {kind: "message", T: TeamsFeaturesMetadata} },
+    { no: 12, name: "group_ids", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetCurrentUserResponse {
+    return new GetCurrentUserResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetCurrentUserResponse {
+    return new GetCurrentUserResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetCurrentUserResponse {
+    return new GetCurrentUserResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetCurrentUserResponse | PlainMessage<GetCurrentUserResponse> | undefined, b: GetCurrentUserResponse | PlainMessage<GetCurrentUserResponse> | undefined): boolean {
+    return proto3.util.equals(GetCurrentUserResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.CreateTeamApiSecretResponse
+ */
+export class CreateTeamApiSecretResponse extends Message<CreateTeamApiSecretResponse> {
+  /**
+   * @generated from field: string secret = 1;
+   */
+  secret = "";
+
+  constructor(data?: PartialMessage<CreateTeamApiSecretResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.CreateTeamApiSecretResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateTeamApiSecretResponse {
+    return new CreateTeamApiSecretResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CreateTeamApiSecretResponse {
+    return new CreateTeamApiSecretResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CreateTeamApiSecretResponse {
+    return new CreateTeamApiSecretResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CreateTeamApiSecretResponse | PlainMessage<CreateTeamApiSecretResponse> | undefined, b: CreateTeamApiSecretResponse | PlainMessage<CreateTeamApiSecretResponse> | undefined): boolean {
+    return proto3.util.equals(CreateTeamApiSecretResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.SetTeamsFeaturesResponse
+ */
+export class SetTeamsFeaturesResponse extends Message<SetTeamsFeaturesResponse> {
+  constructor(data?: PartialMessage<SetTeamsFeaturesResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.SetTeamsFeaturesResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetTeamsFeaturesResponse {
+    return new SetTeamsFeaturesResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetTeamsFeaturesResponse {
+    return new SetTeamsFeaturesResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetTeamsFeaturesResponse {
+    return new SetTeamsFeaturesResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetTeamsFeaturesResponse | PlainMessage<SetTeamsFeaturesResponse> | undefined, b: SetTeamsFeaturesResponse | PlainMessage<SetTeamsFeaturesResponse> | undefined): boolean {
+    return proto3.util.equals(SetTeamsFeaturesResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateTeamApiSecretRequest
+ */
+export class UpdateTeamApiSecretRequest extends Message<UpdateTeamApiSecretRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string service_key_id = 2;
+   */
+  serviceKeyId = "";
+
+  /**
+   * @generated from field: string name = 3;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string role = 4;
+   */
+  role = "";
+
+  /**
+   * @generated from field: string group_id = 5;
+   */
+  groupId = "";
+
+  constructor(data?: PartialMessage<UpdateTeamApiSecretRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateTeamApiSecretRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "service_key_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "role", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "group_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateTeamApiSecretRequest {
+    return new UpdateTeamApiSecretRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateTeamApiSecretRequest {
+    return new UpdateTeamApiSecretRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateTeamApiSecretRequest {
+    return new UpdateTeamApiSecretRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateTeamApiSecretRequest | PlainMessage<UpdateTeamApiSecretRequest> | undefined, b: UpdateTeamApiSecretRequest | PlainMessage<UpdateTeamApiSecretRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateTeamApiSecretRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.AddTeamAddOnFeatureRequest
+ */
+export class AddTeamAddOnFeatureRequest extends Message<AddTeamAddOnFeatureRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.TeamsFeatures feature_type = 2;
+   */
+  featureType = TeamsFeatures.UNSPECIFIED;
+
+  /**
+   * @generated from field: bool preview = 3;
+   */
+  preview = false;
+
+  constructor(data?: PartialMessage<AddTeamAddOnFeatureRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.AddTeamAddOnFeatureRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "feature_type", kind: "enum", T: proto3.getEnumType(TeamsFeatures) },
+    { no: 3, name: "preview", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddTeamAddOnFeatureRequest {
+    return new AddTeamAddOnFeatureRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddTeamAddOnFeatureRequest {
+    return new AddTeamAddOnFeatureRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddTeamAddOnFeatureRequest {
+    return new AddTeamAddOnFeatureRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AddTeamAddOnFeatureRequest | PlainMessage<AddTeamAddOnFeatureRequest> | undefined, b: AddTeamAddOnFeatureRequest | PlainMessage<AddTeamAddOnFeatureRequest> | undefined): boolean {
+    return proto3.util.equals(AddTeamAddOnFeatureRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.AddTeamAddOnFeatureResponse
+ */
+export class AddTeamAddOnFeatureResponse extends Message<AddTeamAddOnFeatureResponse> {
+  /**
+   * @generated from field: exa.seat_management_pb.BillingUpdate billing_update = 1;
+   */
+  billingUpdate?: BillingUpdate;
+
+  /**
+   * @generated from field: bool applied_changes = 2;
+   */
+  appliedChanges = false;
+
+  /**
+   * @generated from field: string next_action_client_secret = 3;
+   */
+  nextActionClientSecret = "";
+
+  /**
+   * @generated from field: string payment_failure_reason = 4;
+   */
+  paymentFailureReason = "";
+
+  constructor(data?: PartialMessage<AddTeamAddOnFeatureResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.AddTeamAddOnFeatureResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "billing_update", kind: "message", T: BillingUpdate },
+    { no: 2, name: "applied_changes", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "next_action_client_secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "payment_failure_reason", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddTeamAddOnFeatureResponse {
+    return new AddTeamAddOnFeatureResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddTeamAddOnFeatureResponse {
+    return new AddTeamAddOnFeatureResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddTeamAddOnFeatureResponse {
+    return new AddTeamAddOnFeatureResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AddTeamAddOnFeatureResponse | PlainMessage<AddTeamAddOnFeatureResponse> | undefined, b: AddTeamAddOnFeatureResponse | PlainMessage<AddTeamAddOnFeatureResponse> | undefined): boolean {
+    return proto3.util.equals(AddTeamAddOnFeatureResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.CancelPlanResponse
+ */
+export class CancelPlanResponse extends Message<CancelPlanResponse> {
+  constructor(data?: PartialMessage<CancelPlanResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.CancelPlanResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CancelPlanResponse {
+    return new CancelPlanResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CancelPlanResponse {
+    return new CancelPlanResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CancelPlanResponse {
+    return new CancelPlanResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CancelPlanResponse | PlainMessage<CancelPlanResponse> | undefined, b: CancelPlanResponse | PlainMessage<CancelPlanResponse> | undefined): boolean {
+    return proto3.util.equals(CancelPlanResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetRolesRequest
+ */
+export class GetRolesRequest extends Message<GetRolesRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<GetRolesRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetRolesRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetRolesRequest {
+    return new GetRolesRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetRolesRequest {
+    return new GetRolesRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetRolesRequest {
+    return new GetRolesRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetRolesRequest | PlainMessage<GetRolesRequest> | undefined, b: GetRolesRequest | PlainMessage<GetRolesRequest> | undefined): boolean {
+    return proto3.util.equals(GetRolesRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.CreateTeamApiSecretRequest
+ */
+export class CreateTeamApiSecretRequest extends Message<CreateTeamApiSecretRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string name = 2;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string role = 3;
+   */
+  role = "";
+
+  /**
+   * @generated from field: string group_id = 4;
+   */
+  groupId = "";
+
+  constructor(data?: PartialMessage<CreateTeamApiSecretRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.CreateTeamApiSecretRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "role", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "group_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateTeamApiSecretRequest {
+    return new CreateTeamApiSecretRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CreateTeamApiSecretRequest {
+    return new CreateTeamApiSecretRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CreateTeamApiSecretRequest {
+    return new CreateTeamApiSecretRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CreateTeamApiSecretRequest | PlainMessage<CreateTeamApiSecretRequest> | undefined, b: CreateTeamApiSecretRequest | PlainMessage<CreateTeamApiSecretRequest> | undefined): boolean {
+    return proto3.util.equals(CreateTeamApiSecretRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.RequestTeamAccessResponse
+ */
+export class RequestTeamAccessResponse extends Message<RequestTeamAccessResponse> {
+  constructor(data?: PartialMessage<RequestTeamAccessResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.RequestTeamAccessResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RequestTeamAccessResponse {
+    return new RequestTeamAccessResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RequestTeamAccessResponse {
+    return new RequestTeamAccessResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RequestTeamAccessResponse {
+    return new RequestTeamAccessResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RequestTeamAccessResponse | PlainMessage<RequestTeamAccessResponse> | undefined, b: RequestTeamAccessResponse | PlainMessage<RequestTeamAccessResponse> | undefined): boolean {
+    return proto3.util.equals(RequestTeamAccessResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.AddTeamDomainRequest
+ */
+export class AddTeamDomainRequest extends Message<AddTeamDomainRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string domain = 2;
+   */
+  domain = "";
+
+  constructor(data?: PartialMessage<AddTeamDomainRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.AddTeamDomainRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "domain", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddTeamDomainRequest {
+    return new AddTeamDomainRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddTeamDomainRequest {
+    return new AddTeamDomainRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddTeamDomainRequest {
+    return new AddTeamDomainRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AddTeamDomainRequest | PlainMessage<AddTeamDomainRequest> | undefined, b: AddTeamDomainRequest | PlainMessage<AddTeamDomainRequest> | undefined): boolean {
+    return proto3.util.equals(AddTeamDomainRequest, a, b);
+  }
+}
+
+/**
  * @generated from message exa.seat_management_pb.UserSSOLoginRedirectResponse
  */
 export class UserSSOLoginRedirectResponse extends Message<UserSSOLoginRedirectResponse> {
@@ -130,84 +847,7268 @@ export class UserSSOLoginRedirectResponse extends Message<UserSSOLoginRedirectRe
 }
 
 /**
- * GetCurrentUser接口请求
- *
- * @generated from message exa.seat_management_pb.GetCurrentUserRequest
+ * @generated from message exa.seat_management_pb.MigrateApiKeyRequest
  */
-export class GetCurrentUserRequest extends Message<GetCurrentUserRequest> {
+export class MigrateApiKeyRequest extends Message<MigrateApiKeyRequest> {
+  /**
+   * @generated from field: string api_key = 1;
+   */
+  apiKey = "";
+
+  constructor(data?: PartialMessage<MigrateApiKeyRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.MigrateApiKeyRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MigrateApiKeyRequest {
+    return new MigrateApiKeyRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MigrateApiKeyRequest {
+    return new MigrateApiKeyRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MigrateApiKeyRequest {
+    return new MigrateApiKeyRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: MigrateApiKeyRequest | PlainMessage<MigrateApiKeyRequest> | undefined, b: MigrateApiKeyRequest | PlainMessage<MigrateApiKeyRequest> | undefined): boolean {
+    return proto3.util.equals(MigrateApiKeyRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateUserRolesRequest
+ */
+export class UpdateUserRolesRequest extends Message<UpdateUserRolesRequest> {
+  /**
+   * @generated from field: string secret = 1;
+   */
+  secret = "";
+
+  /**
+   * @generated from field: string email = 2;
+   */
+  email = "";
+
+  /**
+   * @generated from field: repeated string roles = 3;
+   */
+  roles: string[] = [];
+
+  constructor(data?: PartialMessage<UpdateUserRolesRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateUserRolesRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "roles", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateUserRolesRequest {
+    return new UpdateUserRolesRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateUserRolesRequest {
+    return new UpdateUserRolesRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateUserRolesRequest {
+    return new UpdateUserRolesRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateUserRolesRequest | PlainMessage<UpdateUserRolesRequest> | undefined, b: UpdateUserRolesRequest | PlainMessage<UpdateUserRolesRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateUserRolesRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetUsersRequest
+ */
+export class GetUsersRequest extends Message<GetUsersRequest> {
   /**
    * @generated from field: string auth_token = 1;
    */
   authToken = "";
 
   /**
-   * @generated from field: bool generate_profile_picture_url = 2;
+   * @generated from field: string group_id = 2;
    */
-  generateProfilePictureUrl = false;
+  groupId = "";
 
-  /**
-   * @generated from field: bool create_if_not_exist = 3;
-   */
-  createIfNotExist = false;
-
-  /**
-   * @generated from field: bool include_subscription = 4;
-   */
-  includeSubscription = false;
-
-  /**
-   * @generated from field: string sso_token = 5;
-   */
-  ssoToken = "";
-
-  /**
-   * @generated from field: string saml_provider_id = 6;
-   */
-  samlProviderId = "";
-
-  constructor(data?: PartialMessage<GetCurrentUserRequest>) {
+  constructor(data?: PartialMessage<GetUsersRequest>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.seat_management_pb.GetCurrentUserRequest";
+  static readonly typeName = "exa.seat_management_pb.GetUsersRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "generate_profile_picture_url", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 3, name: "create_if_not_exist", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 4, name: "include_subscription", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 5, name: "sso_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 6, name: "saml_provider_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "group_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetCurrentUserRequest {
-    return new GetCurrentUserRequest().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetUsersRequest {
+    return new GetUsersRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetCurrentUserRequest {
-    return new GetCurrentUserRequest().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetUsersRequest {
+    return new GetUsersRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetCurrentUserRequest {
-    return new GetCurrentUserRequest().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetUsersRequest {
+    return new GetUsersRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GetCurrentUserRequest | PlainMessage<GetCurrentUserRequest> | undefined, b: GetCurrentUserRequest | PlainMessage<GetCurrentUserRequest> | undefined): boolean {
-    return proto3.util.equals(GetCurrentUserRequest, a, b);
+  static equals(a: GetUsersRequest | PlainMessage<GetUsersRequest> | undefined, b: GetUsersRequest | PlainMessage<GetUsersRequest> | undefined): boolean {
+    return proto3.util.equals(GetUsersRequest, a, b);
   }
 }
 
 /**
- * GetCurrentUser接口响应
- *
- * @generated from message exa.seat_management_pb.GetCurrentUserResponse
+ * @generated from message exa.seat_management_pb.GetTeamActivityResponse
  */
-export class GetCurrentUserResponse extends Message<GetCurrentUserResponse> {
+export class GetTeamActivityResponse extends Message<GetTeamActivityResponse> {
+  /**
+   * @generated from field: repeated exa.seat_management_pb.UserActivity user_activity = 1;
+   */
+  userActivity: UserActivity[] = [];
+
+  constructor(data?: PartialMessage<GetTeamActivityResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetTeamActivityResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "user_activity", kind: "message", T: UserActivity, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTeamActivityResponse {
+    return new GetTeamActivityResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTeamActivityResponse {
+    return new GetTeamActivityResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTeamActivityResponse {
+    return new GetTeamActivityResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTeamActivityResponse | PlainMessage<GetTeamActivityResponse> | undefined, b: GetTeamActivityResponse | PlainMessage<GetTeamActivityResponse> | undefined): boolean {
+    return proto3.util.equals(GetTeamActivityResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.CreateEnterpriseRequest
+ */
+export class CreateEnterpriseRequest extends Message<CreateEnterpriseRequest> {
+  /**
+   * @generated from field: string secret = 1;
+   */
+  secret = "";
+
+  /**
+   * @generated from field: string team_name = 2;
+   */
+  teamName = "";
+
+  /**
+   * @generated from field: string admin_email = 3;
+   */
+  adminEmail = "";
+
+  /**
+   * @generated from field: repeated string tags = 4;
+   */
+  tags: string[] = [];
+
+  /**
+   * @generated from field: string organization = 5;
+   */
+  organization = "";
+
+  /**
+   * @generated from field: string source = 6;
+   */
+  source = "";
+
+  /**
+   * @generated from field: string creation_reason = 7;
+   */
+  creationReason = "";
+
+  /**
+   * @generated from field: bool trial = 8;
+   */
+  trial = false;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp end_date = 9;
+   */
+  endDate?: Timestamp;
+
+  /**
+   * @generated from field: bool hybrid = 10;
+   */
+  hybrid = false;
+
+  /**
+   * @generated from field: int32 flow_seats = 11;
+   */
+  flowSeats = 0;
+
+  /**
+   * @generated from field: int32 core_seats = 12;
+   */
+  coreSeats = 0;
+
+  /**
+   * @generated from field: repeated string users_to_add = 13;
+   */
+  usersToAdd: string[] = [];
+
+  /**
+   * @generated from field: string created_by = 14;
+   */
+  createdBy = "";
+
+  /**
+   * @generated from field: bool paid_out_of_band = 15;
+   */
+  paidOutOfBand = false;
+
+  /**
+   * @generated from field: bool enable_auto_cascade_seat_provisioning = 16;
+   */
+  enableAutoCascadeSeatProvisioning = false;
+
+  /**
+   * @generated from field: int32 user_prompt_credit_cap = 17;
+   */
+  userPromptCreditCap = 0;
+
+  /**
+   * @generated from field: int32 user_flow_credit_cap = 18;
+   */
+  userFlowCreditCap = 0;
+
+  /**
+   * @generated from field: bool send_email = 19;
+   */
+  sendEmail = false;
+
+  constructor(data?: PartialMessage<CreateEnterpriseRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.CreateEnterpriseRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "team_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "admin_email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "tags", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 5, name: "organization", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "source", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "creation_reason", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "trial", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 9, name: "end_date", kind: "message", T: Timestamp },
+    { no: 10, name: "hybrid", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 11, name: "flow_seats", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 12, name: "core_seats", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 13, name: "users_to_add", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 14, name: "created_by", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 15, name: "paid_out_of_band", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 16, name: "enable_auto_cascade_seat_provisioning", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 17, name: "user_prompt_credit_cap", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 18, name: "user_flow_credit_cap", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 19, name: "send_email", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateEnterpriseRequest {
+    return new CreateEnterpriseRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CreateEnterpriseRequest {
+    return new CreateEnterpriseRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CreateEnterpriseRequest {
+    return new CreateEnterpriseRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CreateEnterpriseRequest | PlainMessage<CreateEnterpriseRequest> | undefined, b: CreateEnterpriseRequest | PlainMessage<CreateEnterpriseRequest> | undefined): boolean {
+    return proto3.util.equals(CreateEnterpriseRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateCascadeWebSearchEnabledResponse
+ */
+export class UpdateCascadeWebSearchEnabledResponse extends Message<UpdateCascadeWebSearchEnabledResponse> {
+  constructor(data?: PartialMessage<UpdateCascadeWebSearchEnabledResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateCascadeWebSearchEnabledResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateCascadeWebSearchEnabledResponse {
+    return new UpdateCascadeWebSearchEnabledResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateCascadeWebSearchEnabledResponse {
+    return new UpdateCascadeWebSearchEnabledResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateCascadeWebSearchEnabledResponse {
+    return new UpdateCascadeWebSearchEnabledResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateCascadeWebSearchEnabledResponse | PlainMessage<UpdateCascadeWebSearchEnabledResponse> | undefined, b: UpdateCascadeWebSearchEnabledResponse | PlainMessage<UpdateCascadeWebSearchEnabledResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateCascadeWebSearchEnabledResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetPublicProfileRequest
+ */
+export class GetPublicProfileRequest extends Message<GetPublicProfileRequest> {
+  /**
+   * @generated from field: string username = 1;
+   */
+  username = "";
+
+  constructor(data?: PartialMessage<GetPublicProfileRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetPublicProfileRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "username", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetPublicProfileRequest {
+    return new GetPublicProfileRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetPublicProfileRequest {
+    return new GetPublicProfileRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetPublicProfileRequest {
+    return new GetPublicProfileRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetPublicProfileRequest | PlainMessage<GetPublicProfileRequest> | undefined, b: GetPublicProfileRequest | PlainMessage<GetPublicProfileRequest> | undefined): boolean {
+    return proto3.util.equals(GetPublicProfileRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DisconnectGithubAccountRequest
+ */
+export class DisconnectGithubAccountRequest extends Message<DisconnectGithubAccountRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<DisconnectGithubAccountRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DisconnectGithubAccountRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DisconnectGithubAccountRequest {
+    return new DisconnectGithubAccountRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DisconnectGithubAccountRequest {
+    return new DisconnectGithubAccountRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DisconnectGithubAccountRequest {
+    return new DisconnectGithubAccountRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DisconnectGithubAccountRequest | PlainMessage<DisconnectGithubAccountRequest> | undefined, b: DisconnectGithubAccountRequest | PlainMessage<DisconnectGithubAccountRequest> | undefined): boolean {
+    return proto3.util.equals(DisconnectGithubAccountRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.CreateEnterpriseResponse
+ */
+export class CreateEnterpriseResponse extends Message<CreateEnterpriseResponse> {
+  constructor(data?: PartialMessage<CreateEnterpriseResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.CreateEnterpriseResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateEnterpriseResponse {
+    return new CreateEnterpriseResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CreateEnterpriseResponse {
+    return new CreateEnterpriseResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CreateEnterpriseResponse {
+    return new CreateEnterpriseResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CreateEnterpriseResponse | PlainMessage<CreateEnterpriseResponse> | undefined, b: CreateEnterpriseResponse | PlainMessage<CreateEnterpriseResponse> | undefined): boolean {
+    return proto3.util.equals(CreateEnterpriseResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetProfileDataRequest
+ */
+export class GetProfileDataRequest extends Message<GetProfileDataRequest> {
+  /**
+   * @generated from field: string api_key = 1;
+   */
+  apiKey = "";
+
+  constructor(data?: PartialMessage<GetProfileDataRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetProfileDataRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetProfileDataRequest {
+    return new GetProfileDataRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetProfileDataRequest {
+    return new GetProfileDataRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetProfileDataRequest {
+    return new GetProfileDataRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetProfileDataRequest | PlainMessage<GetProfileDataRequest> | undefined, b: GetProfileDataRequest | PlainMessage<GetProfileDataRequest> | undefined): boolean {
+    return proto3.util.equals(GetProfileDataRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateInboundSourceResponse
+ */
+export class UpdateInboundSourceResponse extends Message<UpdateInboundSourceResponse> {
+  constructor(data?: PartialMessage<UpdateInboundSourceResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateInboundSourceResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateInboundSourceResponse {
+    return new UpdateInboundSourceResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateInboundSourceResponse {
+    return new UpdateInboundSourceResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateInboundSourceResponse {
+    return new UpdateInboundSourceResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateInboundSourceResponse | PlainMessage<UpdateInboundSourceResponse> | undefined, b: UpdateInboundSourceResponse | PlainMessage<UpdateInboundSourceResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateInboundSourceResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.ListTeamDomainsInternalResponse
+ */
+export class ListTeamDomainsInternalResponse extends Message<ListTeamDomainsInternalResponse> {
+  /**
+   * @generated from field: repeated exa.seat_management_pb.TeamDomain team_domains = 1;
+   */
+  teamDomains: TeamDomain[] = [];
+
+  constructor(data?: PartialMessage<ListTeamDomainsInternalResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.ListTeamDomainsInternalResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "team_domains", kind: "message", T: TeamDomain, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListTeamDomainsInternalResponse {
+    return new ListTeamDomainsInternalResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ListTeamDomainsInternalResponse {
+    return new ListTeamDomainsInternalResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ListTeamDomainsInternalResponse {
+    return new ListTeamDomainsInternalResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ListTeamDomainsInternalResponse | PlainMessage<ListTeamDomainsInternalResponse> | undefined, b: ListTeamDomainsInternalResponse | PlainMessage<ListTeamDomainsInternalResponse> | undefined): boolean {
+    return proto3.util.equals(ListTeamDomainsInternalResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GrantPreapprovalResponse
+ */
+export class GrantPreapprovalResponse extends Message<GrantPreapprovalResponse> {
+  /**
+   * @generated from field: repeated exa.seat_management_pb.PreapprovedUser preapprovals = 1;
+   */
+  preapprovals: PreapprovedUser[] = [];
+
+  constructor(data?: PartialMessage<GrantPreapprovalResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GrantPreapprovalResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "preapprovals", kind: "message", T: PreapprovedUser, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GrantPreapprovalResponse {
+    return new GrantPreapprovalResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GrantPreapprovalResponse {
+    return new GrantPreapprovalResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GrantPreapprovalResponse {
+    return new GrantPreapprovalResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GrantPreapprovalResponse | PlainMessage<GrantPreapprovalResponse> | undefined, b: GrantPreapprovalResponse | PlainMessage<GrantPreapprovalResponse> | undefined): boolean {
+    return proto3.util.equals(GrantPreapprovalResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetRolesForUserResponse
+ */
+export class GetRolesForUserResponse extends Message<GetRolesForUserResponse> {
+  /**
+   * @generated from field: repeated string roles = 1;
+   */
+  roles: string[] = [];
+
+  constructor(data?: PartialMessage<GetRolesForUserResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetRolesForUserResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "roles", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetRolesForUserResponse {
+    return new GetRolesForUserResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetRolesForUserResponse {
+    return new GetRolesForUserResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetRolesForUserResponse {
+    return new GetRolesForUserResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetRolesForUserResponse | PlainMessage<GetRolesForUserResponse> | undefined, b: GetRolesForUserResponse | PlainMessage<GetRolesForUserResponse> | undefined): boolean {
+    return proto3.util.equals(GetRolesForUserResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.RemoveUserFromTeamResponse
+ */
+export class RemoveUserFromTeamResponse extends Message<RemoveUserFromTeamResponse> {
+  constructor(data?: PartialMessage<RemoveUserFromTeamResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.RemoveUserFromTeamResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RemoveUserFromTeamResponse {
+    return new RemoveUserFromTeamResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RemoveUserFromTeamResponse {
+    return new RemoveUserFromTeamResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RemoveUserFromTeamResponse {
+    return new RemoveUserFromTeamResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RemoveUserFromTeamResponse | PlainMessage<RemoveUserFromTeamResponse> | undefined, b: RemoveUserFromTeamResponse | PlainMessage<RemoveUserFromTeamResponse> | undefined): boolean {
+    return proto3.util.equals(RemoveUserFromTeamResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.BulkEditUserApprovalsInternalRequest
+ */
+export class BulkEditUserApprovalsInternalRequest extends Message<BulkEditUserApprovalsInternalRequest> {
+  /**
+   * @generated from field: string secret = 1;
+   */
+  secret = "";
+
+  /**
+   * @generated from field: string team_name = 2;
+   */
+  teamName = "";
+
+  /**
+   * @generated from field: repeated string emails = 3;
+   */
+  emails: string[] = [];
+
+  /**
+   * @generated from field: exa.seat_management_pb.UserTeamDetailsType approval_type = 4;
+   */
+  approvalType = UserTeamDetailsType.UNSPECIFIED;
+
+  /**
+   * @generated from field: bool approve = 5;
+   */
+  approve = false;
+
+  constructor(data?: PartialMessage<BulkEditUserApprovalsInternalRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.BulkEditUserApprovalsInternalRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "team_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "emails", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 4, name: "approval_type", kind: "enum", T: proto3.getEnumType(UserTeamDetailsType) },
+    { no: 5, name: "approve", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BulkEditUserApprovalsInternalRequest {
+    return new BulkEditUserApprovalsInternalRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BulkEditUserApprovalsInternalRequest {
+    return new BulkEditUserApprovalsInternalRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BulkEditUserApprovalsInternalRequest {
+    return new BulkEditUserApprovalsInternalRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BulkEditUserApprovalsInternalRequest | PlainMessage<BulkEditUserApprovalsInternalRequest> | undefined, b: BulkEditUserApprovalsInternalRequest | PlainMessage<BulkEditUserApprovalsInternalRequest> | undefined): boolean {
+    return proto3.util.equals(BulkEditUserApprovalsInternalRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.ProcessReferralCodeResponse
+ */
+export class ProcessReferralCodeResponse extends Message<ProcessReferralCodeResponse> {
+  constructor(data?: PartialMessage<ProcessReferralCodeResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.ProcessReferralCodeResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ProcessReferralCodeResponse {
+    return new ProcessReferralCodeResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ProcessReferralCodeResponse {
+    return new ProcessReferralCodeResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ProcessReferralCodeResponse {
+    return new ProcessReferralCodeResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ProcessReferralCodeResponse | PlainMessage<ProcessReferralCodeResponse> | undefined, b: ProcessReferralCodeResponse | PlainMessage<ProcessReferralCodeResponse> | undefined): boolean {
+    return proto3.util.equals(ProcessReferralCodeResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.JoinTeamWithSSOLoginRequest
+ */
+export class JoinTeamWithSSOLoginRequest extends Message<JoinTeamWithSSOLoginRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string saml_provider_id = 2;
+   */
+  samlProviderId = "";
+
+  /**
+   * @generated from field: string saml_auth_token = 3;
+   */
+  samlAuthToken = "";
+
+  constructor(data?: PartialMessage<JoinTeamWithSSOLoginRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.JoinTeamWithSSOLoginRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "saml_provider_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "saml_auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JoinTeamWithSSOLoginRequest {
+    return new JoinTeamWithSSOLoginRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JoinTeamWithSSOLoginRequest {
+    return new JoinTeamWithSSOLoginRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JoinTeamWithSSOLoginRequest {
+    return new JoinTeamWithSSOLoginRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JoinTeamWithSSOLoginRequest | PlainMessage<JoinTeamWithSSOLoginRequest> | undefined, b: JoinTeamWithSSOLoginRequest | PlainMessage<JoinTeamWithSSOLoginRequest> | undefined): boolean {
+    return proto3.util.equals(JoinTeamWithSSOLoginRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DeleteMultiTenantTeamResponse
+ */
+export class DeleteMultiTenantTeamResponse extends Message<DeleteMultiTenantTeamResponse> {
+  constructor(data?: PartialMessage<DeleteMultiTenantTeamResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DeleteMultiTenantTeamResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteMultiTenantTeamResponse {
+    return new DeleteMultiTenantTeamResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteMultiTenantTeamResponse {
+    return new DeleteMultiTenantTeamResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteMultiTenantTeamResponse {
+    return new DeleteMultiTenantTeamResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteMultiTenantTeamResponse | PlainMessage<DeleteMultiTenantTeamResponse> | undefined, b: DeleteMultiTenantTeamResponse | PlainMessage<DeleteMultiTenantTeamResponse> | undefined): boolean {
+    return proto3.util.equals(DeleteMultiTenantTeamResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetUsersResponse
+ */
+export class GetUsersResponse extends Message<GetUsersResponse> {
+  /**
+   * @generated from field: repeated exa.seat_management_pb.User users = 1;
+   */
+  users: User[] = [];
+
+  /**
+   * @generated from field: repeated exa.seat_management_pb.UserRole user_roles = 2;
+   */
+  userRoles: UserRole[] = [];
+
+  /**
+   * @generated from field: repeated exa.seat_management_pb.UserTeamDetails user_team_details = 3;
+   */
+  userTeamDetails: UserTeamDetails[] = [];
+
+  /**
+   * @generated from field: repeated exa.seat_management_pb.UserCascadeDetails user_cascade_details = 4;
+   */
+  userCascadeDetails: UserCascadeDetails[] = [];
+
+  constructor(data?: PartialMessage<GetUsersResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetUsersResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "users", kind: "message", T: User, repeated: true },
+    { no: 2, name: "user_roles", kind: "message", T: UserRole, repeated: true },
+    { no: 3, name: "user_team_details", kind: "message", T: UserTeamDetails, repeated: true },
+    { no: 4, name: "user_cascade_details", kind: "message", T: UserCascadeDetails, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetUsersResponse {
+    return new GetUsersResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetUsersResponse {
+    return new GetUsersResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetUsersResponse {
+    return new GetUsersResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetUsersResponse | PlainMessage<GetUsersResponse> | undefined, b: GetUsersResponse | PlainMessage<GetUsersResponse> | undefined): boolean {
+    return proto3.util.equals(GetUsersResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.ProvisionTeamRequest
+ */
+export class ProvisionTeamRequest extends Message<ProvisionTeamRequest> {
+  /**
+   * @generated from field: string secret = 1;
+   */
+  secret = "";
+
+  /**
+   * @generated from field: string admin_email = 2;
+   */
+  adminEmail = "";
+
+  /**
+   * @generated from field: string team_name = 3;
+   */
+  teamName = "";
+
+  /**
+   * @generated from field: int64 num_seats = 4;
+   */
+  numSeats = protoInt64.zero;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.TeamsTier teams_tier = 5;
+   */
+  teamsTier = TeamsTier.UNSPECIFIED;
+
+  constructor(data?: PartialMessage<ProvisionTeamRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.ProvisionTeamRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "admin_email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "team_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "num_seats", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 5, name: "teams_tier", kind: "enum", T: proto3.getEnumType(TeamsTier) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ProvisionTeamRequest {
+    return new ProvisionTeamRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ProvisionTeamRequest {
+    return new ProvisionTeamRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ProvisionTeamRequest {
+    return new ProvisionTeamRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ProvisionTeamRequest | PlainMessage<ProvisionTeamRequest> | undefined, b: ProvisionTeamRequest | PlainMessage<ProvisionTeamRequest> | undefined): boolean {
+    return proto3.util.equals(ProvisionTeamRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetTeamBillingRequest
+ */
+export class GetTeamBillingRequest extends Message<GetTeamBillingRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<GetTeamBillingRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetTeamBillingRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTeamBillingRequest {
+    return new GetTeamBillingRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTeamBillingRequest {
+    return new GetTeamBillingRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTeamBillingRequest {
+    return new GetTeamBillingRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTeamBillingRequest | PlainMessage<GetTeamBillingRequest> | undefined, b: GetTeamBillingRequest | PlainMessage<GetTeamBillingRequest> | undefined): boolean {
+    return proto3.util.equals(GetTeamBillingRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateSeatsRequest
+ */
+export class UpdateSeatsRequest extends Message<UpdateSeatsRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: int64 num_seats = 2;
+   */
+  numSeats = protoInt64.zero;
+
+  /**
+   * @generated from field: bool preview = 3;
+   */
+  preview = false;
+
+  constructor(data?: PartialMessage<UpdateSeatsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateSeatsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "num_seats", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 3, name: "preview", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateSeatsRequest {
+    return new UpdateSeatsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateSeatsRequest {
+    return new UpdateSeatsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateSeatsRequest {
+    return new UpdateSeatsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateSeatsRequest | PlainMessage<UpdateSeatsRequest> | undefined, b: UpdateSeatsRequest | PlainMessage<UpdateSeatsRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateSeatsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetPreapprovalForUserResponse
+ */
+export class GetPreapprovalForUserResponse extends Message<GetPreapprovalForUserResponse> {
+  /**
+   * @generated from field: exa.seat_management_pb.PreapprovedUser preapproval = 1;
+   */
+  preapproval?: PreapprovedUser;
+
+  /**
+   * @generated from field: string admin_name = 2;
+   */
+  adminName = "";
+
+  /**
+   * @generated from field: string team_name = 3;
+   */
+  teamName = "";
+
+  constructor(data?: PartialMessage<GetPreapprovalForUserResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetPreapprovalForUserResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "preapproval", kind: "message", T: PreapprovedUser },
+    { no: 2, name: "admin_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "team_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetPreapprovalForUserResponse {
+    return new GetPreapprovalForUserResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetPreapprovalForUserResponse {
+    return new GetPreapprovalForUserResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetPreapprovalForUserResponse {
+    return new GetPreapprovalForUserResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetPreapprovalForUserResponse | PlainMessage<GetPreapprovalForUserResponse> | undefined, b: GetPreapprovalForUserResponse | PlainMessage<GetPreapprovalForUserResponse> | undefined): boolean {
+    return proto3.util.equals(GetPreapprovalForUserResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DisconnectNetlifyAccountRequest
+ */
+export class DisconnectNetlifyAccountRequest extends Message<DisconnectNetlifyAccountRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<DisconnectNetlifyAccountRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DisconnectNetlifyAccountRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DisconnectNetlifyAccountRequest {
+    return new DisconnectNetlifyAccountRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DisconnectNetlifyAccountRequest {
+    return new DisconnectNetlifyAccountRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DisconnectNetlifyAccountRequest {
+    return new DisconnectNetlifyAccountRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DisconnectNetlifyAccountRequest | PlainMessage<DisconnectNetlifyAccountRequest> | undefined, b: DisconnectNetlifyAccountRequest | PlainMessage<DisconnectNetlifyAccountRequest> | undefined): boolean {
+    return proto3.util.equals(DisconnectNetlifyAccountRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.BulkEditUserApprovalsResponse
+ */
+export class BulkEditUserApprovalsResponse extends Message<BulkEditUserApprovalsResponse> {
+  constructor(data?: PartialMessage<BulkEditUserApprovalsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.BulkEditUserApprovalsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BulkEditUserApprovalsResponse {
+    return new BulkEditUserApprovalsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BulkEditUserApprovalsResponse {
+    return new BulkEditUserApprovalsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BulkEditUserApprovalsResponse {
+    return new BulkEditUserApprovalsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BulkEditUserApprovalsResponse | PlainMessage<BulkEditUserApprovalsResponse> | undefined, b: BulkEditUserApprovalsResponse | PlainMessage<BulkEditUserApprovalsResponse> | undefined): boolean {
+    return proto3.util.equals(BulkEditUserApprovalsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetTeamsFeaturesResponse
+ */
+export class GetTeamsFeaturesResponse extends Message<GetTeamsFeaturesResponse> {
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.TeamsFeatures features = 1;
+   */
+  features: TeamsFeatures[] = [];
+
+  constructor(data?: PartialMessage<GetTeamsFeaturesResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetTeamsFeaturesResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "features", kind: "enum", T: proto3.getEnumType(TeamsFeatures), repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTeamsFeaturesResponse {
+    return new GetTeamsFeaturesResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTeamsFeaturesResponse {
+    return new GetTeamsFeaturesResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTeamsFeaturesResponse {
+    return new GetTeamsFeaturesResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTeamsFeaturesResponse | PlainMessage<GetTeamsFeaturesResponse> | undefined, b: GetTeamsFeaturesResponse | PlainMessage<GetTeamsFeaturesResponse> | undefined): boolean {
+    return proto3.util.equals(GetTeamsFeaturesResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetUserNotificationsRequest
+ */
+export class GetUserNotificationsRequest extends Message<GetUserNotificationsRequest> {
+  /**
+   * @generated from field: string api_key = 1;
+   */
+  apiKey = "";
+
+  constructor(data?: PartialMessage<GetUserNotificationsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetUserNotificationsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetUserNotificationsRequest {
+    return new GetUserNotificationsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetUserNotificationsRequest {
+    return new GetUserNotificationsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetUserNotificationsRequest {
+    return new GetUserNotificationsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetUserNotificationsRequest | PlainMessage<GetUserNotificationsRequest> | undefined, b: GetUserNotificationsRequest | PlainMessage<GetUserNotificationsRequest> | undefined): boolean {
+    return proto3.util.equals(GetUserNotificationsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.BulkUpdateUserRolesResponse
+ */
+export class BulkUpdateUserRolesResponse extends Message<BulkUpdateUserRolesResponse> {
+  /**
+   * @generated from field: repeated string successful_emails = 1;
+   */
+  successfulEmails: string[] = [];
+
+  /**
+   * @generated from field: repeated string failed_emails = 2;
+   */
+  failedEmails: string[] = [];
+
+  constructor(data?: PartialMessage<BulkUpdateUserRolesResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.BulkUpdateUserRolesResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "successful_emails", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 2, name: "failed_emails", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BulkUpdateUserRolesResponse {
+    return new BulkUpdateUserRolesResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BulkUpdateUserRolesResponse {
+    return new BulkUpdateUserRolesResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BulkUpdateUserRolesResponse {
+    return new BulkUpdateUserRolesResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BulkUpdateUserRolesResponse | PlainMessage<BulkUpdateUserRolesResponse> | undefined, b: BulkUpdateUserRolesResponse | PlainMessage<BulkUpdateUserRolesResponse> | undefined): boolean {
+    return proto3.util.equals(BulkUpdateUserRolesResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetPreapprovalForUserRequest
+ */
+export class GetPreapprovalForUserRequest extends Message<GetPreapprovalForUserRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<GetPreapprovalForUserRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetPreapprovalForUserRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetPreapprovalForUserRequest {
+    return new GetPreapprovalForUserRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetPreapprovalForUserRequest {
+    return new GetPreapprovalForUserRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetPreapprovalForUserRequest {
+    return new GetPreapprovalForUserRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetPreapprovalForUserRequest | PlainMessage<GetPreapprovalForUserRequest> | undefined, b: GetPreapprovalForUserRequest | PlainMessage<GetPreapprovalForUserRequest> | undefined): boolean {
+    return proto3.util.equals(GetPreapprovalForUserRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.CreateFbUserRequest
+ */
+export class CreateFbUserRequest extends Message<CreateFbUserRequest> {
+  /**
+   * @generated from field: string email = 1;
+   */
+  email = "";
+
+  /**
+   * @generated from field: string password = 2;
+   */
+  password = "";
+
+  /**
+   * @generated from field: string turnstile_token = 3;
+   */
+  turnstileToken = "";
+
+  /**
+   * @generated from field: string phone_number = 4;
+   */
+  phoneNumber = "";
+
+  /**
+   * @generated from field: string otp_code = 5;
+   */
+  otpCode = "";
+
+  /**
+   * @generated from field: string first_name = 6;
+   */
+  firstName = "";
+
+  /**
+   * @generated from field: string last_name = 7;
+   */
+  lastName = "";
+
+  constructor(data?: PartialMessage<CreateFbUserRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.CreateFbUserRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "password", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "turnstile_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "phone_number", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "otp_code", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "first_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "last_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateFbUserRequest {
+    return new CreateFbUserRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CreateFbUserRequest {
+    return new CreateFbUserRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CreateFbUserRequest {
+    return new CreateFbUserRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CreateFbUserRequest | PlainMessage<CreateFbUserRequest> | undefined, b: CreateFbUserRequest | PlainMessage<CreateFbUserRequest> | undefined): boolean {
+    return proto3.util.equals(CreateFbUserRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.AddExtraFlexCreditsInternalResponse
+ */
+export class AddExtraFlexCreditsInternalResponse extends Message<AddExtraFlexCreditsInternalResponse> {
+  /**
+   * @generated from field: int64 previous_flex_credits = 1;
+   */
+  previousFlexCredits = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 new_flex_credits = 2;
+   */
+  newFlexCredits = protoInt64.zero;
+
+  constructor(data?: PartialMessage<AddExtraFlexCreditsInternalResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.AddExtraFlexCreditsInternalResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "previous_flex_credits", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 2, name: "new_flex_credits", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddExtraFlexCreditsInternalResponse {
+    return new AddExtraFlexCreditsInternalResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddExtraFlexCreditsInternalResponse {
+    return new AddExtraFlexCreditsInternalResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddExtraFlexCreditsInternalResponse {
+    return new AddExtraFlexCreditsInternalResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AddExtraFlexCreditsInternalResponse | PlainMessage<AddExtraFlexCreditsInternalResponse> | undefined, b: AddExtraFlexCreditsInternalResponse | PlainMessage<AddExtraFlexCreditsInternalResponse> | undefined): boolean {
+    return proto3.util.equals(AddExtraFlexCreditsInternalResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DeleteUserResponse
+ */
+export class DeleteUserResponse extends Message<DeleteUserResponse> {
+  constructor(data?: PartialMessage<DeleteUserResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DeleteUserResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteUserResponse {
+    return new DeleteUserResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteUserResponse {
+    return new DeleteUserResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteUserResponse {
+    return new DeleteUserResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteUserResponse | PlainMessage<DeleteUserResponse> | undefined, b: DeleteUserResponse | PlainMessage<DeleteUserResponse> | undefined): boolean {
+    return proto3.util.equals(DeleteUserResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.SendEmailVerificationRequest
+ */
+export class SendEmailVerificationRequest extends Message<SendEmailVerificationRequest> {
+  /**
+   * @generated from field: string first_name = 1;
+   */
+  firstName = "";
+
+  /**
+   * @generated from field: string email = 2;
+   */
+  email = "";
+
+  /**
+   * @generated from field: string turnstile_token = 3;
+   */
+  turnstileToken = "";
+
+  constructor(data?: PartialMessage<SendEmailVerificationRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.SendEmailVerificationRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "first_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "turnstile_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SendEmailVerificationRequest {
+    return new SendEmailVerificationRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SendEmailVerificationRequest {
+    return new SendEmailVerificationRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SendEmailVerificationRequest {
+    return new SendEmailVerificationRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SendEmailVerificationRequest | PlainMessage<SendEmailVerificationRequest> | undefined, b: SendEmailVerificationRequest | PlainMessage<SendEmailVerificationRequest> | undefined): boolean {
+    return proto3.util.equals(SendEmailVerificationRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdatePlanDetailsInternalResponse
+ */
+export class UpdatePlanDetailsInternalResponse extends Message<UpdatePlanDetailsInternalResponse> {
+  constructor(data?: PartialMessage<UpdatePlanDetailsInternalResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdatePlanDetailsInternalResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdatePlanDetailsInternalResponse {
+    return new UpdatePlanDetailsInternalResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdatePlanDetailsInternalResponse {
+    return new UpdatePlanDetailsInternalResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdatePlanDetailsInternalResponse {
+    return new UpdatePlanDetailsInternalResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdatePlanDetailsInternalResponse | PlainMessage<UpdatePlanDetailsInternalResponse> | undefined, b: UpdatePlanDetailsInternalResponse | PlainMessage<UpdatePlanDetailsInternalResponse> | undefined): boolean {
+    return proto3.util.equals(UpdatePlanDetailsInternalResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DeleteApiKeyResponse
+ */
+export class DeleteApiKeyResponse extends Message<DeleteApiKeyResponse> {
+  constructor(data?: PartialMessage<DeleteApiKeyResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DeleteApiKeyResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteApiKeyResponse {
+    return new DeleteApiKeyResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteApiKeyResponse {
+    return new DeleteApiKeyResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteApiKeyResponse {
+    return new DeleteApiKeyResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteApiKeyResponse | PlainMessage<DeleteApiKeyResponse> | undefined, b: DeleteApiKeyResponse | PlainMessage<DeleteApiKeyResponse> | undefined): boolean {
+    return proto3.util.equals(DeleteApiKeyResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetNetlifyAccountStatusResponse
+ */
+export class GetNetlifyAccountStatusResponse extends Message<GetNetlifyAccountStatusResponse> {
+  /**
+   * @generated from field: bool connected = 1;
+   */
+  connected = false;
+
+  /**
+   * @generated from field: string netlify_user_id = 2;
+   */
+  netlifyUserId = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp expires_at = 3;
+   */
+  expiresAt?: Timestamp;
+
+  constructor(data?: PartialMessage<GetNetlifyAccountStatusResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetNetlifyAccountStatusResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "connected", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 2, name: "netlify_user_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "expires_at", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetNetlifyAccountStatusResponse {
+    return new GetNetlifyAccountStatusResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetNetlifyAccountStatusResponse {
+    return new GetNetlifyAccountStatusResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetNetlifyAccountStatusResponse {
+    return new GetNetlifyAccountStatusResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetNetlifyAccountStatusResponse | PlainMessage<GetNetlifyAccountStatusResponse> | undefined, b: GetNetlifyAccountStatusResponse | PlainMessage<GetNetlifyAccountStatusResponse> | undefined): boolean {
+    return proto3.util.equals(GetNetlifyAccountStatusResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateTeamConfigExternalRequest
+ */
+export class UpdateTeamConfigExternalRequest extends Message<UpdateTeamConfigExternalRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: optional bool allow_auto_run_commands = 2;
+   */
+  allowAutoRunCommands?: boolean;
+
+  /**
+   * @generated from field: optional bool allow_mcp_servers = 3;
+   */
+  allowMcpServers?: boolean;
+
+  /**
+   * @generated from field: optional bool allow_app_deployments = 4;
+   */
+  allowAppDeployments?: boolean;
+
+  /**
+   * @generated from field: optional bool allow_github_reviews = 5;
+   */
+  allowGithubReviews?: boolean;
+
+  /**
+   * @generated from field: optional bool allow_github_description_edits = 6;
+   */
+  allowGithubDescriptionEdits?: boolean;
+
+  /**
+   * @generated from field: optional string pull_request_review_guidelines = 7;
+   */
+  pullRequestReviewGuidelines?: string;
+
+  /**
+   * @generated from field: optional string pull_request_description_guidelines = 8;
+   */
+  pullRequestDescriptionGuidelines?: string;
+
+  /**
+   * @generated from field: optional bool allow_individual_level_analytics = 9;
+   */
+  allowIndividualLevelAnalytics?: boolean;
+
+  /**
+   * @generated from field: optional bool allow_conversation_sharing = 10;
+   */
+  allowConversationSharing?: boolean;
+
+  /**
+   * @generated from field: optional bool allow_sandbox_app_deployments = 11;
+   */
+  allowSandboxAppDeployments?: boolean;
+
+  /**
+   * @generated from field: optional bool allow_teams_app_deployments = 12;
+   */
+  allowTeamsAppDeployments?: boolean;
+
+  /**
+   * @generated from field: optional bool allow_attribution = 13;
+   */
+  allowAttribution?: boolean;
+
+  /**
+   * @generated from field: optional string allowed_mcp_servers = 14;
+   */
+  allowedMcpServers?: string;
+
+  /**
+   * @generated from field: optional bool allow_github_auto_reviews = 15;
+   */
+  allowGithubAutoReviews?: boolean;
+
+  /**
+   * @generated from field: optional bool allow_browser_experimental_features = 16;
+   */
+  allowBrowserExperimentalFeatures?: boolean;
+
+  /**
+   * @generated from field: optional bool allow_vibe_and_replace = 17;
+   */
+  allowVibeAndReplace?: boolean;
+
+  /**
+   * @generated from field: optional bool disable_deepwiki = 18;
+   */
+  disableDeepwiki?: boolean;
+
+  constructor(data?: PartialMessage<UpdateTeamConfigExternalRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateTeamConfigExternalRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "allow_auto_run_commands", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 3, name: "allow_mcp_servers", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 4, name: "allow_app_deployments", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 5, name: "allow_github_reviews", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 6, name: "allow_github_description_edits", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 7, name: "pull_request_review_guidelines", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 8, name: "pull_request_description_guidelines", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 9, name: "allow_individual_level_analytics", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 10, name: "allow_conversation_sharing", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 11, name: "allow_sandbox_app_deployments", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 12, name: "allow_teams_app_deployments", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 13, name: "allow_attribution", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 14, name: "allowed_mcp_servers", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 15, name: "allow_github_auto_reviews", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 16, name: "allow_browser_experimental_features", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 17, name: "allow_vibe_and_replace", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 18, name: "disable_deepwiki", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateTeamConfigExternalRequest {
+    return new UpdateTeamConfigExternalRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateTeamConfigExternalRequest {
+    return new UpdateTeamConfigExternalRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateTeamConfigExternalRequest {
+    return new UpdateTeamConfigExternalRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateTeamConfigExternalRequest | PlainMessage<UpdateTeamConfigExternalRequest> | undefined, b: UpdateTeamConfigExternalRequest | PlainMessage<UpdateTeamConfigExternalRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateTeamConfigExternalRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateRoleRequest
+ */
+export class UpdateRoleRequest extends Message<UpdateRoleRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string role_id = 2;
+   */
+  roleId = "";
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.Permission permissions = 3;
+   */
+  permissions: Permission[] = [];
+
+  constructor(data?: PartialMessage<UpdateRoleRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateRoleRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "role_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "permissions", kind: "enum", T: proto3.getEnumType(Permission), repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateRoleRequest {
+    return new UpdateRoleRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateRoleRequest {
+    return new UpdateRoleRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateRoleRequest {
+    return new UpdateRoleRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateRoleRequest | PlainMessage<UpdateRoleRequest> | undefined, b: UpdateRoleRequest | PlainMessage<UpdateRoleRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateRoleRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetUserSubscriptionRequest
+ */
+export class GetUserSubscriptionRequest extends Message<GetUserSubscriptionRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<GetUserSubscriptionRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetUserSubscriptionRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetUserSubscriptionRequest {
+    return new GetUserSubscriptionRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetUserSubscriptionRequest {
+    return new GetUserSubscriptionRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetUserSubscriptionRequest {
+    return new GetUserSubscriptionRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetUserSubscriptionRequest | PlainMessage<GetUserSubscriptionRequest> | undefined, b: GetUserSubscriptionRequest | PlainMessage<GetUserSubscriptionRequest> | undefined): boolean {
+    return proto3.util.equals(GetUserSubscriptionRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.RemoveUserRoleResponse
+ */
+export class RemoveUserRoleResponse extends Message<RemoveUserRoleResponse> {
+  constructor(data?: PartialMessage<RemoveUserRoleResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.RemoveUserRoleResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RemoveUserRoleResponse {
+    return new RemoveUserRoleResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RemoveUserRoleResponse {
+    return new RemoveUserRoleResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RemoveUserRoleResponse {
+    return new RemoveUserRoleResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RemoveUserRoleResponse | PlainMessage<RemoveUserRoleResponse> | undefined, b: RemoveUserRoleResponse | PlainMessage<RemoveUserRoleResponse> | undefined): boolean {
+    return proto3.util.equals(RemoveUserRoleResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.ListTeamDomainsResponse
+ */
+export class ListTeamDomainsResponse extends Message<ListTeamDomainsResponse> {
+  /**
+   * @generated from field: repeated exa.seat_management_pb.TeamDomain team_domains = 1;
+   */
+  teamDomains: TeamDomain[] = [];
+
+  constructor(data?: PartialMessage<ListTeamDomainsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.ListTeamDomainsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "team_domains", kind: "message", T: TeamDomain, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListTeamDomainsResponse {
+    return new ListTeamDomainsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ListTeamDomainsResponse {
+    return new ListTeamDomainsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ListTeamDomainsResponse {
+    return new ListTeamDomainsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ListTeamDomainsResponse | PlainMessage<ListTeamDomainsResponse> | undefined, b: ListTeamDomainsResponse | PlainMessage<ListTeamDomainsResponse> | undefined): boolean {
+    return proto3.util.equals(ListTeamDomainsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetGitHubAccountStatusResponse
+ */
+export class GetGitHubAccountStatusResponse extends Message<GetGitHubAccountStatusResponse> {
+  /**
+   * @generated from field: bool connected = 1;
+   */
+  connected = false;
+
+  /**
+   * @generated from field: string username = 2;
+   */
+  username = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp expires_at = 3;
+   */
+  expiresAt?: Timestamp;
+
+  constructor(data?: PartialMessage<GetGitHubAccountStatusResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetGitHubAccountStatusResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "connected", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 2, name: "username", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "expires_at", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetGitHubAccountStatusResponse {
+    return new GetGitHubAccountStatusResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetGitHubAccountStatusResponse {
+    return new GetGitHubAccountStatusResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetGitHubAccountStatusResponse {
+    return new GetGitHubAccountStatusResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetGitHubAccountStatusResponse | PlainMessage<GetGitHubAccountStatusResponse> | undefined, b: GetGitHubAccountStatusResponse | PlainMessage<GetGitHubAccountStatusResponse> | undefined): boolean {
+    return proto3.util.equals(GetGitHubAccountStatusResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.RefreshTeamInviteIdResponse
+ */
+export class RefreshTeamInviteIdResponse extends Message<RefreshTeamInviteIdResponse> {
+  /**
+   * @generated from field: exa.seat_management_pb.Team team = 1;
+   */
+  team?: Team;
+
+  constructor(data?: PartialMessage<RefreshTeamInviteIdResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.RefreshTeamInviteIdResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "team", kind: "message", T: Team },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RefreshTeamInviteIdResponse {
+    return new RefreshTeamInviteIdResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RefreshTeamInviteIdResponse {
+    return new RefreshTeamInviteIdResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RefreshTeamInviteIdResponse {
+    return new RefreshTeamInviteIdResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RefreshTeamInviteIdResponse | PlainMessage<RefreshTeamInviteIdResponse> | undefined, b: RefreshTeamInviteIdResponse | PlainMessage<RefreshTeamInviteIdResponse> | undefined): boolean {
+    return proto3.util.equals(RefreshTeamInviteIdResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetCustomerPortalRequest
+ */
+export class GetCustomerPortalRequest extends Message<GetCustomerPortalRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string return_url = 2;
+   */
+  returnUrl = "";
+
+  constructor(data?: PartialMessage<GetCustomerPortalRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetCustomerPortalRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "return_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetCustomerPortalRequest {
+    return new GetCustomerPortalRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetCustomerPortalRequest {
+    return new GetCustomerPortalRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetCustomerPortalRequest {
+    return new GetCustomerPortalRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetCustomerPortalRequest | PlainMessage<GetCustomerPortalRequest> | undefined, b: GetCustomerPortalRequest | PlainMessage<GetCustomerPortalRequest> | undefined): boolean {
+    return proto3.util.equals(GetCustomerPortalRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetTeamOrgIdRequest
+ */
+export class GetTeamOrgIdRequest extends Message<GetTeamOrgIdRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string team_id = 2;
+   */
+  teamId = "";
+
+  constructor(data?: PartialMessage<GetTeamOrgIdRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetTeamOrgIdRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTeamOrgIdRequest {
+    return new GetTeamOrgIdRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTeamOrgIdRequest {
+    return new GetTeamOrgIdRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTeamOrgIdRequest {
+    return new GetTeamOrgIdRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTeamOrgIdRequest | PlainMessage<GetTeamOrgIdRequest> | undefined, b: GetTeamOrgIdRequest | PlainMessage<GetTeamOrgIdRequest> | undefined): boolean {
+    return proto3.util.equals(GetTeamOrgIdRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DeleteMultiTenantTeamRequest
+ */
+export class DeleteMultiTenantTeamRequest extends Message<DeleteMultiTenantTeamRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string team_name = 2;
+   */
+  teamName = "";
+
+  /**
+   * @generated from field: bool soft_delete = 3;
+   */
+  softDelete = false;
+
+  constructor(data?: PartialMessage<DeleteMultiTenantTeamRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DeleteMultiTenantTeamRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "team_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "soft_delete", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteMultiTenantTeamRequest {
+    return new DeleteMultiTenantTeamRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteMultiTenantTeamRequest {
+    return new DeleteMultiTenantTeamRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteMultiTenantTeamRequest {
+    return new DeleteMultiTenantTeamRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteMultiTenantTeamRequest | PlainMessage<DeleteMultiTenantTeamRequest> | undefined, b: DeleteMultiTenantTeamRequest | PlainMessage<DeleteMultiTenantTeamRequest> | undefined): boolean {
+    return proto3.util.equals(DeleteMultiTenantTeamRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetTeamInfoRequest
+ */
+export class GetTeamInfoRequest extends Message<GetTeamInfoRequest> {
+  /**
+   * @generated from field: string secret = 1;
+   */
+  secret = "";
+
+  /**
+   * @generated from field: string team_name = 2;
+   */
+  teamName = "";
+
+  constructor(data?: PartialMessage<GetTeamInfoRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetTeamInfoRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "team_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTeamInfoRequest {
+    return new GetTeamInfoRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTeamInfoRequest {
+    return new GetTeamInfoRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTeamInfoRequest {
+    return new GetTeamInfoRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTeamInfoRequest | PlainMessage<GetTeamInfoRequest> | undefined, b: GetTeamInfoRequest | PlainMessage<GetTeamInfoRequest> | undefined): boolean {
+    return proto3.util.equals(GetTeamInfoRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateProfileResponse
+ */
+export class UpdateProfileResponse extends Message<UpdateProfileResponse> {
+  constructor(data?: PartialMessage<UpdateProfileResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateProfileResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateProfileResponse {
+    return new UpdateProfileResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateProfileResponse {
+    return new UpdateProfileResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateProfileResponse {
+    return new UpdateProfileResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateProfileResponse | PlainMessage<UpdateProfileResponse> | undefined, b: UpdateProfileResponse | PlainMessage<UpdateProfileResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateProfileResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetTeamMetadataRequest
+ */
+export class GetTeamMetadataRequest extends Message<GetTeamMetadataRequest> {
+  /**
+   * @generated from field: string invite_id = 1;
+   */
+  inviteId = "";
+
+  constructor(data?: PartialMessage<GetTeamMetadataRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetTeamMetadataRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "invite_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTeamMetadataRequest {
+    return new GetTeamMetadataRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTeamMetadataRequest {
+    return new GetTeamMetadataRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTeamMetadataRequest {
+    return new GetTeamMetadataRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTeamMetadataRequest | PlainMessage<GetTeamMetadataRequest> | undefined, b: GetTeamMetadataRequest | PlainMessage<GetTeamMetadataRequest> | undefined): boolean {
+    return proto3.util.equals(GetTeamMetadataRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetTeamsFeaturesInternalRequest
+ */
+export class GetTeamsFeaturesInternalRequest extends Message<GetTeamsFeaturesInternalRequest> {
+  /**
+   * @generated from field: string secret = 1;
+   */
+  secret = "";
+
+  /**
+   * @generated from field: string team_id = 2;
+   */
+  teamId = "";
+
+  constructor(data?: PartialMessage<GetTeamsFeaturesInternalRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetTeamsFeaturesInternalRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTeamsFeaturesInternalRequest {
+    return new GetTeamsFeaturesInternalRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTeamsFeaturesInternalRequest {
+    return new GetTeamsFeaturesInternalRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTeamsFeaturesInternalRequest {
+    return new GetTeamsFeaturesInternalRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTeamsFeaturesInternalRequest | PlainMessage<GetTeamsFeaturesInternalRequest> | undefined, b: GetTeamsFeaturesInternalRequest | PlainMessage<GetTeamsFeaturesInternalRequest> | undefined): boolean {
+    return proto3.util.equals(GetTeamsFeaturesInternalRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetPreapprovalsResponse
+ */
+export class GetPreapprovalsResponse extends Message<GetPreapprovalsResponse> {
+  /**
+   * @generated from field: repeated exa.seat_management_pb.PreapprovedUser preapprovals = 1;
+   */
+  preapprovals: PreapprovedUser[] = [];
+
+  constructor(data?: PartialMessage<GetPreapprovalsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetPreapprovalsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "preapprovals", kind: "message", T: PreapprovedUser, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetPreapprovalsResponse {
+    return new GetPreapprovalsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetPreapprovalsResponse {
+    return new GetPreapprovalsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetPreapprovalsResponse {
+    return new GetPreapprovalsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetPreapprovalsResponse | PlainMessage<GetPreapprovalsResponse> | undefined, b: GetPreapprovalsResponse | PlainMessage<GetPreapprovalsResponse> | undefined): boolean {
+    return proto3.util.equals(GetPreapprovalsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.BulkUpdateUserRolesRequest
+ */
+export class BulkUpdateUserRolesRequest extends Message<BulkUpdateUserRolesRequest> {
+  /**
+   * @generated from field: string service_key = 1;
+   */
+  serviceKey = "";
+
+  /**
+   * @generated from field: repeated string emails = 2;
+   */
+  emails: string[] = [];
+
+  /**
+   * @generated from field: string role = 3;
+   */
+  role = "";
+
+  /**
+   * @generated from field: string group_name = 4;
+   */
+  groupName = "";
+
+  constructor(data?: PartialMessage<BulkUpdateUserRolesRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.BulkUpdateUserRolesRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "service_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "emails", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 3, name: "role", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "group_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BulkUpdateUserRolesRequest {
+    return new BulkUpdateUserRolesRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BulkUpdateUserRolesRequest {
+    return new BulkUpdateUserRolesRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BulkUpdateUserRolesRequest {
+    return new BulkUpdateUserRolesRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BulkUpdateUserRolesRequest | PlainMessage<BulkUpdateUserRolesRequest> | undefined, b: BulkUpdateUserRolesRequest | PlainMessage<BulkUpdateUserRolesRequest> | undefined): boolean {
+    return proto3.util.equals(BulkUpdateUserRolesRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UserSSOLoginRedirectRequest
+ */
+export class UserSSOLoginRedirectRequest extends Message<UserSSOLoginRedirectRequest> {
+  /**
+   * @generated from field: string email = 1;
+   */
+  email = "";
+
+  constructor(data?: PartialMessage<UserSSOLoginRedirectRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UserSSOLoginRedirectRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserSSOLoginRedirectRequest {
+    return new UserSSOLoginRedirectRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserSSOLoginRedirectRequest {
+    return new UserSSOLoginRedirectRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserSSOLoginRedirectRequest {
+    return new UserSSOLoginRedirectRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserSSOLoginRedirectRequest | PlainMessage<UserSSOLoginRedirectRequest> | undefined, b: UserSSOLoginRedirectRequest | PlainMessage<UserSSOLoginRedirectRequest> | undefined): boolean {
+    return proto3.util.equals(UserSSOLoginRedirectRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateUsernameRequest
+ */
+export class UpdateUsernameRequest extends Message<UpdateUsernameRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string username = 2;
+   */
+  username = "";
+
+  constructor(data?: PartialMessage<UpdateUsernameRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateUsernameRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "username", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateUsernameRequest {
+    return new UpdateUsernameRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateUsernameRequest {
+    return new UpdateUsernameRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateUsernameRequest {
+    return new UpdateUsernameRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateUsernameRequest | PlainMessage<UpdateUsernameRequest> | undefined, b: UpdateUsernameRequest | PlainMessage<UpdateUsernameRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateUsernameRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetPreapprovalMetadataRequest
+ */
+export class GetPreapprovalMetadataRequest extends Message<GetPreapprovalMetadataRequest> {
+  /**
+   * @generated from field: string approval_id = 1;
+   */
+  approvalId = "";
+
+  constructor(data?: PartialMessage<GetPreapprovalMetadataRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetPreapprovalMetadataRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "approval_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetPreapprovalMetadataRequest {
+    return new GetPreapprovalMetadataRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetPreapprovalMetadataRequest {
+    return new GetPreapprovalMetadataRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetPreapprovalMetadataRequest {
+    return new GetPreapprovalMetadataRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetPreapprovalMetadataRequest | PlainMessage<GetPreapprovalMetadataRequest> | undefined, b: GetPreapprovalMetadataRequest | PlainMessage<GetPreapprovalMetadataRequest> | undefined): boolean {
+    return proto3.util.equals(GetPreapprovalMetadataRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DisconnectGithubAccountResponse
+ */
+export class DisconnectGithubAccountResponse extends Message<DisconnectGithubAccountResponse> {
+  constructor(data?: PartialMessage<DisconnectGithubAccountResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DisconnectGithubAccountResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DisconnectGithubAccountResponse {
+    return new DisconnectGithubAccountResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DisconnectGithubAccountResponse {
+    return new DisconnectGithubAccountResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DisconnectGithubAccountResponse {
+    return new DisconnectGithubAccountResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DisconnectGithubAccountResponse | PlainMessage<DisconnectGithubAccountResponse> | undefined, b: DisconnectGithubAccountResponse | PlainMessage<DisconnectGithubAccountResponse> | undefined): boolean {
+    return proto3.util.equals(DisconnectGithubAccountResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DeleteTeamDomainInternalRequest
+ */
+export class DeleteTeamDomainInternalRequest extends Message<DeleteTeamDomainInternalRequest> {
+  /**
+   * @generated from field: string secret = 1;
+   */
+  secret = "";
+
+  /**
+   * @generated from field: string team_id = 2;
+   */
+  teamId = "";
+
+  /**
+   * @generated from field: string domain = 3;
+   */
+  domain = "";
+
+  constructor(data?: PartialMessage<DeleteTeamDomainInternalRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DeleteTeamDomainInternalRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "domain", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteTeamDomainInternalRequest {
+    return new DeleteTeamDomainInternalRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteTeamDomainInternalRequest {
+    return new DeleteTeamDomainInternalRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteTeamDomainInternalRequest {
+    return new DeleteTeamDomainInternalRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteTeamDomainInternalRequest | PlainMessage<DeleteTeamDomainInternalRequest> | undefined, b: DeleteTeamDomainInternalRequest | PlainMessage<DeleteTeamDomainInternalRequest> | undefined): boolean {
+    return proto3.util.equals(DeleteTeamDomainInternalRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetTeamsFeaturesInternalResponse
+ */
+export class GetTeamsFeaturesInternalResponse extends Message<GetTeamsFeaturesInternalResponse> {
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.TeamsFeatures features = 1;
+   */
+  features: TeamsFeatures[] = [];
+
+  constructor(data?: PartialMessage<GetTeamsFeaturesInternalResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetTeamsFeaturesInternalResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "features", kind: "enum", T: proto3.getEnumType(TeamsFeatures), repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTeamsFeaturesInternalResponse {
+    return new GetTeamsFeaturesInternalResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTeamsFeaturesInternalResponse {
+    return new GetTeamsFeaturesInternalResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTeamsFeaturesInternalResponse {
+    return new GetTeamsFeaturesInternalResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTeamsFeaturesInternalResponse | PlainMessage<GetTeamsFeaturesInternalResponse> | undefined, b: GetTeamsFeaturesInternalResponse | PlainMessage<GetTeamsFeaturesInternalResponse> | undefined): boolean {
+    return proto3.util.equals(GetTeamsFeaturesInternalResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.CreateRoleResponse
+ */
+export class CreateRoleResponse extends Message<CreateRoleResponse> {
+  constructor(data?: PartialMessage<CreateRoleResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.CreateRoleResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateRoleResponse {
+    return new CreateRoleResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CreateRoleResponse {
+    return new CreateRoleResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CreateRoleResponse {
+    return new CreateRoleResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CreateRoleResponse | PlainMessage<CreateRoleResponse> | undefined, b: CreateRoleResponse | PlainMessage<CreateRoleResponse> | undefined): boolean {
+    return proto3.util.equals(CreateRoleResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.AddTeamDomainResponse
+ */
+export class AddTeamDomainResponse extends Message<AddTeamDomainResponse> {
+  /**
+   * @generated from field: string verification_token = 1;
+   */
+  verificationToken = "";
+
+  constructor(data?: PartialMessage<AddTeamDomainResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.AddTeamDomainResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "verification_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddTeamDomainResponse {
+    return new AddTeamDomainResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddTeamDomainResponse {
+    return new AddTeamDomainResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddTeamDomainResponse {
+    return new AddTeamDomainResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AddTeamDomainResponse | PlainMessage<AddTeamDomainResponse> | undefined, b: AddTeamDomainResponse | PlainMessage<AddTeamDomainResponse> | undefined): boolean {
+    return proto3.util.equals(AddTeamDomainResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.VerifyTeamDomainRequest
+ */
+export class VerifyTeamDomainRequest extends Message<VerifyTeamDomainRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string domain = 2;
+   */
+  domain = "";
+
+  constructor(data?: PartialMessage<VerifyTeamDomainRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.VerifyTeamDomainRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "domain", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): VerifyTeamDomainRequest {
+    return new VerifyTeamDomainRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): VerifyTeamDomainRequest {
+    return new VerifyTeamDomainRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): VerifyTeamDomainRequest {
+    return new VerifyTeamDomainRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: VerifyTeamDomainRequest | PlainMessage<VerifyTeamDomainRequest> | undefined, b: VerifyTeamDomainRequest | PlainMessage<VerifyTeamDomainRequest> | undefined): boolean {
+    return proto3.util.equals(VerifyTeamDomainRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdatePlanDetailsInternalRequest
+ */
+export class UpdatePlanDetailsInternalRequest extends Message<UpdatePlanDetailsInternalRequest> {
+  /**
+   * @generated from field: string secret = 1;
+   */
+  secret = "";
+
+  /**
+   * @generated from field: string email = 2;
+   */
+  email = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.TeamsTier teams_tier = 3;
+   */
+  teamsTier = TeamsTier.UNSPECIFIED;
+
+  /**
+   * @generated from field: int64 num_flex_credits = 4;
+   */
+  numFlexCredits = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 used_flex_credits = 5;
+   */
+  usedFlexCredits = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 used_flow_credits = 6;
+   */
+  usedFlowCredits = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 used_prompt_credits = 7;
+   */
+  usedPromptCredits = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 num_teams_seats = 8;
+   */
+  numTeamsSeats = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 user_used_prompt_credits = 9;
+   */
+  userUsedPromptCredits = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 user_used_flow_credits = 10;
+   */
+  userUsedFlowCredits = protoInt64.zero;
+
+  /**
+   * @generated from field: bool for_credit_update = 11;
+   */
+  forCreditUpdate = false;
+
+  constructor(data?: PartialMessage<UpdatePlanDetailsInternalRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdatePlanDetailsInternalRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "teams_tier", kind: "enum", T: proto3.getEnumType(TeamsTier) },
+    { no: 4, name: "num_flex_credits", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 5, name: "used_flex_credits", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 6, name: "used_flow_credits", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 7, name: "used_prompt_credits", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 8, name: "num_teams_seats", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 9, name: "user_used_prompt_credits", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 10, name: "user_used_flow_credits", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 11, name: "for_credit_update", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdatePlanDetailsInternalRequest {
+    return new UpdatePlanDetailsInternalRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdatePlanDetailsInternalRequest {
+    return new UpdatePlanDetailsInternalRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdatePlanDetailsInternalRequest {
+    return new UpdatePlanDetailsInternalRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdatePlanDetailsInternalRequest | PlainMessage<UpdatePlanDetailsInternalRequest> | undefined, b: UpdatePlanDetailsInternalRequest | PlainMessage<UpdatePlanDetailsInternalRequest> | undefined): boolean {
+    return proto3.util.equals(UpdatePlanDetailsInternalRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.LogOutUserRequest
+ */
+export class LogOutUserRequest extends Message<LogOutUserRequest> {
+  /**
+   * @generated from field: string uid = 1;
+   */
+  uid = "";
+
+  constructor(data?: PartialMessage<LogOutUserRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.LogOutUserRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "uid", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): LogOutUserRequest {
+    return new LogOutUserRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): LogOutUserRequest {
+    return new LogOutUserRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): LogOutUserRequest {
+    return new LogOutUserRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: LogOutUserRequest | PlainMessage<LogOutUserRequest> | undefined, b: LogOutUserRequest | PlainMessage<LogOutUserRequest> | undefined): boolean {
+    return proto3.util.equals(LogOutUserRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetProfileDataResponse
+ */
+export class GetProfileDataResponse extends Message<GetProfileDataResponse> {
+  /**
+   * @generated from field: string profile_picture_url = 1;
+   */
+  profilePictureUrl = "";
+
+  constructor(data?: PartialMessage<GetProfileDataResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetProfileDataResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "profile_picture_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetProfileDataResponse {
+    return new GetProfileDataResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetProfileDataResponse {
+    return new GetProfileDataResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetProfileDataResponse {
+    return new GetProfileDataResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetProfileDataResponse | PlainMessage<GetProfileDataResponse> | undefined, b: GetProfileDataResponse | PlainMessage<GetProfileDataResponse> | undefined): boolean {
+    return proto3.util.equals(GetProfileDataResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetOneTimeAuthTokenRequest
+ */
+export class GetOneTimeAuthTokenRequest extends Message<GetOneTimeAuthTokenRequest> {
+  /**
+   * @generated from field: string firebase_id_token = 1;
+   */
+  firebaseIdToken = "";
+
+  constructor(data?: PartialMessage<GetOneTimeAuthTokenRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetOneTimeAuthTokenRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "firebase_id_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetOneTimeAuthTokenRequest {
+    return new GetOneTimeAuthTokenRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetOneTimeAuthTokenRequest {
+    return new GetOneTimeAuthTokenRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetOneTimeAuthTokenRequest {
+    return new GetOneTimeAuthTokenRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetOneTimeAuthTokenRequest | PlainMessage<GetOneTimeAuthTokenRequest> | undefined, b: GetOneTimeAuthTokenRequest | PlainMessage<GetOneTimeAuthTokenRequest> | undefined): boolean {
+    return proto3.util.equals(GetOneTimeAuthTokenRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetPublicProfileResponse
+ */
+export class GetPublicProfileResponse extends Message<GetPublicProfileResponse> {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string username = 2;
+   */
+  username = "";
+
+  /**
+   * @generated from field: string preferred_time_zone = 3;
+   */
+  preferredTimeZone = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp signup_time = 4;
+   */
+  signupTime?: Timestamp;
+
+  /**
+   * @generated from field: string bio = 5;
+   */
+  bio = "";
+
+  /**
+   * @generated from field: string profile_picture_presigned_url = 6;
+   */
+  profilePicturePresignedUrl = "";
+
+  constructor(data?: PartialMessage<GetPublicProfileResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetPublicProfileResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "username", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "preferred_time_zone", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "signup_time", kind: "message", T: Timestamp },
+    { no: 5, name: "bio", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "profile_picture_presigned_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetPublicProfileResponse {
+    return new GetPublicProfileResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetPublicProfileResponse {
+    return new GetPublicProfileResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetPublicProfileResponse {
+    return new GetPublicProfileResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetPublicProfileResponse | PlainMessage<GetPublicProfileResponse> | undefined, b: GetPublicProfileResponse | PlainMessage<GetPublicProfileResponse> | undefined): boolean {
+    return proto3.util.equals(GetPublicProfileResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateUserRolesResponse
+ */
+export class UpdateUserRolesResponse extends Message<UpdateUserRolesResponse> {
+  constructor(data?: PartialMessage<UpdateUserRolesResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateUserRolesResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateUserRolesResponse {
+    return new UpdateUserRolesResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateUserRolesResponse {
+    return new UpdateUserRolesResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateUserRolesResponse {
+    return new UpdateUserRolesResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateUserRolesResponse | PlainMessage<UpdateUserRolesResponse> | undefined, b: UpdateUserRolesResponse | PlainMessage<UpdateUserRolesResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateUserRolesResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateTeamApiSecretResponse
+ */
+export class UpdateTeamApiSecretResponse extends Message<UpdateTeamApiSecretResponse> {
+  constructor(data?: PartialMessage<UpdateTeamApiSecretResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateTeamApiSecretResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateTeamApiSecretResponse {
+    return new UpdateTeamApiSecretResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateTeamApiSecretResponse {
+    return new UpdateTeamApiSecretResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateTeamApiSecretResponse {
+    return new UpdateTeamApiSecretResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateTeamApiSecretResponse | PlainMessage<UpdateTeamApiSecretResponse> | undefined, b: UpdateTeamApiSecretResponse | PlainMessage<UpdateTeamApiSecretResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateTeamApiSecretResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateOccupationResponse
+ */
+export class UpdateOccupationResponse extends Message<UpdateOccupationResponse> {
+  constructor(data?: PartialMessage<UpdateOccupationResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateOccupationResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateOccupationResponse {
+    return new UpdateOccupationResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateOccupationResponse {
+    return new UpdateOccupationResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateOccupationResponse {
+    return new UpdateOccupationResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateOccupationResponse | PlainMessage<UpdateOccupationResponse> | undefined, b: UpdateOccupationResponse | PlainMessage<UpdateOccupationResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateOccupationResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateUsernameResponse
+ */
+export class UpdateUsernameResponse extends Message<UpdateUsernameResponse> {
+  constructor(data?: PartialMessage<UpdateUsernameResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateUsernameResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateUsernameResponse {
+    return new UpdateUsernameResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateUsernameResponse {
+    return new UpdateUsernameResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateUsernameResponse {
+    return new UpdateUsernameResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateUsernameResponse | PlainMessage<UpdateUsernameResponse> | undefined, b: UpdateUsernameResponse | PlainMessage<UpdateUsernameResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateUsernameResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DeleteTeamRequest
+ */
+export class DeleteTeamRequest extends Message<DeleteTeamRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<DeleteTeamRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DeleteTeamRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteTeamRequest {
+    return new DeleteTeamRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteTeamRequest {
+    return new DeleteTeamRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteTeamRequest {
+    return new DeleteTeamRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteTeamRequest | PlainMessage<DeleteTeamRequest> | undefined, b: DeleteTeamRequest | PlainMessage<DeleteTeamRequest> | undefined): boolean {
+    return proto3.util.equals(DeleteTeamRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.SendPhoneVerificationRequest
+ */
+export class SendPhoneVerificationRequest extends Message<SendPhoneVerificationRequest> {
+  /**
+   * @generated from field: string phone_number = 1;
+   */
+  phoneNumber = "";
+
+  /**
+   * @generated from field: string turnstile_token = 2;
+   */
+  turnstileToken = "";
+
+  constructor(data?: PartialMessage<SendPhoneVerificationRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.SendPhoneVerificationRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "phone_number", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "turnstile_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SendPhoneVerificationRequest {
+    return new SendPhoneVerificationRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SendPhoneVerificationRequest {
+    return new SendPhoneVerificationRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SendPhoneVerificationRequest {
+    return new SendPhoneVerificationRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SendPhoneVerificationRequest | PlainMessage<SendPhoneVerificationRequest> | undefined, b: SendPhoneVerificationRequest | PlainMessage<SendPhoneVerificationRequest> | undefined): boolean {
+    return proto3.util.equals(SendPhoneVerificationRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetGroupsRequest
+ */
+export class GetGroupsRequest extends Message<GetGroupsRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.Permission permission = 2;
+   */
+  permission = Permission.UNSPECIFIED;
+
+  constructor(data?: PartialMessage<GetGroupsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetGroupsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "permission", kind: "enum", T: proto3.getEnumType(Permission) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetGroupsRequest {
+    return new GetGroupsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetGroupsRequest {
+    return new GetGroupsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetGroupsRequest {
+    return new GetGroupsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetGroupsRequest | PlainMessage<GetGroupsRequest> | undefined, b: GetGroupsRequest | PlainMessage<GetGroupsRequest> | undefined): boolean {
+    return proto3.util.equals(GetGroupsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateTeamConfigResponse
+ */
+export class UpdateTeamConfigResponse extends Message<UpdateTeamConfigResponse> {
+  constructor(data?: PartialMessage<UpdateTeamConfigResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateTeamConfigResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateTeamConfigResponse {
+    return new UpdateTeamConfigResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateTeamConfigResponse {
+    return new UpdateTeamConfigResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateTeamConfigResponse {
+    return new UpdateTeamConfigResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateTeamConfigResponse | PlainMessage<UpdateTeamConfigResponse> | undefined, b: UpdateTeamConfigResponse | PlainMessage<UpdateTeamConfigResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateTeamConfigResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetPlanStatusResponse
+ */
+export class GetPlanStatusResponse extends Message<GetPlanStatusResponse> {
+  /**
+   * @generated from field: exa.codeium_common_pb.PlanStatus plan_status = 1;
+   */
+  planStatus?: PlanStatus;
+
+  constructor(data?: PartialMessage<GetPlanStatusResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetPlanStatusResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "plan_status", kind: "message", T: PlanStatus },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetPlanStatusResponse {
+    return new GetPlanStatusResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetPlanStatusResponse {
+    return new GetPlanStatusResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetPlanStatusResponse {
+    return new GetPlanStatusResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetPlanStatusResponse | PlainMessage<GetPlanStatusResponse> | undefined, b: GetPlanStatusResponse | PlainMessage<GetPlanStatusResponse> | undefined): boolean {
+    return proto3.util.equals(GetPlanStatusResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.ConnectGithubAccountRequest
+ */
+export class ConnectGithubAccountRequest extends Message<ConnectGithubAccountRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string github_refresh_token = 2;
+   */
+  githubRefreshToken = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp github_refresh_token_expires_at = 3;
+   */
+  githubRefreshTokenExpiresAt?: Timestamp;
+
+  constructor(data?: PartialMessage<ConnectGithubAccountRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.ConnectGithubAccountRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "github_refresh_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "github_refresh_token_expires_at", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConnectGithubAccountRequest {
+    return new ConnectGithubAccountRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConnectGithubAccountRequest {
+    return new ConnectGithubAccountRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConnectGithubAccountRequest {
+    return new ConnectGithubAccountRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ConnectGithubAccountRequest | PlainMessage<ConnectGithubAccountRequest> | undefined, b: ConnectGithubAccountRequest | PlainMessage<ConnectGithubAccountRequest> | undefined): boolean {
+    return proto3.util.equals(ConnectGithubAccountRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.Team
+ */
+export class Team extends Message<Team> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  /**
+   * @generated from field: string name = 2;
+   */
+  name = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp signup_time = 3;
+   */
+  signupTime?: Timestamp;
+
+  /**
+   * @generated from field: string invite_id = 4;
+   */
+  inviteId = "";
+
+  /**
+   * @generated from field: bool used_trial = 5;
+   */
+  usedTrial = false;
+
+  /**
+   * @generated from field: string stripe_subscription_id = 6;
+   */
+  stripeSubscriptionId = "";
+
+  /**
+   * @generated from field: bool subscription_active = 7;
+   */
+  subscriptionActive = false;
+
+  /**
+   * @generated from field: string stripe_customer_id = 8;
+   */
+  stripeCustomerId = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp current_billing_period_start = 9;
+   */
+  currentBillingPeriodStart?: Timestamp;
+
+  /**
+   * @generated from field: int64 num_seats_current_billing_period = 10;
+   */
+  numSeatsCurrentBillingPeriod = protoInt64.zero;
+
+  /**
+   * @generated from field: bool attribution_enabled = 11;
+   */
+  attributionEnabled = false;
+
+  /**
+   * @generated from field: string sso_provider_id = 12;
+   */
+  ssoProviderId = "";
+
+  /**
+   * @generated from field: bool offers_enabled = 13;
+   */
+  offersEnabled = false;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.TeamsTier teams_tier = 14;
+   */
+  teamsTier = TeamsTier.UNSPECIFIED;
+
+  /**
+   * @generated from field: int64 flex_credit_quota = 15;
+   */
+  flexCreditQuota = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 used_flow_credits = 16;
+   */
+  usedFlowCredits = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 used_prompt_credits = 17;
+   */
+  usedPromptCredits = protoInt64.zero;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp current_billing_period_end = 18;
+   */
+  currentBillingPeriodEnd?: Timestamp;
+
+  /**
+   * @generated from field: int64 num_cascade_seats = 19;
+   */
+  numCascadeSeats = protoInt64.zero;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp cascade_usage_month_start = 20;
+   */
+  cascadeUsageMonthStart?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp cascade_usage_month_end = 21;
+   */
+  cascadeUsageMonthEnd?: Timestamp;
+
+  /**
+   * @generated from field: exa.seat_management_pb.CascadeSeatType cascade_seat_type = 22;
+   */
+  cascadeSeatType = CascadeSeatType.UNSPECIFIED;
+
+  /**
+   * @generated from field: bool top_up_enabled = 23;
+   */
+  topUpEnabled = false;
+
+  /**
+   * @generated from field: int64 monthly_top_up_amount = 24;
+   */
+  monthlyTopUpAmount = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 top_up_spent = 25;
+   */
+  topUpSpent = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 top_up_increment = 26;
+   */
+  topUpIncrement = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 used_flex_credits = 27;
+   */
+  usedFlexCredits = protoInt64.zero;
+
+  constructor(data?: PartialMessage<Team>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.Team";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "signup_time", kind: "message", T: Timestamp },
+    { no: 4, name: "invite_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "used_trial", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 6, name: "stripe_subscription_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "subscription_active", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 8, name: "stripe_customer_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 9, name: "current_billing_period_start", kind: "message", T: Timestamp },
+    { no: 10, name: "num_seats_current_billing_period", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 11, name: "attribution_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 12, name: "sso_provider_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 13, name: "offers_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 14, name: "teams_tier", kind: "enum", T: proto3.getEnumType(TeamsTier) },
+    { no: 15, name: "flex_credit_quota", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 16, name: "used_flow_credits", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 17, name: "used_prompt_credits", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 18, name: "current_billing_period_end", kind: "message", T: Timestamp },
+    { no: 19, name: "num_cascade_seats", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 20, name: "cascade_usage_month_start", kind: "message", T: Timestamp },
+    { no: 21, name: "cascade_usage_month_end", kind: "message", T: Timestamp },
+    { no: 22, name: "cascade_seat_type", kind: "enum", T: proto3.getEnumType(CascadeSeatType) },
+    { no: 23, name: "top_up_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 24, name: "monthly_top_up_amount", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 25, name: "top_up_spent", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 26, name: "top_up_increment", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 27, name: "used_flex_credits", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Team {
+    return new Team().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Team {
+    return new Team().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Team {
+    return new Team().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Team | PlainMessage<Team> | undefined, b: Team | PlainMessage<Team> | undefined): boolean {
+    return proto3.util.equals(Team, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.ProvisionTeamResponse
+ */
+export class ProvisionTeamResponse extends Message<ProvisionTeamResponse> {
+  /**
+   * @generated from field: string team_id = 1;
+   */
+  teamId = "";
+
+  /**
+   * @generated from field: string invite_id = 2;
+   */
+  inviteId = "";
+
+  constructor(data?: PartialMessage<ProvisionTeamResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.ProvisionTeamResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "invite_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ProvisionTeamResponse {
+    return new ProvisionTeamResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ProvisionTeamResponse {
+    return new ProvisionTeamResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ProvisionTeamResponse {
+    return new ProvisionTeamResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ProvisionTeamResponse | PlainMessage<ProvisionTeamResponse> | undefined, b: ProvisionTeamResponse | PlainMessage<ProvisionTeamResponse> | undefined): boolean {
+    return proto3.util.equals(ProvisionTeamResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.ProvisionCascadeSeatsResponse
+ */
+export class ProvisionCascadeSeatsResponse extends Message<ProvisionCascadeSeatsResponse> {
+  constructor(data?: PartialMessage<ProvisionCascadeSeatsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.ProvisionCascadeSeatsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ProvisionCascadeSeatsResponse {
+    return new ProvisionCascadeSeatsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ProvisionCascadeSeatsResponse {
+    return new ProvisionCascadeSeatsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ProvisionCascadeSeatsResponse {
+    return new ProvisionCascadeSeatsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ProvisionCascadeSeatsResponse | PlainMessage<ProvisionCascadeSeatsResponse> | undefined, b: ProvisionCascadeSeatsResponse | PlainMessage<ProvisionCascadeSeatsResponse> | undefined): boolean {
+    return proto3.util.equals(ProvisionCascadeSeatsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.SetUserApiProviderKeyResponse
+ */
+export class SetUserApiProviderKeyResponse extends Message<SetUserApiProviderKeyResponse> {
+  constructor(data?: PartialMessage<SetUserApiProviderKeyResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.SetUserApiProviderKeyResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetUserApiProviderKeyResponse {
+    return new SetUserApiProviderKeyResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetUserApiProviderKeyResponse {
+    return new SetUserApiProviderKeyResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetUserApiProviderKeyResponse {
+    return new SetUserApiProviderKeyResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetUserApiProviderKeyResponse | PlainMessage<SetUserApiProviderKeyResponse> | undefined, b: SetUserApiProviderKeyResponse | PlainMessage<SetUserApiProviderKeyResponse> | undefined): boolean {
+    return proto3.util.equals(SetUserApiProviderKeyResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.AddTeamDomainInternalRequest
+ */
+export class AddTeamDomainInternalRequest extends Message<AddTeamDomainInternalRequest> {
+  /**
+   * @generated from field: string secret = 1;
+   */
+  secret = "";
+
+  /**
+   * @generated from field: string team_id = 2;
+   */
+  teamId = "";
+
+  /**
+   * @generated from field: string domain = 3;
+   */
+  domain = "";
+
+  constructor(data?: PartialMessage<AddTeamDomainInternalRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.AddTeamDomainInternalRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "domain", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddTeamDomainInternalRequest {
+    return new AddTeamDomainInternalRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddTeamDomainInternalRequest {
+    return new AddTeamDomainInternalRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddTeamDomainInternalRequest {
+    return new AddTeamDomainInternalRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AddTeamDomainInternalRequest | PlainMessage<AddTeamDomainInternalRequest> | undefined, b: AddTeamDomainInternalRequest | PlainMessage<AddTeamDomainInternalRequest> | undefined): boolean {
+    return proto3.util.equals(AddTeamDomainInternalRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateTeamNameInternalRequest
+ */
+export class UpdateTeamNameInternalRequest extends Message<UpdateTeamNameInternalRequest> {
+  /**
+   * @generated from field: string secret = 1;
+   */
+  secret = "";
+
+  /**
+   * @generated from field: string team_id = 2;
+   */
+  teamId = "";
+
+  /**
+   * @generated from field: string new_name = 3;
+   */
+  newName = "";
+
+  constructor(data?: PartialMessage<UpdateTeamNameInternalRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateTeamNameInternalRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "new_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateTeamNameInternalRequest {
+    return new UpdateTeamNameInternalRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateTeamNameInternalRequest {
+    return new UpdateTeamNameInternalRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateTeamNameInternalRequest {
+    return new UpdateTeamNameInternalRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateTeamNameInternalRequest | PlainMessage<UpdateTeamNameInternalRequest> | undefined, b: UpdateTeamNameInternalRequest | PlainMessage<UpdateTeamNameInternalRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateTeamNameInternalRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.BulkEditUserApprovalsRequest
+ */
+export class BulkEditUserApprovalsRequest extends Message<BulkEditUserApprovalsRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: repeated string emails = 2;
+   */
+  emails: string[] = [];
+
+  /**
+   * @generated from field: exa.seat_management_pb.UserTeamDetailsType approval_type = 3;
+   */
+  approvalType = UserTeamDetailsType.UNSPECIFIED;
+
+  /**
+   * @generated from field: bool approve = 4;
+   */
+  approve = false;
+
+  constructor(data?: PartialMessage<BulkEditUserApprovalsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.BulkEditUserApprovalsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "emails", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 3, name: "approval_type", kind: "enum", T: proto3.getEnumType(UserTeamDetailsType) },
+    { no: 4, name: "approve", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BulkEditUserApprovalsRequest {
+    return new BulkEditUserApprovalsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BulkEditUserApprovalsRequest {
+    return new BulkEditUserApprovalsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BulkEditUserApprovalsRequest {
+    return new BulkEditUserApprovalsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BulkEditUserApprovalsRequest | PlainMessage<BulkEditUserApprovalsRequest> | undefined, b: BulkEditUserApprovalsRequest | PlainMessage<BulkEditUserApprovalsRequest> | undefined): boolean {
+    return proto3.util.equals(BulkEditUserApprovalsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetOneTimeAuthTokenResponse
+ */
+export class GetOneTimeAuthTokenResponse extends Message<GetOneTimeAuthTokenResponse> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<GetOneTimeAuthTokenResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetOneTimeAuthTokenResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetOneTimeAuthTokenResponse {
+    return new GetOneTimeAuthTokenResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetOneTimeAuthTokenResponse {
+    return new GetOneTimeAuthTokenResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetOneTimeAuthTokenResponse {
+    return new GetOneTimeAuthTokenResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetOneTimeAuthTokenResponse | PlainMessage<GetOneTimeAuthTokenResponse> | undefined, b: GetOneTimeAuthTokenResponse | PlainMessage<GetOneTimeAuthTokenResponse> | undefined): boolean {
+    return proto3.util.equals(GetOneTimeAuthTokenResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateNameRequest
+ */
+export class UpdateNameRequest extends Message<UpdateNameRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string full_name = 2;
+   */
+  fullName = "";
+
+  constructor(data?: PartialMessage<UpdateNameRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateNameRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "full_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateNameRequest {
+    return new UpdateNameRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateNameRequest {
+    return new UpdateNameRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateNameRequest {
+    return new UpdateNameRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateNameRequest | PlainMessage<UpdateNameRequest> | undefined, b: UpdateNameRequest | PlainMessage<UpdateNameRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateNameRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetWrapped2024Response
+ */
+export class GetWrapped2024Response extends Message<GetWrapped2024Response> {
+  /**
+   * @generated from field: exa.seat_management_pb.Wrapped2024 wrapped_data = 1;
+   */
+  wrappedData?: Wrapped2024;
+
+  constructor(data?: PartialMessage<GetWrapped2024Response>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetWrapped2024Response";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "wrapped_data", kind: "message", T: Wrapped2024 },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetWrapped2024Response {
+    return new GetWrapped2024Response().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetWrapped2024Response {
+    return new GetWrapped2024Response().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetWrapped2024Response {
+    return new GetWrapped2024Response().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetWrapped2024Response | PlainMessage<GetWrapped2024Response> | undefined, b: GetWrapped2024Response | PlainMessage<GetWrapped2024Response> | undefined): boolean {
+    return proto3.util.equals(GetWrapped2024Response, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateTeamsFeaturesInternalRequest
+ */
+export class UpdateTeamsFeaturesInternalRequest extends Message<UpdateTeamsFeaturesInternalRequest> {
+  /**
+   * @generated from field: string secret = 1;
+   */
+  secret = "";
+
+  /**
+   * @generated from field: string team_id = 2;
+   */
+  teamId = "";
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.TeamsFeatures add_features = 3;
+   */
+  addFeatures: TeamsFeatures[] = [];
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.TeamsFeatures remove_features = 4;
+   */
+  removeFeatures: TeamsFeatures[] = [];
+
+  constructor(data?: PartialMessage<UpdateTeamsFeaturesInternalRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateTeamsFeaturesInternalRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "add_features", kind: "enum", T: proto3.getEnumType(TeamsFeatures), repeated: true },
+    { no: 4, name: "remove_features", kind: "enum", T: proto3.getEnumType(TeamsFeatures), repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateTeamsFeaturesInternalRequest {
+    return new UpdateTeamsFeaturesInternalRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateTeamsFeaturesInternalRequest {
+    return new UpdateTeamsFeaturesInternalRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateTeamsFeaturesInternalRequest {
+    return new UpdateTeamsFeaturesInternalRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateTeamsFeaturesInternalRequest | PlainMessage<UpdateTeamsFeaturesInternalRequest> | undefined, b: UpdateTeamsFeaturesInternalRequest | PlainMessage<UpdateTeamsFeaturesInternalRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateTeamsFeaturesInternalRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.ProvisionCascadeSeatsRequest
+ */
+export class ProvisionCascadeSeatsRequest extends Message<ProvisionCascadeSeatsRequest> {
+  /**
+   * @generated from field: string secret = 1;
+   */
+  secret = "";
+
+  /**
+   * @generated from field: string team_name = 2;
+   */
+  teamName = "";
+
+  /**
+   * @generated from field: int64 num_seats = 3;
+   */
+  numSeats = protoInt64.zero;
+
+  constructor(data?: PartialMessage<ProvisionCascadeSeatsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.ProvisionCascadeSeatsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "team_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "num_seats", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ProvisionCascadeSeatsRequest {
+    return new ProvisionCascadeSeatsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ProvisionCascadeSeatsRequest {
+    return new ProvisionCascadeSeatsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ProvisionCascadeSeatsRequest {
+    return new ProvisionCascadeSeatsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ProvisionCascadeSeatsRequest | PlainMessage<ProvisionCascadeSeatsRequest> | undefined, b: ProvisionCascadeSeatsRequest | PlainMessage<ProvisionCascadeSeatsRequest> | undefined): boolean {
+    return proto3.util.equals(ProvisionCascadeSeatsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetGroupsResponse
+ */
+export class GetGroupsResponse extends Message<GetGroupsResponse> {
+  /**
+   * @generated from field: repeated exa.seat_management_pb.Group groups = 1;
+   */
+  groups: Group[] = [];
+
+  constructor(data?: PartialMessage<GetGroupsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetGroupsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "groups", kind: "message", T: Group, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetGroupsResponse {
+    return new GetGroupsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetGroupsResponse {
+    return new GetGroupsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetGroupsResponse {
+    return new GetGroupsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetGroupsResponse | PlainMessage<GetGroupsResponse> | undefined, b: GetGroupsResponse | PlainMessage<GetGroupsResponse> | undefined): boolean {
+    return proto3.util.equals(GetGroupsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.LogOutUserResponse
+ */
+export class LogOutUserResponse extends Message<LogOutUserResponse> {
+  constructor(data?: PartialMessage<LogOutUserResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.LogOutUserResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): LogOutUserResponse {
+    return new LogOutUserResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): LogOutUserResponse {
+    return new LogOutUserResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): LogOutUserResponse {
+    return new LogOutUserResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: LogOutUserResponse | PlainMessage<LogOutUserResponse> | undefined, b: LogOutUserResponse | PlainMessage<LogOutUserResponse> | undefined): boolean {
+    return proto3.util.equals(LogOutUserResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetMucsInfoResponse
+ */
+export class GetMucsInfoResponse extends Message<GetMucsInfoResponse> {
+  /**
+   * @generated from field: int32 mucs_left = 1;
+   */
+  mucsLeft = 0;
+
+  /**
+   * @generated from field: int32 mucs_used = 2;
+   */
+  mucsUsed = 0;
+
+  /**
+   * @generated from field: bool is_mucs_enabled = 3;
+   */
+  isMucsEnabled = false;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp start_date = 4;
+   */
+  startDate?: Timestamp;
+
+  /**
+   * @generated from field: int32 current_registered_users = 5;
+   */
+  currentRegisteredUsers = 0;
+
+  /**
+   * @generated from field: int32 current_high_watermark = 6;
+   */
+  currentHighWatermark = 0;
+
+  /**
+   * @generated from field: repeated exa.seat_management_pb.MonthlyMucsMessage mucs_table = 7;
+   */
+  mucsTable: MonthlyMucsMessage[] = [];
+
+  constructor(data?: PartialMessage<GetMucsInfoResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetMucsInfoResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "mucs_left", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 2, name: "mucs_used", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 3, name: "is_mucs_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 4, name: "start_date", kind: "message", T: Timestamp },
+    { no: 5, name: "current_registered_users", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 6, name: "current_high_watermark", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 7, name: "mucs_table", kind: "message", T: MonthlyMucsMessage, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetMucsInfoResponse {
+    return new GetMucsInfoResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetMucsInfoResponse {
+    return new GetMucsInfoResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetMucsInfoResponse {
+    return new GetMucsInfoResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetMucsInfoResponse | PlainMessage<GetMucsInfoResponse> | undefined, b: GetMucsInfoResponse | PlainMessage<GetMucsInfoResponse> | undefined): boolean {
+    return proto3.util.equals(GetMucsInfoResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DeleteTeamApiSecretRequest
+ */
+export class DeleteTeamApiSecretRequest extends Message<DeleteTeamApiSecretRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string secret_id = 2;
+   */
+  secretId = "";
+
+  constructor(data?: PartialMessage<DeleteTeamApiSecretRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DeleteTeamApiSecretRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "secret_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteTeamApiSecretRequest {
+    return new DeleteTeamApiSecretRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteTeamApiSecretRequest {
+    return new DeleteTeamApiSecretRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteTeamApiSecretRequest {
+    return new DeleteTeamApiSecretRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteTeamApiSecretRequest | PlainMessage<DeleteTeamApiSecretRequest> | undefined, b: DeleteTeamApiSecretRequest | PlainMessage<DeleteTeamApiSecretRequest> | undefined): boolean {
+    return proto3.util.equals(DeleteTeamApiSecretRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetTeamOrgIdResponse
+ */
+export class GetTeamOrgIdResponse extends Message<GetTeamOrgIdResponse> {
+  /**
+   * @generated from field: string org_id = 1;
+   */
+  orgId = "";
+
+  constructor(data?: PartialMessage<GetTeamOrgIdResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetTeamOrgIdResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "org_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTeamOrgIdResponse {
+    return new GetTeamOrgIdResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTeamOrgIdResponse {
+    return new GetTeamOrgIdResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTeamOrgIdResponse {
+    return new GetTeamOrgIdResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTeamOrgIdResponse | PlainMessage<GetTeamOrgIdResponse> | undefined, b: GetTeamOrgIdResponse | PlainMessage<GetTeamOrgIdResponse> | undefined): boolean {
+    return proto3.util.equals(GetTeamOrgIdResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.SetUserApiProviderKeyRequest
+ */
+export class SetUserApiProviderKeyRequest extends Message<SetUserApiProviderKeyRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.APIProvider provider = 2;
+   */
+  provider = APIProvider.API_PROVIDER_UNSPECIFIED;
+
+  /**
+   * @generated from field: string provider_api_key = 3;
+   */
+  providerApiKey = "";
+
+  constructor(data?: PartialMessage<SetUserApiProviderKeyRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.SetUserApiProviderKeyRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "provider", kind: "enum", T: proto3.getEnumType(APIProvider) },
+    { no: 3, name: "provider_api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetUserApiProviderKeyRequest {
+    return new SetUserApiProviderKeyRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetUserApiProviderKeyRequest {
+    return new SetUserApiProviderKeyRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetUserApiProviderKeyRequest {
+    return new SetUserApiProviderKeyRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetUserApiProviderKeyRequest | PlainMessage<SetUserApiProviderKeyRequest> | undefined, b: SetUserApiProviderKeyRequest | PlainMessage<SetUserApiProviderKeyRequest> | undefined): boolean {
+    return proto3.util.equals(SetUserApiProviderKeyRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetUserNotificationsResponse
+ */
+export class GetUserNotificationsResponse extends Message<GetUserNotificationsResponse> {
+  /**
+   * @generated from field: exa.seat_management_pb.TeamPreapprovalMetadata team_preapproval_metadata = 1;
+   */
+  teamPreapprovalMetadata?: TeamPreapprovalMetadata;
+
+  constructor(data?: PartialMessage<GetUserNotificationsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetUserNotificationsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "team_preapproval_metadata", kind: "message", T: TeamPreapprovalMetadata },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetUserNotificationsResponse {
+    return new GetUserNotificationsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetUserNotificationsResponse {
+    return new GetUserNotificationsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetUserNotificationsResponse {
+    return new GetUserNotificationsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetUserNotificationsResponse | PlainMessage<GetUserNotificationsResponse> | undefined, b: GetUserNotificationsResponse | PlainMessage<GetUserNotificationsResponse> | undefined): boolean {
+    return proto3.util.equals(GetUserNotificationsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetLicenseResponse
+ */
+export class GetLicenseResponse extends Message<GetLicenseResponse> {
+  /**
+   * @generated from field: exa.seat_management_pb.EnterpriseLicenseConfig license = 1;
+   */
+  license?: EnterpriseLicenseConfig;
+
+  constructor(data?: PartialMessage<GetLicenseResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetLicenseResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "license", kind: "message", T: EnterpriseLicenseConfig },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetLicenseResponse {
+    return new GetLicenseResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetLicenseResponse {
+    return new GetLicenseResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetLicenseResponse {
+    return new GetLicenseResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetLicenseResponse | PlainMessage<GetLicenseResponse> | undefined, b: GetLicenseResponse | PlainMessage<GetLicenseResponse> | undefined): boolean {
+    return proto3.util.equals(GetLicenseResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetPrimaryApiKeyForDevsOnlyResponse
+ */
+export class GetPrimaryApiKeyForDevsOnlyResponse extends Message<GetPrimaryApiKeyForDevsOnlyResponse> {
+  /**
+   * @generated from field: string api_key = 1;
+   */
+  apiKey = "";
+
+  constructor(data?: PartialMessage<GetPrimaryApiKeyForDevsOnlyResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetPrimaryApiKeyForDevsOnlyResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetPrimaryApiKeyForDevsOnlyResponse {
+    return new GetPrimaryApiKeyForDevsOnlyResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetPrimaryApiKeyForDevsOnlyResponse {
+    return new GetPrimaryApiKeyForDevsOnlyResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetPrimaryApiKeyForDevsOnlyResponse {
+    return new GetPrimaryApiKeyForDevsOnlyResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetPrimaryApiKeyForDevsOnlyResponse | PlainMessage<GetPrimaryApiKeyForDevsOnlyResponse> | undefined, b: GetPrimaryApiKeyForDevsOnlyResponse | PlainMessage<GetPrimaryApiKeyForDevsOnlyResponse> | undefined): boolean {
+    return proto3.util.equals(GetPrimaryApiKeyForDevsOnlyResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.AcceptPreapprovalResponse
+ */
+export class AcceptPreapprovalResponse extends Message<AcceptPreapprovalResponse> {
+  constructor(data?: PartialMessage<AcceptPreapprovalResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.AcceptPreapprovalResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AcceptPreapprovalResponse {
+    return new AcceptPreapprovalResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AcceptPreapprovalResponse {
+    return new AcceptPreapprovalResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AcceptPreapprovalResponse {
+    return new AcceptPreapprovalResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AcceptPreapprovalResponse | PlainMessage<AcceptPreapprovalResponse> | undefined, b: AcceptPreapprovalResponse | PlainMessage<AcceptPreapprovalResponse> | undefined): boolean {
+    return proto3.util.equals(AcceptPreapprovalResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetUserStatusResponse
+ */
+export class GetUserStatusResponse extends Message<GetUserStatusResponse> {
+  /**
+   * @generated from field: exa.codeium_common_pb.UserStatus user_status = 1;
+   */
+  userStatus?: UserStatus;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.PlanInfo plan_info = 2;
+   */
+  planInfo?: PlanInfo;
+
+  constructor(data?: PartialMessage<GetUserStatusResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetUserStatusResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "user_status", kind: "message", T: UserStatus },
+    { no: 2, name: "plan_info", kind: "message", T: PlanInfo },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetUserStatusResponse {
+    return new GetUserStatusResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetUserStatusResponse {
+    return new GetUserStatusResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetUserStatusResponse {
+    return new GetUserStatusResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetUserStatusResponse | PlainMessage<GetUserStatusResponse> | undefined, b: GetUserStatusResponse | PlainMessage<GetUserStatusResponse> | undefined): boolean {
+    return proto3.util.equals(GetUserStatusResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.SAMLAuthProvider
+ */
+export class SAMLAuthProvider extends Message<SAMLAuthProvider> {
+  /**
+   * @generated from field: string sso_provider_id = 1;
+   */
+  ssoProviderId = "";
+
+  /**
+   * @generated from field: string idp_entity_id = 2;
+   */
+  idpEntityId = "";
+
+  /**
+   * @generated from field: string sso_url = 3;
+   */
+  ssoUrl = "";
+
+  /**
+   * @generated from field: string x509_certificate = 4;
+   */
+  x509Certificate = "";
+
+  /**
+   * @generated from field: bool enabled = 5;
+   */
+  enabled = false;
+
+  constructor(data?: PartialMessage<SAMLAuthProvider>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.SAMLAuthProvider";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "sso_provider_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "idp_entity_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "sso_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "x509_certificate", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SAMLAuthProvider {
+    return new SAMLAuthProvider().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SAMLAuthProvider {
+    return new SAMLAuthProvider().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SAMLAuthProvider {
+    return new SAMLAuthProvider().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SAMLAuthProvider | PlainMessage<SAMLAuthProvider> | undefined, b: SAMLAuthProvider | PlainMessage<SAMLAuthProvider> | undefined): boolean {
+    return proto3.util.equals(SAMLAuthProvider, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.RegisterUserRequest
+ */
+export class RegisterUserRequest extends Message<RegisterUserRequest> {
+  /**
+   * @generated from field: string firebase_id_token = 1;
+   */
+  firebaseIdToken = "";
+
+  constructor(data?: PartialMessage<RegisterUserRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.RegisterUserRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "firebase_id_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RegisterUserRequest {
+    return new RegisterUserRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RegisterUserRequest {
+    return new RegisterUserRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RegisterUserRequest {
+    return new RegisterUserRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RegisterUserRequest | PlainMessage<RegisterUserRequest> | undefined, b: RegisterUserRequest | PlainMessage<RegisterUserRequest> | undefined): boolean {
+    return proto3.util.equals(RegisterUserRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetTeamCreditEntriesRequest
+ */
+export class GetTeamCreditEntriesRequest extends Message<GetTeamCreditEntriesRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<GetTeamCreditEntriesRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetTeamCreditEntriesRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTeamCreditEntriesRequest {
+    return new GetTeamCreditEntriesRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTeamCreditEntriesRequest {
+    return new GetTeamCreditEntriesRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTeamCreditEntriesRequest {
+    return new GetTeamCreditEntriesRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTeamCreditEntriesRequest | PlainMessage<GetTeamCreditEntriesRequest> | undefined, b: GetTeamCreditEntriesRequest | PlainMessage<GetTeamCreditEntriesRequest> | undefined): boolean {
+    return proto3.util.equals(GetTeamCreditEntriesRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.IsUsernameAvailableRequest
+ */
+export class IsUsernameAvailableRequest extends Message<IsUsernameAvailableRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string username = 2;
+   */
+  username = "";
+
+  constructor(data?: PartialMessage<IsUsernameAvailableRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.IsUsernameAvailableRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "username", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): IsUsernameAvailableRequest {
+    return new IsUsernameAvailableRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): IsUsernameAvailableRequest {
+    return new IsUsernameAvailableRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): IsUsernameAvailableRequest {
+    return new IsUsernameAvailableRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: IsUsernameAvailableRequest | PlainMessage<IsUsernameAvailableRequest> | undefined, b: IsUsernameAvailableRequest | PlainMessage<IsUsernameAvailableRequest> | undefined): boolean {
+    return proto3.util.equals(IsUsernameAvailableRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.MigrateApiKeyResponse
+ */
+export class MigrateApiKeyResponse extends Message<MigrateApiKeyResponse> {
+  /**
+   * @generated from field: string session_token = 1;
+   */
+  sessionToken = "";
+
+  constructor(data?: PartialMessage<MigrateApiKeyResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.MigrateApiKeyResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "session_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MigrateApiKeyResponse {
+    return new MigrateApiKeyResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MigrateApiKeyResponse {
+    return new MigrateApiKeyResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MigrateApiKeyResponse {
+    return new MigrateApiKeyResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: MigrateApiKeyResponse | PlainMessage<MigrateApiKeyResponse> | undefined, b: MigrateApiKeyResponse | PlainMessage<MigrateApiKeyResponse> | undefined): boolean {
+    return proto3.util.equals(MigrateApiKeyResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetGitHubAccessTokenResponse
+ */
+export class GetGitHubAccessTokenResponse extends Message<GetGitHubAccessTokenResponse> {
+  /**
+   * @generated from field: string access_token = 1;
+   */
+  accessToken = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp expires_at = 2;
+   */
+  expiresAt?: Timestamp;
+
+  constructor(data?: PartialMessage<GetGitHubAccessTokenResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetGitHubAccessTokenResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "access_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "expires_at", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetGitHubAccessTokenResponse {
+    return new GetGitHubAccessTokenResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetGitHubAccessTokenResponse {
+    return new GetGitHubAccessTokenResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetGitHubAccessTokenResponse {
+    return new GetGitHubAccessTokenResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetGitHubAccessTokenResponse | PlainMessage<GetGitHubAccessTokenResponse> | undefined, b: GetGitHubAccessTokenResponse | PlainMessage<GetGitHubAccessTokenResponse> | undefined): boolean {
+    return proto3.util.equals(GetGitHubAccessTokenResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetUserStatusRequest
+ */
+export class GetUserStatusRequest extends Message<GetUserStatusRequest> {
+  /**
+   * @generated from field: exa.codeium_common_pb.Metadata metadata = 1;
+   */
+  metadata?: Metadata;
+
+  constructor(data?: PartialMessage<GetUserStatusRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetUserStatusRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "metadata", kind: "message", T: Metadata },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetUserStatusRequest {
+    return new GetUserStatusRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetUserStatusRequest {
+    return new GetUserStatusRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetUserStatusRequest {
+    return new GetUserStatusRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetUserStatusRequest | PlainMessage<GetUserStatusRequest> | undefined, b: GetUserStatusRequest | PlainMessage<GetUserStatusRequest> | undefined): boolean {
+    return proto3.util.equals(GetUserStatusRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DeleteProfilePictureRequest
+ */
+export class DeleteProfilePictureRequest extends Message<DeleteProfilePictureRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<DeleteProfilePictureRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DeleteProfilePictureRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteProfilePictureRequest {
+    return new DeleteProfilePictureRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteProfilePictureRequest {
+    return new DeleteProfilePictureRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteProfilePictureRequest {
+    return new DeleteProfilePictureRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteProfilePictureRequest | PlainMessage<DeleteProfilePictureRequest> | undefined, b: DeleteProfilePictureRequest | PlainMessage<DeleteProfilePictureRequest> | undefined): boolean {
+    return proto3.util.equals(DeleteProfilePictureRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateTeamConfigExternalResponse
+ */
+export class UpdateTeamConfigExternalResponse extends Message<UpdateTeamConfigExternalResponse> {
+  constructor(data?: PartialMessage<UpdateTeamConfigExternalResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateTeamConfigExternalResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateTeamConfigExternalResponse {
+    return new UpdateTeamConfigExternalResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateTeamConfigExternalResponse {
+    return new UpdateTeamConfigExternalResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateTeamConfigExternalResponse {
+    return new UpdateTeamConfigExternalResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateTeamConfigExternalResponse | PlainMessage<UpdateTeamConfigExternalResponse> | undefined, b: UpdateTeamConfigExternalResponse | PlainMessage<UpdateTeamConfigExternalResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateTeamConfigExternalResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetAllTeamApiSecretsRequest
+ */
+export class GetAllTeamApiSecretsRequest extends Message<GetAllTeamApiSecretsRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<GetAllTeamApiSecretsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetAllTeamApiSecretsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetAllTeamApiSecretsRequest {
+    return new GetAllTeamApiSecretsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetAllTeamApiSecretsRequest {
+    return new GetAllTeamApiSecretsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetAllTeamApiSecretsRequest {
+    return new GetAllTeamApiSecretsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetAllTeamApiSecretsRequest | PlainMessage<GetAllTeamApiSecretsRequest> | undefined, b: GetAllTeamApiSecretsRequest | PlainMessage<GetAllTeamApiSecretsRequest> | undefined): boolean {
+    return proto3.util.equals(GetAllTeamApiSecretsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetTeamSettingsRequest
+ */
+export class GetTeamSettingsRequest extends Message<GetTeamSettingsRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<GetTeamSettingsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetTeamSettingsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTeamSettingsRequest {
+    return new GetTeamSettingsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTeamSettingsRequest {
+    return new GetTeamSettingsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTeamSettingsRequest {
+    return new GetTeamSettingsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTeamSettingsRequest | PlainMessage<GetTeamSettingsRequest> | undefined, b: GetTeamSettingsRequest | PlainMessage<GetTeamSettingsRequest> | undefined): boolean {
+    return proto3.util.equals(GetTeamSettingsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetMucsInfoRequest
+ */
+export class GetMucsInfoRequest extends Message<GetMucsInfoRequest> {
+  constructor(data?: PartialMessage<GetMucsInfoRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetMucsInfoRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetMucsInfoRequest {
+    return new GetMucsInfoRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetMucsInfoRequest {
+    return new GetMucsInfoRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetMucsInfoRequest {
+    return new GetMucsInfoRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetMucsInfoRequest | PlainMessage<GetMucsInfoRequest> | undefined, b: GetMucsInfoRequest | PlainMessage<GetMucsInfoRequest> | undefined): boolean {
+    return proto3.util.equals(GetMucsInfoRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateBillingRequest
+ */
+export class UpdateBillingRequest extends Message<UpdateBillingRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string success_url = 2;
+   */
+  successUrl = "";
+
+  /**
+   * @generated from field: string cancel_url = 3;
+   */
+  cancelUrl = "";
+
+  constructor(data?: PartialMessage<UpdateBillingRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateBillingRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "success_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "cancel_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateBillingRequest {
+    return new UpdateBillingRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateBillingRequest {
+    return new UpdateBillingRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateBillingRequest {
+    return new UpdateBillingRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateBillingRequest | PlainMessage<UpdateBillingRequest> | undefined, b: UpdateBillingRequest | PlainMessage<UpdateBillingRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateBillingRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.JoinTeamWithSSOLoginResponse
+ */
+export class JoinTeamWithSSOLoginResponse extends Message<JoinTeamWithSSOLoginResponse> {
+  constructor(data?: PartialMessage<JoinTeamWithSSOLoginResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.JoinTeamWithSSOLoginResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): JoinTeamWithSSOLoginResponse {
+    return new JoinTeamWithSSOLoginResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): JoinTeamWithSSOLoginResponse {
+    return new JoinTeamWithSSOLoginResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): JoinTeamWithSSOLoginResponse {
+    return new JoinTeamWithSSOLoginResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: JoinTeamWithSSOLoginResponse | PlainMessage<JoinTeamWithSSOLoginResponse> | undefined, b: JoinTeamWithSSOLoginResponse | PlainMessage<JoinTeamWithSSOLoginResponse> | undefined): boolean {
+    return proto3.util.equals(JoinTeamWithSSOLoginResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdatePlanResponse
+ */
+export class UpdatePlanResponse extends Message<UpdatePlanResponse> {
+  /**
+   * @generated from field: exa.seat_management_pb.BillingUpdate billing_update = 1;
+   */
+  billingUpdate?: BillingUpdate;
+
+  /**
+   * @generated from field: bool applied_changes = 2;
+   */
+  appliedChanges = false;
+
+  /**
+   * @generated from field: string next_action_client_secret = 3;
+   */
+  nextActionClientSecret = "";
+
+  /**
+   * @generated from field: string payment_failure_reason = 4;
+   */
+  paymentFailureReason = "";
+
+  /**
+   * @generated from field: bool requires_password_reset = 5;
+   */
+  requiresPasswordReset = false;
+
+  constructor(data?: PartialMessage<UpdatePlanResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdatePlanResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "billing_update", kind: "message", T: BillingUpdate },
+    { no: 2, name: "applied_changes", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "next_action_client_secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "payment_failure_reason", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "requires_password_reset", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdatePlanResponse {
+    return new UpdatePlanResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdatePlanResponse {
+    return new UpdatePlanResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdatePlanResponse {
+    return new UpdatePlanResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdatePlanResponse | PlainMessage<UpdatePlanResponse> | undefined, b: UpdatePlanResponse | PlainMessage<UpdatePlanResponse> | undefined): boolean {
+    return proto3.util.equals(UpdatePlanResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.CreateRoleRequest
+ */
+export class CreateRoleRequest extends Message<CreateRoleRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string name = 2;
+   */
+  name = "";
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.Permission permissions = 3;
+   */
+  permissions: Permission[] = [];
+
+  constructor(data?: PartialMessage<CreateRoleRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.CreateRoleRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "permissions", kind: "enum", T: proto3.getEnumType(Permission), repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateRoleRequest {
+    return new CreateRoleRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CreateRoleRequest {
+    return new CreateRoleRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CreateRoleRequest {
+    return new CreateRoleRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CreateRoleRequest | PlainMessage<CreateRoleRequest> | undefined, b: CreateRoleRequest | PlainMessage<CreateRoleRequest> | undefined): boolean {
+    return proto3.util.equals(CreateRoleRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateTeamConfigRequest
+ */
+export class UpdateTeamConfigRequest extends Message<UpdateTeamConfigRequest> {
+  /**
+   * @generated from field: string secret = 1;
+   */
+  secret = "";
+
+  /**
+   * @generated from field: string team_name = 2;
+   */
+  teamName = "";
+
+  /**
+   * @generated from field: int32 user_prompt_credit_cap = 3;
+   */
+  userPromptCreditCap = 0;
+
+  /**
+   * @generated from field: int32 user_flow_credit_cap = 4;
+   */
+  userFlowCreditCap = 0;
+
+  /**
+   * @generated from field: bool disable_prompt_limit = 5;
+   */
+  disablePromptLimit = false;
+
+  /**
+   * @generated from field: bool disable_flow_limit = 6;
+   */
+  disableFlowLimit = false;
+
+  constructor(data?: PartialMessage<UpdateTeamConfigRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateTeamConfigRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "team_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "user_prompt_credit_cap", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 4, name: "user_flow_credit_cap", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 5, name: "disable_prompt_limit", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 6, name: "disable_flow_limit", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateTeamConfigRequest {
+    return new UpdateTeamConfigRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateTeamConfigRequest {
+    return new UpdateTeamConfigRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateTeamConfigRequest {
+    return new UpdateTeamConfigRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateTeamConfigRequest | PlainMessage<UpdateTeamConfigRequest> | undefined, b: UpdateTeamConfigRequest | PlainMessage<UpdateTeamConfigRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateTeamConfigRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdatePlanRequest
+ */
+export class UpdatePlanRequest extends Message<UpdatePlanRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: exa.seat_management_pb.StripePrice price = 2;
+   */
+  price = StripePrice.UNSPECIFIED;
+
+  /**
+   * @generated from field: bool preview = 3;
+   */
+  preview = false;
+
+  /**
+   * @generated from field: exa.seat_management_pb.PaymentPeriod payment_period = 4;
+   */
+  paymentPeriod = PaymentPeriod.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.TeamsTier teams_tier = 5;
+   */
+  teamsTier = TeamsTier.UNSPECIFIED;
+
+  constructor(data?: PartialMessage<UpdatePlanRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdatePlanRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "price", kind: "enum", T: proto3.getEnumType(StripePrice) },
+    { no: 3, name: "preview", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 4, name: "payment_period", kind: "enum", T: proto3.getEnumType(PaymentPeriod) },
+    { no: 5, name: "teams_tier", kind: "enum", T: proto3.getEnumType(TeamsTier) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdatePlanRequest {
+    return new UpdatePlanRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdatePlanRequest {
+    return new UpdatePlanRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdatePlanRequest {
+    return new UpdatePlanRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdatePlanRequest | PlainMessage<UpdatePlanRequest> | undefined, b: UpdatePlanRequest | PlainMessage<UpdatePlanRequest> | undefined): boolean {
+    return proto3.util.equals(UpdatePlanRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateEnterpriseRequest
+ */
+export class UpdateEnterpriseRequest extends Message<UpdateEnterpriseRequest> {
+  /**
+   * @generated from field: string secret = 1;
+   */
+  secret = "";
+
+  /**
+   * @generated from field: string team_name = 2;
+   */
+  teamName = "";
+
+  /**
+   * @generated from field: string team_id = 3;
+   */
+  teamId = "";
+
+  /**
+   * @generated from field: repeated string tags = 4;
+   */
+  tags: string[] = [];
+
+  /**
+   * @generated from field: string organization = 5;
+   */
+  organization = "";
+
+  /**
+   * @generated from field: string source = 6;
+   */
+  source = "";
+
+  /**
+   * @generated from field: string creation_reason = 7;
+   */
+  creationReason = "";
+
+  /**
+   * @generated from field: bool trial = 8;
+   */
+  trial = false;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp end_date = 9;
+   */
+  endDate?: Timestamp;
+
+  /**
+   * @generated from field: bool hybrid = 10;
+   */
+  hybrid = false;
+
+  /**
+   * @generated from field: int32 flow_seats = 11;
+   */
+  flowSeats = 0;
+
+  /**
+   * @generated from field: int32 core_seats = 12;
+   */
+  coreSeats = 0;
+
+  /**
+   * @generated from field: repeated string users_to_add = 13;
+   */
+  usersToAdd: string[] = [];
+
+  /**
+   * @generated from field: string created_by = 14;
+   */
+  createdBy = "";
+
+  /**
+   * @generated from field: bool paid_out_of_band = 15;
+   */
+  paidOutOfBand = false;
+
+  /**
+   * @generated from field: bool enable_auto_cascade_seat_provisioning = 16;
+   */
+  enableAutoCascadeSeatProvisioning = false;
+
+  /**
+   * @generated from field: int32 user_prompt_credit_cap = 17;
+   */
+  userPromptCreditCap = 0;
+
+  /**
+   * @generated from field: int32 user_flow_credit_cap = 18;
+   */
+  userFlowCreditCap = 0;
+
+  constructor(data?: PartialMessage<UpdateEnterpriseRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateEnterpriseRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "team_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "tags", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 5, name: "organization", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "source", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "creation_reason", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "trial", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 9, name: "end_date", kind: "message", T: Timestamp },
+    { no: 10, name: "hybrid", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 11, name: "flow_seats", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 12, name: "core_seats", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 13, name: "users_to_add", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 14, name: "created_by", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 15, name: "paid_out_of_band", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 16, name: "enable_auto_cascade_seat_provisioning", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 17, name: "user_prompt_credit_cap", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 18, name: "user_flow_credit_cap", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateEnterpriseRequest {
+    return new UpdateEnterpriseRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateEnterpriseRequest {
+    return new UpdateEnterpriseRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateEnterpriseRequest {
+    return new UpdateEnterpriseRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateEnterpriseRequest | PlainMessage<UpdateEnterpriseRequest> | undefined, b: UpdateEnterpriseRequest | PlainMessage<UpdateEnterpriseRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateEnterpriseRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.ProfilePictureUploadCompleteRequest
+ */
+export class ProfilePictureUploadCompleteRequest extends Message<ProfilePictureUploadCompleteRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<ProfilePictureUploadCompleteRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.ProfilePictureUploadCompleteRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ProfilePictureUploadCompleteRequest {
+    return new ProfilePictureUploadCompleteRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ProfilePictureUploadCompleteRequest {
+    return new ProfilePictureUploadCompleteRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ProfilePictureUploadCompleteRequest {
+    return new ProfilePictureUploadCompleteRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ProfilePictureUploadCompleteRequest | PlainMessage<ProfilePictureUploadCompleteRequest> | undefined, b: ProfilePictureUploadCompleteRequest | PlainMessage<ProfilePictureUploadCompleteRequest> | undefined): boolean {
+    return proto3.util.equals(ProfilePictureUploadCompleteRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.SubscribeToPlanResponse
+ */
+export class SubscribeToPlanResponse extends Message<SubscribeToPlanResponse> {
+  /**
+   * @generated from field: string checkout_url = 1;
+   */
+  checkoutUrl = "";
+
+  constructor(data?: PartialMessage<SubscribeToPlanResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.SubscribeToPlanResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "checkout_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SubscribeToPlanResponse {
+    return new SubscribeToPlanResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SubscribeToPlanResponse {
+    return new SubscribeToPlanResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SubscribeToPlanResponse {
+    return new SubscribeToPlanResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SubscribeToPlanResponse | PlainMessage<SubscribeToPlanResponse> | undefined, b: SubscribeToPlanResponse | PlainMessage<SubscribeToPlanResponse> | undefined): boolean {
+    return proto3.util.equals(SubscribeToPlanResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.ConnectNetlifyAccountResponse
+ */
+export class ConnectNetlifyAccountResponse extends Message<ConnectNetlifyAccountResponse> {
+  constructor(data?: PartialMessage<ConnectNetlifyAccountResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.ConnectNetlifyAccountResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConnectNetlifyAccountResponse {
+    return new ConnectNetlifyAccountResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConnectNetlifyAccountResponse {
+    return new ConnectNetlifyAccountResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConnectNetlifyAccountResponse {
+    return new ConnectNetlifyAccountResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ConnectNetlifyAccountResponse | PlainMessage<ConnectNetlifyAccountResponse> | undefined, b: ConnectNetlifyAccountResponse | PlainMessage<ConnectNetlifyAccountResponse> | undefined): boolean {
+    return proto3.util.equals(ConnectNetlifyAccountResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateSeatsResponse
+ */
+export class UpdateSeatsResponse extends Message<UpdateSeatsResponse> {
+  /**
+   * @generated from field: exa.seat_management_pb.BillingUpdate billing_update = 1;
+   */
+  billingUpdate?: BillingUpdate;
+
+  constructor(data?: PartialMessage<UpdateSeatsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateSeatsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "billing_update", kind: "message", T: BillingUpdate },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateSeatsResponse {
+    return new UpdateSeatsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateSeatsResponse {
+    return new UpdateSeatsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateSeatsResponse {
+    return new UpdateSeatsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateSeatsResponse | PlainMessage<UpdateSeatsResponse> | undefined, b: UpdateSeatsResponse | PlainMessage<UpdateSeatsResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateSeatsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateUserTeamStatusResponse
+ */
+export class UpdateUserTeamStatusResponse extends Message<UpdateUserTeamStatusResponse> {
+  /**
+   * @generated from field: repeated exa.seat_management_pb.User users = 1;
+   */
+  users: User[] = [];
+
+  constructor(data?: PartialMessage<UpdateUserTeamStatusResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateUserTeamStatusResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "users", kind: "message", T: User, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateUserTeamStatusResponse {
+    return new UpdateUserTeamStatusResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateUserTeamStatusResponse {
+    return new UpdateUserTeamStatusResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateUserTeamStatusResponse {
+    return new UpdateUserTeamStatusResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateUserTeamStatusResponse | PlainMessage<UpdateUserTeamStatusResponse> | undefined, b: UpdateUserTeamStatusResponse | PlainMessage<UpdateUserTeamStatusResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateUserTeamStatusResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DeleteProfilePictureResponse
+ */
+export class DeleteProfilePictureResponse extends Message<DeleteProfilePictureResponse> {
+  constructor(data?: PartialMessage<DeleteProfilePictureResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DeleteProfilePictureResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteProfilePictureResponse {
+    return new DeleteProfilePictureResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteProfilePictureResponse {
+    return new DeleteProfilePictureResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteProfilePictureResponse {
+    return new DeleteProfilePictureResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteProfilePictureResponse | PlainMessage<DeleteProfilePictureResponse> | undefined, b: DeleteProfilePictureResponse | PlainMessage<DeleteProfilePictureResponse> | undefined): boolean {
+    return proto3.util.equals(DeleteProfilePictureResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.PurchaseCascadeCreditsRequest
+ */
+export class PurchaseCascadeCreditsRequest extends Message<PurchaseCascadeCreditsRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string success_url = 4;
+   */
+  successUrl = "";
+
+  /**
+   * @generated from field: string cancel_url = 5;
+   */
+  cancelUrl = "";
+
+  constructor(data?: PartialMessage<PurchaseCascadeCreditsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.PurchaseCascadeCreditsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "success_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "cancel_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PurchaseCascadeCreditsRequest {
+    return new PurchaseCascadeCreditsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PurchaseCascadeCreditsRequest {
+    return new PurchaseCascadeCreditsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PurchaseCascadeCreditsRequest {
+    return new PurchaseCascadeCreditsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PurchaseCascadeCreditsRequest | PlainMessage<PurchaseCascadeCreditsRequest> | undefined, b: PurchaseCascadeCreditsRequest | PlainMessage<PurchaseCascadeCreditsRequest> | undefined): boolean {
+    return proto3.util.equals(PurchaseCascadeCreditsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.ProvisionFreeProTierRequest
+ */
+export class ProvisionFreeProTierRequest extends Message<ProvisionFreeProTierRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string code = 2;
+   */
+  code = "";
+
+  constructor(data?: PartialMessage<ProvisionFreeProTierRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.ProvisionFreeProTierRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "code", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ProvisionFreeProTierRequest {
+    return new ProvisionFreeProTierRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ProvisionFreeProTierRequest {
+    return new ProvisionFreeProTierRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ProvisionFreeProTierRequest {
+    return new ProvisionFreeProTierRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ProvisionFreeProTierRequest | PlainMessage<ProvisionFreeProTierRequest> | undefined, b: ProvisionFreeProTierRequest | PlainMessage<ProvisionFreeProTierRequest> | undefined): boolean {
+    return proto3.util.equals(ProvisionFreeProTierRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateUserFeaturesInternalRequest
+ */
+export class UpdateUserFeaturesInternalRequest extends Message<UpdateUserFeaturesInternalRequest> {
+  /**
+   * @generated from field: string secret = 1;
+   */
+  secret = "";
+
+  /**
+   * @generated from field: repeated string api_keys = 2;
+   */
+  apiKeys: string[] = [];
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.UserFeatures features = 3;
+   */
+  features: UserFeatures[] = [];
+
+  constructor(data?: PartialMessage<UpdateUserFeaturesInternalRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateUserFeaturesInternalRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "api_keys", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 3, name: "features", kind: "enum", T: proto3.getEnumType(UserFeatures), repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateUserFeaturesInternalRequest {
+    return new UpdateUserFeaturesInternalRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateUserFeaturesInternalRequest {
+    return new UpdateUserFeaturesInternalRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateUserFeaturesInternalRequest {
+    return new UpdateUserFeaturesInternalRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateUserFeaturesInternalRequest | PlainMessage<UpdateUserFeaturesInternalRequest> | undefined, b: UpdateUserFeaturesInternalRequest | PlainMessage<UpdateUserFeaturesInternalRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateUserFeaturesInternalRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateUserFeaturesInternalResponse
+ */
+export class UpdateUserFeaturesInternalResponse extends Message<UpdateUserFeaturesInternalResponse> {
+  constructor(data?: PartialMessage<UpdateUserFeaturesInternalResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateUserFeaturesInternalResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateUserFeaturesInternalResponse {
+    return new UpdateUserFeaturesInternalResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateUserFeaturesInternalResponse {
+    return new UpdateUserFeaturesInternalResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateUserFeaturesInternalResponse {
+    return new UpdateUserFeaturesInternalResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateUserFeaturesInternalResponse | PlainMessage<UpdateUserFeaturesInternalResponse> | undefined, b: UpdateUserFeaturesInternalResponse | PlainMessage<UpdateUserFeaturesInternalResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateUserFeaturesInternalResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetRolesResponse
+ */
+export class GetRolesResponse extends Message<GetRolesResponse> {
+  /**
+   * @generated from field: repeated exa.seat_management_pb.Role roles = 1;
+   */
+  roles: Role[] = [];
+
+  constructor(data?: PartialMessage<GetRolesResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetRolesResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "roles", kind: "message", T: Role, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetRolesResponse {
+    return new GetRolesResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetRolesResponse {
+    return new GetRolesResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetRolesResponse {
+    return new GetRolesResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetRolesResponse | PlainMessage<GetRolesResponse> | undefined, b: GetRolesResponse | PlainMessage<GetRolesResponse> | undefined): boolean {
+    return proto3.util.equals(GetRolesResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.AcceptPreapprovalRequest
+ */
+export class AcceptPreapprovalRequest extends Message<AcceptPreapprovalRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string approval_id = 2;
+   */
+  approvalId = "";
+
+  constructor(data?: PartialMessage<AcceptPreapprovalRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.AcceptPreapprovalRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "approval_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AcceptPreapprovalRequest {
+    return new AcceptPreapprovalRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AcceptPreapprovalRequest {
+    return new AcceptPreapprovalRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AcceptPreapprovalRequest {
+    return new AcceptPreapprovalRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AcceptPreapprovalRequest | PlainMessage<AcceptPreapprovalRequest> | undefined, b: AcceptPreapprovalRequest | PlainMessage<AcceptPreapprovalRequest> | undefined): boolean {
+    return proto3.util.equals(AcceptPreapprovalRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.InitiateTopUpRequest
+ */
+export class InitiateTopUpRequest extends Message<InitiateTopUpRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<InitiateTopUpRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.InitiateTopUpRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): InitiateTopUpRequest {
+    return new InitiateTopUpRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): InitiateTopUpRequest {
+    return new InitiateTopUpRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): InitiateTopUpRequest {
+    return new InitiateTopUpRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: InitiateTopUpRequest | PlainMessage<InitiateTopUpRequest> | undefined, b: InitiateTopUpRequest | PlainMessage<InitiateTopUpRequest> | undefined): boolean {
+    return proto3.util.equals(InitiateTopUpRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateCascadeWebSearchEnabledRequest
+ */
+export class UpdateCascadeWebSearchEnabledRequest extends Message<UpdateCascadeWebSearchEnabledRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: bool cascade_web_search_enabled = 2;
+   */
+  cascadeWebSearchEnabled = false;
+
+  constructor(data?: PartialMessage<UpdateCascadeWebSearchEnabledRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateCascadeWebSearchEnabledRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "cascade_web_search_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateCascadeWebSearchEnabledRequest {
+    return new UpdateCascadeWebSearchEnabledRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateCascadeWebSearchEnabledRequest {
+    return new UpdateCascadeWebSearchEnabledRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateCascadeWebSearchEnabledRequest {
+    return new UpdateCascadeWebSearchEnabledRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateCascadeWebSearchEnabledRequest | PlainMessage<UpdateCascadeWebSearchEnabledRequest> | undefined, b: UpdateCascadeWebSearchEnabledRequest | PlainMessage<UpdateCascadeWebSearchEnabledRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateCascadeWebSearchEnabledRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetPrimaryApiKeyForDevsOnlyRequest
+ */
+export class GetPrimaryApiKeyForDevsOnlyRequest extends Message<GetPrimaryApiKeyForDevsOnlyRequest> {
+  /**
+   * @generated from field: string session_token = 1;
+   */
+  sessionToken = "";
+
+  constructor(data?: PartialMessage<GetPrimaryApiKeyForDevsOnlyRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetPrimaryApiKeyForDevsOnlyRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "session_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetPrimaryApiKeyForDevsOnlyRequest {
+    return new GetPrimaryApiKeyForDevsOnlyRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetPrimaryApiKeyForDevsOnlyRequest {
+    return new GetPrimaryApiKeyForDevsOnlyRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetPrimaryApiKeyForDevsOnlyRequest {
+    return new GetPrimaryApiKeyForDevsOnlyRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetPrimaryApiKeyForDevsOnlyRequest | PlainMessage<GetPrimaryApiKeyForDevsOnlyRequest> | undefined, b: GetPrimaryApiKeyForDevsOnlyRequest | PlainMessage<GetPrimaryApiKeyForDevsOnlyRequest> | undefined): boolean {
+    return proto3.util.equals(GetPrimaryApiKeyForDevsOnlyRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateCodeiumAccessResponse
+ */
+export class UpdateCodeiumAccessResponse extends Message<UpdateCodeiumAccessResponse> {
+  constructor(data?: PartialMessage<UpdateCodeiumAccessResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateCodeiumAccessResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateCodeiumAccessResponse {
+    return new UpdateCodeiumAccessResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateCodeiumAccessResponse {
+    return new UpdateCodeiumAccessResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateCodeiumAccessResponse {
+    return new UpdateCodeiumAccessResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateCodeiumAccessResponse | PlainMessage<UpdateCodeiumAccessResponse> | undefined, b: UpdateCodeiumAccessResponse | PlainMessage<UpdateCodeiumAccessResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateCodeiumAccessResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateCreditTopUpSettingsRequest
+ */
+export class UpdateCreditTopUpSettingsRequest extends Message<UpdateCreditTopUpSettingsRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: bool enabled = 2;
+   */
+  enabled = false;
+
+  /**
+   * @generated from field: int32 monthly_top_up_amount = 3;
+   */
+  monthlyTopUpAmount = 0;
+
+  /**
+   * @generated from field: int32 top_up_increment = 4;
+   */
+  topUpIncrement = 0;
+
+  constructor(data?: PartialMessage<UpdateCreditTopUpSettingsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateCreditTopUpSettingsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "monthly_top_up_amount", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 4, name: "top_up_increment", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateCreditTopUpSettingsRequest {
+    return new UpdateCreditTopUpSettingsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateCreditTopUpSettingsRequest {
+    return new UpdateCreditTopUpSettingsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateCreditTopUpSettingsRequest {
+    return new UpdateCreditTopUpSettingsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateCreditTopUpSettingsRequest | PlainMessage<UpdateCreditTopUpSettingsRequest> | undefined, b: UpdateCreditTopUpSettingsRequest | PlainMessage<UpdateCreditTopUpSettingsRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateCreditTopUpSettingsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DisconnectNetlifyAccountResponse
+ */
+export class DisconnectNetlifyAccountResponse extends Message<DisconnectNetlifyAccountResponse> {
+  constructor(data?: PartialMessage<DisconnectNetlifyAccountResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DisconnectNetlifyAccountResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DisconnectNetlifyAccountResponse {
+    return new DisconnectNetlifyAccountResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DisconnectNetlifyAccountResponse {
+    return new DisconnectNetlifyAccountResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DisconnectNetlifyAccountResponse {
+    return new DisconnectNetlifyAccountResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DisconnectNetlifyAccountResponse | PlainMessage<DisconnectNetlifyAccountResponse> | undefined, b: DisconnectNetlifyAccountResponse | PlainMessage<DisconnectNetlifyAccountResponse> | undefined): boolean {
+    return proto3.util.equals(DisconnectNetlifyAccountResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetMultiTenantTeamsRequest
+ */
+export class GetMultiTenantTeamsRequest extends Message<GetMultiTenantTeamsRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<GetMultiTenantTeamsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetMultiTenantTeamsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetMultiTenantTeamsRequest {
+    return new GetMultiTenantTeamsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetMultiTenantTeamsRequest {
+    return new GetMultiTenantTeamsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetMultiTenantTeamsRequest {
+    return new GetMultiTenantTeamsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetMultiTenantTeamsRequest | PlainMessage<GetMultiTenantTeamsRequest> | undefined, b: GetMultiTenantTeamsRequest | PlainMessage<GetMultiTenantTeamsRequest> | undefined): boolean {
+    return proto3.util.equals(GetMultiTenantTeamsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.Invoice
+ */
+export class Invoice extends Message<Invoice> {
+  /**
+   * @generated from field: float amount = 1;
+   */
+  amount = 0;
+
+  /**
+   * @generated from field: string currency = 2;
+   */
+  currency = "";
+
+  /**
+   * @generated from field: bool paid = 3;
+   */
+  paid = false;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp created = 4;
+   */
+  created?: Timestamp;
+
+  /**
+   * @generated from field: string invoice_pdf_url = 5;
+   */
+  invoicePdfUrl = "";
+
+  constructor(data?: PartialMessage<Invoice>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.Invoice";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "amount", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 2, name: "currency", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "paid", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 4, name: "created", kind: "message", T: Timestamp },
+    { no: 5, name: "invoice_pdf_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Invoice {
+    return new Invoice().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Invoice {
+    return new Invoice().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Invoice {
+    return new Invoice().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Invoice | PlainMessage<Invoice> | undefined, b: Invoice | PlainMessage<Invoice> | undefined): boolean {
+    return proto3.util.equals(Invoice, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.IsUsernameAvailableResponse
+ */
+export class IsUsernameAvailableResponse extends Message<IsUsernameAvailableResponse> {
+  /**
+   * @generated from field: bool available = 1;
+   */
+  available = false;
+
+  constructor(data?: PartialMessage<IsUsernameAvailableResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.IsUsernameAvailableResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "available", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): IsUsernameAvailableResponse {
+    return new IsUsernameAvailableResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): IsUsernameAvailableResponse {
+    return new IsUsernameAvailableResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): IsUsernameAvailableResponse {
+    return new IsUsernameAvailableResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: IsUsernameAvailableResponse | PlainMessage<IsUsernameAvailableResponse> | undefined, b: IsUsernameAvailableResponse | PlainMessage<IsUsernameAvailableResponse> | undefined): boolean {
+    return proto3.util.equals(IsUsernameAvailableResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateEnterpriseResponse
+ */
+export class UpdateEnterpriseResponse extends Message<UpdateEnterpriseResponse> {
+  constructor(data?: PartialMessage<UpdateEnterpriseResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateEnterpriseResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateEnterpriseResponse {
+    return new UpdateEnterpriseResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateEnterpriseResponse {
+    return new UpdateEnterpriseResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateEnterpriseResponse {
+    return new UpdateEnterpriseResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateEnterpriseResponse | PlainMessage<UpdateEnterpriseResponse> | undefined, b: UpdateEnterpriseResponse | PlainMessage<UpdateEnterpriseResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateEnterpriseResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.SubscribeToPlanRequest
+ */
+export class SubscribeToPlanRequest extends Message<SubscribeToPlanRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string stripe_price_id = 2;
+   */
+  stripePriceId = "";
+
+  /**
+   * @generated from field: bool start_trial = 3;
+   */
+  startTrial = false;
+
+  /**
+   * @generated from field: string success_url = 4;
+   */
+  successUrl = "";
+
+  /**
+   * @generated from field: string cancel_url = 5;
+   */
+  cancelUrl = "";
+
+  /**
+   * @generated from field: int64 seats = 6;
+   */
+  seats = protoInt64.zero;
+
+  /**
+   * @generated from field: string team_name = 7;
+   */
+  teamName = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.TeamsTier teams_tier = 8;
+   */
+  teamsTier = TeamsTier.UNSPECIFIED;
+
+  /**
+   * @generated from field: exa.seat_management_pb.PaymentPeriod payment_period = 9;
+   */
+  paymentPeriod = PaymentPeriod.UNSPECIFIED;
+
+  constructor(data?: PartialMessage<SubscribeToPlanRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.SubscribeToPlanRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "stripe_price_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "start_trial", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 4, name: "success_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "cancel_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "seats", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 7, name: "team_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "teams_tier", kind: "enum", T: proto3.getEnumType(TeamsTier) },
+    { no: 9, name: "payment_period", kind: "enum", T: proto3.getEnumType(PaymentPeriod) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SubscribeToPlanRequest {
+    return new SubscribeToPlanRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SubscribeToPlanRequest {
+    return new SubscribeToPlanRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SubscribeToPlanRequest {
+    return new SubscribeToPlanRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SubscribeToPlanRequest | PlainMessage<SubscribeToPlanRequest> | undefined, b: SubscribeToPlanRequest | PlainMessage<SubscribeToPlanRequest> | undefined): boolean {
+    return proto3.util.equals(SubscribeToPlanRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GrantSuperAdminAccessResponse
+ */
+export class GrantSuperAdminAccessResponse extends Message<GrantSuperAdminAccessResponse> {
   /**
    * @generated from field: exa.seat_management_pb.User user = 1;
    */
   user?: User;
+
+  constructor(data?: PartialMessage<GrantSuperAdminAccessResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GrantSuperAdminAccessResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "user", kind: "message", T: User },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GrantSuperAdminAccessResponse {
+    return new GrantSuperAdminAccessResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GrantSuperAdminAccessResponse {
+    return new GrantSuperAdminAccessResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GrantSuperAdminAccessResponse {
+    return new GrantSuperAdminAccessResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GrantSuperAdminAccessResponse | PlainMessage<GrantSuperAdminAccessResponse> | undefined, b: GrantSuperAdminAccessResponse | PlainMessage<GrantSuperAdminAccessResponse> | undefined): boolean {
+    return proto3.util.equals(GrantSuperAdminAccessResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateCreditTopUpSettingsResponse
+ */
+export class UpdateCreditTopUpSettingsResponse extends Message<UpdateCreditTopUpSettingsResponse> {
+  constructor(data?: PartialMessage<UpdateCreditTopUpSettingsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateCreditTopUpSettingsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateCreditTopUpSettingsResponse {
+    return new UpdateCreditTopUpSettingsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateCreditTopUpSettingsResponse {
+    return new UpdateCreditTopUpSettingsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateCreditTopUpSettingsResponse {
+    return new UpdateCreditTopUpSettingsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateCreditTopUpSettingsResponse | PlainMessage<UpdateCreditTopUpSettingsResponse> | undefined, b: UpdateCreditTopUpSettingsResponse | PlainMessage<UpdateCreditTopUpSettingsResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateCreditTopUpSettingsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.RemoveUsersFromTeamInternalRequest
+ */
+export class RemoveUsersFromTeamInternalRequest extends Message<RemoveUsersFromTeamInternalRequest> {
+  /**
+   * @generated from field: string secret = 1;
+   */
+  secret = "";
+
+  /**
+   * @generated from field: repeated string emails = 2;
+   */
+  emails: string[] = [];
+
+  /**
+   * @generated from field: bool override_subscription_active_check = 3;
+   */
+  overrideSubscriptionActiveCheck = false;
+
+  constructor(data?: PartialMessage<RemoveUsersFromTeamInternalRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.RemoveUsersFromTeamInternalRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "emails", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 3, name: "override_subscription_active_check", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RemoveUsersFromTeamInternalRequest {
+    return new RemoveUsersFromTeamInternalRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RemoveUsersFromTeamInternalRequest {
+    return new RemoveUsersFromTeamInternalRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RemoveUsersFromTeamInternalRequest {
+    return new RemoveUsersFromTeamInternalRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RemoveUsersFromTeamInternalRequest | PlainMessage<RemoveUsersFromTeamInternalRequest> | undefined, b: RemoveUsersFromTeamInternalRequest | PlainMessage<RemoveUsersFromTeamInternalRequest> | undefined): boolean {
+    return proto3.util.equals(RemoveUsersFromTeamInternalRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.SetTeamLicenseResponse
+ */
+export class SetTeamLicenseResponse extends Message<SetTeamLicenseResponse> {
+  /**
+   * @generated from field: exa.seat_management_pb.Team team = 1;
+   */
+  team?: Team;
+
+  constructor(data?: PartialMessage<SetTeamLicenseResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.SetTeamLicenseResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "team", kind: "message", T: Team },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetTeamLicenseResponse {
+    return new SetTeamLicenseResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetTeamLicenseResponse {
+    return new SetTeamLicenseResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetTeamLicenseResponse {
+    return new SetTeamLicenseResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetTeamLicenseResponse | PlainMessage<SetTeamLicenseResponse> | undefined, b: SetTeamLicenseResponse | PlainMessage<SetTeamLicenseResponse> | undefined): boolean {
+    return proto3.util.equals(SetTeamLicenseResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.AddUserRoleResponse
+ */
+export class AddUserRoleResponse extends Message<AddUserRoleResponse> {
+  constructor(data?: PartialMessage<AddUserRoleResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.AddUserRoleResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddUserRoleResponse {
+    return new AddUserRoleResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddUserRoleResponse {
+    return new AddUserRoleResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddUserRoleResponse {
+    return new AddUserRoleResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AddUserRoleResponse | PlainMessage<AddUserRoleResponse> | undefined, b: AddUserRoleResponse | PlainMessage<AddUserRoleResponse> | undefined): boolean {
+    return proto3.util.equals(AddUserRoleResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.CancelPlanRequest
+ */
+export class CancelPlanRequest extends Message<CancelPlanRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: bool cancel_plan = 2;
+   */
+  cancelPlan = false;
+
+  /**
+   * @generated from field: bool resume_plan = 3;
+   */
+  resumePlan = false;
+
+  /**
+   * @generated from field: string cancel_comment = 4;
+   */
+  cancelComment = "";
+
+  /**
+   * @generated from field: string cancel_reason = 5;
+   */
+  cancelReason = "";
+
+  constructor(data?: PartialMessage<CancelPlanRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.CancelPlanRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "cancel_plan", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "resume_plan", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 4, name: "cancel_comment", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "cancel_reason", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CancelPlanRequest {
+    return new CancelPlanRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CancelPlanRequest {
+    return new CancelPlanRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CancelPlanRequest {
+    return new CancelPlanRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CancelPlanRequest | PlainMessage<CancelPlanRequest> | undefined, b: CancelPlanRequest | PlainMessage<CancelPlanRequest> | undefined): boolean {
+    return proto3.util.equals(CancelPlanRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.ConnectGithubAccountResponse
+ */
+export class ConnectGithubAccountResponse extends Message<ConnectGithubAccountResponse> {
+  /**
+   * @generated from field: string github_access_token = 1;
+   */
+  githubAccessToken = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp github_access_token_expires_at = 2;
+   */
+  githubAccessTokenExpiresAt?: Timestamp;
+
+  constructor(data?: PartialMessage<ConnectGithubAccountResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.ConnectGithubAccountResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "github_access_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "github_access_token_expires_at", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConnectGithubAccountResponse {
+    return new ConnectGithubAccountResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConnectGithubAccountResponse {
+    return new ConnectGithubAccountResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConnectGithubAccountResponse {
+    return new ConnectGithubAccountResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ConnectGithubAccountResponse | PlainMessage<ConnectGithubAccountResponse> | undefined, b: ConnectGithubAccountResponse | PlainMessage<ConnectGithubAccountResponse> | undefined): boolean {
+    return proto3.util.equals(ConnectGithubAccountResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetUserSubscriptionResponse
+ */
+export class GetUserSubscriptionResponse extends Message<GetUserSubscriptionResponse> {
+  /**
+   * @generated from field: bool exists = 1;
+   */
+  exists = false;
+
+  /**
+   * @generated from field: bool newsletter = 2;
+   */
+  newsletter = false;
+
+  /**
+   * @generated from field: bool disabled_telemetry = 3;
+   */
+  disabledTelemetry = false;
+
+  /**
+   * @generated from field: string inbound_source = 4;
+   */
+  inboundSource = "";
+
+  /**
+   * @generated from field: string signup_stage = 5;
+   */
+  signupStage = "";
+
+  /**
+   * @generated from field: exa.seat_management_pb.UserSettings subscription = 6;
+   */
+  subscription?: UserSettings;
+
+  constructor(data?: PartialMessage<GetUserSubscriptionResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetUserSubscriptionResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "exists", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 2, name: "newsletter", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "disabled_telemetry", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 4, name: "inbound_source", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "signup_stage", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "subscription", kind: "message", T: UserSettings },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetUserSubscriptionResponse {
+    return new GetUserSubscriptionResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetUserSubscriptionResponse {
+    return new GetUserSubscriptionResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetUserSubscriptionResponse {
+    return new GetUserSubscriptionResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetUserSubscriptionResponse | PlainMessage<GetUserSubscriptionResponse> | undefined, b: GetUserSubscriptionResponse | PlainMessage<GetUserSubscriptionResponse> | undefined): boolean {
+    return proto3.util.equals(GetUserSubscriptionResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetTeamsFeaturesRequest
+ */
+export class GetTeamsFeaturesRequest extends Message<GetTeamsFeaturesRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<GetTeamsFeaturesRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetTeamsFeaturesRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTeamsFeaturesRequest {
+    return new GetTeamsFeaturesRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTeamsFeaturesRequest {
+    return new GetTeamsFeaturesRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTeamsFeaturesRequest {
+    return new GetTeamsFeaturesRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTeamsFeaturesRequest | PlainMessage<GetTeamsFeaturesRequest> | undefined, b: GetTeamsFeaturesRequest | PlainMessage<GetTeamsFeaturesRequest> | undefined): boolean {
+    return proto3.util.equals(GetTeamsFeaturesRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GrantPreapprovalRequest
+ */
+export class GrantPreapprovalRequest extends Message<GrantPreapprovalRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: repeated exa.seat_management_pb.PreapprovalUserItem preapprovals = 2;
+   */
+  preapprovals: PreapprovalUserItem[] = [];
+
+  constructor(data?: PartialMessage<GrantPreapprovalRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GrantPreapprovalRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "preapprovals", kind: "message", T: PreapprovalUserItem, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GrantPreapprovalRequest {
+    return new GrantPreapprovalRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GrantPreapprovalRequest {
+    return new GrantPreapprovalRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GrantPreapprovalRequest {
+    return new GrantPreapprovalRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GrantPreapprovalRequest | PlainMessage<GrantPreapprovalRequest> | undefined, b: GrantPreapprovalRequest | PlainMessage<GrantPreapprovalRequest> | undefined): boolean {
+    return proto3.util.equals(GrantPreapprovalRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetSetUserApiProviderKeysRequest
+ */
+export class GetSetUserApiProviderKeysRequest extends Message<GetSetUserApiProviderKeysRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<GetSetUserApiProviderKeysRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetSetUserApiProviderKeysRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetSetUserApiProviderKeysRequest {
+    return new GetSetUserApiProviderKeysRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetSetUserApiProviderKeysRequest {
+    return new GetSetUserApiProviderKeysRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetSetUserApiProviderKeysRequest {
+    return new GetSetUserApiProviderKeysRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetSetUserApiProviderKeysRequest | PlainMessage<GetSetUserApiProviderKeysRequest> | undefined, b: GetSetUserApiProviderKeysRequest | PlainMessage<GetSetUserApiProviderKeysRequest> | undefined): boolean {
+    return proto3.util.equals(GetSetUserApiProviderKeysRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateOccupationRequest
+ */
+export class UpdateOccupationRequest extends Message<UpdateOccupationRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string occupation_company = 2;
+   */
+  occupationCompany = "";
+
+  /**
+   * @generated from field: string occupation_role = 3;
+   */
+  occupationRole = "";
+
+  /**
+   * @generated from field: uint32 years_of_experience_min = 4;
+   */
+  yearsOfExperienceMin = 0;
+
+  /**
+   * @generated from field: uint32 years_of_experience_max = 5;
+   */
+  yearsOfExperienceMax = 0;
+
+  constructor(data?: PartialMessage<UpdateOccupationRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateOccupationRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "occupation_company", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "occupation_role", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "years_of_experience_min", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 5, name: "years_of_experience_max", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateOccupationRequest {
+    return new UpdateOccupationRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateOccupationRequest {
+    return new UpdateOccupationRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateOccupationRequest {
+    return new UpdateOccupationRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateOccupationRequest | PlainMessage<UpdateOccupationRequest> | undefined, b: UpdateOccupationRequest | PlainMessage<UpdateOccupationRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateOccupationRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.AddFlexCreditsToMultiTenantTeamResponse
+ */
+export class AddFlexCreditsToMultiTenantTeamResponse extends Message<AddFlexCreditsToMultiTenantTeamResponse> {
+  /**
+   * @generated from field: exa.seat_management_pb.Team team = 1;
+   */
+  team?: Team;
+
+  constructor(data?: PartialMessage<AddFlexCreditsToMultiTenantTeamResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.AddFlexCreditsToMultiTenantTeamResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "team", kind: "message", T: Team },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddFlexCreditsToMultiTenantTeamResponse {
+    return new AddFlexCreditsToMultiTenantTeamResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddFlexCreditsToMultiTenantTeamResponse {
+    return new AddFlexCreditsToMultiTenantTeamResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddFlexCreditsToMultiTenantTeamResponse {
+    return new AddFlexCreditsToMultiTenantTeamResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AddFlexCreditsToMultiTenantTeamResponse | PlainMessage<AddFlexCreditsToMultiTenantTeamResponse> | undefined, b: AddFlexCreditsToMultiTenantTeamResponse | PlainMessage<AddFlexCreditsToMultiTenantTeamResponse> | undefined): boolean {
+    return proto3.util.equals(AddFlexCreditsToMultiTenantTeamResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetSetUserApiProviderKeysResponse
+ */
+export class GetSetUserApiProviderKeysResponse extends Message<GetSetUserApiProviderKeysResponse> {
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.APIProvider providers = 1;
+   */
+  providers: APIProvider[] = [];
+
+  constructor(data?: PartialMessage<GetSetUserApiProviderKeysResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetSetUserApiProviderKeysResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "providers", kind: "enum", T: proto3.getEnumType(APIProvider), repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetSetUserApiProviderKeysResponse {
+    return new GetSetUserApiProviderKeysResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetSetUserApiProviderKeysResponse {
+    return new GetSetUserApiProviderKeysResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetSetUserApiProviderKeysResponse {
+    return new GetSetUserApiProviderKeysResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetSetUserApiProviderKeysResponse | PlainMessage<GetSetUserApiProviderKeysResponse> | undefined, b: GetSetUserApiProviderKeysResponse | PlainMessage<GetSetUserApiProviderKeysResponse> | undefined): boolean {
+    return proto3.util.equals(GetSetUserApiProviderKeysResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetTeamActivityRequest
+ */
+export class GetTeamActivityRequest extends Message<GetTeamActivityRequest> {
+  /**
+   * @generated from field: string api_key = 1;
+   */
+  apiKey = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp start_timestamp = 2;
+   */
+  startTimestamp?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp end_timestamp = 3;
+   */
+  endTimestamp?: Timestamp;
+
+  constructor(data?: PartialMessage<GetTeamActivityRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetTeamActivityRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "start_timestamp", kind: "message", T: Timestamp },
+    { no: 3, name: "end_timestamp", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTeamActivityRequest {
+    return new GetTeamActivityRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTeamActivityRequest {
+    return new GetTeamActivityRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTeamActivityRequest {
+    return new GetTeamActivityRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTeamActivityRequest | PlainMessage<GetTeamActivityRequest> | undefined, b: GetTeamActivityRequest | PlainMessage<GetTeamActivityRequest> | undefined): boolean {
+    return proto3.util.equals(GetTeamActivityRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.RevokePreapprovalRequest
+ */
+export class RevokePreapprovalRequest extends Message<RevokePreapprovalRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string approval_id = 2;
+   */
+  approvalId = "";
+
+  constructor(data?: PartialMessage<RevokePreapprovalRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.RevokePreapprovalRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "approval_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RevokePreapprovalRequest {
+    return new RevokePreapprovalRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RevokePreapprovalRequest {
+    return new RevokePreapprovalRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RevokePreapprovalRequest {
+    return new RevokePreapprovalRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RevokePreapprovalRequest | PlainMessage<RevokePreapprovalRequest> | undefined, b: RevokePreapprovalRequest | PlainMessage<RevokePreapprovalRequest> | undefined): boolean {
+    return proto3.util.equals(RevokePreapprovalRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.ConnectNetlifyAccountRequest
+ */
+export class ConnectNetlifyAccountRequest extends Message<ConnectNetlifyAccountRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string netlify_access_token = 2;
+   */
+  netlifyAccessToken = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp expires_at = 3;
+   */
+  expiresAt?: Timestamp;
+
+  /**
+   * @generated from field: string netlify_user_id = 4;
+   */
+  netlifyUserId = "";
+
+  constructor(data?: PartialMessage<ConnectNetlifyAccountRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.ConnectNetlifyAccountRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "netlify_access_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "expires_at", kind: "message", T: Timestamp },
+    { no: 4, name: "netlify_user_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConnectNetlifyAccountRequest {
+    return new ConnectNetlifyAccountRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConnectNetlifyAccountRequest {
+    return new ConnectNetlifyAccountRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConnectNetlifyAccountRequest {
+    return new ConnectNetlifyAccountRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ConnectNetlifyAccountRequest | PlainMessage<ConnectNetlifyAccountRequest> | undefined, b: ConnectNetlifyAccountRequest | PlainMessage<ConnectNetlifyAccountRequest> | undefined): boolean {
+    return proto3.util.equals(ConnectNetlifyAccountRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetPreapprovalsRequest
+ */
+export class GetPreapprovalsRequest extends Message<GetPreapprovalsRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<GetPreapprovalsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetPreapprovalsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetPreapprovalsRequest {
+    return new GetPreapprovalsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetPreapprovalsRequest {
+    return new GetPreapprovalsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetPreapprovalsRequest {
+    return new GetPreapprovalsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetPreapprovalsRequest | PlainMessage<GetPreapprovalsRequest> | undefined, b: GetPreapprovalsRequest | PlainMessage<GetPreapprovalsRequest> | undefined): boolean {
+    return proto3.util.equals(GetPreapprovalsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetProfilePicturePresignedUploadUrlRequest
+ */
+export class GetProfilePicturePresignedUploadUrlRequest extends Message<GetProfilePicturePresignedUploadUrlRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<GetProfilePicturePresignedUploadUrlRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetProfilePicturePresignedUploadUrlRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetProfilePicturePresignedUploadUrlRequest {
+    return new GetProfilePicturePresignedUploadUrlRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetProfilePicturePresignedUploadUrlRequest {
+    return new GetProfilePicturePresignedUploadUrlRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetProfilePicturePresignedUploadUrlRequest {
+    return new GetProfilePicturePresignedUploadUrlRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetProfilePicturePresignedUploadUrlRequest | PlainMessage<GetProfilePicturePresignedUploadUrlRequest> | undefined, b: GetProfilePicturePresignedUploadUrlRequest | PlainMessage<GetProfilePicturePresignedUploadUrlRequest> | undefined): boolean {
+    return proto3.util.equals(GetProfilePicturePresignedUploadUrlRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.InitiateTopUpResponse
+ */
+export class InitiateTopUpResponse extends Message<InitiateTopUpResponse> {
+  /**
+   * @generated from field: exa.codeium_common_pb.TransactionStatus status = 1;
+   */
+  status = TransactionStatus.UNSPECIFIED;
+
+  constructor(data?: PartialMessage<InitiateTopUpResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.InitiateTopUpResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "status", kind: "enum", T: proto3.getEnumType(TransactionStatus) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): InitiateTopUpResponse {
+    return new InitiateTopUpResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): InitiateTopUpResponse {
+    return new InitiateTopUpResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): InitiateTopUpResponse {
+    return new InitiateTopUpResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: InitiateTopUpResponse | PlainMessage<InitiateTopUpResponse> | undefined, b: InitiateTopUpResponse | PlainMessage<InitiateTopUpResponse> | undefined): boolean {
+    return proto3.util.equals(InitiateTopUpResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetAllTeamApiSecretsResponse
+ */
+export class GetAllTeamApiSecretsResponse extends Message<GetAllTeamApiSecretsResponse> {
+  /**
+   * @generated from field: repeated exa.seat_management_pb.TeamApiSecret secrets = 1;
+   */
+  secrets: TeamApiSecret[] = [];
+
+  constructor(data?: PartialMessage<GetAllTeamApiSecretsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetAllTeamApiSecretsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secrets", kind: "message", T: TeamApiSecret, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetAllTeamApiSecretsResponse {
+    return new GetAllTeamApiSecretsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetAllTeamApiSecretsResponse {
+    return new GetAllTeamApiSecretsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetAllTeamApiSecretsResponse {
+    return new GetAllTeamApiSecretsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetAllTeamApiSecretsResponse | PlainMessage<GetAllTeamApiSecretsResponse> | undefined, b: GetAllTeamApiSecretsResponse | PlainMessage<GetAllTeamApiSecretsResponse> | undefined): boolean {
+    return proto3.util.equals(GetAllTeamApiSecretsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UserRole
+ */
+export class UserRole extends Message<UserRole> {
+  /**
+   * @generated from field: string api_key = 1;
+   */
+  apiKey = "";
 
   /**
    * @generated from field: repeated string roles = 2;
@@ -215,85 +8116,1053 @@ export class GetCurrentUserResponse extends Message<GetCurrentUserResponse> {
   roles: string[] = [];
 
   /**
-   * @generated from field: exa.seat_management_pb.Team team = 4;
+   * @generated from field: string role_id = 3;
    */
-  team?: Team;
+  roleId = "";
 
   /**
-   * @generated from field: exa.seat_management_pb.UserSettings subscription = 5;
+   * @generated from field: string role_name = 4;
    */
-  subscription?: UserSettings;
+  roleName = "";
 
-  /**
-   * @generated from field: exa.codeium_common_pb.PlanInfo plan_info = 6;
-   */
-  planInfo?: PlanInfo;
-
-  /**
-   * @generated from field: exa.seat_management_pb.UserRole role = 7;
-   */
-  role?: UserRole;
-
-  /**
-   * @generated from field: exa.codeium_common_pb.Permission permissions = 8;
-   */
-  permissions = Permission.UNSPECIFIED;
-
-  /**
-   * @generated from field: exa.seat_management_pb.UserTeamDetails user_team_details = 9;
-   */
-  userTeamDetails?: UserTeamDetails;
-
-  /**
-   * @generated from field: exa.seat_management_pb.ReferralInfo referral = 10;
-   */
-  referral?: ReferralInfo;
-
-  /**
-   * @generated from field: map<int32, exa.codeium_common_pb.TeamsFeaturesMetadata> team_features = 11;
-   */
-  teamFeatures: { [key: number]: TeamsFeaturesMetadata } = {};
-
-  /**
-   * @generated from field: repeated string group_ids = 12;
-   */
-  groupIds: string[] = [];
-
-  constructor(data?: PartialMessage<GetCurrentUserResponse>) {
+  constructor(data?: PartialMessage<UserRole>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.seat_management_pb.GetCurrentUserResponse";
+  static readonly typeName = "exa.seat_management_pb.UserRole";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "user", kind: "message", T: User },
+    { no: 1, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "roles", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
-    { no: 4, name: "team", kind: "message", T: Team },
-    { no: 5, name: "subscription", kind: "message", T: UserSettings },
-    { no: 6, name: "plan_info", kind: "message", T: PlanInfo },
-    { no: 7, name: "role", kind: "message", T: UserRole },
-    { no: 8, name: "permissions", kind: "enum", T: proto3.getEnumType(Permission) },
-    { no: 9, name: "user_team_details", kind: "message", T: UserTeamDetails },
-    { no: 10, name: "referral", kind: "message", T: ReferralInfo },
-    { no: 11, name: "team_features", kind: "map", K: 5 /* ScalarType.INT32 */, V: {kind: "message", T: TeamsFeaturesMetadata} },
-    { no: 12, name: "group_ids", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 3, name: "role_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "role_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetCurrentUserResponse {
-    return new GetCurrentUserResponse().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserRole {
+    return new UserRole().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetCurrentUserResponse {
-    return new GetCurrentUserResponse().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserRole {
+    return new UserRole().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetCurrentUserResponse {
-    return new GetCurrentUserResponse().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserRole {
+    return new UserRole().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GetCurrentUserResponse | PlainMessage<GetCurrentUserResponse> | undefined, b: GetCurrentUserResponse | PlainMessage<GetCurrentUserResponse> | undefined): boolean {
-    return proto3.util.equals(GetCurrentUserResponse, a, b);
+  static equals(a: UserRole | PlainMessage<UserRole> | undefined, b: UserRole | PlainMessage<UserRole> | undefined): boolean {
+    return proto3.util.equals(UserRole, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DeleteTeamDomainRequest
+ */
+export class DeleteTeamDomainRequest extends Message<DeleteTeamDomainRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string domain = 2;
+   */
+  domain = "";
+
+  constructor(data?: PartialMessage<DeleteTeamDomainRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DeleteTeamDomainRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "domain", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteTeamDomainRequest {
+    return new DeleteTeamDomainRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteTeamDomainRequest {
+    return new DeleteTeamDomainRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteTeamDomainRequest {
+    return new DeleteTeamDomainRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteTeamDomainRequest | PlainMessage<DeleteTeamDomainRequest> | undefined, b: DeleteTeamDomainRequest | PlainMessage<DeleteTeamDomainRequest> | undefined): boolean {
+    return proto3.util.equals(DeleteTeamDomainRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.PurchaseCascadeCreditsResponse
+ */
+export class PurchaseCascadeCreditsResponse extends Message<PurchaseCascadeCreditsResponse> {
+  /**
+   * @generated from field: string checkout_url = 1;
+   */
+  checkoutUrl = "";
+
+  constructor(data?: PartialMessage<PurchaseCascadeCreditsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.PurchaseCascadeCreditsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "checkout_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PurchaseCascadeCreditsResponse {
+    return new PurchaseCascadeCreditsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PurchaseCascadeCreditsResponse {
+    return new PurchaseCascadeCreditsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PurchaseCascadeCreditsResponse {
+    return new PurchaseCascadeCreditsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PurchaseCascadeCreditsResponse | PlainMessage<PurchaseCascadeCreditsResponse> | undefined, b: PurchaseCascadeCreditsResponse | PlainMessage<PurchaseCascadeCreditsResponse> | undefined): boolean {
+    return proto3.util.equals(PurchaseCascadeCreditsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetCascadeAnalyticsRequest
+ */
+export class GetCascadeAnalyticsRequest extends Message<GetCascadeAnalyticsRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp start_timestamp = 2;
+   */
+  startTimestamp?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp end_timestamp = 3;
+   */
+  endTimestamp?: Timestamp;
+
+  constructor(data?: PartialMessage<GetCascadeAnalyticsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetCascadeAnalyticsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "start_timestamp", kind: "message", T: Timestamp },
+    { no: 3, name: "end_timestamp", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetCascadeAnalyticsRequest {
+    return new GetCascadeAnalyticsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetCascadeAnalyticsRequest {
+    return new GetCascadeAnalyticsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetCascadeAnalyticsRequest {
+    return new GetCascadeAnalyticsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetCascadeAnalyticsRequest | PlainMessage<GetCascadeAnalyticsRequest> | undefined, b: GetCascadeAnalyticsRequest | PlainMessage<GetCascadeAnalyticsRequest> | undefined): boolean {
+    return proto3.util.equals(GetCascadeAnalyticsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.RemoveUserFromTeamRequest
+ */
+export class RemoveUserFromTeamRequest extends Message<RemoveUserFromTeamRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string api_key = 2;
+   */
+  apiKey = "";
+
+  constructor(data?: PartialMessage<RemoveUserFromTeamRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.RemoveUserFromTeamRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RemoveUserFromTeamRequest {
+    return new RemoveUserFromTeamRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RemoveUserFromTeamRequest {
+    return new RemoveUserFromTeamRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RemoveUserFromTeamRequest {
+    return new RemoveUserFromTeamRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RemoveUserFromTeamRequest | PlainMessage<RemoveUserFromTeamRequest> | undefined, b: RemoveUserFromTeamRequest | PlainMessage<RemoveUserFromTeamRequest> | undefined): boolean {
+    return proto3.util.equals(RemoveUserFromTeamRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GrantTeamAdminAccessRequest
+ */
+export class GrantTeamAdminAccessRequest extends Message<GrantTeamAdminAccessRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string user_email = 2;
+   */
+  userEmail = "";
+
+  constructor(data?: PartialMessage<GrantTeamAdminAccessRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GrantTeamAdminAccessRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "user_email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GrantTeamAdminAccessRequest {
+    return new GrantTeamAdminAccessRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GrantTeamAdminAccessRequest {
+    return new GrantTeamAdminAccessRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GrantTeamAdminAccessRequest {
+    return new GrantTeamAdminAccessRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GrantTeamAdminAccessRequest | PlainMessage<GrantTeamAdminAccessRequest> | undefined, b: GrantTeamAdminAccessRequest | PlainMessage<GrantTeamAdminAccessRequest> | undefined): boolean {
+    return proto3.util.equals(GrantTeamAdminAccessRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetWrapped2024Request
+ */
+export class GetWrapped2024Request extends Message<GetWrapped2024Request> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<GetWrapped2024Request>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetWrapped2024Request";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetWrapped2024Request {
+    return new GetWrapped2024Request().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetWrapped2024Request {
+    return new GetWrapped2024Request().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetWrapped2024Request {
+    return new GetWrapped2024Request().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetWrapped2024Request | PlainMessage<GetWrapped2024Request> | undefined, b: GetWrapped2024Request | PlainMessage<GetWrapped2024Request> | undefined): boolean {
+    return proto3.util.equals(GetWrapped2024Request, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.AddUsersToTeamResponse
+ */
+export class AddUsersToTeamResponse extends Message<AddUsersToTeamResponse> {
+  constructor(data?: PartialMessage<AddUsersToTeamResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.AddUsersToTeamResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddUsersToTeamResponse {
+    return new AddUsersToTeamResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddUsersToTeamResponse {
+    return new AddUsersToTeamResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddUsersToTeamResponse {
+    return new AddUsersToTeamResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AddUsersToTeamResponse | PlainMessage<AddUsersToTeamResponse> | undefined, b: AddUsersToTeamResponse | PlainMessage<AddUsersToTeamResponse> | undefined): boolean {
+    return proto3.util.equals(AddUsersToTeamResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.SetTeamsFeaturesRequest
+ */
+export class SetTeamsFeaturesRequest extends Message<SetTeamsFeaturesRequest> {
+  /**
+   * @generated from field: string secret = 1;
+   */
+  secret = "";
+
+  /**
+   * @generated from field: string team_id = 2;
+   */
+  teamId = "";
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.TeamsFeatures features = 3;
+   */
+  features: TeamsFeatures[] = [];
+
+  constructor(data?: PartialMessage<SetTeamsFeaturesRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.SetTeamsFeaturesRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "features", kind: "enum", T: proto3.getEnumType(TeamsFeatures), repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetTeamsFeaturesRequest {
+    return new SetTeamsFeaturesRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetTeamsFeaturesRequest {
+    return new SetTeamsFeaturesRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetTeamsFeaturesRequest {
+    return new SetTeamsFeaturesRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetTeamsFeaturesRequest | PlainMessage<SetTeamsFeaturesRequest> | undefined, b: SetTeamsFeaturesRequest | PlainMessage<SetTeamsFeaturesRequest> | undefined): boolean {
+    return proto3.util.equals(SetTeamsFeaturesRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DeleteTeamDomainResponse
+ */
+export class DeleteTeamDomainResponse extends Message<DeleteTeamDomainResponse> {
+  constructor(data?: PartialMessage<DeleteTeamDomainResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DeleteTeamDomainResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteTeamDomainResponse {
+    return new DeleteTeamDomainResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteTeamDomainResponse {
+    return new DeleteTeamDomainResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteTeamDomainResponse {
+    return new DeleteTeamDomainResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteTeamDomainResponse | PlainMessage<DeleteTeamDomainResponse> | undefined, b: DeleteTeamDomainResponse | PlainMessage<DeleteTeamDomainResponse> | undefined): boolean {
+    return proto3.util.equals(DeleteTeamDomainResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.RefreshTeamInviteIdRequest
+ */
+export class RefreshTeamInviteIdRequest extends Message<RefreshTeamInviteIdRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<RefreshTeamInviteIdRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.RefreshTeamInviteIdRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RefreshTeamInviteIdRequest {
+    return new RefreshTeamInviteIdRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RefreshTeamInviteIdRequest {
+    return new RefreshTeamInviteIdRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RefreshTeamInviteIdRequest {
+    return new RefreshTeamInviteIdRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RefreshTeamInviteIdRequest | PlainMessage<RefreshTeamInviteIdRequest> | undefined, b: RefreshTeamInviteIdRequest | PlainMessage<RefreshTeamInviteIdRequest> | undefined): boolean {
+    return proto3.util.equals(RefreshTeamInviteIdRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetApiKeySummaryRequest
+ */
+export class GetApiKeySummaryRequest extends Message<GetApiKeySummaryRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<GetApiKeySummaryRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetApiKeySummaryRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetApiKeySummaryRequest {
+    return new GetApiKeySummaryRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetApiKeySummaryRequest {
+    return new GetApiKeySummaryRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetApiKeySummaryRequest {
+    return new GetApiKeySummaryRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetApiKeySummaryRequest | PlainMessage<GetApiKeySummaryRequest> | undefined, b: GetApiKeySummaryRequest | PlainMessage<GetApiKeySummaryRequest> | undefined): boolean {
+    return proto3.util.equals(GetApiKeySummaryRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.RejectPreapprovalResponse
+ */
+export class RejectPreapprovalResponse extends Message<RejectPreapprovalResponse> {
+  constructor(data?: PartialMessage<RejectPreapprovalResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.RejectPreapprovalResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RejectPreapprovalResponse {
+    return new RejectPreapprovalResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RejectPreapprovalResponse {
+    return new RejectPreapprovalResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RejectPreapprovalResponse {
+    return new RejectPreapprovalResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RejectPreapprovalResponse | PlainMessage<RejectPreapprovalResponse> | undefined, b: RejectPreapprovalResponse | PlainMessage<RejectPreapprovalResponse> | undefined): boolean {
+    return proto3.util.equals(RejectPreapprovalResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.SaveSSOProviderResponse
+ */
+export class SaveSSOProviderResponse extends Message<SaveSSOProviderResponse> {
+  constructor(data?: PartialMessage<SaveSSOProviderResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.SaveSSOProviderResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SaveSSOProviderResponse {
+    return new SaveSSOProviderResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SaveSSOProviderResponse {
+    return new SaveSSOProviderResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SaveSSOProviderResponse {
+    return new SaveSSOProviderResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SaveSSOProviderResponse | PlainMessage<SaveSSOProviderResponse> | undefined, b: SaveSSOProviderResponse | PlainMessage<SaveSSOProviderResponse> | undefined): boolean {
+    return proto3.util.equals(SaveSSOProviderResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetNetlifyAccountStatusRequest
+ */
+export class GetNetlifyAccountStatusRequest extends Message<GetNetlifyAccountStatusRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<GetNetlifyAccountStatusRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetNetlifyAccountStatusRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetNetlifyAccountStatusRequest {
+    return new GetNetlifyAccountStatusRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetNetlifyAccountStatusRequest {
+    return new GetNetlifyAccountStatusRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetNetlifyAccountStatusRequest {
+    return new GetNetlifyAccountStatusRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetNetlifyAccountStatusRequest | PlainMessage<GetNetlifyAccountStatusRequest> | undefined, b: GetNetlifyAccountStatusRequest | PlainMessage<GetNetlifyAccountStatusRequest> | undefined): boolean {
+    return proto3.util.equals(GetNetlifyAccountStatusRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.RegisterUserResponse
+ */
+export class RegisterUserResponse extends Message<RegisterUserResponse> {
+  /**
+   * @generated from field: string api_key = 1;
+   */
+  apiKey = "";
+
+  /**
+   * @generated from field: string name = 2;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string api_server_url = 3;
+   */
+  apiServerUrl = "";
+
+  constructor(data?: PartialMessage<RegisterUserResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.RegisterUserResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "api_server_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RegisterUserResponse {
+    return new RegisterUserResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RegisterUserResponse {
+    return new RegisterUserResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RegisterUserResponse {
+    return new RegisterUserResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RegisterUserResponse | PlainMessage<RegisterUserResponse> | undefined, b: RegisterUserResponse | PlainMessage<RegisterUserResponse> | undefined): boolean {
+    return proto3.util.equals(RegisterUserResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.AddTeamDomainInternalResponse
+ */
+export class AddTeamDomainInternalResponse extends Message<AddTeamDomainInternalResponse> {
+  constructor(data?: PartialMessage<AddTeamDomainInternalResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.AddTeamDomainInternalResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddTeamDomainInternalResponse {
+    return new AddTeamDomainInternalResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddTeamDomainInternalResponse {
+    return new AddTeamDomainInternalResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddTeamDomainInternalResponse {
+    return new AddTeamDomainInternalResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AddTeamDomainInternalResponse | PlainMessage<AddTeamDomainInternalResponse> | undefined, b: AddTeamDomainInternalResponse | PlainMessage<AddTeamDomainInternalResponse> | undefined): boolean {
+    return proto3.util.equals(AddTeamDomainInternalResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.AddFlexCreditsToMultiTenantTeamRequest
+ */
+export class AddFlexCreditsToMultiTenantTeamRequest extends Message<AddFlexCreditsToMultiTenantTeamRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string team_id = 2;
+   */
+  teamId = "";
+
+  /**
+   * @generated from field: int64 flex_credits_to_add = 3;
+   */
+  flexCreditsToAdd = protoInt64.zero;
+
+  constructor(data?: PartialMessage<AddFlexCreditsToMultiTenantTeamRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.AddFlexCreditsToMultiTenantTeamRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "flex_credits_to_add", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddFlexCreditsToMultiTenantTeamRequest {
+    return new AddFlexCreditsToMultiTenantTeamRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddFlexCreditsToMultiTenantTeamRequest {
+    return new AddFlexCreditsToMultiTenantTeamRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddFlexCreditsToMultiTenantTeamRequest {
+    return new AddFlexCreditsToMultiTenantTeamRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AddFlexCreditsToMultiTenantTeamRequest | PlainMessage<AddFlexCreditsToMultiTenantTeamRequest> | undefined, b: AddFlexCreditsToMultiTenantTeamRequest | PlainMessage<AddFlexCreditsToMultiTenantTeamRequest> | undefined): boolean {
+    return proto3.util.equals(AddFlexCreditsToMultiTenantTeamRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetCascadeAnalyticsResponse
+ */
+export class GetCascadeAnalyticsResponse extends Message<GetCascadeAnalyticsResponse> {
+  /**
+   * @generated from field: int32 used_prompt_credits = 1;
+   */
+  usedPromptCredits = 0;
+
+  /**
+   * @generated from field: int32 used_flow_credits = 2;
+   */
+  usedFlowCredits = 0;
+
+  /**
+   * @generated from field: int32 estimated_monthly_prompts = 3;
+   */
+  estimatedMonthlyPrompts = 0;
+
+  /**
+   * @generated from field: int32 estimated_monthly_flows = 4;
+   */
+  estimatedMonthlyFlows = 0;
+
+  /**
+   * @generated from field: int64 purchased_credits = 5;
+   */
+  purchasedCredits = protoInt64.zero;
+
+  constructor(data?: PartialMessage<GetCascadeAnalyticsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetCascadeAnalyticsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "used_prompt_credits", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 2, name: "used_flow_credits", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 3, name: "estimated_monthly_prompts", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 4, name: "estimated_monthly_flows", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 5, name: "purchased_credits", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetCascadeAnalyticsResponse {
+    return new GetCascadeAnalyticsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetCascadeAnalyticsResponse {
+    return new GetCascadeAnalyticsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetCascadeAnalyticsResponse {
+    return new GetCascadeAnalyticsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetCascadeAnalyticsResponse | PlainMessage<GetCascadeAnalyticsResponse> | undefined, b: GetCascadeAnalyticsResponse | PlainMessage<GetCascadeAnalyticsResponse> | undefined): boolean {
+    return proto3.util.equals(GetCascadeAnalyticsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateProfileVisibilityRequest
+ */
+export class UpdateProfileVisibilityRequest extends Message<UpdateProfileVisibilityRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: bool public_profile_enabled = 2;
+   */
+  publicProfileEnabled = false;
+
+  constructor(data?: PartialMessage<UpdateProfileVisibilityRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateProfileVisibilityRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "public_profile_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateProfileVisibilityRequest {
+    return new UpdateProfileVisibilityRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateProfileVisibilityRequest {
+    return new UpdateProfileVisibilityRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateProfileVisibilityRequest {
+    return new UpdateProfileVisibilityRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateProfileVisibilityRequest | PlainMessage<UpdateProfileVisibilityRequest> | undefined, b: UpdateProfileVisibilityRequest | PlainMessage<UpdateProfileVisibilityRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateProfileVisibilityRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.IsValidReferralCodeRequest
+ */
+export class IsValidReferralCodeRequest extends Message<IsValidReferralCodeRequest> {
+  /**
+   * @generated from field: string referral_code = 1;
+   */
+  referralCode = "";
+
+  constructor(data?: PartialMessage<IsValidReferralCodeRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.IsValidReferralCodeRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "referral_code", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): IsValidReferralCodeRequest {
+    return new IsValidReferralCodeRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): IsValidReferralCodeRequest {
+    return new IsValidReferralCodeRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): IsValidReferralCodeRequest {
+    return new IsValidReferralCodeRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: IsValidReferralCodeRequest | PlainMessage<IsValidReferralCodeRequest> | undefined, b: IsValidReferralCodeRequest | PlainMessage<IsValidReferralCodeRequest> | undefined): boolean {
+    return proto3.util.equals(IsValidReferralCodeRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetLicenseRequest
+ */
+export class GetLicenseRequest extends Message<GetLicenseRequest> {
+  constructor(data?: PartialMessage<GetLicenseRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetLicenseRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetLicenseRequest {
+    return new GetLicenseRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetLicenseRequest {
+    return new GetLicenseRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetLicenseRequest {
+    return new GetLicenseRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetLicenseRequest | PlainMessage<GetLicenseRequest> | undefined, b: GetLicenseRequest | PlainMessage<GetLicenseRequest> | undefined): boolean {
+    return proto3.util.equals(GetLicenseRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateNameResponse
+ */
+export class UpdateNameResponse extends Message<UpdateNameResponse> {
+  constructor(data?: PartialMessage<UpdateNameResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateNameResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateNameResponse {
+    return new UpdateNameResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateNameResponse {
+    return new UpdateNameResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateNameResponse {
+    return new UpdateNameResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateNameResponse | PlainMessage<UpdateNameResponse> | undefined, b: UpdateNameResponse | PlainMessage<UpdateNameResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateNameResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DeleteUserApiProviderKeyRequest
+ */
+export class DeleteUserApiProviderKeyRequest extends Message<DeleteUserApiProviderKeyRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: exa.codeium_common_pb.APIProvider provider = 2;
+   */
+  provider = APIProvider.API_PROVIDER_UNSPECIFIED;
+
+  constructor(data?: PartialMessage<DeleteUserApiProviderKeyRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DeleteUserApiProviderKeyRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "provider", kind: "enum", T: proto3.getEnumType(APIProvider) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteUserApiProviderKeyRequest {
+    return new DeleteUserApiProviderKeyRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteUserApiProviderKeyRequest {
+    return new DeleteUserApiProviderKeyRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteUserApiProviderKeyRequest {
+    return new DeleteUserApiProviderKeyRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteUserApiProviderKeyRequest | PlainMessage<DeleteUserApiProviderKeyRequest> | undefined, b: DeleteUserApiProviderKeyRequest | PlainMessage<DeleteUserApiProviderKeyRequest> | undefined): boolean {
+    return proto3.util.equals(DeleteUserApiProviderKeyRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetProfilePicturePresignedUploadUrlResponse
+ */
+export class GetProfilePicturePresignedUploadUrlResponse extends Message<GetProfilePicturePresignedUploadUrlResponse> {
+  /**
+   * @generated from field: string url = 1;
+   */
+  url = "";
+
+  constructor(data?: PartialMessage<GetProfilePicturePresignedUploadUrlResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetProfilePicturePresignedUploadUrlResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetProfilePicturePresignedUploadUrlResponse {
+    return new GetProfilePicturePresignedUploadUrlResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetProfilePicturePresignedUploadUrlResponse {
+    return new GetProfilePicturePresignedUploadUrlResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetProfilePicturePresignedUploadUrlResponse {
+    return new GetProfilePicturePresignedUploadUrlResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetProfilePicturePresignedUploadUrlResponse | PlainMessage<GetProfilePicturePresignedUploadUrlResponse> | undefined, b: GetProfilePicturePresignedUploadUrlResponse | PlainMessage<GetProfilePicturePresignedUploadUrlResponse> | undefined): boolean {
+    return proto3.util.equals(GetProfilePicturePresignedUploadUrlResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.RemoveUsersFromTeamInternalResponse
+ */
+export class RemoveUsersFromTeamInternalResponse extends Message<RemoveUsersFromTeamInternalResponse> {
+  constructor(data?: PartialMessage<RemoveUsersFromTeamInternalResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.RemoveUsersFromTeamInternalResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RemoveUsersFromTeamInternalResponse {
+    return new RemoveUsersFromTeamInternalResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RemoveUsersFromTeamInternalResponse {
+    return new RemoveUsersFromTeamInternalResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RemoveUsersFromTeamInternalResponse {
+    return new RemoveUsersFromTeamInternalResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RemoveUsersFromTeamInternalResponse | PlainMessage<RemoveUsersFromTeamInternalResponse> | undefined, b: RemoveUsersFromTeamInternalResponse | PlainMessage<RemoveUsersFromTeamInternalResponse> | undefined): boolean {
+    return proto3.util.equals(RemoveUsersFromTeamInternalResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DeleteTeamDomainInternalResponse
+ */
+export class DeleteTeamDomainInternalResponse extends Message<DeleteTeamDomainInternalResponse> {
+  constructor(data?: PartialMessage<DeleteTeamDomainInternalResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DeleteTeamDomainInternalResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteTeamDomainInternalResponse {
+    return new DeleteTeamDomainInternalResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteTeamDomainInternalResponse {
+    return new DeleteTeamDomainInternalResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteTeamDomainInternalResponse {
+    return new DeleteTeamDomainInternalResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteTeamDomainInternalResponse | PlainMessage<DeleteTeamDomainInternalResponse> | undefined, b: DeleteTeamDomainInternalResponse | PlainMessage<DeleteTeamDomainInternalResponse> | undefined): boolean {
+    return proto3.util.equals(DeleteTeamDomainInternalResponse, a, b);
   }
 }
 
@@ -509,6 +9378,2530 @@ export class User extends Message<User> {
 }
 
 /**
+ * @generated from message exa.seat_management_pb.CreateMultiTenantTeamRequest
+ */
+export class CreateMultiTenantTeamRequest extends Message<CreateMultiTenantTeamRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string name = 2;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string org_id = 3;
+   */
+  orgId = "";
+
+  constructor(data?: PartialMessage<CreateMultiTenantTeamRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.CreateMultiTenantTeamRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "org_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateMultiTenantTeamRequest {
+    return new CreateMultiTenantTeamRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CreateMultiTenantTeamRequest {
+    return new CreateMultiTenantTeamRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CreateMultiTenantTeamRequest {
+    return new CreateMultiTenantTeamRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CreateMultiTenantTeamRequest | PlainMessage<CreateMultiTenantTeamRequest> | undefined, b: CreateMultiTenantTeamRequest | PlainMessage<CreateMultiTenantTeamRequest> | undefined): boolean {
+    return proto3.util.equals(CreateMultiTenantTeamRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetTeamConfigRecordRequest
+ */
+export class GetTeamConfigRecordRequest extends Message<GetTeamConfigRecordRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<GetTeamConfigRecordRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetTeamConfigRecordRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTeamConfigRecordRequest {
+    return new GetTeamConfigRecordRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTeamConfigRecordRequest {
+    return new GetTeamConfigRecordRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTeamConfigRecordRequest {
+    return new GetTeamConfigRecordRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTeamConfigRecordRequest | PlainMessage<GetTeamConfigRecordRequest> | undefined, b: GetTeamConfigRecordRequest | PlainMessage<GetTeamConfigRecordRequest> | undefined): boolean {
+    return proto3.util.equals(GetTeamConfigRecordRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.SetTeamLicenseRequest
+ */
+export class SetTeamLicenseRequest extends Message<SetTeamLicenseRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string team_name = 2;
+   */
+  teamName = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp billing_start_date = 3;
+   */
+  billingStartDate?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp billing_end_date = 4;
+   */
+  billingEndDate?: Timestamp;
+
+  /**
+   * @generated from field: int64 num_seats = 5;
+   */
+  numSeats = protoInt64.zero;
+
+  constructor(data?: PartialMessage<SetTeamLicenseRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.SetTeamLicenseRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "team_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "billing_start_date", kind: "message", T: Timestamp },
+    { no: 4, name: "billing_end_date", kind: "message", T: Timestamp },
+    { no: 5, name: "num_seats", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetTeamLicenseRequest {
+    return new SetTeamLicenseRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetTeamLicenseRequest {
+    return new SetTeamLicenseRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetTeamLicenseRequest {
+    return new SetTeamLicenseRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetTeamLicenseRequest | PlainMessage<SetTeamLicenseRequest> | undefined, b: SetTeamLicenseRequest | PlainMessage<SetTeamLicenseRequest> | undefined): boolean {
+    return proto3.util.equals(SetTeamLicenseRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateRoleResponse
+ */
+export class UpdateRoleResponse extends Message<UpdateRoleResponse> {
+  constructor(data?: PartialMessage<UpdateRoleResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateRoleResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateRoleResponse {
+    return new UpdateRoleResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateRoleResponse {
+    return new UpdateRoleResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateRoleResponse {
+    return new UpdateRoleResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateRoleResponse | PlainMessage<UpdateRoleResponse> | undefined, b: UpdateRoleResponse | PlainMessage<UpdateRoleResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateRoleResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.ProcessReferralCodeRequest
+ */
+export class ProcessReferralCodeRequest extends Message<ProcessReferralCodeRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string referral_code = 2;
+   */
+  referralCode = "";
+
+  constructor(data?: PartialMessage<ProcessReferralCodeRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.ProcessReferralCodeRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "referral_code", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ProcessReferralCodeRequest {
+    return new ProcessReferralCodeRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ProcessReferralCodeRequest {
+    return new ProcessReferralCodeRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ProcessReferralCodeRequest {
+    return new ProcessReferralCodeRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ProcessReferralCodeRequest | PlainMessage<ProcessReferralCodeRequest> | undefined, b: ProcessReferralCodeRequest | PlainMessage<ProcessReferralCodeRequest> | undefined): boolean {
+    return proto3.util.equals(ProcessReferralCodeRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.RevokePreapprovalResponse
+ */
+export class RevokePreapprovalResponse extends Message<RevokePreapprovalResponse> {
+  constructor(data?: PartialMessage<RevokePreapprovalResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.RevokePreapprovalResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RevokePreapprovalResponse {
+    return new RevokePreapprovalResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RevokePreapprovalResponse {
+    return new RevokePreapprovalResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RevokePreapprovalResponse {
+    return new RevokePreapprovalResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RevokePreapprovalResponse | PlainMessage<RevokePreapprovalResponse> | undefined, b: RevokePreapprovalResponse | PlainMessage<RevokePreapprovalResponse> | undefined): boolean {
+    return proto3.util.equals(RevokePreapprovalResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.ListTeamDomainsRequest
+ */
+export class ListTeamDomainsRequest extends Message<ListTeamDomainsRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<ListTeamDomainsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.ListTeamDomainsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListTeamDomainsRequest {
+    return new ListTeamDomainsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ListTeamDomainsRequest {
+    return new ListTeamDomainsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ListTeamDomainsRequest {
+    return new ListTeamDomainsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ListTeamDomainsRequest | PlainMessage<ListTeamDomainsRequest> | undefined, b: ListTeamDomainsRequest | PlainMessage<ListTeamDomainsRequest> | undefined): boolean {
+    return proto3.util.equals(ListTeamDomainsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.CreateMultiTenantTeamResponse
+ */
+export class CreateMultiTenantTeamResponse extends Message<CreateMultiTenantTeamResponse> {
+  /**
+   * @generated from field: exa.seat_management_pb.Team team = 1;
+   */
+  team?: Team;
+
+  constructor(data?: PartialMessage<CreateMultiTenantTeamResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.CreateMultiTenantTeamResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "team", kind: "message", T: Team },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateMultiTenantTeamResponse {
+    return new CreateMultiTenantTeamResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CreateMultiTenantTeamResponse {
+    return new CreateMultiTenantTeamResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CreateMultiTenantTeamResponse {
+    return new CreateMultiTenantTeamResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CreateMultiTenantTeamResponse | PlainMessage<CreateMultiTenantTeamResponse> | undefined, b: CreateMultiTenantTeamResponse | PlainMessage<CreateMultiTenantTeamResponse> | undefined): boolean {
+    return proto3.util.equals(CreateMultiTenantTeamResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetTeamMetadataResponse
+ */
+export class GetTeamMetadataResponse extends Message<GetTeamMetadataResponse> {
+  /**
+   * @generated from field: exa.seat_management_pb.Team team = 1;
+   */
+  team?: Team;
+
+  constructor(data?: PartialMessage<GetTeamMetadataResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetTeamMetadataResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "team", kind: "message", T: Team },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTeamMetadataResponse {
+    return new GetTeamMetadataResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTeamMetadataResponse {
+    return new GetTeamMetadataResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTeamMetadataResponse {
+    return new GetTeamMetadataResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTeamMetadataResponse | PlainMessage<GetTeamMetadataResponse> | undefined, b: GetTeamMetadataResponse | PlainMessage<GetTeamMetadataResponse> | undefined): boolean {
+    return proto3.util.equals(GetTeamMetadataResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DeleteApiKeyRequest
+ */
+export class DeleteApiKeyRequest extends Message<DeleteApiKeyRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string key_id = 2;
+   */
+  keyId = "";
+
+  constructor(data?: PartialMessage<DeleteApiKeyRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DeleteApiKeyRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "key_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteApiKeyRequest {
+    return new DeleteApiKeyRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteApiKeyRequest {
+    return new DeleteApiKeyRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteApiKeyRequest {
+    return new DeleteApiKeyRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteApiKeyRequest | PlainMessage<DeleteApiKeyRequest> | undefined, b: DeleteApiKeyRequest | PlainMessage<DeleteApiKeyRequest> | undefined): boolean {
+    return proto3.util.equals(DeleteApiKeyRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.AddExtraFlexCreditsInternalRequest
+ */
+export class AddExtraFlexCreditsInternalRequest extends Message<AddExtraFlexCreditsInternalRequest> {
+  /**
+   * @generated from field: string secret = 1;
+   */
+  secret = "";
+
+  /**
+   * @generated from field: string team_id = 2;
+   */
+  teamId = "";
+
+  /**
+   * @generated from field: int64 amount = 3;
+   */
+  amount = protoInt64.zero;
+
+  /**
+   * @generated from field: exa.seat_management_pb.FlexCreditChronicleType type = 4;
+   */
+  type = FlexCreditChronicleType.UNSPECIFIED;
+
+  /**
+   * @generated from field: string email = 5;
+   */
+  email = "";
+
+  constructor(data?: PartialMessage<AddExtraFlexCreditsInternalRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.AddExtraFlexCreditsInternalRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "amount", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 4, name: "type", kind: "enum", T: proto3.getEnumType(FlexCreditChronicleType) },
+    { no: 5, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddExtraFlexCreditsInternalRequest {
+    return new AddExtraFlexCreditsInternalRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddExtraFlexCreditsInternalRequest {
+    return new AddExtraFlexCreditsInternalRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddExtraFlexCreditsInternalRequest {
+    return new AddExtraFlexCreditsInternalRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AddExtraFlexCreditsInternalRequest | PlainMessage<AddExtraFlexCreditsInternalRequest> | undefined, b: AddExtraFlexCreditsInternalRequest | PlainMessage<AddExtraFlexCreditsInternalRequest> | undefined): boolean {
+    return proto3.util.equals(AddExtraFlexCreditsInternalRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateProfileVisibilityResponse
+ */
+export class UpdateProfileVisibilityResponse extends Message<UpdateProfileVisibilityResponse> {
+  constructor(data?: PartialMessage<UpdateProfileVisibilityResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateProfileVisibilityResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateProfileVisibilityResponse {
+    return new UpdateProfileVisibilityResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateProfileVisibilityResponse {
+    return new UpdateProfileVisibilityResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateProfileVisibilityResponse {
+    return new UpdateProfileVisibilityResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateProfileVisibilityResponse | PlainMessage<UpdateProfileVisibilityResponse> | undefined, b: UpdateProfileVisibilityResponse | PlainMessage<UpdateProfileVisibilityResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateProfileVisibilityResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.RemoveUserRoleRequest
+ */
+export class RemoveUserRoleRequest extends Message<RemoveUserRoleRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string api_key = 2;
+   */
+  apiKey = "";
+
+  /**
+   * @generated from field: string role = 3;
+   */
+  role = "";
+
+  /**
+   * @generated from field: string group_id = 4;
+   */
+  groupId = "";
+
+  constructor(data?: PartialMessage<RemoveUserRoleRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.RemoveUserRoleRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "role", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "group_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RemoveUserRoleRequest {
+    return new RemoveUserRoleRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RemoveUserRoleRequest {
+    return new RemoveUserRoleRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RemoveUserRoleRequest {
+    return new RemoveUserRoleRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RemoveUserRoleRequest | PlainMessage<RemoveUserRoleRequest> | undefined, b: RemoveUserRoleRequest | PlainMessage<RemoveUserRoleRequest> | undefined): boolean {
+    return proto3.util.equals(RemoveUserRoleRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetMultiTenantTeamsResponse
+ */
+export class GetMultiTenantTeamsResponse extends Message<GetMultiTenantTeamsResponse> {
+  /**
+   * @generated from field: repeated exa.seat_management_pb.Team teams = 1;
+   */
+  teams: Team[] = [];
+
+  constructor(data?: PartialMessage<GetMultiTenantTeamsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetMultiTenantTeamsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "teams", kind: "message", T: Team, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetMultiTenantTeamsResponse {
+    return new GetMultiTenantTeamsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetMultiTenantTeamsResponse {
+    return new GetMultiTenantTeamsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetMultiTenantTeamsResponse {
+    return new GetMultiTenantTeamsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetMultiTenantTeamsResponse | PlainMessage<GetMultiTenantTeamsResponse> | undefined, b: GetMultiTenantTeamsResponse | PlainMessage<GetMultiTenantTeamsResponse> | undefined): boolean {
+    return proto3.util.equals(GetMultiTenantTeamsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.AddUserRoleRequest
+ */
+export class AddUserRoleRequest extends Message<AddUserRoleRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string api_key = 2;
+   */
+  apiKey = "";
+
+  /**
+   * @generated from field: string role = 3;
+   */
+  role = "";
+
+  /**
+   * @generated from field: string group_id = 4;
+   */
+  groupId = "";
+
+  /**
+   * @generated from field: string service_key = 5;
+   */
+  serviceKey = "";
+
+  constructor(data?: PartialMessage<AddUserRoleRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.AddUserRoleRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "role", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "group_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "service_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddUserRoleRequest {
+    return new AddUserRoleRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddUserRoleRequest {
+    return new AddUserRoleRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddUserRoleRequest {
+    return new AddUserRoleRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AddUserRoleRequest | PlainMessage<AddUserRoleRequest> | undefined, b: AddUserRoleRequest | PlainMessage<AddUserRoleRequest> | undefined): boolean {
+    return proto3.util.equals(AddUserRoleRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DeleteUserApiProviderKeyResponse
+ */
+export class DeleteUserApiProviderKeyResponse extends Message<DeleteUserApiProviderKeyResponse> {
+  constructor(data?: PartialMessage<DeleteUserApiProviderKeyResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DeleteUserApiProviderKeyResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteUserApiProviderKeyResponse {
+    return new DeleteUserApiProviderKeyResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteUserApiProviderKeyResponse {
+    return new DeleteUserApiProviderKeyResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteUserApiProviderKeyResponse {
+    return new DeleteUserApiProviderKeyResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteUserApiProviderKeyResponse | PlainMessage<DeleteUserApiProviderKeyResponse> | undefined, b: DeleteUserApiProviderKeyResponse | PlainMessage<DeleteUserApiProviderKeyResponse> | undefined): boolean {
+    return proto3.util.equals(DeleteUserApiProviderKeyResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DeleteUserRequest
+ */
+export class DeleteUserRequest extends Message<DeleteUserRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string api_key = 3;
+   */
+  apiKey = "";
+
+  constructor(data?: PartialMessage<DeleteUserRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DeleteUserRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteUserRequest {
+    return new DeleteUserRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteUserRequest {
+    return new DeleteUserRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteUserRequest {
+    return new DeleteUserRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteUserRequest | PlainMessage<DeleteUserRequest> | undefined, b: DeleteUserRequest | PlainMessage<DeleteUserRequest> | undefined): boolean {
+    return proto3.util.equals(DeleteUserRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.SaveSSOProviderRequest
+ */
+export class SaveSSOProviderRequest extends Message<SaveSSOProviderRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: exa.seat_management_pb.SAMLAuthProvider saml_auth_provider = 2;
+   */
+  samlAuthProvider?: SAMLAuthProvider;
+
+  /**
+   * @generated from field: bool is_test = 3;
+   */
+  isTest = false;
+
+  constructor(data?: PartialMessage<SaveSSOProviderRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.SaveSSOProviderRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "saml_auth_provider", kind: "message", T: SAMLAuthProvider },
+    { no: 3, name: "is_test", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SaveSSOProviderRequest {
+    return new SaveSSOProviderRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SaveSSOProviderRequest {
+    return new SaveSSOProviderRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SaveSSOProviderRequest {
+    return new SaveSSOProviderRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SaveSSOProviderRequest | PlainMessage<SaveSSOProviderRequest> | undefined, b: SaveSSOProviderRequest | PlainMessage<SaveSSOProviderRequest> | undefined): boolean {
+    return proto3.util.equals(SaveSSOProviderRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.PreapprovedUser
+ */
+export class PreapprovedUser extends Message<PreapprovedUser> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  /**
+   * @generated from field: string name = 2;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string email = 3;
+   */
+  email = "";
+
+  /**
+   * @generated from field: string team_id = 4;
+   */
+  teamId = "";
+
+  /**
+   * @generated from field: string issued_by_api_key = 5;
+   */
+  issuedByApiKey = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp created_at = 6;
+   */
+  createdAt?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp updated_at = 7;
+   */
+  updatedAt?: Timestamp;
+
+  constructor(data?: PartialMessage<PreapprovedUser>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.PreapprovedUser";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "issued_by_api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "created_at", kind: "message", T: Timestamp },
+    { no: 7, name: "updated_at", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PreapprovedUser {
+    return new PreapprovedUser().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PreapprovedUser {
+    return new PreapprovedUser().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PreapprovedUser {
+    return new PreapprovedUser().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PreapprovedUser | PlainMessage<PreapprovedUser> | undefined, b: PreapprovedUser | PlainMessage<PreapprovedUser> | undefined): boolean {
+    return proto3.util.equals(PreapprovedUser, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DeleteTeamApiSecretResponse
+ */
+export class DeleteTeamApiSecretResponse extends Message<DeleteTeamApiSecretResponse> {
+  constructor(data?: PartialMessage<DeleteTeamApiSecretResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DeleteTeamApiSecretResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteTeamApiSecretResponse {
+    return new DeleteTeamApiSecretResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteTeamApiSecretResponse {
+    return new DeleteTeamApiSecretResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteTeamApiSecretResponse {
+    return new DeleteTeamApiSecretResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteTeamApiSecretResponse | PlainMessage<DeleteTeamApiSecretResponse> | undefined, b: DeleteTeamApiSecretResponse | PlainMessage<DeleteTeamApiSecretResponse> | undefined): boolean {
+    return proto3.util.equals(DeleteTeamApiSecretResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.AddUsersToTeamRequest
+ */
+export class AddUsersToTeamRequest extends Message<AddUsersToTeamRequest> {
+  /**
+   * @generated from field: string secret = 1;
+   */
+  secret = "";
+
+  /**
+   * @generated from field: string team_id = 2;
+   */
+  teamId = "";
+
+  /**
+   * @generated from field: repeated string emails = 3;
+   */
+  emails: string[] = [];
+
+  /**
+   * @generated from field: bool create_if_not_exists = 4;
+   */
+  createIfNotExists = false;
+
+  /**
+   * @generated from field: bool send_email = 5;
+   */
+  sendEmail = false;
+
+  constructor(data?: PartialMessage<AddUsersToTeamRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.AddUsersToTeamRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "emails", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 4, name: "create_if_not_exists", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 5, name: "send_email", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddUsersToTeamRequest {
+    return new AddUsersToTeamRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddUsersToTeamRequest {
+    return new AddUsersToTeamRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddUsersToTeamRequest {
+    return new AddUsersToTeamRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AddUsersToTeamRequest | PlainMessage<AddUsersToTeamRequest> | undefined, b: AddUsersToTeamRequest | PlainMessage<AddUsersToTeamRequest> | undefined): boolean {
+    return proto3.util.equals(AddUsersToTeamRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.IsValidReferralCodeResponse
+ */
+export class IsValidReferralCodeResponse extends Message<IsValidReferralCodeResponse> {
+  /**
+   * @generated from field: string referrer_name = 1;
+   */
+  referrerName = "";
+
+  constructor(data?: PartialMessage<IsValidReferralCodeResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.IsValidReferralCodeResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "referrer_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): IsValidReferralCodeResponse {
+    return new IsValidReferralCodeResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): IsValidReferralCodeResponse {
+    return new IsValidReferralCodeResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): IsValidReferralCodeResponse {
+    return new IsValidReferralCodeResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: IsValidReferralCodeResponse | PlainMessage<IsValidReferralCodeResponse> | undefined, b: IsValidReferralCodeResponse | PlainMessage<IsValidReferralCodeResponse> | undefined): boolean {
+    return proto3.util.equals(IsValidReferralCodeResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.CreateFbUserResponse
+ */
+export class CreateFbUserResponse extends Message<CreateFbUserResponse> {
+  /**
+   * @generated from field: string uid = 1;
+   */
+  uid = "";
+
+  constructor(data?: PartialMessage<CreateFbUserResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.CreateFbUserResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "uid", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateFbUserResponse {
+    return new CreateFbUserResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CreateFbUserResponse {
+    return new CreateFbUserResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CreateFbUserResponse {
+    return new CreateFbUserResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CreateFbUserResponse | PlainMessage<CreateFbUserResponse> | undefined, b: CreateFbUserResponse | PlainMessage<CreateFbUserResponse> | undefined): boolean {
+    return proto3.util.equals(CreateFbUserResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.ListTeamDomainsInternalRequest
+ */
+export class ListTeamDomainsInternalRequest extends Message<ListTeamDomainsInternalRequest> {
+  /**
+   * @generated from field: string secret = 1;
+   */
+  secret = "";
+
+  /**
+   * @generated from field: string team_id = 2;
+   */
+  teamId = "";
+
+  constructor(data?: PartialMessage<ListTeamDomainsInternalRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.ListTeamDomainsInternalRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "secret", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListTeamDomainsInternalRequest {
+    return new ListTeamDomainsInternalRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ListTeamDomainsInternalRequest {
+    return new ListTeamDomainsInternalRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ListTeamDomainsInternalRequest {
+    return new ListTeamDomainsInternalRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ListTeamDomainsInternalRequest | PlainMessage<ListTeamDomainsInternalRequest> | undefined, b: ListTeamDomainsInternalRequest | PlainMessage<ListTeamDomainsInternalRequest> | undefined): boolean {
+    return proto3.util.equals(ListTeamDomainsInternalRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateTeamNameInternalResponse
+ */
+export class UpdateTeamNameInternalResponse extends Message<UpdateTeamNameInternalResponse> {
+  constructor(data?: PartialMessage<UpdateTeamNameInternalResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateTeamNameInternalResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateTeamNameInternalResponse {
+    return new UpdateTeamNameInternalResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateTeamNameInternalResponse {
+    return new UpdateTeamNameInternalResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateTeamNameInternalResponse {
+    return new UpdateTeamNameInternalResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateTeamNameInternalResponse | PlainMessage<UpdateTeamNameInternalResponse> | undefined, b: UpdateTeamNameInternalResponse | PlainMessage<UpdateTeamNameInternalResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateTeamNameInternalResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.RequestTeamAccessRequest
+ */
+export class RequestTeamAccessRequest extends Message<RequestTeamAccessRequest> {
+  /**
+   * @generated from field: string api_key = 1;
+   */
+  apiKey = "";
+
+  /**
+   * @generated from field: string invite_id = 2;
+   */
+  inviteId = "";
+
+  constructor(data?: PartialMessage<RequestTeamAccessRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.RequestTeamAccessRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "invite_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RequestTeamAccessRequest {
+    return new RequestTeamAccessRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RequestTeamAccessRequest {
+    return new RequestTeamAccessRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RequestTeamAccessRequest {
+    return new RequestTeamAccessRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RequestTeamAccessRequest | PlainMessage<RequestTeamAccessRequest> | undefined, b: RequestTeamAccessRequest | PlainMessage<RequestTeamAccessRequest> | undefined): boolean {
+    return proto3.util.equals(RequestTeamAccessRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.SendPhoneVerificationResponse
+ */
+export class SendPhoneVerificationResponse extends Message<SendPhoneVerificationResponse> {
+  constructor(data?: PartialMessage<SendPhoneVerificationResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.SendPhoneVerificationResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SendPhoneVerificationResponse {
+    return new SendPhoneVerificationResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SendPhoneVerificationResponse {
+    return new SendPhoneVerificationResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SendPhoneVerificationResponse {
+    return new SendPhoneVerificationResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SendPhoneVerificationResponse | PlainMessage<SendPhoneVerificationResponse> | undefined, b: SendPhoneVerificationResponse | PlainMessage<SendPhoneVerificationResponse> | undefined): boolean {
+    return proto3.util.equals(SendPhoneVerificationResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.ProfilePictureUploadCompleteResponse
+ */
+export class ProfilePictureUploadCompleteResponse extends Message<ProfilePictureUploadCompleteResponse> {
+  constructor(data?: PartialMessage<ProfilePictureUploadCompleteResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.ProfilePictureUploadCompleteResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ProfilePictureUploadCompleteResponse {
+    return new ProfilePictureUploadCompleteResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ProfilePictureUploadCompleteResponse {
+    return new ProfilePictureUploadCompleteResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ProfilePictureUploadCompleteResponse {
+    return new ProfilePictureUploadCompleteResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ProfilePictureUploadCompleteResponse | PlainMessage<ProfilePictureUploadCompleteResponse> | undefined, b: ProfilePictureUploadCompleteResponse | PlainMessage<ProfilePictureUploadCompleteResponse> | undefined): boolean {
+    return proto3.util.equals(ProfilePictureUploadCompleteResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetApiKeySummaryResponse
+ */
+export class GetApiKeySummaryResponse extends Message<GetApiKeySummaryResponse> {
+  /**
+   * @generated from field: repeated exa.seat_management_pb.ApiKeyForDisplay api_keys = 1;
+   */
+  apiKeys: ApiKeyForDisplay[] = [];
+
+  constructor(data?: PartialMessage<GetApiKeySummaryResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetApiKeySummaryResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "api_keys", kind: "message", T: ApiKeyForDisplay, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetApiKeySummaryResponse {
+    return new GetApiKeySummaryResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetApiKeySummaryResponse {
+    return new GetApiKeySummaryResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetApiKeySummaryResponse {
+    return new GetApiKeySummaryResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetApiKeySummaryResponse | PlainMessage<GetApiKeySummaryResponse> | undefined, b: GetApiKeySummaryResponse | PlainMessage<GetApiKeySummaryResponse> | undefined): boolean {
+    return proto3.util.equals(GetApiKeySummaryResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetPreapprovalMetadataResponse
+ */
+export class GetPreapprovalMetadataResponse extends Message<GetPreapprovalMetadataResponse> {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string email = 2;
+   */
+  email = "";
+
+  /**
+   * @generated from field: string team_name = 3;
+   */
+  teamName = "";
+
+  constructor(data?: PartialMessage<GetPreapprovalMetadataResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetPreapprovalMetadataResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "team_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetPreapprovalMetadataResponse {
+    return new GetPreapprovalMetadataResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetPreapprovalMetadataResponse {
+    return new GetPreapprovalMetadataResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetPreapprovalMetadataResponse {
+    return new GetPreapprovalMetadataResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetPreapprovalMetadataResponse | PlainMessage<GetPreapprovalMetadataResponse> | undefined, b: GetPreapprovalMetadataResponse | PlainMessage<GetPreapprovalMetadataResponse> | undefined): boolean {
+    return proto3.util.equals(GetPreapprovalMetadataResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetTeamCreditEntriesResponse
+ */
+export class GetTeamCreditEntriesResponse extends Message<GetTeamCreditEntriesResponse> {
+  /**
+   * @generated from field: repeated exa.seat_management_pb.FlexCreditChronicleEntry entries = 1;
+   */
+  entries: FlexCreditChronicleEntry[] = [];
+
+  constructor(data?: PartialMessage<GetTeamCreditEntriesResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetTeamCreditEntriesResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "entries", kind: "message", T: FlexCreditChronicleEntry, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTeamCreditEntriesResponse {
+    return new GetTeamCreditEntriesResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTeamCreditEntriesResponse {
+    return new GetTeamCreditEntriesResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTeamCreditEntriesResponse {
+    return new GetTeamCreditEntriesResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTeamCreditEntriesResponse | PlainMessage<GetTeamCreditEntriesResponse> | undefined, b: GetTeamCreditEntriesResponse | PlainMessage<GetTeamCreditEntriesResponse> | undefined): boolean {
+    return proto3.util.equals(GetTeamCreditEntriesResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DeleteRoleRequest
+ */
+export class DeleteRoleRequest extends Message<DeleteRoleRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string role_id = 2;
+   */
+  roleId = "";
+
+  constructor(data?: PartialMessage<DeleteRoleRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DeleteRoleRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "role_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteRoleRequest {
+    return new DeleteRoleRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteRoleRequest {
+    return new DeleteRoleRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteRoleRequest {
+    return new DeleteRoleRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteRoleRequest | PlainMessage<DeleteRoleRequest> | undefined, b: DeleteRoleRequest | PlainMessage<DeleteRoleRequest> | undefined): boolean {
+    return proto3.util.equals(DeleteRoleRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.BulkEditUserApprovalsInternalResponse
+ */
+export class BulkEditUserApprovalsInternalResponse extends Message<BulkEditUserApprovalsInternalResponse> {
+  constructor(data?: PartialMessage<BulkEditUserApprovalsInternalResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.BulkEditUserApprovalsInternalResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BulkEditUserApprovalsInternalResponse {
+    return new BulkEditUserApprovalsInternalResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BulkEditUserApprovalsInternalResponse {
+    return new BulkEditUserApprovalsInternalResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BulkEditUserApprovalsInternalResponse {
+    return new BulkEditUserApprovalsInternalResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BulkEditUserApprovalsInternalResponse | PlainMessage<BulkEditUserApprovalsInternalResponse> | undefined, b: BulkEditUserApprovalsInternalResponse | PlainMessage<BulkEditUserApprovalsInternalResponse> | undefined): boolean {
+    return proto3.util.equals(BulkEditUserApprovalsInternalResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DeleteTeamResponse
+ */
+export class DeleteTeamResponse extends Message<DeleteTeamResponse> {
+  constructor(data?: PartialMessage<DeleteTeamResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DeleteTeamResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteTeamResponse {
+    return new DeleteTeamResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteTeamResponse {
+    return new DeleteTeamResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteTeamResponse {
+    return new DeleteTeamResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteTeamResponse | PlainMessage<DeleteTeamResponse> | undefined, b: DeleteTeamResponse | PlainMessage<DeleteTeamResponse> | undefined): boolean {
+    return proto3.util.equals(DeleteTeamResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GrantSuperAdminAccessRequest
+ */
+export class GrantSuperAdminAccessRequest extends Message<GrantSuperAdminAccessRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string user_email = 2;
+   */
+  userEmail = "";
+
+  constructor(data?: PartialMessage<GrantSuperAdminAccessRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GrantSuperAdminAccessRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "user_email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GrantSuperAdminAccessRequest {
+    return new GrantSuperAdminAccessRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GrantSuperAdminAccessRequest {
+    return new GrantSuperAdminAccessRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GrantSuperAdminAccessRequest {
+    return new GrantSuperAdminAccessRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GrantSuperAdminAccessRequest | PlainMessage<GrantSuperAdminAccessRequest> | undefined, b: GrantSuperAdminAccessRequest | PlainMessage<GrantSuperAdminAccessRequest> | undefined): boolean {
+    return proto3.util.equals(GrantSuperAdminAccessRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetTeamSettingsResponse
+ */
+export class GetTeamSettingsResponse extends Message<GetTeamSettingsResponse> {
+  /**
+   * @generated from field: bool cascade_web_search_enabled = 1;
+   */
+  cascadeWebSearchEnabled = false;
+
+  /**
+   * @generated from field: bool can_update_cascade_web_search_enabled = 2;
+   */
+  canUpdateCascadeWebSearchEnabled = false;
+
+  constructor(data?: PartialMessage<GetTeamSettingsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetTeamSettingsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "cascade_web_search_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 2, name: "can_update_cascade_web_search_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTeamSettingsResponse {
+    return new GetTeamSettingsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTeamSettingsResponse {
+    return new GetTeamSettingsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTeamSettingsResponse {
+    return new GetTeamSettingsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTeamSettingsResponse | PlainMessage<GetTeamSettingsResponse> | undefined, b: GetTeamSettingsResponse | PlainMessage<GetTeamSettingsResponse> | undefined): boolean {
+    return proto3.util.equals(GetTeamSettingsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateProfileRequest
+ */
+export class UpdateProfileRequest extends Message<UpdateProfileRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string new_name = 2;
+   */
+  newName = "";
+
+  /**
+   * @generated from field: string new_email = 3;
+   */
+  newEmail = "";
+
+  /**
+   * @generated from field: string new_bio = 4;
+   */
+  newBio = "";
+
+  /**
+   * @generated from field: string otp_code = 5;
+   */
+  otpCode = "";
+
+  constructor(data?: PartialMessage<UpdateProfileRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateProfileRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "new_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "new_email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "new_bio", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "otp_code", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateProfileRequest {
+    return new UpdateProfileRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateProfileRequest {
+    return new UpdateProfileRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateProfileRequest {
+    return new UpdateProfileRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateProfileRequest | PlainMessage<UpdateProfileRequest> | undefined, b: UpdateProfileRequest | PlainMessage<UpdateProfileRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateProfileRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateTeamsFeaturesInternalResponse
+ */
+export class UpdateTeamsFeaturesInternalResponse extends Message<UpdateTeamsFeaturesInternalResponse> {
+  constructor(data?: PartialMessage<UpdateTeamsFeaturesInternalResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateTeamsFeaturesInternalResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateTeamsFeaturesInternalResponse {
+    return new UpdateTeamsFeaturesInternalResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateTeamsFeaturesInternalResponse {
+    return new UpdateTeamsFeaturesInternalResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateTeamsFeaturesInternalResponse {
+    return new UpdateTeamsFeaturesInternalResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateTeamsFeaturesInternalResponse | PlainMessage<UpdateTeamsFeaturesInternalResponse> | undefined, b: UpdateTeamsFeaturesInternalResponse | PlainMessage<UpdateTeamsFeaturesInternalResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateTeamsFeaturesInternalResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateBillingResponse
+ */
+export class UpdateBillingResponse extends Message<UpdateBillingResponse> {
+  /**
+   * @generated from field: string checkout_url = 1;
+   */
+  checkoutUrl = "";
+
+  constructor(data?: PartialMessage<UpdateBillingResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateBillingResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "checkout_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateBillingResponse {
+    return new UpdateBillingResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateBillingResponse {
+    return new UpdateBillingResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateBillingResponse {
+    return new UpdateBillingResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateBillingResponse | PlainMessage<UpdateBillingResponse> | undefined, b: UpdateBillingResponse | PlainMessage<UpdateBillingResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateBillingResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetRolesForUserRequest
+ */
+export class GetRolesForUserRequest extends Message<GetRolesForUserRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string api_key = 2;
+   */
+  apiKey = "";
+
+  constructor(data?: PartialMessage<GetRolesForUserRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetRolesForUserRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetRolesForUserRequest {
+    return new GetRolesForUserRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetRolesForUserRequest {
+    return new GetRolesForUserRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetRolesForUserRequest {
+    return new GetRolesForUserRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetRolesForUserRequest | PlainMessage<GetRolesForUserRequest> | undefined, b: GetRolesForUserRequest | PlainMessage<GetRolesForUserRequest> | undefined): boolean {
+    return proto3.util.equals(GetRolesForUserRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateInboundSourceRequest
+ */
+export class UpdateInboundSourceRequest extends Message<UpdateInboundSourceRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string inbound_source = 2;
+   */
+  inboundSource = "";
+
+  constructor(data?: PartialMessage<UpdateInboundSourceRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateInboundSourceRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "inbound_source", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateInboundSourceRequest {
+    return new UpdateInboundSourceRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateInboundSourceRequest {
+    return new UpdateInboundSourceRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateInboundSourceRequest {
+    return new UpdateInboundSourceRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateInboundSourceRequest | PlainMessage<UpdateInboundSourceRequest> | undefined, b: UpdateInboundSourceRequest | PlainMessage<UpdateInboundSourceRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateInboundSourceRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.ProvisionFreeProTierResponse
+ */
+export class ProvisionFreeProTierResponse extends Message<ProvisionFreeProTierResponse> {
+  /**
+   * @generated from field: google.protobuf.Timestamp expiration_date = 1;
+   */
+  expirationDate?: Timestamp;
+
+  constructor(data?: PartialMessage<ProvisionFreeProTierResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.ProvisionFreeProTierResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "expiration_date", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ProvisionFreeProTierResponse {
+    return new ProvisionFreeProTierResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ProvisionFreeProTierResponse {
+    return new ProvisionFreeProTierResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ProvisionFreeProTierResponse {
+    return new ProvisionFreeProTierResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ProvisionFreeProTierResponse | PlainMessage<ProvisionFreeProTierResponse> | undefined, b: ProvisionFreeProTierResponse | PlainMessage<ProvisionFreeProTierResponse> | undefined): boolean {
+    return proto3.util.equals(ProvisionFreeProTierResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateCodeiumAccessRequest
+ */
+export class UpdateCodeiumAccessRequest extends Message<UpdateCodeiumAccessRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string api_key = 2;
+   */
+  apiKey = "";
+
+  /**
+   * @generated from field: bool disable_codeium_access = 3;
+   */
+  disableCodeiumAccess = false;
+
+  constructor(data?: PartialMessage<UpdateCodeiumAccessRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateCodeiumAccessRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "disable_codeium_access", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateCodeiumAccessRequest {
+    return new UpdateCodeiumAccessRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateCodeiumAccessRequest {
+    return new UpdateCodeiumAccessRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateCodeiumAccessRequest {
+    return new UpdateCodeiumAccessRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateCodeiumAccessRequest | PlainMessage<UpdateCodeiumAccessRequest> | undefined, b: UpdateCodeiumAccessRequest | PlainMessage<UpdateCodeiumAccessRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateCodeiumAccessRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetGitHubAccessTokenRequest
+ */
+export class GetGitHubAccessTokenRequest extends Message<GetGitHubAccessTokenRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<GetGitHubAccessTokenRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetGitHubAccessTokenRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetGitHubAccessTokenRequest {
+    return new GetGitHubAccessTokenRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetGitHubAccessTokenRequest {
+    return new GetGitHubAccessTokenRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetGitHubAccessTokenRequest {
+    return new GetGitHubAccessTokenRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetGitHubAccessTokenRequest | PlainMessage<GetGitHubAccessTokenRequest> | undefined, b: GetGitHubAccessTokenRequest | PlainMessage<GetGitHubAccessTokenRequest> | undefined): boolean {
+    return proto3.util.equals(GetGitHubAccessTokenRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UpdateUserTeamStatusRequest
+ */
+export class UpdateUserTeamStatusRequest extends Message<UpdateUserTeamStatusRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: repeated exa.seat_management_pb.UserTeamStatusUpdateItem updates = 2;
+   */
+  updates: UserTeamStatusUpdateItem[] = [];
+
+  constructor(data?: PartialMessage<UpdateUserTeamStatusRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UpdateUserTeamStatusRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "updates", kind: "message", T: UserTeamStatusUpdateItem, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateUserTeamStatusRequest {
+    return new UpdateUserTeamStatusRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateUserTeamStatusRequest {
+    return new UpdateUserTeamStatusRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateUserTeamStatusRequest {
+    return new UpdateUserTeamStatusRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateUserTeamStatusRequest | PlainMessage<UpdateUserTeamStatusRequest> | undefined, b: UpdateUserTeamStatusRequest | PlainMessage<UpdateUserTeamStatusRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateUserTeamStatusRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetTeamInfoResponse
+ */
+export class GetTeamInfoResponse extends Message<GetTeamInfoResponse> {
+  /**
+   * @generated from field: exa.seat_management_pb.Team team = 1;
+   */
+  team?: Team;
+
+  /**
+   * @generated from field: repeated string users_with_cascade = 2;
+   */
+  usersWithCascade: string[] = [];
+
+  /**
+   * @generated from field: repeated string users_on_team = 3;
+   */
+  usersOnTeam: string[] = [];
+
+  /**
+   * @generated from field: repeated exa.seat_management_pb.UserInfo user_infos = 4;
+   */
+  userInfos: UserInfo[] = [];
+
+  /**
+   * @generated from field: exa.codeium_common_pb.TeamConfig team_config = 5;
+   */
+  teamConfig?: TeamConfig;
+
+  constructor(data?: PartialMessage<GetTeamInfoResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetTeamInfoResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "team", kind: "message", T: Team },
+    { no: 2, name: "users_with_cascade", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 3, name: "users_on_team", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 4, name: "user_infos", kind: "message", T: UserInfo, repeated: true },
+    { no: 5, name: "team_config", kind: "message", T: TeamConfig },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTeamInfoResponse {
+    return new GetTeamInfoResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTeamInfoResponse {
+    return new GetTeamInfoResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTeamInfoResponse {
+    return new GetTeamInfoResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTeamInfoResponse | PlainMessage<GetTeamInfoResponse> | undefined, b: GetTeamInfoResponse | PlainMessage<GetTeamInfoResponse> | undefined): boolean {
+    return proto3.util.equals(GetTeamInfoResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetGitHubAccountStatusRequest
+ */
+export class GetGitHubAccountStatusRequest extends Message<GetGitHubAccountStatusRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<GetGitHubAccountStatusRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetGitHubAccountStatusRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetGitHubAccountStatusRequest {
+    return new GetGitHubAccountStatusRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetGitHubAccountStatusRequest {
+    return new GetGitHubAccountStatusRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetGitHubAccountStatusRequest {
+    return new GetGitHubAccountStatusRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetGitHubAccountStatusRequest | PlainMessage<GetGitHubAccountStatusRequest> | undefined, b: GetGitHubAccountStatusRequest | PlainMessage<GetGitHubAccountStatusRequest> | undefined): boolean {
+    return proto3.util.equals(GetGitHubAccountStatusRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetCurrentUserRequest
+ */
+export class GetCurrentUserRequest extends Message<GetCurrentUserRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: bool generate_profile_picture_url = 2;
+   */
+  generateProfilePictureUrl = false;
+
+  /**
+   * @generated from field: bool create_if_not_exist = 3;
+   */
+  createIfNotExist = false;
+
+  /**
+   * @generated from field: bool include_subscription = 4;
+   */
+  includeSubscription = false;
+
+  /**
+   * @generated from field: string sso_token = 5;
+   */
+  ssoToken = "";
+
+  /**
+   * @generated from field: string saml_provider_id = 6;
+   */
+  samlProviderId = "";
+
+  constructor(data?: PartialMessage<GetCurrentUserRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetCurrentUserRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "generate_profile_picture_url", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "create_if_not_exist", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 4, name: "include_subscription", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 5, name: "sso_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "saml_provider_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetCurrentUserRequest {
+    return new GetCurrentUserRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetCurrentUserRequest {
+    return new GetCurrentUserRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetCurrentUserRequest {
+    return new GetCurrentUserRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetCurrentUserRequest | PlainMessage<GetCurrentUserRequest> | undefined, b: GetCurrentUserRequest | PlainMessage<GetCurrentUserRequest> | undefined): boolean {
+    return proto3.util.equals(GetCurrentUserRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.VerifyTeamDomainResponse
+ */
+export class VerifyTeamDomainResponse extends Message<VerifyTeamDomainResponse> {
+  constructor(data?: PartialMessage<VerifyTeamDomainResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.VerifyTeamDomainResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): VerifyTeamDomainResponse {
+    return new VerifyTeamDomainResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): VerifyTeamDomainResponse {
+    return new VerifyTeamDomainResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): VerifyTeamDomainResponse {
+    return new VerifyTeamDomainResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: VerifyTeamDomainResponse | PlainMessage<VerifyTeamDomainResponse> | undefined, b: VerifyTeamDomainResponse | PlainMessage<VerifyTeamDomainResponse> | undefined): boolean {
+    return proto3.util.equals(VerifyTeamDomainResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetSSOProviderResponse
+ */
+export class GetSSOProviderResponse extends Message<GetSSOProviderResponse> {
+  /**
+   * @generated from field: exa.seat_management_pb.SAMLAuthProvider saml_auth_provider = 1;
+   */
+  samlAuthProvider?: SAMLAuthProvider;
+
+  constructor(data?: PartialMessage<GetSSOProviderResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetSSOProviderResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "saml_auth_provider", kind: "message", T: SAMLAuthProvider },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetSSOProviderResponse {
+    return new GetSSOProviderResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetSSOProviderResponse {
+    return new GetSSOProviderResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetSSOProviderResponse {
+    return new GetSSOProviderResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetSSOProviderResponse | PlainMessage<GetSSOProviderResponse> | undefined, b: GetSSOProviderResponse | PlainMessage<GetSSOProviderResponse> | undefined): boolean {
+    return proto3.util.equals(GetSSOProviderResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetTeamConfigRecordResponse
+ */
+export class GetTeamConfigRecordResponse extends Message<GetTeamConfigRecordResponse> {
+  /**
+   * @generated from field: exa.codeium_common_pb.TeamConfig team_config = 1;
+   */
+  teamConfig?: TeamConfig;
+
+  constructor(data?: PartialMessage<GetTeamConfigRecordResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetTeamConfigRecordResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "team_config", kind: "message", T: TeamConfig },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTeamConfigRecordResponse {
+    return new GetTeamConfigRecordResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTeamConfigRecordResponse {
+    return new GetTeamConfigRecordResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTeamConfigRecordResponse {
+    return new GetTeamConfigRecordResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTeamConfigRecordResponse | PlainMessage<GetTeamConfigRecordResponse> | undefined, b: GetTeamConfigRecordResponse | PlainMessage<GetTeamConfigRecordResponse> | undefined): boolean {
+    return proto3.util.equals(GetTeamConfigRecordResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GrantTeamAdminAccessResponse
+ */
+export class GrantTeamAdminAccessResponse extends Message<GrantTeamAdminAccessResponse> {
+  /**
+   * @generated from field: exa.seat_management_pb.User user = 1;
+   */
+  user?: User;
+
+  constructor(data?: PartialMessage<GrantTeamAdminAccessResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GrantTeamAdminAccessResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "user", kind: "message", T: User },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GrantTeamAdminAccessResponse {
+    return new GrantTeamAdminAccessResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GrantTeamAdminAccessResponse {
+    return new GrantTeamAdminAccessResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GrantTeamAdminAccessResponse {
+    return new GrantTeamAdminAccessResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GrantTeamAdminAccessResponse | PlainMessage<GrantTeamAdminAccessResponse> | undefined, b: GrantTeamAdminAccessResponse | PlainMessage<GrantTeamAdminAccessResponse> | undefined): boolean {
+    return proto3.util.equals(GrantTeamAdminAccessResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.DeleteRoleResponse
+ */
+export class DeleteRoleResponse extends Message<DeleteRoleResponse> {
+  constructor(data?: PartialMessage<DeleteRoleResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.DeleteRoleResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteRoleResponse {
+    return new DeleteRoleResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteRoleResponse {
+    return new DeleteRoleResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteRoleResponse {
+    return new DeleteRoleResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteRoleResponse | PlainMessage<DeleteRoleResponse> | undefined, b: DeleteRoleResponse | PlainMessage<DeleteRoleResponse> | undefined): boolean {
+    return proto3.util.equals(DeleteRoleResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetTeamBillingResponse
+ */
+export class GetTeamBillingResponse extends Message<GetTeamBillingResponse> {
+  /**
+   * @generated from field: bool subscription_active = 1;
+   */
+  subscriptionActive = false;
+
+  /**
+   * @generated from field: bool on_trial = 2;
+   */
+  onTrial = false;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp subscription_renewal_time = 3;
+   */
+  subscriptionRenewalTime?: Timestamp;
+
+  /**
+   * @generated from field: int64 num_seats = 5;
+   */
+  numSeats = protoInt64.zero;
+
+  /**
+   * @generated from field: float plan_unit_amount = 6;
+   */
+  planUnitAmount = 0;
+
+  /**
+   * @generated from field: exa.seat_management_pb.SubInterval sub_interval = 7;
+   */
+  subInterval = SubInterval.UNSPECIFIED;
+
+  /**
+   * @generated from field: bool cancel_at_period_end = 8;
+   */
+  cancelAtPeriodEnd = false;
+
+  /**
+   * @generated from field: repeated exa.seat_management_pb.Invoice invoices = 9;
+   */
+  invoices: Invoice[] = [];
+
+  /**
+   * @generated from field: exa.seat_management_pb.PaymentMethod payment_method = 10;
+   */
+  paymentMethod?: PaymentMethod;
+
+  /**
+   * @generated from field: bool trial_only = 11;
+   */
+  trialOnly = false;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.PlanStatus plan_status = 12;
+   */
+  planStatus?: PlanStatus;
+
+  /**
+   * @generated from field: int64 num_users = 14;
+   */
+  numUsers = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 num_seats_current_billing_period = 15;
+   */
+  numSeatsCurrentBillingPeriod = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 num_cascade_users = 16;
+   */
+  numCascadeUsers = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 num_cascade_seats = 17;
+   */
+  numCascadeSeats = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 num_core_users = 18;
+   */
+  numCoreUsers = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 num_core_seats = 19;
+   */
+  numCoreSeats = protoInt64.zero;
+
+  /**
+   * @generated from field: exa.seat_management_pb.FailedSubscriptionPayment failed_subscription_payment = 20;
+   */
+  failedSubscriptionPayment?: FailedSubscriptionPayment;
+
+  /**
+   * @generated from field: string top_up_error_string = 21;
+   */
+  topUpErrorString = "";
+
+  /**
+   * @generated from field: bool team_top_up_criteria_reached = 22;
+   */
+  teamTopUpCriteriaReached = false;
+
+  constructor(data?: PartialMessage<GetTeamBillingResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetTeamBillingResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "subscription_active", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 2, name: "on_trial", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "subscription_renewal_time", kind: "message", T: Timestamp },
+    { no: 5, name: "num_seats", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 6, name: "plan_unit_amount", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 7, name: "sub_interval", kind: "enum", T: proto3.getEnumType(SubInterval) },
+    { no: 8, name: "cancel_at_period_end", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 9, name: "invoices", kind: "message", T: Invoice, repeated: true },
+    { no: 10, name: "payment_method", kind: "message", T: PaymentMethod },
+    { no: 11, name: "trial_only", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 12, name: "plan_status", kind: "message", T: PlanStatus },
+    { no: 14, name: "num_users", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 15, name: "num_seats_current_billing_period", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 16, name: "num_cascade_users", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 17, name: "num_cascade_seats", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 18, name: "num_core_users", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 19, name: "num_core_seats", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 20, name: "failed_subscription_payment", kind: "message", T: FailedSubscriptionPayment },
+    { no: 21, name: "top_up_error_string", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 22, name: "team_top_up_criteria_reached", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetTeamBillingResponse {
+    return new GetTeamBillingResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetTeamBillingResponse {
+    return new GetTeamBillingResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetTeamBillingResponse {
+    return new GetTeamBillingResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetTeamBillingResponse | PlainMessage<GetTeamBillingResponse> | undefined, b: GetTeamBillingResponse | PlainMessage<GetTeamBillingResponse> | undefined): boolean {
+    return proto3.util.equals(GetTeamBillingResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.SendEmailVerificationResponse
+ */
+export class SendEmailVerificationResponse extends Message<SendEmailVerificationResponse> {
+  constructor(data?: PartialMessage<SendEmailVerificationResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.SendEmailVerificationResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SendEmailVerificationResponse {
+    return new SendEmailVerificationResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SendEmailVerificationResponse {
+    return new SendEmailVerificationResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SendEmailVerificationResponse {
+    return new SendEmailVerificationResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SendEmailVerificationResponse | PlainMessage<SendEmailVerificationResponse> | undefined, b: SendEmailVerificationResponse | PlainMessage<SendEmailVerificationResponse> | undefined): boolean {
+    return proto3.util.equals(SendEmailVerificationResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetCustomerPortalResponse
+ */
+export class GetCustomerPortalResponse extends Message<GetCustomerPortalResponse> {
+  /**
+   * @generated from field: string portal_url = 1;
+   */
+  portalUrl = "";
+
+  constructor(data?: PartialMessage<GetCustomerPortalResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetCustomerPortalResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "portal_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetCustomerPortalResponse {
+    return new GetCustomerPortalResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetCustomerPortalResponse {
+    return new GetCustomerPortalResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetCustomerPortalResponse {
+    return new GetCustomerPortalResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetCustomerPortalResponse | PlainMessage<GetCustomerPortalResponse> | undefined, b: GetCustomerPortalResponse | PlainMessage<GetCustomerPortalResponse> | undefined): boolean {
+    return proto3.util.equals(GetCustomerPortalResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.GetPlanStatusRequest
+ */
+export class GetPlanStatusRequest extends Message<GetPlanStatusRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  constructor(data?: PartialMessage<GetPlanStatusRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.GetPlanStatusRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetPlanStatusRequest {
+    return new GetPlanStatusRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetPlanStatusRequest {
+    return new GetPlanStatusRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetPlanStatusRequest {
+    return new GetPlanStatusRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetPlanStatusRequest | PlainMessage<GetPlanStatusRequest> | undefined, b: GetPlanStatusRequest | PlainMessage<GetPlanStatusRequest> | undefined): boolean {
+    return proto3.util.equals(GetPlanStatusRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.RejectPreapprovalRequest
+ */
+export class RejectPreapprovalRequest extends Message<RejectPreapprovalRequest> {
+  /**
+   * @generated from field: string auth_token = 1;
+   */
+  authToken = "";
+
+  /**
+   * @generated from field: string approval_id = 2;
+   */
+  approvalId = "";
+
+  constructor(data?: PartialMessage<RejectPreapprovalRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.RejectPreapprovalRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "approval_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RejectPreapprovalRequest {
+    return new RejectPreapprovalRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RejectPreapprovalRequest {
+    return new RejectPreapprovalRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RejectPreapprovalRequest {
+    return new RejectPreapprovalRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RejectPreapprovalRequest | PlainMessage<RejectPreapprovalRequest> | undefined, b: RejectPreapprovalRequest | PlainMessage<RejectPreapprovalRequest> | undefined): boolean {
+    return proto3.util.equals(RejectPreapprovalRequest, a, b);
+  }
+}
+
+/**
  * @generated from message exa.seat_management_pb.UserSettings
  */
 export class UserSettings extends Message<UserSettings> {
@@ -674,9 +12067,668 @@ export class ReferralInfo extends Message<ReferralInfo> {
 }
 
 /**
- * @generated from message exa.seat_management_pb.Team
+ * @generated from message exa.seat_management_pb.BillingUpdate
  */
-export class Team extends Message<Team> {
+export class BillingUpdate extends Message<BillingUpdate> {
+  /**
+   * @generated from field: float amount_due_immediately = 1;
+   */
+  amountDueImmediately = 0;
+
+  /**
+   * @generated from field: float price_per_seat = 3;
+   */
+  pricePerSeat = 0;
+
+  /**
+   * @generated from field: int64 num_seats = 4;
+   */
+  numSeats = protoInt64.zero;
+
+  /**
+   * @generated from field: exa.seat_management_pb.SubInterval sub_interval = 5;
+   */
+  subInterval = SubInterval.UNSPECIFIED;
+
+  /**
+   * @generated from field: float amount_per_interval = 6;
+   */
+  amountPerInterval = 0;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp billing_start = 7;
+   */
+  billingStart?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp billing_end = 8;
+   */
+  billingEnd?: Timestamp;
+
+  /**
+   * @generated from field: bool unused_plan_refunded = 9;
+   */
+  unusedPlanRefunded = false;
+
+  /**
+   * @generated from field: bool has_sso_add_on = 10;
+   */
+  hasSsoAddOn = false;
+
+  constructor(data?: PartialMessage<BillingUpdate>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.BillingUpdate";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "amount_due_immediately", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 3, name: "price_per_seat", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 4, name: "num_seats", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 5, name: "sub_interval", kind: "enum", T: proto3.getEnumType(SubInterval) },
+    { no: 6, name: "amount_per_interval", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 7, name: "billing_start", kind: "message", T: Timestamp },
+    { no: 8, name: "billing_end", kind: "message", T: Timestamp },
+    { no: 9, name: "unused_plan_refunded", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 10, name: "has_sso_add_on", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BillingUpdate {
+    return new BillingUpdate().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BillingUpdate {
+    return new BillingUpdate().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BillingUpdate {
+    return new BillingUpdate().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BillingUpdate | PlainMessage<BillingUpdate> | undefined, b: BillingUpdate | PlainMessage<BillingUpdate> | undefined): boolean {
+    return proto3.util.equals(BillingUpdate, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UserActivity
+ */
+export class UserActivity extends Message<UserActivity> {
+  /**
+   * @generated from field: exa.seat_management_pb.User user = 1;
+   */
+  user?: User;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.CompletionStatistics completion_statistics = 2;
+   */
+  completionStatistics?: CompletionStatistics;
+
+  constructor(data?: PartialMessage<UserActivity>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UserActivity";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "user", kind: "message", T: User },
+    { no: 2, name: "completion_statistics", kind: "message", T: CompletionStatistics },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserActivity {
+    return new UserActivity().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserActivity {
+    return new UserActivity().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserActivity {
+    return new UserActivity().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserActivity | PlainMessage<UserActivity> | undefined, b: UserActivity | PlainMessage<UserActivity> | undefined): boolean {
+    return proto3.util.equals(UserActivity, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.TeamDomain
+ */
+export class TeamDomain extends Message<TeamDomain> {
+  /**
+   * @generated from field: string domain = 1;
+   */
+  domain = "";
+
+  /**
+   * @generated from field: bool verified = 2;
+   */
+  verified = false;
+
+  constructor(data?: PartialMessage<TeamDomain>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.TeamDomain";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "domain", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "verified", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TeamDomain {
+    return new TeamDomain().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TeamDomain {
+    return new TeamDomain().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TeamDomain {
+    return new TeamDomain().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: TeamDomain | PlainMessage<TeamDomain> | undefined, b: TeamDomain | PlainMessage<TeamDomain> | undefined): boolean {
+    return proto3.util.equals(TeamDomain, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UserCascadeDetails
+ */
+export class UserCascadeDetails extends Message<UserCascadeDetails> {
+  /**
+   * @generated from field: string auth_uid = 1;
+   */
+  authUid = "";
+
+  /**
+   * @generated from field: int64 used_prompt_credits = 2;
+   */
+  usedPromptCredits = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 used_flow_credits = 3;
+   */
+  usedFlowCredits = protoInt64.zero;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp free_cascade_usage_month_start = 4;
+   */
+  freeCascadeUsageMonthStart?: Timestamp;
+
+  constructor(data?: PartialMessage<UserCascadeDetails>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UserCascadeDetails";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "auth_uid", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "used_prompt_credits", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 3, name: "used_flow_credits", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 4, name: "free_cascade_usage_month_start", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserCascadeDetails {
+    return new UserCascadeDetails().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserCascadeDetails {
+    return new UserCascadeDetails().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserCascadeDetails {
+    return new UserCascadeDetails().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserCascadeDetails | PlainMessage<UserCascadeDetails> | undefined, b: UserCascadeDetails | PlainMessage<UserCascadeDetails> | undefined): boolean {
+    return proto3.util.equals(UserCascadeDetails, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.Wrapped2024
+ */
+export class Wrapped2024 extends Message<Wrapped2024> {
+  /**
+   * @generated from field: string api_key = 1;
+   */
+  apiKey = "";
+
+  /**
+   * @generated from field: string email = 2;
+   */
+  email = "";
+
+  /**
+   * @generated from field: string name = 3;
+   */
+  name = "";
+
+  /**
+   * @generated from field: int32 total_minutes_coded = 4;
+   */
+  totalMinutesCoded = 0;
+
+  /**
+   * @generated from field: double coding_percentile = 5;
+   */
+  codingPercentile = 0;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp biggest_coding_day = 6;
+   */
+  biggestCodingDay?: Timestamp;
+
+  /**
+   * @generated from field: int32 minutes_coding_biggest_day = 7;
+   */
+  minutesCodingBiggestDay = 0;
+
+  /**
+   * @generated from field: int32 autocompletes_accepted = 8;
+   */
+  autocompletesAccepted = 0;
+
+  /**
+   * @generated from field: int32 cascade_messages_sent = 9;
+   */
+  cascadeMessagesSent = 0;
+
+  /**
+   * @generated from field: int32 cascade_lines_written = 10;
+   */
+  cascadeLinesWritten = 0;
+
+  /**
+   * @generated from field: int32 longest_streak = 11;
+   */
+  longestStreak = 0;
+
+  /**
+   * @generated from field: int32 most_productive_day = 12;
+   */
+  mostProductiveDay = 0;
+
+  constructor(data?: PartialMessage<Wrapped2024>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.Wrapped2024";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "total_minutes_coded", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 5, name: "coding_percentile", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 6, name: "biggest_coding_day", kind: "message", T: Timestamp },
+    { no: 7, name: "minutes_coding_biggest_day", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 8, name: "autocompletes_accepted", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 9, name: "cascade_messages_sent", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 10, name: "cascade_lines_written", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 11, name: "longest_streak", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 12, name: "most_productive_day", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Wrapped2024 {
+    return new Wrapped2024().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Wrapped2024 {
+    return new Wrapped2024().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Wrapped2024 {
+    return new Wrapped2024().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Wrapped2024 | PlainMessage<Wrapped2024> | undefined, b: Wrapped2024 | PlainMessage<Wrapped2024> | undefined): boolean {
+    return proto3.util.equals(Wrapped2024, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.Group
+ */
+export class Group extends Message<Group> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  /**
+   * @generated from field: string name = 2;
+   */
+  name = "";
+
+  constructor(data?: PartialMessage<Group>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.Group";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Group {
+    return new Group().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Group {
+    return new Group().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Group {
+    return new Group().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Group | PlainMessage<Group> | undefined, b: Group | PlainMessage<Group> | undefined): boolean {
+    return proto3.util.equals(Group, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.MonthlyMucsMessage
+ */
+export class MonthlyMucsMessage extends Message<MonthlyMucsMessage> {
+  /**
+   * @generated from field: int32 billing_months = 1;
+   */
+  billingMonths = 0;
+
+  /**
+   * @generated from field: int32 billing_years = 2;
+   */
+  billingYears = 0;
+
+  /**
+   * @generated from field: int32 mucs_charged = 3;
+   */
+  mucsCharged = 0;
+
+  /**
+   * @generated from field: int32 mucs_deducted = 4;
+   */
+  mucsDeducted = 0;
+
+  constructor(data?: PartialMessage<MonthlyMucsMessage>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.MonthlyMucsMessage";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "billing_months", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 2, name: "billing_years", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 3, name: "mucs_charged", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 4, name: "mucs_deducted", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MonthlyMucsMessage {
+    return new MonthlyMucsMessage().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MonthlyMucsMessage {
+    return new MonthlyMucsMessage().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MonthlyMucsMessage {
+    return new MonthlyMucsMessage().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: MonthlyMucsMessage | PlainMessage<MonthlyMucsMessage> | undefined, b: MonthlyMucsMessage | PlainMessage<MonthlyMucsMessage> | undefined): boolean {
+    return proto3.util.equals(MonthlyMucsMessage, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.TeamPreapprovalMetadata
+ */
+export class TeamPreapprovalMetadata extends Message<TeamPreapprovalMetadata> {
+  /**
+   * @generated from field: string admin_name = 1;
+   */
+  adminName = "";
+
+  /**
+   * @generated from field: string team_name = 2;
+   */
+  teamName = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp created_at = 3;
+   */
+  createdAt?: Timestamp;
+
+  constructor(data?: PartialMessage<TeamPreapprovalMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.TeamPreapprovalMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "admin_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "team_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "created_at", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TeamPreapprovalMetadata {
+    return new TeamPreapprovalMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TeamPreapprovalMetadata {
+    return new TeamPreapprovalMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TeamPreapprovalMetadata {
+    return new TeamPreapprovalMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: TeamPreapprovalMetadata | PlainMessage<TeamPreapprovalMetadata> | undefined, b: TeamPreapprovalMetadata | PlainMessage<TeamPreapprovalMetadata> | undefined): boolean {
+    return proto3.util.equals(TeamPreapprovalMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.EnterpriseLicenseConfig
+ */
+export class EnterpriseLicenseConfig extends Message<EnterpriseLicenseConfig> {
+  /**
+   * @generated from field: google.protobuf.Timestamp expiration_timestamp = 1;
+   */
+  expirationTimestamp?: Timestamp;
+
+  /**
+   * @generated from field: uint32 seat_limit = 2;
+   */
+  seatLimit = 0;
+
+  /**
+   * @generated from field: bool attribution_enabled = 3;
+   */
+  attributionEnabled = false;
+
+  /**
+   * @generated from field: bool audit_logs_enabled = 4;
+   */
+  auditLogsEnabled = false;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp start_timestamp = 5;
+   */
+  startTimestamp?: Timestamp;
+
+  /**
+   * @generated from field: uint32 mucs_total = 6;
+   */
+  mucsTotal = 0;
+
+  /**
+   * @generated from field: bool mucs_enabled = 7;
+   */
+  mucsEnabled = false;
+
+  /**
+   * @generated from field: uint32 license_length_months = 8;
+   */
+  licenseLengthMonths = 0;
+
+  /**
+   * @generated from field: bool enable_individual_user_analytics = 9;
+   */
+  enableIndividualUserAnalytics = false;
+
+  constructor(data?: PartialMessage<EnterpriseLicenseConfig>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.EnterpriseLicenseConfig";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "expiration_timestamp", kind: "message", T: Timestamp },
+    { no: 2, name: "seat_limit", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 3, name: "attribution_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 4, name: "audit_logs_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 5, name: "start_timestamp", kind: "message", T: Timestamp },
+    { no: 6, name: "mucs_total", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 7, name: "mucs_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 8, name: "license_length_months", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 9, name: "enable_individual_user_analytics", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EnterpriseLicenseConfig {
+    return new EnterpriseLicenseConfig().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EnterpriseLicenseConfig {
+    return new EnterpriseLicenseConfig().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EnterpriseLicenseConfig {
+    return new EnterpriseLicenseConfig().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: EnterpriseLicenseConfig | PlainMessage<EnterpriseLicenseConfig> | undefined, b: EnterpriseLicenseConfig | PlainMessage<EnterpriseLicenseConfig> | undefined): boolean {
+    return proto3.util.equals(EnterpriseLicenseConfig, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.Role
+ */
+export class Role extends Message<Role> {
+  /**
+   * @generated from field: string role_id = 1;
+   */
+  roleId = "";
+
+  /**
+   * @generated from field: string name = 2;
+   */
+  name = "";
+
+  /**
+   * @generated from field: repeated exa.codeium_common_pb.Permission permissions = 3;
+   */
+  permissions: Permission[] = [];
+
+  /**
+   * @generated from field: bool mutable = 4;
+   */
+  mutable = false;
+
+  constructor(data?: PartialMessage<Role>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.Role";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "role_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "permissions", kind: "enum", T: proto3.getEnumType(Permission), repeated: true },
+    { no: 4, name: "mutable", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Role {
+    return new Role().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Role {
+    return new Role().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Role {
+    return new Role().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Role | PlainMessage<Role> | undefined, b: Role | PlainMessage<Role> | undefined): boolean {
+    return proto3.util.equals(Role, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.PreapprovalUserItem
+ */
+export class PreapprovalUserItem extends Message<PreapprovalUserItem> {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string email = 2;
+   */
+  email = "";
+
+  constructor(data?: PartialMessage<PreapprovalUserItem>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.PreapprovalUserItem";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PreapprovalUserItem {
+    return new PreapprovalUserItem().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PreapprovalUserItem {
+    return new PreapprovalUserItem().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PreapprovalUserItem {
+    return new PreapprovalUserItem().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PreapprovalUserItem | PlainMessage<PreapprovalUserItem> | undefined, b: PreapprovalUserItem | PlainMessage<PreapprovalUserItem> | undefined): boolean {
+    return proto3.util.equals(PreapprovalUserItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.TeamApiSecret
+ */
+export class TeamApiSecret extends Message<TeamApiSecret> {
   /**
    * @generated from field: string id = 1;
    */
@@ -688,236 +12740,619 @@ export class Team extends Message<Team> {
   name = "";
 
   /**
-   * @generated from field: google.protobuf.Timestamp signup_time = 3;
+   * @generated from field: google.protobuf.Timestamp created_at = 3;
    */
-  signupTime?: Timestamp;
+  createdAt?: Timestamp;
 
   /**
-   * @generated from field: string invite_id = 4;
+   * @generated from field: string role_id = 4;
    */
-  inviteId = "";
+  roleId = "";
 
   /**
-   * @generated from field: bool used_trial = 5;
+   * @generated from field: string group_id = 5;
    */
-  usedTrial = false;
+  groupId = "";
 
-  /**
-   * @generated from field: string stripe_subscription_id = 6;
-   */
-  stripeSubscriptionId = "";
-
-  /**
-   * @generated from field: bool subscription_active = 7;
-   */
-  subscriptionActive = false;
-
-  /**
-   * @generated from field: string stripe_customer_id = 8;
-   */
-  stripeCustomerId = "";
-
-  /**
-   * @generated from field: google.protobuf.Timestamp current_billing_period_start = 9;
-   */
-  currentBillingPeriodStart?: Timestamp;
-
-  /**
-   * @generated from field: int64 num_seats_current_billing_period = 10;
-   */
-  numSeatsCurrentBillingPeriod = protoInt64.zero;
-
-  /**
-   * @generated from field: bool attribution_enabled = 11;
-   */
-  attributionEnabled = false;
-
-  /**
-   * @generated from field: string sso_provider_id = 12;
-   */
-  ssoProviderId = "";
-
-  /**
-   * @generated from field: bool offers_enabled = 13;
-   */
-  offersEnabled = false;
-
-  /**
-   * @generated from field: exa.codeium_common_pb.TeamsTier teams_tier = 14;
-   */
-  teamsTier = TeamsTier.UNSPECIFIED;
-
-  /**
-   * @generated from field: int64 flex_credit_quota = 15;
-   */
-  flexCreditQuota = protoInt64.zero;
-
-  /**
-   * @generated from field: int64 used_flow_credits = 16;
-   */
-  usedFlowCredits = protoInt64.zero;
-
-  /**
-   * @generated from field: int64 used_prompt_credits = 17;
-   */
-  usedPromptCredits = protoInt64.zero;
-
-  /**
-   * @generated from field: google.protobuf.Timestamp current_billing_period_end = 18;
-   */
-  currentBillingPeriodEnd?: Timestamp;
-
-  /**
-   * @generated from field: int64 num_cascade_seats = 19;
-   */
-  numCascadeSeats = protoInt64.zero;
-
-  /**
-   * @generated from field: google.protobuf.Timestamp cascade_usage_month_start = 20;
-   */
-  cascadeUsageMonthStart?: Timestamp;
-
-  /**
-   * @generated from field: google.protobuf.Timestamp cascade_usage_month_end = 21;
-   */
-  cascadeUsageMonthEnd?: Timestamp;
-
-  /**
-   * @generated from field: exa.seat_management_pb.CascadeSeatType cascade_seat_type = 22;
-   */
-  cascadeSeatType = CascadeSeatType.UNSPECIFIED;
-
-  /**
-   * @generated from field: bool top_up_enabled = 23;
-   */
-  topUpEnabled = false;
-
-  /**
-   * @generated from field: int64 monthly_top_up_amount = 24;
-   */
-  monthlyTopUpAmount = protoInt64.zero;
-
-  /**
-   * @generated from field: int64 top_up_spent = 25;
-   */
-  topUpSpent = protoInt64.zero;
-
-  /**
-   * @generated from field: int64 top_up_increment = 26;
-   */
-  topUpIncrement = protoInt64.zero;
-
-  /**
-   * @generated from field: int64 used_flex_credits = 27;
-   */
-  usedFlexCredits = protoInt64.zero;
-
-  constructor(data?: PartialMessage<Team>) {
+  constructor(data?: PartialMessage<TeamApiSecret>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.seat_management_pb.Team";
+  static readonly typeName = "exa.seat_management_pb.TeamApiSecret";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "signup_time", kind: "message", T: Timestamp },
-    { no: 4, name: "invite_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "used_trial", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 6, name: "stripe_subscription_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 7, name: "subscription_active", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 8, name: "stripe_customer_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 9, name: "current_billing_period_start", kind: "message", T: Timestamp },
-    { no: 10, name: "num_seats_current_billing_period", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 11, name: "attribution_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 12, name: "sso_provider_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 13, name: "offers_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 14, name: "teams_tier", kind: "enum", T: proto3.getEnumType(TeamsTier) },
-    { no: 15, name: "flex_credit_quota", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 16, name: "used_flow_credits", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 17, name: "used_prompt_credits", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 18, name: "current_billing_period_end", kind: "message", T: Timestamp },
-    { no: 19, name: "num_cascade_seats", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 20, name: "cascade_usage_month_start", kind: "message", T: Timestamp },
-    { no: 21, name: "cascade_usage_month_end", kind: "message", T: Timestamp },
-    { no: 22, name: "cascade_seat_type", kind: "enum", T: proto3.getEnumType(CascadeSeatType) },
-    { no: 23, name: "top_up_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 24, name: "monthly_top_up_amount", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 25, name: "top_up_spent", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 26, name: "top_up_increment", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 27, name: "used_flex_credits", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 3, name: "created_at", kind: "message", T: Timestamp },
+    { no: 4, name: "role_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "group_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Team {
-    return new Team().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): TeamApiSecret {
+    return new TeamApiSecret().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Team {
-    return new Team().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): TeamApiSecret {
+    return new TeamApiSecret().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Team {
-    return new Team().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): TeamApiSecret {
+    return new TeamApiSecret().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Team | PlainMessage<Team> | undefined, b: Team | PlainMessage<Team> | undefined): boolean {
-    return proto3.util.equals(Team, a, b);
+  static equals(a: TeamApiSecret | PlainMessage<TeamApiSecret> | undefined, b: TeamApiSecret | PlainMessage<TeamApiSecret> | undefined): boolean {
+    return proto3.util.equals(TeamApiSecret, a, b);
   }
 }
 
 /**
- * @generated from message exa.seat_management_pb.UserRole
+ * @generated from message exa.seat_management_pb.ApiKeyForDisplay
  */
-export class UserRole extends Message<UserRole> {
+export class ApiKeyForDisplay extends Message<ApiKeyForDisplay> {
+  /**
+   * @generated from field: string key_id = 1;
+   */
+  keyId = "";
+
+  /**
+   * @generated from field: string key_for_display = 2;
+   */
+  keyForDisplay = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp created_at = 3;
+   */
+  createdAt?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp last_used_at = 4;
+   */
+  lastUsedAt?: Timestamp;
+
+  constructor(data?: PartialMessage<ApiKeyForDisplay>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.ApiKeyForDisplay";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "key_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "key_for_display", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "created_at", kind: "message", T: Timestamp },
+    { no: 4, name: "last_used_at", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ApiKeyForDisplay {
+    return new ApiKeyForDisplay().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ApiKeyForDisplay {
+    return new ApiKeyForDisplay().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ApiKeyForDisplay {
+    return new ApiKeyForDisplay().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ApiKeyForDisplay | PlainMessage<ApiKeyForDisplay> | undefined, b: ApiKeyForDisplay | PlainMessage<ApiKeyForDisplay> | undefined): boolean {
+    return proto3.util.equals(ApiKeyForDisplay, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.FlexCreditChronicleEntry
+ */
+export class FlexCreditChronicleEntry extends Message<FlexCreditChronicleEntry> {
+  /**
+   * @generated from field: string team_id = 1;
+   */
+  teamId = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp grant_date = 2;
+   */
+  grantDate?: Timestamp;
+
+  /**
+   * @generated from field: int32 num_credits = 3;
+   */
+  numCredits = 0;
+
+  /**
+   * @generated from field: exa.seat_management_pb.FlexCreditChronicleType type = 4;
+   */
+  type = FlexCreditChronicleType.UNSPECIFIED;
+
+  /**
+   * @generated from field: uint32 referral_id = 5;
+   */
+  referralId = 0;
+
+  /**
+   * @generated from field: string invoice_id = 6;
+   */
+  invoiceId = "";
+
+  /**
+   * @generated from oneof exa.seat_management_pb.FlexCreditChronicleEntry.reason
+   */
+  reason: {
+    /**
+     * @generated from field: exa.seat_management_pb.ReferrerReason referrer = 7;
+     */
+    value: ReferrerReason;
+    case: "referrer";
+  } | {
+    /**
+     * @generated from field: exa.seat_management_pb.AveryReason avery = 8;
+     */
+    value: AveryReason;
+    case: "avery";
+  } | {
+    /**
+     * @generated from field: exa.seat_management_pb.PurchaseReason purchase = 9;
+     */
+    value: PurchaseReason;
+    case: "purchase";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<FlexCreditChronicleEntry>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.FlexCreditChronicleEntry";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "team_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "grant_date", kind: "message", T: Timestamp },
+    { no: 3, name: "num_credits", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 4, name: "type", kind: "enum", T: proto3.getEnumType(FlexCreditChronicleType) },
+    { no: 5, name: "referral_id", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 6, name: "invoice_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "referrer", kind: "message", T: ReferrerReason, oneof: "reason" },
+    { no: 8, name: "avery", kind: "message", T: AveryReason, oneof: "reason" },
+    { no: 9, name: "purchase", kind: "message", T: PurchaseReason, oneof: "reason" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): FlexCreditChronicleEntry {
+    return new FlexCreditChronicleEntry().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): FlexCreditChronicleEntry {
+    return new FlexCreditChronicleEntry().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): FlexCreditChronicleEntry {
+    return new FlexCreditChronicleEntry().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: FlexCreditChronicleEntry | PlainMessage<FlexCreditChronicleEntry> | undefined, b: FlexCreditChronicleEntry | PlainMessage<FlexCreditChronicleEntry> | undefined): boolean {
+    return proto3.util.equals(FlexCreditChronicleEntry, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UserTeamStatusUpdateItem
+ */
+export class UserTeamStatusUpdateItem extends Message<UserTeamStatusUpdateItem> {
   /**
    * @generated from field: string api_key = 1;
    */
   apiKey = "";
 
   /**
-   * @generated from field: repeated string roles = 2;
+   * @generated from field: exa.codeium_common_pb.UserTeamStatus status = 2;
    */
-  roles: string[] = [];
+  status = UserTeamStatus.UNSPECIFIED;
 
-  /**
-   * @generated from field: string role_id = 3;
-   */
-  roleId = "";
-
-  /**
-   * @generated from field: string role_name = 4;
-   */
-  roleName = "";
-
-  constructor(data?: PartialMessage<UserRole>) {
+  constructor(data?: PartialMessage<UserTeamStatusUpdateItem>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "exa.seat_management_pb.UserRole";
+  static readonly typeName = "exa.seat_management_pb.UserTeamStatusUpdateItem";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "roles", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
-    { no: 3, name: "role_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "role_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "status", kind: "enum", T: proto3.getEnumType(UserTeamStatus) },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserRole {
-    return new UserRole().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserTeamStatusUpdateItem {
+    return new UserTeamStatusUpdateItem().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserRole {
-    return new UserRole().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserTeamStatusUpdateItem {
+    return new UserTeamStatusUpdateItem().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserRole {
-    return new UserRole().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserTeamStatusUpdateItem {
+    return new UserTeamStatusUpdateItem().fromJsonString(jsonString, options);
   }
 
-  static equals(a: UserRole | PlainMessage<UserRole> | undefined, b: UserRole | PlainMessage<UserRole> | undefined): boolean {
-    return proto3.util.equals(UserRole, a, b);
+  static equals(a: UserTeamStatusUpdateItem | PlainMessage<UserTeamStatusUpdateItem> | undefined, b: UserTeamStatusUpdateItem | PlainMessage<UserTeamStatusUpdateItem> | undefined): boolean {
+    return proto3.util.equals(UserTeamStatusUpdateItem, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.UserInfo
+ */
+export class UserInfo extends Message<UserInfo> {
+  /**
+   * @generated from field: string api_key = 1;
+   */
+  apiKey = "";
+
+  /**
+   * @generated from field: string name = 2;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string email = 3;
+   */
+  email = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp signup_time = 4;
+   */
+  signupTime?: Timestamp;
+
+  /**
+   * @generated from field: int32 flows_used = 5;
+   */
+  flowsUsed = 0;
+
+  /**
+   * @generated from field: int32 prompts_used = 6;
+   */
+  promptsUsed = 0;
+
+  /**
+   * @generated from field: int32 num_acceptances = 7;
+   */
+  numAcceptances = 0;
+
+  /**
+   * @generated from field: int32 num_lines_accepted = 8;
+   */
+  numLinesAccepted = 0;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp last_update_time = 9;
+   */
+  lastUpdateTime?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp first_windsurf_use_time = 10;
+   */
+  firstWindsurfUseTime?: Timestamp;
+
+  /**
+   * @generated from field: exa.codeium_common_pb.UserTeamStatus team_status = 11;
+   */
+  teamStatus = UserTeamStatus.UNSPECIFIED;
+
+  /**
+   * @generated from field: bool has_cascade_seat = 12;
+   */
+  hasCascadeSeat = false;
+
+  constructor(data?: PartialMessage<UserInfo>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.UserInfo";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "signup_time", kind: "message", T: Timestamp },
+    { no: 5, name: "flows_used", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 6, name: "prompts_used", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 7, name: "num_acceptances", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 8, name: "num_lines_accepted", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 9, name: "last_update_time", kind: "message", T: Timestamp },
+    { no: 10, name: "first_windsurf_use_time", kind: "message", T: Timestamp },
+    { no: 11, name: "team_status", kind: "enum", T: proto3.getEnumType(UserTeamStatus) },
+    { no: 12, name: "has_cascade_seat", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserInfo {
+    return new UserInfo().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserInfo {
+    return new UserInfo().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserInfo {
+    return new UserInfo().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserInfo | PlainMessage<UserInfo> | undefined, b: UserInfo | PlainMessage<UserInfo> | undefined): boolean {
+    return proto3.util.equals(UserInfo, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.PaymentMethod
+ */
+export class PaymentMethod extends Message<PaymentMethod> {
+  /**
+   * @generated from field: string type = 1;
+   */
+  type = "";
+
+  /**
+   * @generated from oneof exa.seat_management_pb.PaymentMethod.payment_type
+   */
+  paymentType: {
+    /**
+     * @generated from field: exa.seat_management_pb.CardType card = 2;
+     */
+    value: CardType;
+    case: "card";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<PaymentMethod>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.PaymentMethod";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "type", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "card", kind: "message", T: CardType, oneof: "payment_type" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PaymentMethod {
+    return new PaymentMethod().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PaymentMethod {
+    return new PaymentMethod().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PaymentMethod {
+    return new PaymentMethod().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PaymentMethod | PlainMessage<PaymentMethod> | undefined, b: PaymentMethod | PlainMessage<PaymentMethod> | undefined): boolean {
+    return proto3.util.equals(PaymentMethod, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.FailedSubscriptionPayment
+ */
+export class FailedSubscriptionPayment extends Message<FailedSubscriptionPayment> {
+  /**
+   * @generated from field: string invoice_link = 1;
+   */
+  invoiceLink = "";
+
+  /**
+   * @generated from field: string decline_code = 2;
+   */
+  declineCode = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp pay_by_date = 3;
+   */
+  payByDate?: Timestamp;
+
+  constructor(data?: PartialMessage<FailedSubscriptionPayment>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.FailedSubscriptionPayment";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "invoice_link", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "decline_code", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "pay_by_date", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): FailedSubscriptionPayment {
+    return new FailedSubscriptionPayment().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): FailedSubscriptionPayment {
+    return new FailedSubscriptionPayment().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): FailedSubscriptionPayment {
+    return new FailedSubscriptionPayment().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: FailedSubscriptionPayment | PlainMessage<FailedSubscriptionPayment> | undefined, b: FailedSubscriptionPayment | PlainMessage<FailedSubscriptionPayment> | undefined): boolean {
+    return proto3.util.equals(FailedSubscriptionPayment, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.ReferrerReason
+ */
+export class ReferrerReason extends Message<ReferrerReason> {
+  /**
+   * @generated from field: string user_email = 1;
+   */
+  userEmail = "";
+
+  /**
+   * @generated from field: string avery_email = 2;
+   */
+  averyEmail = "";
+
+  constructor(data?: PartialMessage<ReferrerReason>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.ReferrerReason";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "user_email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "avery_email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ReferrerReason {
+    return new ReferrerReason().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ReferrerReason {
+    return new ReferrerReason().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ReferrerReason {
+    return new ReferrerReason().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ReferrerReason | PlainMessage<ReferrerReason> | undefined, b: ReferrerReason | PlainMessage<ReferrerReason> | undefined): boolean {
+    return proto3.util.equals(ReferrerReason, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.AveryReason
+ */
+export class AveryReason extends Message<AveryReason> {
+  /**
+   * @generated from field: string user_email = 1;
+   */
+  userEmail = "";
+
+  /**
+   * @generated from field: string referrer_email = 2;
+   */
+  referrerEmail = "";
+
+  constructor(data?: PartialMessage<AveryReason>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.AveryReason";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "user_email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "referrer_email", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AveryReason {
+    return new AveryReason().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AveryReason {
+    return new AveryReason().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AveryReason {
+    return new AveryReason().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AveryReason | PlainMessage<AveryReason> | undefined, b: AveryReason | PlainMessage<AveryReason> | undefined): boolean {
+    return proto3.util.equals(AveryReason, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.PurchaseReason
+ */
+export class PurchaseReason extends Message<PurchaseReason> {
+  /**
+   * @generated from field: exa.seat_management_pb.PurchaseReasonType type = 1;
+   */
+  type = PurchaseReasonType.UNSPECIFIED;
+
+  constructor(data?: PartialMessage<PurchaseReason>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.PurchaseReason";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "type", kind: "enum", T: proto3.getEnumType(PurchaseReasonType) },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PurchaseReason {
+    return new PurchaseReason().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PurchaseReason {
+    return new PurchaseReason().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PurchaseReason {
+    return new PurchaseReason().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PurchaseReason | PlainMessage<PurchaseReason> | undefined, b: PurchaseReason | PlainMessage<PurchaseReason> | undefined): boolean {
+    return proto3.util.equals(PurchaseReason, a, b);
+  }
+}
+
+/**
+ * @generated from message exa.seat_management_pb.CardType
+ */
+export class CardType extends Message<CardType> {
+  /**
+   * @generated from field: string brand = 1;
+   */
+  brand = "";
+
+  /**
+   * @generated from field: int64 exp_month = 2;
+   */
+  expMonth = protoInt64.zero;
+
+  /**
+   * @generated from field: int64 exp_year = 3;
+   */
+  expYear = protoInt64.zero;
+
+  /**
+   * @generated from field: string last4 = 4;
+   */
+  last4 = "";
+
+  constructor(data?: PartialMessage<CardType>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "exa.seat_management_pb.CardType";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "brand", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "exp_month", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 3, name: "exp_year", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 4, name: "last4", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CardType {
+    return new CardType().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CardType {
+    return new CardType().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CardType {
+    return new CardType().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CardType | PlainMessage<CardType> | undefined, b: CardType | PlainMessage<CardType> | undefined): boolean {
+    return proto3.util.equals(CardType, a, b);
   }
 }
 

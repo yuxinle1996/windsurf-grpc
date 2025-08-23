@@ -7,4 +7,4 @@ dist
 
 .cursor
 
-_test.*
+_test/
