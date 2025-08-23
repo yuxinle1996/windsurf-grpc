@@ -1,0 +1,211 @@
+version: v2
+# 'clean'，当设置为 true 时，在运行代码生成之前删除所有插件的 `out` 字段中指定的目录、zip 文件和/或 jar 文件。
+clean: true
+# 'managed' 包含托管模式的配置：https://buf.build/docs/generate/managed-mode
+# 它有三个顶级键：'enabled'、'disable' 和 'override'。
+#
+# 当启用托管模式时，它在代码生成期间为某些文件和字段选项使用默认值。
+# 选项、接受值和默认值在此处记录：
+# https://buf.build/docs/generate/managed-mode#default-behavior
+# 'disable' 键配置从托管模式行为中排除的模块、路径、字段和/或选项。
+# 'override' 键配置覆盖托管模式在代码生成期间使用的默认值的字段和文件选项值。
+#
+# 在与其他选项组合的选项的情况下（例如 java_package + java_package_prefix + java_package_suffix），
+# 如果可能的话，它们都会被应用。如果不可能（例如当所有三个都设置时），
+# 则最后一个配置规则获胜。
+managed:
+  # 'enabled: true' 开启托管模式，'enabled: false' 忽略所有托管模式选项。
+  enabled: true # 默认值：false
+  # 'disable' 是管理文件选项或字段选项的 'disable' 规则列表。
+  # 'disable' 规则必须至少设置一个键。
+  disable:
+    # 不修改 buf.build/googleapis/googleapis 中的任何文件
+    - module: buf.build/googleapis/googleapis
+    # 不修改 foo/v1 目录中的任何文件。这可以是目录的路径
+    # 或 .proto 文件。如果是目录路径，目录中的所有 .proto 文件都会被
+    # 忽略。
+    - path: foo/v1
+    # 对于输入中的所有模块和文件，忽略 csharp_namespace 文件选项。
+    - file_option: csharp_namespace
+    # 对于任何文件，忽略 js_type 字段选项。
+    - field_option: js_type
+    # 忽略 foo.bar.Baz.field_name 字段。
+    - field: foo.bar.Baz.field_name
+    # 为文件选项设置所有 3 个：对于 buf.build/acme/weather 中 foo/v1 的文件，
+    # 不修改 java_package 和 go_package（通过禁用设置 go_package_prefix）
+    - module: buf.build/acme/weather
+      path: foo/v1
+      file_option: java_package
+    # 为字段选项设置所有 4 个：对于匹配模块、路径和字段名的所有文件，
+    # 禁用 js_type。
+    - module: buf.build/acme/petapis
+      field: foo.bar.Baz.field_name
+      path: foo/v1
+      field_option: js_type
+  # 'override' 是托管模式处理的字段和文件选项列表的 'override' 规则列表。
+  override:
+    # 当设置了 'file_option' 和 'value' 时，托管模式使用此规则设置的值
+    # 而不是默认值，或者如果默认值为 none，则将其设置为此值。
+    #
+    # 示例：为所有文件修改 java_package 选项为 <net>.<proto_package>。
+    # 同时为所有文件修改 go_package_prefix 为 company.com/foo/bar。
+    - file_option: java_package_prefix
+      value: net
+    - file_option: go_package_prefix
+      value: company.com/foo/bar
+    # 当设置了 'file_option'、'value' 和 'module' 时，托管模式使用此规则中设置的值
+    # 而不是指定模块中所有文件的默认值。
+    # 如果默认值为 none，则将其设置为此值。
+    #
+    # 示例：为 buf.build/acme/petapis 中的所有文件修改 java_package 选项为 <com>.<proto_package>.<com>。
+    # 同时为 buf.build/acme/petapis 中的所有文件修改 go_package_prefix 为 company.com/foo/baz。
+    # 这些规则优先于上面的规则。
+    - file_option: java_package_prefix
+      module: buf.build/acme/petapis
+      value: com
+    - file_option: java_package_suffix
+      module: buf.build/acme/petapis
+      value: com
+    - file_option: go_package_prefix
+      module: buf.build/acme/petapis
+      value: company.com/foo/baz
+    # 当设置了 'file_option'、'value' 和 'path' 时，托管模式使用此规则中设置的值
+    # 而不是特定文件路径的默认值。如果路径是目录，
+    # 规则影响目录中的所有 .proto 文件。否则，
+    # 它只影响指定的 .proto 文件。
+    #
+    # 示例：对于文件 foo/bar/baz.proto，将 java_package 特定设置为
+    # "com.x.y.z"。同时对于文件 foo/bar/baz.proto，修改 go_package_prefix 为
+    # company.com/bar/baz。
+    # 这优先于上面的先前规则。
+    - file_option: java_package
+      path: foo/bar/baz.proto
+      value: com.x.y.z
+    - file_option: go_package_prefix
+      path: foo/bar/baz.proto
+      value: company.com/bar/baz
+    # 当设置了 'field_option'、'value' 和 'module' 时，托管模式使用此规则中设置的值
+    # 而不是指定模块中所有文件的默认值。
+    # 如果默认值为 none，则将其设置为此值。
+    #
+    # 示例：对于 buf.build/acme/paymentapis 模块中字段为兼容类型之一的所有字段，
+    # 将 'js_type' 设置为 "JS_NORMAL"。
+    - field_option: js_type
+      module: buf.build/acme/paymentapis
+      value: JS_NORMAL
+    # 当设置了 'field_option'、'value' 和 'field' 时，托管模式使用此规则中设置的值
+    # 而不是指定字段的默认值。如果默认值为 none，
+    # 则将其设置为此值。
+    #
+    # 示例：将 package1.Message2.field3 字段的 'js_type' 值设置为 "JS_STRING"。
+    # 您可以另外指定模块和路径，但字段名就足够了。
+    - field_option: js_type
+      value: JS_STRING
+      field: package1.Message2.field3
+# 'plugins' 是用于 buf generate 的插件配置列表。
+#
+# 'plugin' 配置有 10 个可能的键：
+#  - 其中之一（必需）：
+#    - 'remote'：远程插件名称（例如 buf.build/protocolbuffers/go）
+#    - 'protoc_builtin'：'protoc' 内置插件（例如 'cpp' 对应 'protoc-gen-cpp'）
+#    - 'local'：指向您的 '${PATH}' 上的 protoc 插件二进制文件的字符串或字符串列表。
+#      如果指定了字符串列表，第一个是二进制名称，
+#      后续字符串被视为传递给二进制文件的参数。
+#  - 'out'：<string> 文件输出的路径，与 v1 相同（必需）
+#  - 'opt'：插件选项列表，与 v1 相同（可选）
+#  - 'strategy'：调用策略的字符串，与 v1 相同（可选）
+#  - 'include_imports'：<boolean>（可选，CLI 标志优先）
+#  - 'include_wkt'：<boolean>（可选，CLI 标志优先）
+#  - 'types'：<string> 插件应限制的类型列表
+#  - 'exclude_types'：<string> 插件应排除的类型列表
+plugins:
+  # BSR 远程插件
+  - remote: buf.build/protocolbuffers/go
+    out: gen/proto
+  # C++ 的内置 protoc 插件
+  - protoc_builtin: cpp
+    protoc_path: /path/to/protoc
+    out: gen/proto
+  # 本地二进制插件，默认在 ${PATH} 中搜索
+  - local: protoc-gen-validate
+    out: gen/proto
+  # 相对路径自动工作
+  - local: path/to/protoc-gen-validate
+    out: gen/proto
+  # 绝对路径自动工作
+  - local: /usr/bin/path/to/protoc-gen-validate
+    out: gen/proto
+  # 带参数、包含和排除的二进制插件
+  - local: ["go", "run", "google.golang.org/protobuf/cmd/protoc-gen-go"]
+    out: gen/proto
+    opt:
+      - paths=source_relative
+      - foo=bar
+      - baz
+    strategy: all
+    include_imports: true
+    include_wkt: true
+    # 仅为此插件包含这些类型。
+    # 可选。
+    types:
+      - "foo.v1.User"
+    # 为此插件排除这些类型。
+    # 可选。
+    exclude_types:
+      - "buf.validate"
+# 'inputs' 是将为 buf generate 运行的输入列表。这是
+# v2 buf.gen.yaml 的可选键，允许您根据正在配置的输入类型
+# （https://buf.build/docs/reference/inputs.md#source）指定选项。
+inputs:
+  # Git 仓库
+  - git_repo: https://github.com/acme/weather.git
+    branch: dev
+    subdir: proto
+    depth: 30
+  # 指定了类型、包含和排除键的 BSR 模块
+  - module: buf.build/acme/weather:main
+    types:
+      - "foo.v1.User"
+      - "foo.v1.UserService"
+    # 如果为空，包含所有路径。
+    paths:
+      - a/b/c
+      - a/b/d
+    exclude_paths:
+      - a/b/c/x.proto
+      - a/b/d/y.proto
+  # 提供的目录路径上的本地模块
+  - directory: x/y/z
+    paths:
+      # 'paths' 相对于当前目录，与 '--path' 标志相同。
+      - x/y/z/foo
+  # 提供的目录路径上的 Tarball。从文件扩展名自动推导压缩算法：
+  # - '.tgz' 和 '.tar.gz' 扩展名自动使用 Gzip
+  # - '.tar.zst' 自动使用 Zstandard。
+  - tarball: a/b/x.tar.gz
+  # 明确设置了 'compression'、'strip_components' 和 'subdir' 键的 Tarball。
+  # - 'strip_components=<int>' 在相对路径读取并剥离一些组件数量——在此示例中为 2。
+  # - 'subdir=<string>' 在相对路径读取并使用归档中指定的子目录
+  #    作为基目录——在这种情况下为 'proto'。
+  - tarball: c/d/x.tar.zst
+    compression: zstd
+    strip_components: 2
+    subdir: proto
+  # 同样适用于 'zip' 输入。'zip' 输入在相对路径或 http 位置读取，
+  # 可以可选地设置 'strip_components' 和 'subdir'。
+  - zip_archive: https://github.com/googleapis/googleapis/archive/master.zip
+    strip_components: 1
+  # 'proto_file' 是特定 proto 文件的路径。可选地，您可以将包文件
+  # 作为要生成的文件的一部分包含（默认为 false）。
+  - proto_file: foo/bar/baz.proto
+    include_package_files: true
+  # 我们还支持 Buf 镜像作为输入。镜像可以是以下任何格式：
+  #  - 'binary_image'
+  #  - 'json_image'
+  #  - 'txt_image'
+  #  - 'yaml_image'
+  # 每种镜像格式也可选地支持压缩。
+  #
+  # 下面的示例是设置了 Gzip 压缩的二进制 Buf 镜像。
+  - binary_image: image.binpb.gz
+    compression: gzip

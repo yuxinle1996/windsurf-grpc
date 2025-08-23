@@ -1,0 +1,1607 @@
+syntax = "proto3";
+
+package exa.seat_management_pb;
+
+enum PaymentPeriod {
+  PAYMENT_PERIOD_UNSPECIFIED = 0;
+  PAYMENT_PERIOD_MONTH = 1;
+  PAYMENT_PERIOD_YEAR = 2;
+}
+
+enum SubInterval {
+  SUB_INTERVAL_UNSPECIFIED = 0;
+  SUB_INTERVAL_MONTH = 1;
+  SUB_INTERVAL_YEAR = 2;
+}
+
+enum StripePrice {
+  STRIPE_PRICE_UNSPECIFIED = 0;
+  STRIPE_PRICE_TEAMS_MONTHLY = 1;
+  STRIPE_PRICE_TEAMS_YEARLY = 2;
+}
+
+enum CascadeSeatType {
+  CASCADE_SEAT_TYPE_UNSPECIFIED = 0;
+  CASCADE_SEAT_TYPE_ENTRY = 1;
+  CASCADE_SEAT_TYPE_STANDARD = 2;
+}
+
+enum UserTeamDetailsType {
+  USER_TEAM_DETAILS_TYPE_UNSPECIFIED = 0;
+  USER_TEAM_DETAILS_TYPE_CASCADE_SEAT = 1;
+}
+
+enum PendingTransactionType {
+  PENDING_TRANSACTION_TYPE_UNSPECIFIED = 0;
+  FLEX_CREDIT_CHRONICLE_TYPE_UNSPECIFIED = 0;
+  PURCHASE_REASON_TYPE_UNSPECIFIED = 0;
+  PENDING_TRANSACTION_TYPE_TOP_UP = 1;
+  FLEX_CREDIT_CHRONICLE_TYPE_PURCHASE = 1;
+  PURCHASE_REASON_TYPE_MANUAL = 1;
+  FLEX_CREDIT_CHRONICLE_TYPE_REFERRER = 2;
+  PURCHASE_REASON_TYPE_TOP_UP = 2;
+  FLEX_CREDIT_CHRONICLE_TYPE_AVERY = 3;
+  FLEX_CREDIT_CHRONICLE_TYPE_TOP_UP = 4;
+  FLEX_CREDIT_CHRONICLE_TYPE_SUPPORT = 5;
+  FLEX_CREDIT_CHRONICLE_TYPE_GTM = 6;
+}
+
+message User {
+  string api_key = 1;
+  string name = 2;
+  string email = 3;
+  google.protobuf.Timestamp signup_time = 4;
+  google.protobuf.Timestamp last_update_time = 5;
+  string id = 6;
+  string team_id = 7;
+  N.w.getEnumType(I.ngL)_enum team_status = 8;
+  string username = 9;
+  string preferred_time_zone = 10;
+  bool public_profile_enabled = 11;
+  string bio = 12;
+  bool pro = 13;
+  string profile_picture_uri = 14;
+  string profile_picture_presigned_url = 15;
+  bool disable_codeium = 16;
+  string occupation_company = 17;
+  string occupation_role = 18;
+  bool newsletter = 19;
+  bool disabled_telemetry = 20;
+  string inbound_source = 21;
+  string signup_stage = 22;
+  uint32 years_of_experience_min = 23;
+  uint32 years_of_experience_max = 24;
+  bool used_trial = 25;
+  google.protobuf.Timestamp first_windsurf_use_time = 26;
+  google.protobuf.Timestamp windsurf_pro_trial_end_time = 27;
+  int64 used_prompt_credits = 28;
+  int64 used_flow_credits = 29;
+  string referral_code = 30;
+}
+
+message Team {
+  string id = 1;
+  string name = 2;
+  google.protobuf.Timestamp signup_time = 3;
+  string invite_id = 4;
+  bool used_trial = 5;
+  string stripe_subscription_id = 6;
+  bool subscription_active = 7;
+  string stripe_customer_id = 8;
+  google.protobuf.Timestamp current_billing_period_start = 9;
+  int64 num_seats_current_billing_period = 10;
+  bool attribution_enabled = 11;
+  string sso_provider_id = 12;
+  bool offers_enabled = 13;
+  N.w.getEnumType(I.wuw)_enum teams_tier = 14;
+  int64 flex_credit_quota = 15;
+  int64 used_flow_credits = 16;
+  int64 used_prompt_credits = 17;
+  google.protobuf.Timestamp current_billing_period_end = 18;
+  int64 num_cascade_seats = 19;
+  google.protobuf.Timestamp cascade_usage_month_start = 20;
+  google.protobuf.Timestamp cascade_usage_month_end = 21;
+  N.w.getEnumType(T)_enum cascade_seat_type = 22;
+  bool top_up_enabled = 23;
+  int64 monthly_top_up_amount = 24;
+  int64 top_up_spent = 25;
+  int64 top_up_increment = 26;
+  int64 used_flex_credits = 27;
+}
+
+message PreapprovedUser {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  string team_id = 4;
+  string issued_by_api_key = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+}
+
+message UserSettings {
+  bool exists = 1;
+  bool newsletter = 2;
+  bool disabled_telemetry = 3;
+  string inbound_source = 4;
+  string signup_stage = 5;
+}
+
+message UserRole {
+  string api_key = 1;
+  repeated string roles = 2;
+  string role_id = 3;
+  string role_name = 4;
+}
+
+message GetUserStatusRequest {
+  I.SFo metadata = 1;
+}
+
+message GetUserStatusResponse {
+  I.J0j user_status = 1;
+  I.mEC plan_info = 2;
+}
+
+message GetCurrentUserRequest {
+  string auth_token = 1;
+  bool generate_profile_picture_url = 2;
+  bool create_if_not_exist = 3;
+  bool include_subscription = 4;
+  string sso_token = 5;
+  string saml_provider_id = 6;
+}
+
+message ReferralInfo {
+  string referrer_name = 1;
+  string referrer_email = 2;
+  google.protobuf.Timestamp referral_accepted_time = 3;
+  google.protobuf.Timestamp granted_time = 4;
+}
+
+message GetCurrentUserResponse {
+  R user = 1;
+  repeated string roles = 2;
+  L team = 4;
+  D subscription = 5;
+  I.mEC plan_info = 6;
+  P role = 7;
+  repeated N.w.getEnumType(I.y3$)_enum permissions = 8;
+  n9 user_team_details = 9;
+  U referral = 10;
+  map team_features = 11;
+  repeated string group_ids = 12;
+}
+
+message GetUsersRequest {
+  string auth_token = 1;
+  string group_id = 2;
+}
+
+message GetUsersResponse {
+  repeated R users = 1;
+  repeated P user_roles = 2;
+  repeated n9 user_team_details = 3;
+  repeated ay user_cascade_details = 4;
+}
+
+message GetRolesForUserRequest {
+  string auth_token = 1;
+  string api_key = 2;
+}
+
+message GetRolesForUserResponse {
+  repeated string roles = 1;
+}
+
+message GetPrimaryApiKeyForDevsOnlyRequest {
+  string session_token = 1;
+}
+
+message GetPrimaryApiKeyForDevsOnlyResponse {
+  string api_key = 1;
+}
+
+message AddUserRoleRequest {
+  string auth_token = 1;
+  string api_key = 2;
+  string role = 3;
+  string group_id = 4;
+  string service_key = 5;
+}
+
+message AddUserRoleResponse {
+}
+
+message RemoveUserRoleRequest {
+  string auth_token = 1;
+  string api_key = 2;
+  string role = 3;
+  string group_id = 4;
+}
+
+message RemoveUserRoleResponse {
+}
+
+message RegisterUserRequest {
+}
+
+message RegisterUserResponse {
+  string name = 2;
+}
+
+message MigrateApiKeyRequest {
+}
+
+message MigrateApiKeyResponse {
+}
+
+message CreateFbUserRequest {
+  string email = 1;
+  string password = 2;
+  string turnstile_token = 3;
+  string phone_number = 4;
+  string otp_code = 5;
+  string first_name = 6;
+  string last_name = 7;
+}
+
+message CreateFbUserResponse {
+  string uid = 1;
+}
+
+message UpdateNameRequest {
+  string auth_token = 1;
+  string full_name = 2;
+}
+
+message UpdateNameResponse {
+}
+
+message GetProfilePicturePresignedUploadUrlRequest {
+  string auth_token = 1;
+}
+
+message GetProfilePicturePresignedUploadUrlResponse {
+  string url = 1;
+}
+
+message ProfilePictureUploadCompleteRequest {
+  string auth_token = 1;
+}
+
+message ProfilePictureUploadCompleteResponse {
+}
+
+message GetProfileDataRequest {
+  string api_key = 1;
+}
+
+message GetProfileDataResponse {
+  string profile_picture_url = 1;
+}
+
+message DeleteProfilePictureRequest {
+  string auth_token = 1;
+}
+
+message DeleteProfilePictureResponse {
+}
+
+message UpdateInboundSourceRequest {
+  string auth_token = 1;
+  string inbound_source = 2;
+}
+
+message UpdateInboundSourceResponse {
+}
+
+message DeleteUserRequest {
+  string auth_token = 1;
+  string api_key = 3;
+}
+
+message DeleteUserResponse {
+}
+
+message GetLicenseRequest {
+}
+
+message GetLicenseResponse {
+  nk license = 1;
+}
+
+message RequestTeamAccessRequest {
+  string api_key = 1;
+  string invite_id = 2;
+}
+
+message RequestTeamAccessResponse {
+}
+
+message UpdateUserTeamStatusRequest {
+  string auth_token = 1;
+  repeated ed updates = 2;
+}
+
+message UserTeamStatusUpdateItem {
+  string api_key = 1;
+  N.w.getEnumType(I.ngL)_enum status = 2;
+}
+
+message UpdateUserTeamStatusResponse {
+  repeated R users = 1;
+}
+
+message GetTeamMetadataRequest {
+  string invite_id = 1;
+}
+
+message GetTeamMetadataResponse {
+  L team = 1;
+}
+
+message RemoveUserFromTeamRequest {
+  string auth_token = 1;
+  string api_key = 2;
+}
+
+message RemoveUserFromTeamResponse {
+}
+
+message RefreshTeamInviteIdRequest {
+  string auth_token = 1;
+}
+
+message RefreshTeamInviteIdResponse {
+  L team = 1;
+}
+
+message GrantPreapprovalRequest {
+  string auth_token = 1;
+  repeated eR preapprovals = 2;
+}
+
+message PreapprovalUserItem {
+  string name = 1;
+  string email = 2;
+}
+
+message GrantPreapprovalResponse {
+  repeated p preapprovals = 1;
+}
+
+message GetPreapprovalsRequest {
+  string auth_token = 1;
+}
+
+message GetPreapprovalsResponse {
+  repeated p preapprovals = 1;
+}
+
+message GetPreapprovalMetadataRequest {
+  string approval_id = 1;
+}
+
+message GetPreapprovalMetadataResponse {
+  string name = 1;
+  string email = 2;
+  string team_name = 3;
+}
+
+message AcceptPreapprovalRequest {
+  string auth_token = 1;
+  string approval_id = 2;
+}
+
+message AcceptPreapprovalResponse {
+}
+
+message RejectPreapprovalRequest {
+  string auth_token = 1;
+  string approval_id = 2;
+}
+
+message RejectPreapprovalResponse {
+}
+
+message GetPreapprovalForUserRequest {
+  string auth_token = 1;
+}
+
+message GetPreapprovalForUserResponse {
+  p preapproval = 1;
+  string admin_name = 2;
+  string team_name = 3;
+}
+
+message RevokePreapprovalRequest {
+  string auth_token = 1;
+  string approval_id = 2;
+}
+
+message RevokePreapprovalResponse {
+}
+
+message SubscribeToPlanRequest {
+  string auth_token = 1;
+  string stripe_price_id = 2;
+  bool start_trial = 3;
+  string success_url = 4;
+  string cancel_url = 5;
+  int64 seats = 6;
+  string team_name = 7;
+  N.w.getEnumType(I.wuw)_enum teams_tier = 8;
+  N.w.getEnumType(u)_enum payment_period = 9;
+}
+
+message SubscribeToPlanResponse {
+  string checkout_url = 1;
+}
+
+message PurchaseCascadeCreditsRequest {
+  string auth_token = 1;
+  string success_url = 4;
+  string cancel_url = 5;
+}
+
+message PurchaseCascadeCreditsResponse {
+  string checkout_url = 1;
+}
+
+message UpdateCreditTopUpSettingsRequest {
+  string auth_token = 1;
+  bool enabled = 2;
+  int32 monthly_top_up_amount = 3;
+  int32 top_up_increment = 4;
+}
+
+message UpdateCreditTopUpSettingsResponse {
+}
+
+message GetTeamBillingRequest {
+  string auth_token = 1;
+}
+
+message GetTeamBillingResponse {
+  bool subscription_active = 1;
+  bool on_trial = 2;
+  google.protobuf.Timestamp subscription_renewal_time = 3;
+  int64 num_seats = 5;
+  float plan_unit_amount = 6;
+  N.w.getEnumType(l)_enum sub_interval = 7;
+  bool cancel_at_period_end = 8;
+  repeated eK invoices = 9;
+  eX payment_method = 10;
+  bool trial_only = 11;
+  I.b5v plan_status = 12;
+  int64 num_users = 14;
+  int64 num_seats_current_billing_period = 15;
+  int64 num_cascade_users = 16;
+  int64 num_cascade_seats = 17;
+  int64 num_core_users = 18;
+  int64 num_core_seats = 19;
+  eQ failed_subscription_payment = 20;
+  string top_up_error_string = 21;
+  bool team_top_up_criteria_reached = 22;
+}
+
+message Invoice {
+  float amount = 1;
+  string currency = 2;
+  bool paid = 3;
+  google.protobuf.Timestamp created = 4;
+  string invoice_pdf_url = 5;
+}
+
+message PaymentMethod {
+  string type = 1;
+  eY card = 2;
+}
+
+message CardType {
+  string brand = 1;
+  int64 exp_month = 2;
+  int64 exp_year = 3;
+  string last4 = 4;
+}
+
+message FailedSubscriptionPayment {
+  string invoice_link = 1;
+  string decline_code = 2;
+  google.protobuf.Timestamp pay_by_date = 3;
+}
+
+message UpdateSeatsRequest {
+  string auth_token = 1;
+  int64 num_seats = 2;
+  bool preview = 3;
+}
+
+message UpdateSeatsResponse {
+  e1 billing_update = 1;
+}
+
+message UpdatePlanRequest {
+  string auth_token = 1;
+  N.w.getEnumType(c)_enum price = 2;
+  bool preview = 3;
+  N.w.getEnumType(u)_enum payment_period = 4;
+  N.w.getEnumType(I.wuw)_enum teams_tier = 5;
+}
+
+message UpdatePlanResponse {
+  e1 billing_update = 1;
+  bool applied_changes = 2;
+  string next_action_client_secret = 3;
+  string payment_failure_reason = 4;
+  bool requires_password_reset = 5;
+}
+
+message BillingUpdate {
+  float amount_due_immediately = 1;
+  float price_per_seat = 3;
+  int64 num_seats = 4;
+  N.w.getEnumType(l)_enum sub_interval = 5;
+  float amount_per_interval = 6;
+  google.protobuf.Timestamp billing_start = 7;
+  google.protobuf.Timestamp billing_end = 8;
+  bool unused_plan_refunded = 9;
+  bool has_sso_add_on = 10;
+}
+
+message CancelPlanRequest {
+  string auth_token = 1;
+  bool cancel_plan = 2;
+  bool resume_plan = 3;
+  string cancel_comment = 4;
+  string cancel_reason = 5;
+}
+
+message CancelPlanResponse {
+}
+
+message UpdateBillingRequest {
+  string auth_token = 1;
+  string success_url = 2;
+  string cancel_url = 3;
+}
+
+message UpdateBillingResponse {
+  string checkout_url = 1;
+}
+
+message GetCustomerPortalRequest {
+  string auth_token = 1;
+  string return_url = 2;
+}
+
+message GetCustomerPortalResponse {
+  string portal_url = 1;
+}
+
+message AddTeamAddOnFeatureRequest {
+  string auth_token = 1;
+  N.w.getEnumType(I.Y7c)_enum feature_type = 2;
+  bool preview = 3;
+}
+
+message AddTeamAddOnFeatureResponse {
+  e1 billing_update = 1;
+  bool applied_changes = 2;
+  string next_action_client_secret = 3;
+  string payment_failure_reason = 4;
+}
+
+message GetUserSubscriptionRequest {
+  string auth_token = 1;
+}
+
+message GetUserSubscriptionResponse {
+  bool exists = 1;
+  bool newsletter = 2;
+  bool disabled_telemetry = 3;
+  string inbound_source = 4;
+  string signup_stage = 5;
+  D subscription = 6;
+}
+
+message IsUsernameAvailableRequest {
+  string auth_token = 1;
+  string username = 2;
+}
+
+message IsUsernameAvailableResponse {
+  bool available = 1;
+}
+
+message UpdateUsernameRequest {
+  string auth_token = 1;
+  string username = 2;
+}
+
+message UpdateUsernameResponse {
+}
+
+message ProvisionTeamRequest {
+  string secret = 1;
+  string admin_email = 2;
+  string team_name = 3;
+  int64 num_seats = 4;
+  N.w.getEnumType(I.wuw)_enum teams_tier = 5;
+}
+
+message ProvisionTeamResponse {
+  string team_id = 1;
+  string invite_id = 2;
+}
+
+message ProvisionCascadeSeatsRequest {
+  string secret = 1;
+  string team_name = 2;
+  int64 num_seats = 3;
+}
+
+message ProvisionCascadeSeatsResponse {
+}
+
+message UpdateOccupationRequest {
+  string auth_token = 1;
+  string occupation_company = 2;
+  string occupation_role = 3;
+  uint32 years_of_experience_min = 4;
+  uint32 years_of_experience_max = 5;
+}
+
+message UpdateOccupationResponse {
+}
+
+message UpdateProfileRequest {
+  string auth_token = 1;
+  string new_name = 2;
+  string new_email = 3;
+  string new_bio = 4;
+  string otp_code = 5;
+}
+
+message UpdateProfileResponse {
+}
+
+message UpdateProfileVisibilityRequest {
+  string auth_token = 1;
+  bool public_profile_enabled = 2;
+}
+
+message UpdateProfileVisibilityResponse {
+}
+
+message AddUsersToTeamRequest {
+  string secret = 1;
+  string team_id = 2;
+  repeated string emails = 3;
+  bool create_if_not_exists = 4;
+  bool send_email = 5;
+}
+
+message AddUsersToTeamResponse {
+}
+
+message GetPublicProfileRequest {
+  string username = 1;
+}
+
+message GetPublicProfileResponse {
+  string name = 1;
+  string username = 2;
+  string preferred_time_zone = 3;
+  google.protobuf.Timestamp signup_time = 4;
+  string bio = 5;
+  string profile_picture_presigned_url = 6;
+}
+
+message UpdateUserRolesRequest {
+  string secret = 1;
+  string email = 2;
+  repeated string roles = 3;
+}
+
+message UpdateUserRolesResponse {
+}
+
+message BulkUpdateUserRolesRequest {
+  string service_key = 1;
+  repeated string emails = 2;
+  string role = 3;
+  string group_name = 4;
+}
+
+message BulkUpdateUserRolesResponse {
+  repeated string successful_emails = 1;
+  repeated string failed_emails = 2;
+}
+
+message GetTeamActivityRequest {
+  string api_key = 1;
+  google.protobuf.Timestamp start_timestamp = 2;
+  google.protobuf.Timestamp end_timestamp = 3;
+}
+
+message GetTeamActivityResponse {
+  repeated nL user_activity = 1;
+}
+
+message UserActivity {
+  R user = 1;
+  I.yRI completion_statistics = 2;
+}
+
+message GetSSOProviderRequest {
+  string auth_token = 1;
+}
+
+message GetSSOProviderResponse {
+  ny saml_auth_provider = 1;
+}
+
+message SaveSSOProviderRequest {
+  string auth_token = 1;
+  ny saml_auth_provider = 2;
+  bool is_test = 3;
+}
+
+message SaveSSOProviderResponse {
+}
+
+message SAMLAuthProvider {
+  string sso_provider_id = 1;
+  string idp_entity_id = 2;
+  string sso_url = 3;
+  string x509_certificate = 4;
+  bool enabled = 5;
+}
+
+message JoinTeamWithSSOLoginRequest {
+  string auth_token = 1;
+  string saml_provider_id = 2;
+  string saml_auth_token = 3;
+}
+
+message JoinTeamWithSSOLoginResponse {
+}
+
+message UserSSOLoginRedirectRequest {
+  string email = 1;
+}
+
+message UserSSOLoginRedirectResponse {
+  bool should_redirect = 1;
+  string sso_provider_id = 2;
+  bool disallow_enterprise_user_login = 3;
+  string redirect_url = 4;
+}
+
+message EnterpriseLicenseConfig {
+  google.protobuf.Timestamp expiration_timestamp = 1;
+  uint32 seat_limit = 2;
+  bool attribution_enabled = 3;
+  bool audit_logs_enabled = 4;
+  google.protobuf.Timestamp start_timestamp = 5;
+  uint32 mucs_total = 6;
+  bool mucs_enabled = 7;
+  uint32 license_length_months = 8;
+  bool enable_individual_user_analytics = 9;
+}
+
+message DeleteTeamRequest {
+  string auth_token = 1;
+}
+
+message DeleteTeamResponse {
+}
+
+message ProvisionFreeProTierRequest {
+  string auth_token = 1;
+  string code = 2;
+}
+
+message ProvisionFreeProTierResponse {
+  google.protobuf.Timestamp expiration_date = 1;
+}
+
+message GetTeamsFeaturesRequest {
+  string auth_token = 1;
+}
+
+message GetTeamsFeaturesResponse {
+  repeated N.w.getEnumType(I.Y7c)_enum features = 1;
+}
+
+message GrantSuperAdminAccessRequest {
+  string auth_token = 1;
+  string user_email = 2;
+}
+
+message GrantSuperAdminAccessResponse {
+  R user = 1;
+}
+
+message GrantTeamAdminAccessRequest {
+  string auth_token = 1;
+  string user_email = 2;
+}
+
+message GrantTeamAdminAccessResponse {
+  R user = 1;
+}
+
+message AddFlexCreditsToMultiTenantTeamRequest {
+  string auth_token = 1;
+  string team_id = 2;
+  int64 flex_credits_to_add = 3;
+}
+
+message AddFlexCreditsToMultiTenantTeamResponse {
+  L team = 1;
+}
+
+message GetTeamsFeaturesInternalRequest {
+  string secret = 1;
+  string team_id = 2;
+}
+
+message GetTeamsFeaturesInternalResponse {
+  repeated N.w.getEnumType(I.Y7c)_enum features = 1;
+}
+
+message UpdateTeamsFeaturesInternalRequest {
+  string secret = 1;
+  string team_id = 2;
+  repeated N.w.getEnumType(I.Y7c)_enum add_features = 3;
+  repeated N.w.getEnumType(I.Y7c)_enum remove_features = 4;
+}
+
+message SetTeamsFeaturesRequest {
+  string secret = 1;
+  string team_id = 2;
+  repeated N.w.getEnumType(I.Y7c)_enum features = 3;
+}
+
+message UpdateTeamsFeaturesInternalResponse {
+}
+
+message SetTeamsFeaturesResponse {
+}
+
+message UpdateUserFeaturesInternalRequest {
+  string secret = 1;
+  repeated string api_keys = 2;
+  repeated N.w.getEnumType(I.aYQ)_enum features = 3;
+}
+
+message UpdateUserFeaturesInternalResponse {
+}
+
+message BulkEditUserApprovalsRequest {
+  string auth_token = 1;
+  repeated string emails = 2;
+  N.w.getEnumType(d)_enum approval_type = 3;
+  bool approve = 4;
+}
+
+message UserTeamDetails {
+  string auth_uid = 1;
+  string team_id = 2;
+  bool has_cascade_seat = 3;
+}
+
+message BulkEditUserApprovalsResponse {
+}
+
+message BulkEditUserApprovalsInternalRequest {
+  string secret = 1;
+  string team_name = 2;
+  repeated string emails = 3;
+  N.w.getEnumType(d)_enum approval_type = 4;
+  bool approve = 5;
+}
+
+message BulkEditUserApprovalsInternalResponse {
+}
+
+message GetTeamSettingsRequest {
+  string auth_token = 1;
+}
+
+message GetTeamSettingsResponse {
+  bool cascade_web_search_enabled = 1;
+  bool can_update_cascade_web_search_enabled = 2;
+}
+
+message UpdateCascadeWebSearchEnabledRequest {
+  string auth_token = 1;
+  bool cascade_web_search_enabled = 2;
+}
+
+message UpdateCascadeWebSearchEnabledResponse {
+}
+
+message GetGroupsRequest {
+  string auth_token = 1;
+  N.w.getEnumType(I.y3$)_enum permission = 2;
+}
+
+message Group {
+  string id = 1;
+  string name = 2;
+}
+
+message GetGroupsResponse {
+  repeated tt groups = 1;
+}
+
+message CreateTeamApiSecretRequest {
+  string auth_token = 1;
+  string name = 2;
+  string role = 3;
+  string group_id = 4;
+}
+
+message CreateTeamApiSecretResponse {
+  string secret = 1;
+}
+
+message UpdateTeamApiSecretRequest {
+  string auth_token = 1;
+  string service_key_id = 2;
+  string name = 3;
+  string role = 4;
+  string group_id = 5;
+}
+
+message UpdateTeamApiSecretResponse {
+}
+
+message GetAllTeamApiSecretsRequest {
+  string auth_token = 1;
+}
+
+message TeamApiSecret {
+  string id = 1;
+  string name = 2;
+  google.protobuf.Timestamp created_at = 3;
+  string role_id = 4;
+  string group_id = 5;
+}
+
+message GetAllTeamApiSecretsResponse {
+  repeated tm secrets = 1;
+}
+
+message DeleteTeamApiSecretRequest {
+  string auth_token = 1;
+  string secret_id = 2;
+}
+
+message DeleteTeamApiSecretResponse {
+}
+
+message GetUserNotificationsRequest {
+  string api_key = 1;
+}
+
+message GetUserNotificationsResponse {
+  td team_preapproval_metadata = 1;
+}
+
+message TeamPreapprovalMetadata {
+  string admin_name = 1;
+  string team_name = 2;
+  google.protobuf.Timestamp created_at = 3;
+}
+
+message ConnectGithubAccountRequest {
+  string auth_token = 1;
+  string github_refresh_token = 2;
+  google.protobuf.Timestamp github_refresh_token_expires_at = 3;
+}
+
+message ConnectGithubAccountResponse {
+  string github_access_token = 1;
+  google.protobuf.Timestamp github_access_token_expires_at = 2;
+}
+
+message DisconnectGithubAccountRequest {
+  string auth_token = 1;
+}
+
+message DisconnectGithubAccountResponse {
+}
+
+message GetGitHubAccountStatusRequest {
+  string auth_token = 1;
+}
+
+message GetGitHubAccountStatusResponse {
+  bool connected = 1;
+  string username = 2;
+  google.protobuf.Timestamp expires_at = 3;
+}
+
+message GetGitHubAccessTokenRequest {
+  string auth_token = 1;
+}
+
+message GetGitHubAccessTokenResponse {
+  string access_token = 1;
+  google.protobuf.Timestamp expires_at = 2;
+}
+
+message ConnectNetlifyAccountRequest {
+  string auth_token = 1;
+  string netlify_access_token = 2;
+  google.protobuf.Timestamp expires_at = 3;
+  string netlify_user_id = 4;
+}
+
+message ConnectNetlifyAccountResponse {
+}
+
+message DisconnectNetlifyAccountRequest {
+  string auth_token = 1;
+}
+
+message DisconnectNetlifyAccountResponse {
+}
+
+message GetNetlifyAccountStatusRequest {
+  string auth_token = 1;
+}
+
+message GetNetlifyAccountStatusResponse {
+  bool connected = 1;
+  string netlify_user_id = 2;
+  google.protobuf.Timestamp expires_at = 3;
+}
+
+message UpdateCodeiumAccessRequest {
+  string auth_token = 1;
+  string api_key = 2;
+  bool disable_codeium_access = 3;
+}
+
+message UpdateCodeiumAccessResponse {
+}
+
+message CreateRoleRequest {
+  string auth_token = 1;
+  string name = 2;
+  repeated N.w.getEnumType(I.y3$)_enum permissions = 3;
+}
+
+message CreateRoleResponse {
+}
+
+message DeleteRoleRequest {
+  string auth_token = 1;
+  string role_id = 2;
+}
+
+message DeleteRoleResponse {
+}
+
+message UpdateRoleRequest {
+  string auth_token = 1;
+  string role_id = 2;
+  repeated N.w.getEnumType(I.y3$)_enum permissions = 3;
+}
+
+message UpdateRoleResponse {
+}
+
+message GetRolesRequest {
+  string auth_token = 1;
+}
+
+message Role {
+  string role_id = 1;
+  string name = 2;
+  repeated N.w.getEnumType(I.y3$)_enum permissions = 3;
+  bool mutable = 4;
+}
+
+message GetRolesResponse {
+  repeated tx roles = 1;
+}
+
+message GetMucsInfoRequest {
+}
+
+message MonthlyMucsMessage {
+  int32 billing_months = 1;
+  int32 billing_years = 2;
+  int32 mucs_charged = 3;
+  int32 mucs_deducted = 4;
+}
+
+message GetMucsInfoResponse {
+  int32 mucs_left = 1;
+  int32 mucs_used = 2;
+  bool is_mucs_enabled = 3;
+  google.protobuf.Timestamp start_date = 4;
+  int32 current_registered_users = 5;
+  int32 current_high_watermark = 6;
+  repeated tv mucs_table = 7;
+}
+
+message GetCascadeAnalyticsRequest {
+  string auth_token = 1;
+  google.protobuf.Timestamp start_timestamp = 2;
+  google.protobuf.Timestamp end_timestamp = 3;
+}
+
+message GetCascadeAnalyticsResponse {
+  int32 used_prompt_credits = 1;
+  int32 used_flow_credits = 2;
+  int32 estimated_monthly_prompts = 3;
+  int32 estimated_monthly_flows = 4;
+  int64 purchased_credits = 5;
+}
+
+message GetPlanStatusRequest {
+  string auth_token = 1;
+}
+
+message GetPlanStatusResponse {
+  I.b5v plan_status = 1;
+}
+
+message Wrapped2024 {
+  string api_key = 1;
+  string email = 2;
+  string name = 3;
+  int32 total_minutes_coded = 4;
+  double coding_percentile = 5;
+  google.protobuf.Timestamp biggest_coding_day = 6;
+  int32 minutes_coding_biggest_day = 7;
+  int32 autocompletes_accepted = 8;
+  int32 cascade_messages_sent = 9;
+  int32 cascade_lines_written = 10;
+  int32 longest_streak = 11;
+  int32 most_productive_day = 12;
+}
+
+message GetWrapped2024Request {
+  string auth_token = 1;
+}
+
+message GetWrapped2024Response {
+  tY wrapped_data = 1;
+}
+
+message FlexCreditChronicleEntry {
+  string team_id = 1;
+  google.protobuf.Timestamp grant_date = 2;
+  int32 num_credits = 3;
+  N.w.getEnumType(A)_enum type = 4;
+  uint32 referral_id = 5;
+  string invoice_id = 6;
+  tZ referrer = 7;
+  t$ avery = 8;
+  t1 purchase = 9;
+}
+
+message ReferrerReason {
+  string user_email = 1;
+  string avery_email = 2;
+}
+
+message AveryReason {
+  string user_email = 1;
+  string referrer_email = 2;
+}
+
+message PurchaseReason {
+  N.w.getEnumType(O)_enum type = 1;
+}
+
+message GetTeamCreditEntriesRequest {
+  string auth_token = 1;
+}
+
+message GetTeamCreditEntriesResponse {
+  repeated tj entries = 1;
+}
+
+message SendPhoneVerificationRequest {
+  string phone_number = 1;
+  string turnstile_token = 2;
+}
+
+message SendPhoneVerificationResponse {
+}
+
+message SendEmailVerificationRequest {
+  string first_name = 1;
+  string email = 2;
+  string turnstile_token = 3;
+}
+
+message SendEmailVerificationResponse {
+}
+
+message CreateEnterpriseRequest {
+  string secret = 1;
+  string team_name = 2;
+  string admin_email = 3;
+  repeated string tags = 4;
+  string organization = 5;
+  string source = 6;
+  string creation_reason = 7;
+  bool trial = 8;
+  google.protobuf.Timestamp end_date = 9;
+  bool hybrid = 10;
+  int32 flow_seats = 11;
+  int32 core_seats = 12;
+  repeated string users_to_add = 13;
+  string created_by = 14;
+  bool paid_out_of_band = 15;
+  bool enable_auto_cascade_seat_provisioning = 16;
+  int32 user_prompt_credit_cap = 17;
+  int32 user_flow_credit_cap = 18;
+  bool send_email = 19;
+}
+
+message CreateEnterpriseResponse {
+}
+
+message UpdateEnterpriseRequest {
+  string secret = 1;
+  string team_name = 2;
+  string team_id = 3;
+  repeated string tags = 4;
+  string organization = 5;
+  string source = 6;
+  string creation_reason = 7;
+  bool trial = 8;
+  google.protobuf.Timestamp end_date = 9;
+  bool hybrid = 10;
+  int32 flow_seats = 11;
+  int32 core_seats = 12;
+  repeated string users_to_add = 13;
+  string created_by = 14;
+  bool paid_out_of_band = 15;
+  bool enable_auto_cascade_seat_provisioning = 16;
+  int32 user_prompt_credit_cap = 17;
+  int32 user_flow_credit_cap = 18;
+}
+
+message UpdateEnterpriseResponse {
+}
+
+message UpdateTeamConfigRequest {
+  string secret = 1;
+  string team_name = 2;
+  int32 user_prompt_credit_cap = 3;
+  int32 user_flow_credit_cap = 4;
+  bool disable_prompt_limit = 5;
+  bool disable_flow_limit = 6;
+}
+
+message UpdateTeamConfigResponse {
+}
+
+message UpdateTeamConfigExternalRequest {
+  string auth_token = 1;
+  bool allow_auto_run_commands = 2;
+  bool allow_mcp_servers = 3;
+  bool allow_app_deployments = 4;
+  bool allow_github_reviews = 5;
+  bool allow_github_description_edits = 6;
+  string pull_request_review_guidelines = 7;
+  string pull_request_description_guidelines = 8;
+  bool allow_individual_level_analytics = 9;
+  bool allow_conversation_sharing = 10;
+  bool allow_sandbox_app_deployments = 11;
+  bool allow_teams_app_deployments = 12;
+  bool allow_attribution = 13;
+  string allowed_mcp_servers = 14;
+  bool allow_github_auto_reviews = 15;
+  bool allow_browser_experimental_features = 16;
+  bool allow_vibe_and_replace = 17;
+  bool disable_deepwiki = 18;
+}
+
+message UpdateTeamConfigExternalResponse {
+}
+
+message GetTeamConfigRecordRequest {
+  string auth_token = 1;
+}
+
+message GetTeamConfigRecordResponse {
+  I.TlR team_config = 1;
+}
+
+message GetTeamInfoRequest {
+  string secret = 1;
+  string team_name = 2;
+}
+
+message UserInfo {
+  string api_key = 1;
+  string name = 2;
+  string email = 3;
+  google.protobuf.Timestamp signup_time = 4;
+  int32 flows_used = 5;
+  int32 prompts_used = 6;
+  int32 num_acceptances = 7;
+  int32 num_lines_accepted = 8;
+  google.protobuf.Timestamp last_update_time = 9;
+  google.protobuf.Timestamp first_windsurf_use_time = 10;
+  N.w.getEnumType(I.ngL)_enum team_status = 11;
+  bool has_cascade_seat = 12;
+}
+
+message GetTeamInfoResponse {
+  L team = 1;
+  repeated string users_with_cascade = 2;
+  repeated string users_on_team = 3;
+  repeated a_ user_infos = 4;
+  I.TlR team_config = 5;
+}
+
+message IsValidReferralCodeRequest {
+  string referral_code = 1;
+}
+
+message IsValidReferralCodeResponse {
+  string referrer_name = 1;
+}
+
+message ProcessReferralCodeRequest {
+  string auth_token = 1;
+  string referral_code = 2;
+}
+
+message ProcessReferralCodeResponse {
+}
+
+message CreateMultiTenantTeamRequest {
+  string auth_token = 1;
+  string name = 2;
+  string org_id = 3;
+}
+
+message CreateMultiTenantTeamResponse {
+  L team = 1;
+}
+
+message GetMultiTenantTeamsRequest {
+  string auth_token = 1;
+}
+
+message GetMultiTenantTeamsResponse {
+  repeated L teams = 1;
+}
+
+message GetTeamOrgIdRequest {
+  string auth_token = 1;
+  string team_id = 2;
+}
+
+message GetTeamOrgIdResponse {
+  string org_id = 1;
+}
+
+message DeleteMultiTenantTeamRequest {
+  string auth_token = 1;
+  string team_name = 2;
+  bool soft_delete = 3;
+}
+
+message DeleteMultiTenantTeamResponse {
+}
+
+message SetTeamLicenseRequest {
+  string auth_token = 1;
+  string team_name = 2;
+  google.protobuf.Timestamp billing_start_date = 3;
+  google.protobuf.Timestamp billing_end_date = 4;
+  int64 num_seats = 5;
+}
+
+message SetTeamLicenseResponse {
+  L team = 1;
+}
+
+message UpdatePlanDetailsInternalRequest {
+  string secret = 1;
+  string email = 2;
+  N.w.getEnumType(I.wuw)_enum teams_tier = 3;
+  int64 num_flex_credits = 4;
+  int64 used_flex_credits = 5;
+  int64 used_flow_credits = 6;
+  int64 used_prompt_credits = 7;
+  int64 num_teams_seats = 8;
+  int64 user_used_prompt_credits = 9;
+  int64 user_used_flow_credits = 10;
+  bool for_credit_update = 11;
+}
+
+message UpdatePlanDetailsInternalResponse {
+}
+
+message RemoveUsersFromTeamInternalRequest {
+  string secret = 1;
+  repeated string emails = 2;
+  bool override_subscription_active_check = 3;
+}
+
+message RemoveUsersFromTeamInternalResponse {
+}
+
+message InitiateTopUpRequest {
+  string auth_token = 1;
+}
+
+message InitiateTopUpResponse {
+  N.w.getEnumType(I.LND)_enum status = 1;
+}
+
+message UserCascadeDetails {
+  string auth_uid = 1;
+  int64 used_prompt_credits = 2;
+  int64 used_flow_credits = 3;
+  google.protobuf.Timestamp free_cascade_usage_month_start = 4;
+}
+
+message AddExtraFlexCreditsInternalRequest {
+  string secret = 1;
+  string team_id = 2;
+  int64 amount = 3;
+  N.w.getEnumType(A)_enum type = 4;
+  string email = 5;
+}
+
+message AddExtraFlexCreditsInternalResponse {
+  int64 previous_flex_credits = 1;
+  int64 new_flex_credits = 2;
+}
+
+message GetOneTimeAuthTokenRequest {
+  string firebase_id_token = 1;
+}
+
+message GetOneTimeAuthTokenResponse {
+  string auth_token = 1;
+}
+
+message GetSetUserApiProviderKeysRequest {
+  string auth_token = 1;
+}
+
+message GetSetUserApiProviderKeysResponse {
+  repeated N.w.getEnumType(I.unC)_enum providers = 1;
+}
+
+message SetUserApiProviderKeyRequest {
+  string auth_token = 1;
+  N.w.getEnumType(I.unC)_enum provider = 2;
+  string provider_api_key = 3;
+}
+
+message SetUserApiProviderKeyResponse {
+}
+
+message DeleteUserApiProviderKeyRequest {
+  string auth_token = 1;
+  N.w.getEnumType(I.unC)_enum provider = 2;
+}
+
+message DeleteUserApiProviderKeyResponse {
+}
+
+message DeleteApiKeyRequest {
+  string auth_token = 1;
+  string key_id = 2;
+}
+
+message DeleteApiKeyResponse {
+}
+
+message GetApiKeySummaryRequest {
+  string auth_token = 1;
+}
+
+message ApiKeyForDisplay {
+  string key_id = 1;
+  string key_for_display = 2;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp last_used_at = 4;
+}
+
+message GetApiKeySummaryResponse {
+  repeated aV api_keys = 1;
+}
+
+message LogOutUserRequest {
+  string uid = 1;
+}
+
+message LogOutUserResponse {
+}
+
+message TeamDomain {
+  string domain = 1;
+  bool verified = 2;
+}
+
+message AddTeamDomainRequest {
+  string auth_token = 1;
+  string domain = 2;
+}
+
+message AddTeamDomainResponse {
+  string verification_token = 1;
+}
+
+message ListTeamDomainsRequest {
+  string auth_token = 1;
+}
+
+message ListTeamDomainsResponse {
+  repeated aY team_domains = 1;
+}
+
+message VerifyTeamDomainRequest {
+  string auth_token = 1;
+  string domain = 2;
+}
+
+message VerifyTeamDomainResponse {
+}
+
+message DeleteTeamDomainRequest {
+  string auth_token = 1;
+  string domain = 2;
+}
+
+message DeleteTeamDomainResponse {
+}
+
+message AddTeamDomainInternalRequest {
+  string secret = 1;
+  string team_id = 2;
+  string domain = 3;
+}
+
+message AddTeamDomainInternalResponse {
+}
+
+message DeleteTeamDomainInternalRequest {
+  string secret = 1;
+  string team_id = 2;
+  string domain = 3;
+}
+
+message DeleteTeamDomainInternalResponse {
+}
+
+message ListTeamDomainsInternalRequest {
+  string secret = 1;
+  string team_id = 2;
+}
+
+message ListTeamDomainsInternalResponse {
+  repeated aY team_domains = 1;
+}
+
+message UpdateTeamNameInternalRequest {
+  string secret = 1;
+  string team_id = 2;
+  string new_name = 3;
+}
+
+message UpdateTeamNameInternalResponse {
+}
+

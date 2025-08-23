@@ -1,0 +1,405 @@
+syntax = "proto3";
+
+package exa.user_analytics_pb;
+
+enum QueryDataSource {
+  QUERY_DATA_SOURCE_UNSPECIFIED = 0;
+  QUERY_DATA_SOURCE_USER_DATA = 1;
+  QUERY_DATA_SOURCE_CHAT_DATA = 2;
+  QUERY_DATA_SOURCE_COMMAND_DATA = 3;
+  QUERY_DATA_SOURCE_CASCADE_DATA = 4;
+  QUERY_DATA_SOURCE_PCW_DATA = 5;
+}
+
+enum QueryAggregation {
+  QUERY_AGGREGATION_UNSPECIFIED = 0;
+  QUERY_AGGREGATION_COUNT = 1;
+  QUERY_AGGREGATION_SUM = 2;
+  QUERY_AGGREGATION_AVG = 3;
+  QUERY_AGGREGATION_MAX = 4;
+  QUERY_AGGREGATION_MIN = 5;
+}
+
+enum QueryFilter {
+  QUERY_FILTER_UNSPECIFIED = 0;
+  QUERY_FILTER_EQUAL = 1;
+  QUERY_FILTER_NOT_EQUAL = 2;
+  QUERY_FILTER_GREATER_THAN = 3;
+  QUERY_FILTER_LESS_THAN = 4;
+  QUERY_FILTER_GE = 5;
+  QUERY_FILTER_LE = 6;
+}
+
+enum IDEType {
+  IDE_TYPE_UNSPECIFIED = 0;
+  IDE_TYPE_WINDSURF = 1;
+  IDE_TYPE_JETBRAINS = 2;
+  IDE_TYPE_PLUGINS = 3;
+}
+
+message QuerySelectionField {
+  u.w.getEnumType(_)_enum aggregation_function = 1;
+  string field = 2;
+  string name = 3;
+}
+
+message QueryFilterField {
+  u.w.getEnumType(m)_enum filter = 1;
+  string name = 2;
+  string value = 3;
+}
+
+message QueryAggregationField {
+  string field = 1;
+  string name = 2;
+}
+
+message QueryOrderField {
+  bool ascending = 1;
+  string name = 2;
+}
+
+message CustomQueryRequest {
+  u.w.getEnumType(o)_enum data_source = 1;
+  repeated S selections = 2;
+  repeated A filters = 3;
+  repeated N orderings = 4;
+  repeated O aggregations = 5;
+  bool use_real_api_key = 6;
+}
+
+message QueryResponseItem {
+  map item = 1;
+}
+
+message CustomQueryResponse {
+  repeated f response_items = 1;
+}
+
+message GetAnalyticsRequest {
+  repeated h query_requests = 2;
+  c.E start_timestamp = 3;
+  c.E end_timestamp = 4;
+  string api_key = 5;
+  string group_id = 6;
+  repeated string api_keys = 7;
+  repeated string group_ids = 8;
+  repeated u.w.getEnumType(E)_enum ide_types = 9;
+}
+
+message CascadeAnalyticsRequest {
+  string service_key = 1;
+  string group_name = 2;
+  repeated string emails = 3;
+  repeated string ide_types = 4;
+  c.E start_timestamp = 5;
+  c.E end_timestamp = 6;
+  repeated h query_requests = 7;
+}
+
+message CascadeAnalyticsResponse {
+  repeated U query_results = 1;
+}
+
+message GetAnalyticsResponse {
+  repeated U query_results = 1;
+}
+
+message AnalyticsRequest {
+  repeated C query_requests = 1;
+  string service_key = 2;
+  string group_name = 3;
+  c.E start_timestamp = 4;
+  c.E end_timestamp = 5;
+}
+
+message AnalyticsResponse {
+  repeated w query_results = 1;
+}
+
+message UserPageAnalyticsRequest {
+  string service_key = 1;
+  string group_name = 2;
+  c.E start_timestamp = 3;
+  c.E end_timestamp = 4;
+}
+
+message UserPageAnalyticsResponse {
+  repeated d.jCT user_table_stats = 1;
+}
+
+message QueryRequest {
+  B completion_stats = 1;
+  F completions_by_day = 2;
+  q completions_by_language = 3;
+  ea all_users_completion_stats = 4;
+  en all_users_completions_by_day = 5;
+  et all_users_completions_by_language = 6;
+  v completions_by_ide = 7;
+  v all_users_completions_by_ide = 8;
+  er completions_by_api_key = 9;
+  K chats_by_day = 10;
+  Y all_users_chats_by_day = 11;
+  Z chats_by_model = 12;
+  $ all_users_chats_by_model = 13;
+  Q active_user_count = 14;
+  e_ percent_code_written = 15;
+  eE chars_per_opportunity = 16;
+  el chat_stats = 17;
+  eA active_days_by_api_key = 18;
+  V completions_by_repository = 19;
+  eT command_stats = 20;
+  C custom_query = 21;
+  M user_page_analytics = 22;
+  ew cascade_lines = 23;
+  eL cascade_tool_usage = 24;
+  eP cascade_runs = 25;
+  eg all_users_cascade_lines = 26;
+  eU all_users_cascade_tool_usage = 27;
+  eh all_users_cascade_runs = 28;
+  k all_users_daily_active_user_counts = 29;
+  ed all_users_command_stats = 30;
+  eo individual_percent_code_written = 31;
+}
+
+message QueryResult {
+  G completion_stats = 1;
+  x completions_by_day = 2;
+  b completions_by_language = 3;
+  H completions_by_ide = 4;
+  ei completions_by_api_key = 5;
+  X chats_by_day = 6;
+  ee chats_by_model = 7;
+  es active_user_count = 8;
+  em percent_code_written = 9;
+  eu chars_per_opportunity = 10;
+  ec chat_stats = 11;
+  eO active_days_by_api_key = 12;
+  W completions_by_repository = 13;
+  eN error = 14;
+  eS command_stats = 15;
+  w custom_stats = 16;
+  y user_page_analytics = 17;
+  eR cascade_lines = 18;
+  eD cascade_tool_usage = 19;
+  ey cascade_runs = 20;
+  J daily_active_user_counts = 21;
+}
+
+message DailyActiveUserCount {
+  c.E day = 1;
+  int64 active_user_count = 2;
+}
+
+message QueryResultDailyActiveUserCounts {
+  repeated g daily_active_user_counts = 1;
+}
+
+message QueryRequestAllUsersDailyActiveUserCounts {
+}
+
+message QueryRequestCompletionStats {
+}
+
+message QueryResultCompletionStats {
+  d.yRI completion_statistics = 1;
+}
+
+message QueryRequestCompletionsByDay {
+  string time_zone = 1;
+}
+
+message QueryResultCompletionsByDay {
+  repeated d.kCJ completions_by_day = 1;
+}
+
+message QueryRequestCompletionsByLanguage {
+}
+
+message QueryResultCompletionsByLanguage {
+  repeated d.qBR completions_by_language = 1;
+}
+
+message QueryRequestCompletionsByIde {
+}
+
+message QueryResultCompletionsByIde {
+  map completions_by_ide = 1;
+}
+
+message QueryRequestCompletionsByRepository {
+}
+
+message QueryResultCompletionsByRepository {
+  map completions_by_repository = 1;
+}
+
+message QueryRequestChatsByDay {
+  string time_zone = 1;
+}
+
+message QueryResultChatsByDay {
+  repeated d.yUQ chats_by_day = 1;
+}
+
+message QueryRequestAllChatsByDay {
+  string time_zone = 1;
+}
+
+message QueryRequestActiveUserCount {
+  string time_zone = 1;
+  c.E start_timestamp = 2;
+  c.E end_timestamp = 3;
+}
+
+message QueryRequestActiveUserCountByUsers {
+  string time_zone = 1;
+}
+
+message QueryRequestDailyActiveUserCounts {
+}
+
+message QueryRequestChatStatsByModel {
+}
+
+message QueryRequestAllChatStatsByModel {
+}
+
+message QueryResultChatStatsByModel {
+  repeated d.nZ9 chats_by_model = 1;
+}
+
+message QueryRequestAllUsersCompletionsByDay {
+  string time_zone = 1;
+}
+
+message QueryRequestAllUsersCompletionsByLanguage {
+}
+
+message QueryRequestAllUsersCompletionStats {
+}
+
+message QueryRequestCompletionsByApiKey {
+}
+
+message QueryResultCompletionsByApiKey {
+  map completions_by_api_key = 1;
+}
+
+message QueryResultActiveUserCount {
+  int64 active_user_count = 1;
+}
+
+message QueryRequestIndividualPercentCodeWritten {
+}
+
+message QueryRequestPercentCodeWritten {
+}
+
+message QueryResultPercentCodeWritten {
+  double percent_code_written = 1;
+  int64 codeium_bytes_by_autocomplete = 2;
+  int64 codeium_bytes_by_command = 3;
+  int64 user_bytes = 4;
+  int64 codeium_bytes = 5;
+  int64 total_bytes = 6;
+  int64 codeium_bytes_by_supercomplete = 7;
+  int64 codeium_bytes_by_cascade = 8;
+}
+
+message QueryRequestCharsPerOpportunity {
+}
+
+message QueryResultCharsPerOpportunity {
+  double chars_per_opportunity = 1;
+  uint64 num_bytes_accepted = 2;
+  uint64 num_completion_attempts = 3;
+}
+
+message QueryRequestChatStats {
+}
+
+message QueryResultChatStats {
+  d.Dj3 chat_stats = 1;
+}
+
+message QueryRequestCommandStats {
+}
+
+message QueryRequestAllUsersCommandStats {
+}
+
+message QueryResultCommandStats {
+  d.xdI command_stats = 1;
+}
+
+message QueryRequestActiveDaysByApiKey {
+}
+
+message QueryResultActiveDaysByApiKey {
+  map active_days_by_api_key = 1;
+}
+
+message QueryResultError {
+  string error = 1;
+}
+
+message GetPreferredTimeZoneRequest {
+  string api_key = 1;
+}
+
+message GetPreferredTimeZoneResponse {
+  string preferred_time_zone = 1;
+}
+
+message QueryRequestCascadeLines {
+}
+
+message CascadeLineQueryEntry {
+  c.E day = 1;
+  int64 lines_suggested = 2;
+  int64 lines_accepted = 3;
+}
+
+message QueryResultCascadeLines {
+  repeated eI cascade_lines = 1;
+}
+
+message QueryRequestCascadeToolUsage {
+}
+
+message CascadeToolUsageQueryEntry {
+  c.E day = 1;
+  string tool = 2;
+  int64 count = 3;
+}
+
+message QueryResultCascadeToolUsage {
+  repeated ep cascade_tool_usage = 1;
+}
+
+message QueryRequestCascadeRuns {
+}
+
+message CascadeRunsQueryEntry {
+  c.E day = 1;
+  string model = 2;
+  string mode = 3;
+  int64 messages_sent = 4;
+  int64 prompts_used = 5;
+  string cascade_id = 6;
+}
+
+message QueryResultCascadeRuns {
+  repeated eM cascade_runs = 1;
+}
+
+message QueryRequestAllUsersCascadeRuns {
+}
+
+message QueryRequestAllUsersCascadeToolUsage {
+}
+
+message QueryRequestAllUsersCascadeLines {
+}
+

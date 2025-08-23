@@ -1,0 +1,146 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "codeium_common_pb.proto";
+
+package exa.seat_management_pb;
+
+service SeatManagementService {
+  rpc UserSSOLoginRedirect(UserSSOLoginRedirectRequest) returns (UserSSOLoginRedirectResponse);
+  rpc GetCurrentUser(GetCurrentUserRequest) returns (GetCurrentUserResponse);
+}
+
+// UserSSOLoginRedirect接口请求
+message UserSSOLoginRedirectRequest {
+  string email = 1;
+}
+
+// UserSSOLoginRedirect接口响应
+message UserSSOLoginRedirectResponse {
+  bool should_redirect = 1;
+  string sso_provider_id = 2;
+  bool disallow_enterprise_user_login = 3;
+  string redirect_url = 4;
+}
+
+// GetCurrentUser接口请求
+message GetCurrentUserRequest {
+  string auth_token = 1;
+  bool generate_profile_picture_url = 2;
+  bool create_if_not_exist = 3;
+  bool include_subscription = 4;
+  string sso_token = 5;
+  string saml_provider_id = 6;
+}
+
+// GetCurrentUser接口响应
+message GetCurrentUserResponse {
+  User user = 1;
+  repeated string roles = 2;
+  Team team = 4;
+  UserSettings subscription = 5;
+  exa.codeium_common_pb.PlanInfo plan_info = 6;
+  UserRole role = 7;
+  exa.codeium_common_pb.Permission permissions = 8;
+  UserTeamDetails user_team_details = 9;
+  ReferralInfo referral = 10;
+  map<int32, exa.codeium_common_pb.TeamsFeaturesMetadata> team_features = 11;
+  repeated string group_ids = 12;
+}
+
+message User {
+  string api_key = 1;
+  string name = 2;
+  string email = 3;
+  google.protobuf.Timestamp signup_time = 4;
+  google.protobuf.Timestamp last_update_time = 5;
+  string id = 6;
+  string team_id = 7;
+  exa.codeium_common_pb.UserTeamStatus team_status = 8;
+  string username = 9;
+  string preferred_time_zone = 10;
+  bool public_profile_enabled = 11;
+  string bio = 12;
+  bool pro = 13;
+  string profile_picture_uri = 14;
+  string profile_picture_presigned_url = 15;
+  bool disable_codeium = 16;
+  string occupation_company = 17;
+  string occupation_role = 18;
+  bool newsletter = 19;
+  bool disabled_telemetry = 20;
+  string inbound_source = 21;
+  string signup_stage = 22;
+  uint32 years_of_experience_min = 23;
+  uint32 years_of_experience_max = 24;
+  bool used_trial = 25;
+  google.protobuf.Timestamp first_windsurf_use_time = 26;
+  google.protobuf.Timestamp windsurf_pro_trial_end_time = 27;
+  int64 used_prompt_credits = 28;
+  int64 used_flow_credits = 29;
+  string referral_code = 30;
+}
+
+message UserSettings {
+  bool exists = 1;
+  bool newsletter = 2;
+  bool disabled_telemetry = 3;
+  string inbound_source = 4;
+  string signup_stage = 5;
+}
+
+message UserTeamDetails {
+  string auth_uid = 1;
+  string team_id = 2;
+  bool has_cascade_seat = 3;
+}
+
+message ReferralInfo {
+  string referrer_name = 1;
+  string referrer_email = 2;
+  google.protobuf.Timestamp referral_accepted_time = 3;
+  google.protobuf.Timestamp granted_time = 4;
+}
+
+message Team {
+  string id = 1;
+  string name = 2;
+  google.protobuf.Timestamp signup_time = 3;
+  string invite_id = 4;
+  bool used_trial = 5;
+  string stripe_subscription_id = 6;
+  bool subscription_active = 7;
+  string stripe_customer_id = 8;
+  google.protobuf.Timestamp current_billing_period_start = 9;
+  int64 num_seats_current_billing_period = 10;
+  bool attribution_enabled = 11;
+  string sso_provider_id = 12;
+  bool offers_enabled = 13;
+  exa.codeium_common_pb.TeamsTier teams_tier = 14;
+  int64 flex_credit_quota = 15;
+  int64 used_flow_credits = 16;
+  int64 used_prompt_credits = 17;
+  google.protobuf.Timestamp current_billing_period_end = 18;
+  int64 num_cascade_seats = 19;
+  google.protobuf.Timestamp cascade_usage_month_start = 20;
+  google.protobuf.Timestamp cascade_usage_month_end = 21;
+  CascadeSeatType cascade_seat_type = 22;
+  bool top_up_enabled = 23;
+  int64 monthly_top_up_amount = 24;
+  int64 top_up_spent = 25;
+  int64 top_up_increment = 26;
+  int64 used_flex_credits = 27;
+}
+
+message UserRole {
+  string api_key = 1;
+  repeated string roles = 2;
+  string role_id = 3;
+  string role_name = 4;
+}
+
+enum CascadeSeatType {
+  CASCADE_SEAT_TYPE_UNSPECIFIED = 0;
+  CASCADE_SEAT_TYPE_ENTRY = 1;
+  CASCADE_SEAT_TYPE_STANDARD = 2;
+}
