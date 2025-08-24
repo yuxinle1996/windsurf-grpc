@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { GetCurrentUserRequest, GetCurrentUserResponse, UserSSOLoginRedirectRequest, UserSSOLoginRedirectResponse } from "./seat_management_pb_pb.js";
+import { GetCurrentUserRequest, GetCurrentUserResponse, GetOneTimeAuthTokenRequest, GetOneTimeAuthTokenResponse, UserSSOLoginRedirectRequest, UserSSOLoginRedirectResponse } from "./seat_management_pb_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -28,6 +28,15 @@ export const SeatManagementService = {
       name: "GetCurrentUser",
       I: GetCurrentUserRequest,
       O: GetCurrentUserResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc exa.seat_management_pb.SeatManagementService.GetOneTimeAuthToken
+     */
+    getOneTimeAuthToken: {
+      name: "GetOneTimeAuthToken",
+      I: GetOneTimeAuthTokenRequest,
+      O: GetOneTimeAuthTokenResponse,
       kind: MethodKind.Unary,
     },
   }

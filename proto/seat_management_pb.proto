@@ -8,6 +8,7 @@ package exa.seat_management_pb;
 service SeatManagementService {
   rpc UserSSOLoginRedirect(UserSSOLoginRedirectRequest) returns (UserSSOLoginRedirectResponse);
   rpc GetCurrentUser(GetCurrentUserRequest) returns (GetCurrentUserResponse);
+  rpc GetOneTimeAuthToken(GetOneTimeAuthTokenRequest) returns (GetOneTimeAuthTokenResponse);
 }
 
 message GetSSOProviderRequest {
