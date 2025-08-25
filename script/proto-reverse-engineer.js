@@ -113,7 +113,7 @@ function handleMessages(messages) {
 /**
  * 提取protobuf消息和枚举
  * @param {Array} pbs
- * @returns {Object} 包含消息和枚举的数组
+ * @returns {Object} 包含消息和枚举的数组, 枚举已经过去重
  */
 function extractProtobufMessages(pbs) {
   const messages = [];
