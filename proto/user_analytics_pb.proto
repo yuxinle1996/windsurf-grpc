@@ -1,9 +1,9 @@
 syntax = "proto3";
 
+package exa.user_analytics_pb;
+
 import "codeium_common_pb.proto";
 import "google/protobuf/timestamp.proto";
-
-package exa.user_analytics_pb;
 
 message CascadeAnalyticsResponse {
   repeated QueryResult query_results = 1;

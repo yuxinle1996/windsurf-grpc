@@ -38,13 +38,13 @@ npm run axios-advanced
 
 ## 4.windsurf proto 逆向
 
-目前windsurf网页grpc接口的所有.proto文件已全部逆向完毕, 见 `proto\*` 文件夹(经过了手动微调处理 确保没有语法错误), 其中 `seat_management_pb.proto` 是主要文件, 如果想要使用 `@connectrpc/connect` 系列库来发送rpc请求, 请在 `seat_management_pb.proto` 中的顶部的 `SeatManagementService` 中添加接口, 格式如下:
+目前 windsurf 网页 grpc 接口的所有.proto 文件已全部逆向完毕, 见 `proto\*` 文件夹(经过了手动微调处理 确保没有语法错误), 其中 `seat_management_pb.proto` 是主要文件, 如果想要使用 `@connectrpc/connect` 系列库来发送 rpc 请求, 请在 `seat_management_pb.proto` 中的顶部的 `SeatManagementService` 中添加接口, 格式如下:
 
 ```protobuf
 rpc 接口路由名称(接口路由名称Request) returns (接口路由名称Response);
 ```
 
-例如网页上的接口完整url为:
+例如网页上的接口完整 url 为:
 https://web-backend.windsurf.com/exa.seat_management_pb.SeatManagementService/GetCurrentUser
 
 那么写成这样:
@@ -55,59 +55,28 @@ service SeatManagementService {
 }
 ```
 
-其中 `GetCurrentUserRequest` 是请求参数message, `GetCurrentUserResponse` 是响应参数message, 它们都是snake case命名方式, 经过`@bufbuild/protobuf`包装后, 最终接口的json数据会变成小驼峰命名
+其中 `GetCurrentUserRequest` 是请求参数 message, `GetCurrentUserResponse` 是响应参数 message, 它们都是 snake_case 命名方式, 经过 `@bufbuild/protobuf` 包装后, 所有字段默认会变成小驼峰命名, 除非手动指定了 `[json_name = "xxx"]`
 
-每次修改.proto文件, 都有运行一次 `npm run generate` , 确保生成了最新的ts代码
+每次修改.proto 文件, 都要运行一次 `npm run generate` , 确保生成了最新的 ts 代码
 
-`script\pbs.js` 中有逆向的原始数据, 是在windowsurf网页源代码中经过push和转换生成的数据, 涵盖所有message和enum, 如需原始.proto文件, 可执行命令:
+`script\pbs.js` 中有逆向的原始数据, 是在 windowsurf 网页源代码中经过 push 和转换生成的数据, 涵盖所有 message 和 enum, 如需原始.proto 文件, 可执行命令:
 
 ```bash
 npm run reverse
 ```
 
-生成的.proto 数据路径: `script\proto-output\*`, 若要使用proto文件请放入 `proto` 文件夹
+生成的.proto 数据路径: `script\proto-output\*`, 若要使用 proto 文件请放入 `proto` 文件夹
 
-**生成工具已做到:**
+**生成工具目前已做到:**
 
-- 自动提取package并归类为不同proto文件
-- 自动提取messageName/enumNum
-- name与no匹配
-- T值还原type(参考下方**proto type 与 T 值对照表**)
-- repeated、optional、packed语法处理
-- oneof归类
-- 同文件message/enum引用时省略完整包名(已处理大部分, 少部分需手动处理, 不处理其实也不会报错)
-
-**生成工具未做到:**
-
-- 跨proto文件引用时自动import引入
-
-由于生成工具写的不够完美, 无法完全保证.proto文件的语法正确性, 请在运行 `npm run generate` 根据终端报错提示手动微调.proto文件
-
-目前暂未做到自动import, 例如**跨proto文件引入**和**google.protobuf引入**, 请在proto文件全局搜索`exa.`、`google.protobuf`等关键词, 如果存在, 请手动在页面上方加入import, 例如
-
-```protobuf
-import "google/protobuf/timestamp.proto";
-import "codeium_common_pb.proto";
-```
-
-同文件message引用可以省略package(跨proto需要写完整), 目前生成工具也没有完全处理好, 如果导致 `npm run generate` 错误, 可以手动全局搜索并删除包名, 例如在 `seat_management_pb.proto` 文件中搜索到了多条 `exa.seat_management_pb` 引用记录, 可以手动删掉这个前缀, 只保留message名称: 
-
-```protobuf
-修改前:
-message GetPreapprovalForUserResponse {
-  exa.seat_management_pb.PreapprovedUser preapproval = 1;
-  string admin_name = 2;
-  string team_name = 3;
-}
-修改后:
-message GetPreapprovalForUserResponse {
-  PreapprovedUser preapproval = 1;
-  string admin_name = 2;
-  string team_name = 3;
-}
-```
-
-不报错也可以不用改
+- 自动提取 package 并归类为不同 proto 文件
+- 自动提取 messageName/enumNum
+- name 与 no 匹配
+- T 值还原 type(参考下方**proto type 与 T 值对照表**)
+- repeated、optional、packed、json_name 语法处理
+- oneof 归类
+- 同文件 message/enum 引用时省略完整包名
+- 跨 proto 文件引用时自动生成 import
 
 ### proto type 与 T 值对照表
 

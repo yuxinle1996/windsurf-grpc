@@ -8,7 +8,7 @@ import axios from "axios";
 import {
   GetCurrentUserRequest,
   GetCurrentUserResponse,
-} from "./gen/seat_management_pb_pb";
+} from "../gen/seat_management_pb_pb";
 
 const webToken = "xxx";
 
@@ -40,7 +40,7 @@ async function sendAxiosProtobufRequest() {
     // 反序列化响应数据
     const responseData = new Uint8Array(response.data);
     const responseMessage = GetCurrentUserResponse.fromBinary(responseData);
-    console.log(responseMessage.toJson());
+    console.log(responseMessage);
 
     return responseMessage;
   } catch (error) {

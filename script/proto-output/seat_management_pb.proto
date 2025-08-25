@@ -1,14 +1,9 @@
 syntax = "proto3";
 
-import "google/protobuf/timestamp.proto";
-import "codeium_common_pb.proto";
-
 package exa.seat_management_pb;
 
-service SeatManagementService {
-  rpc UserSSOLoginRedirect(UserSSOLoginRedirectRequest) returns (UserSSOLoginRedirectResponse);
-  rpc GetCurrentUser(GetCurrentUserRequest) returns (GetCurrentUserResponse);
-}
+import "codeium_common_pb.proto";
+import "google/protobuf/timestamp.proto";
 
 message GetSSOProviderRequest {
   string auth_token = 1;
@@ -86,7 +81,7 @@ message UserSSOLoginRedirectResponse {
 }
 
 message MigrateApiKeyRequest {
-  string api_key = 1;
+  string api_key = 1 [json_name = "api_key"];
 }
 
 message UpdateUserRolesRequest {
@@ -624,7 +619,7 @@ message SAMLAuthProvider {
 }
 
 message RegisterUserRequest {
-  string firebase_id_token = 1;
+  string firebase_id_token = 1 [json_name = "firebase_id_token"];
 }
 
 message GetTeamCreditEntriesRequest {
@@ -637,7 +632,7 @@ message IsUsernameAvailableRequest {
 }
 
 message MigrateApiKeyResponse {
-  string session_token = 1;
+  string session_token = 1 [json_name = "session_token"];
 }
 
 message GetGitHubAccessTokenResponse {
@@ -1008,9 +1003,9 @@ message GetNetlifyAccountStatusRequest {
 }
 
 message RegisterUserResponse {
-  string api_key = 1;
+  string api_key = 1 [json_name = "api_key"];
   string name = 2;
-  string api_server_url = 3;
+  string api_server_url = 3 [json_name = "api_server_url"];
 }
 
 message AddTeamDomainInternalResponse {
@@ -1627,3 +1622,4 @@ enum PurchaseReasonType {
   PURCHASE_REASON_TYPE_MANUAL = 1;
   PURCHASE_REASON_TYPE_TOP_UP = 2;
 }
+

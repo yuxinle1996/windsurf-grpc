@@ -5939,6 +5939,11 @@ export enum APIProvider {
    * @generated from enum value: API_PROVIDER_XAI_INTERNAL = 34;
    */
   API_PROVIDER_XAI_INTERNAL = 34,
+
+  /**
+   * @generated from enum value: API_PROVIDER_CEREBRAS_CACHE = 35;
+   */
+  API_PROVIDER_CEREBRAS_CACHE = 35,
 }
 // Retrieve enum metadata with: proto3.getEnumType(APIProvider)
 proto3.util.setEnumType(APIProvider, "exa.codeium_common_pb.APIProvider", [
@@ -5976,6 +5981,7 @@ proto3.util.setEnumType(APIProvider, "exa.codeium_common_pb.APIProvider", [
   { no: 32, name: "API_PROVIDER_OPENAI_DEVIN" },
   { no: 33, name: "API_PROVIDER_LLAMA_FT_DEEPWIKI" },
   { no: 34, name: "API_PROVIDER_XAI_INTERNAL" },
+  { no: 35, name: "API_PROVIDER_CEREBRAS_CACHE" },
 ]);
 
 /**
@@ -11439,6 +11445,11 @@ export class Metadata extends Message<Metadata> {
    */
   ideType = "";
 
+  /**
+   * @generated from field: string impersonate_tier = 29;
+   */
+  impersonateTier = "";
+
   constructor(data?: PartialMessage<Metadata>) {
     super();
     proto3.util.initPartial(data, this);
@@ -11472,6 +11483,7 @@ export class Metadata extends Message<Metadata> {
     { no: 26, name: "plan_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 27, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 28, name: "ide_type", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 29, name: "impersonate_tier", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Metadata {

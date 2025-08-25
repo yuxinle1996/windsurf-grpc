@@ -359,6 +359,7 @@ export const pbs = [
         repeated: false,
         optional: false,
         packed: false,
+        jsonName: "api_key",
       },
     ],
   },
@@ -418,7 +419,7 @@ export const pbs = [
       {
         no: 1,
         name: "user_activity",
-        type: "exa.seat_management_pb.GetTeamActivityResponse.UserActivity",
+        type: "UserActivity",
         repeated: true,
         optional: false,
         packed: false,
@@ -2608,7 +2609,7 @@ export const pbs = [
       {
         no: 1,
         name: "team_preapproval_metadata",
-        type: "exa.seat_management_pb.GetUserNotificationsResponse.TeamPreapprovalMetadata",
+        type: "TeamPreapprovalMetadata",
         repeated: false,
         optional: false,
         packed: false,
@@ -2721,6 +2722,7 @@ export const pbs = [
         repeated: false,
         optional: false,
         packed: false,
+        jsonName: "firebase_id_token",
       },
     ],
   },
@@ -2768,6 +2770,7 @@ export const pbs = [
         repeated: false,
         optional: false,
         packed: false,
+        jsonName: "session_token",
       },
     ],
   },
@@ -3489,7 +3492,7 @@ export const pbs = [
     ],
   },
   {
-    typeName: "exa.seat_management_pb.GetTeamBillingResponse.Invoice",
+    typeName: "exa.seat_management_pb.Invoice",
     fields: [
       {
         no: 1,
@@ -3836,7 +3839,7 @@ export const pbs = [
       {
         no: 2,
         name: "preapprovals",
-        type: "exa.seat_management_pb.GrantPreapprovalRequest.PreapprovalUserItem",
+        type: "PreapprovalUserItem",
         repeated: true,
         optional: false,
         packed: false,
@@ -4316,6 +4319,7 @@ export const pbs = [
         repeated: false,
         optional: false,
         packed: false,
+        jsonName: "api_key",
       },
       {
         no: 2,
@@ -4332,6 +4336,7 @@ export const pbs = [
         repeated: false,
         optional: false,
         packed: false,
+        jsonName: "api_server_url",
       },
     ],
   },
@@ -5606,7 +5611,7 @@ export const pbs = [
       {
         no: 2,
         name: "updates",
-        type: "exa.seat_management_pb.UpdateUserTeamStatusRequest.UserTeamStatusUpdateItem",
+        type: "UserTeamStatusUpdateItem",
         repeated: true,
         optional: false,
         packed: false,
@@ -5833,7 +5838,7 @@ export const pbs = [
       {
         no: 9,
         name: "invoices",
-        type: "exa.seat_management_pb.GetTeamBillingResponse.Invoice",
+        type: "Invoice",
         repeated: true,
         optional: false,
         packed: false,
@@ -5841,7 +5846,7 @@ export const pbs = [
       {
         no: 10,
         name: "payment_method",
-        type: "exa.seat_management_pb.GetTeamBillingResponse.PaymentMethod",
+        type: "PaymentMethod",
         repeated: false,
         optional: false,
         packed: false,
@@ -5913,7 +5918,7 @@ export const pbs = [
       {
         no: 20,
         name: "failed_subscription_payment",
-        type: "exa.seat_management_pb.GetTeamBillingResponse.FailedSubscriptionPayment",
+        type: "FailedSubscriptionPayment",
         repeated: false,
         optional: false,
         packed: false,
@@ -9604,6 +9609,14 @@ export const pbs = [
         optional: false,
         packed: false,
       },
+      {
+        no: 29,
+        name: "impersonate_tier",
+        type: "string",
+        repeated: false,
+        optional: false,
+        packed: false,
+      },
     ],
   },
   {
@@ -10645,7 +10658,7 @@ export const pbs = [
       {
         no: 1,
         name: "root",
-        type: "exa.codeium_common_pb.DOMTree.DOMNode",
+        type: "DOMNode",
         repeated: false,
         optional: false,
         packed: false,
@@ -13755,12 +13768,12 @@ export const pbs = [
     ],
   },
   {
-    typeName: "exa.seat_management_pb.GetTeamActivityResponse.UserActivity",
+    typeName: "exa.seat_management_pb.UserActivity",
     fields: [
       {
         no: 1,
         name: "user",
-        type: "exa.seat_management_pb.User",
+        type: "User",
         repeated: false,
         optional: false,
         packed: false,
@@ -14014,8 +14027,7 @@ export const pbs = [
     ],
   },
   {
-    typeName:
-      "exa.seat_management_pb.GetUserNotificationsResponse.TeamPreapprovalMetadata",
+    typeName: "exa.seat_management_pb.TeamPreapprovalMetadata",
     fields: [
       {
         no: 1,
@@ -14158,8 +14170,7 @@ export const pbs = [
     ],
   },
   {
-    typeName:
-      "exa.seat_management_pb.GrantPreapprovalRequest.PreapprovalUserItem",
+    typeName: "exa.seat_management_pb.PreapprovalUserItem",
     fields: [
       {
         no: 1,
@@ -14342,8 +14353,7 @@ export const pbs = [
     ],
   },
   {
-    typeName:
-      "exa.seat_management_pb.UpdateUserTeamStatusRequest.UserTeamStatusUpdateItem",
+    typeName: "exa.seat_management_pb.UserTeamStatusUpdateItem",
     fields: [
       {
         no: 1,
@@ -14465,7 +14475,7 @@ export const pbs = [
     ],
   },
   {
-    typeName: "exa.seat_management_pb.GetTeamBillingResponse.PaymentMethod",
+    typeName: "exa.seat_management_pb.PaymentMethod",
     fields: [
       {
         no: 1,
@@ -14478,7 +14488,7 @@ export const pbs = [
       {
         no: 2,
         name: "card",
-        type: "exa.seat_management_pb.GetTeamBillingResponse.PaymentMethod.CardType",
+        type: "CardType",
         repeated: false,
         optional: false,
         packed: false,
@@ -14487,8 +14497,7 @@ export const pbs = [
     ],
   },
   {
-    typeName:
-      "exa.seat_management_pb.GetTeamBillingResponse.FailedSubscriptionPayment",
+    typeName: "exa.seat_management_pb.FailedSubscriptionPayment",
     fields: [
       {
         no: 1,
@@ -15971,7 +15980,7 @@ export const pbs = [
     ],
   },
   {
-    typeName: "exa.codeium_common_pb.DOMTree.DOMNode",
+    typeName: "exa.codeium_common_pb.DOMNode",
     fields: [
       {
         no: 1,
@@ -17079,8 +17088,7 @@ export const pbs = [
     ],
   },
   {
-    typeName:
-      "exa.seat_management_pb.GetTeamBillingResponse.PaymentMethod.CardType",
+    typeName: "exa.seat_management_pb.CardType",
     fields: [
       {
         no: 1,
@@ -17458,7 +17466,7 @@ export const pbs = [
       {
         no: 1,
         name: "headers",
-        type: "exa.codeium_common_pb.MarkdownChunk.MarkdownHeader",
+        type: "MarkdownHeader",
         repeated: true,
         optional: false,
         packed: false,
@@ -17532,7 +17540,7 @@ export const pbs = [
     ],
   },
   {
-    typeName: "exa.codeium_common_pb.DOMTree.BoundingBox",
+    typeName: "exa.codeium_common_pb.BoundingBox",
     fields: [
       {
         no: 1,
@@ -17701,12 +17709,12 @@ export const pbs = [
     ],
   },
   {
-    typeName: "exa.codeium_common_pb.MarkdownChunk.MarkdownHeader",
+    typeName: "exa.codeium_common_pb.MarkdownHeader",
     fields: [
       {
         no: 1,
         name: "type",
-        type: "exa.codeium_common_pb.MarkdownNodeType",
+        type: "MarkdownNodeType",
         repeated: false,
         optional: false,
         packed: false,
@@ -21724,6 +21732,10 @@ export const pbs = [
         no: 34,
         name: "API_PROVIDER_XAI_INTERNAL",
       },
+      {
+        no: 35,
+        name: "API_PROVIDER_CEREBRAS_CACHE",
+      },
     ],
   },
   {
@@ -23433,6 +23445,23 @@ export const pbs = [
     ],
   },
   {
+    typeName: "exa.seat_management_pb.PaymentPeriod",
+    values: [
+      {
+        no: 0,
+        name: "PAYMENT_PERIOD_UNSPECIFIED",
+      },
+      {
+        no: 1,
+        name: "PAYMENT_PERIOD_MONTH",
+      },
+      {
+        no: 2,
+        name: "PAYMENT_PERIOD_YEAR",
+      },
+    ],
+  },
+  {
     typeName: "exa.seat_management_pb.SubInterval",
     values: [
       {
@@ -23446,6 +23475,40 @@ export const pbs = [
       {
         no: 2,
         name: "SUB_INTERVAL_YEAR",
+      },
+    ],
+  },
+  {
+    typeName: "exa.seat_management_pb.SubInterval",
+    values: [
+      {
+        no: 0,
+        name: "SUB_INTERVAL_UNSPECIFIED",
+      },
+      {
+        no: 1,
+        name: "SUB_INTERVAL_MONTH",
+      },
+      {
+        no: 2,
+        name: "SUB_INTERVAL_YEAR",
+      },
+    ],
+  },
+  {
+    typeName: "exa.seat_management_pb.StripePrice",
+    values: [
+      {
+        no: 0,
+        name: "STRIPE_PRICE_UNSPECIFIED",
+      },
+      {
+        no: 1,
+        name: "STRIPE_PRICE_TEAMS_MONTHLY",
+      },
+      {
+        no: 2,
+        name: "STRIPE_PRICE_TEAMS_YEARLY",
       },
     ],
   },
@@ -23484,6 +23547,23 @@ export const pbs = [
     ],
   },
   {
+    typeName: "exa.seat_management_pb.CascadeSeatType",
+    values: [
+      {
+        no: 0,
+        name: "CASCADE_SEAT_TYPE_UNSPECIFIED",
+      },
+      {
+        no: 1,
+        name: "CASCADE_SEAT_TYPE_ENTRY",
+      },
+      {
+        no: 2,
+        name: "CASCADE_SEAT_TYPE_STANDARD",
+      },
+    ],
+  },
+  {
     typeName: "exa.seat_management_pb.UserTeamDetailsType",
     values: [
       {
@@ -23493,6 +23573,32 @@ export const pbs = [
       {
         no: 1,
         name: "USER_TEAM_DETAILS_TYPE_CASCADE_SEAT",
+      },
+    ],
+  },
+  {
+    typeName: "exa.seat_management_pb.UserTeamDetailsType",
+    values: [
+      {
+        no: 0,
+        name: "USER_TEAM_DETAILS_TYPE_UNSPECIFIED",
+      },
+      {
+        no: 1,
+        name: "USER_TEAM_DETAILS_TYPE_CASCADE_SEAT",
+      },
+    ],
+  },
+  {
+    typeName: "exa.seat_management_pb.PendingTransactionType",
+    values: [
+      {
+        no: 0,
+        name: "PENDING_TRANSACTION_TYPE_UNSPECIFIED",
+      },
+      {
+        no: 1,
+        name: "PENDING_TRANSACTION_TYPE_TOP_UP",
       },
     ],
   },
@@ -23543,6 +23649,39 @@ export const pbs = [
     ],
   },
   {
+    typeName: "exa.seat_management_pb.FlexCreditChronicleType",
+    values: [
+      {
+        no: 0,
+        name: "FLEX_CREDIT_CHRONICLE_TYPE_UNSPECIFIED",
+      },
+      {
+        no: 1,
+        name: "FLEX_CREDIT_CHRONICLE_TYPE_PURCHASE",
+      },
+      {
+        no: 2,
+        name: "FLEX_CREDIT_CHRONICLE_TYPE_REFERRER",
+      },
+      {
+        no: 3,
+        name: "FLEX_CREDIT_CHRONICLE_TYPE_AVERY",
+      },
+      {
+        no: 4,
+        name: "FLEX_CREDIT_CHRONICLE_TYPE_TOP_UP",
+      },
+      {
+        no: 5,
+        name: "FLEX_CREDIT_CHRONICLE_TYPE_SUPPORT",
+      },
+      {
+        no: 6,
+        name: "FLEX_CREDIT_CHRONICLE_TYPE_GTM",
+      },
+    ],
+  },
+  {
     typeName: "exa.seat_management_pb.PurchaseReasonType",
     values: [
       {
@@ -23556,6 +23695,81 @@ export const pbs = [
       {
         no: 2,
         name: "PURCHASE_REASON_TYPE_TOP_UP",
+      },
+    ],
+  },
+  {
+    typeName: "exa.seat_management_pb.PurchaseReasonType",
+    values: [
+      {
+        no: 0,
+        name: "PURCHASE_REASON_TYPE_UNSPECIFIED",
+      },
+      {
+        no: 1,
+        name: "PURCHASE_REASON_TYPE_MANUAL",
+      },
+      {
+        no: 2,
+        name: "PURCHASE_REASON_TYPE_TOP_UP",
+      },
+    ],
+  },
+  {
+    typeName: "exa.user_analytics_pb.QueryDataSource",
+    values: [
+      {
+        no: 0,
+        name: "QUERY_DATA_SOURCE_UNSPECIFIED",
+      },
+      {
+        no: 1,
+        name: "QUERY_DATA_SOURCE_USER_DATA",
+      },
+      {
+        no: 2,
+        name: "QUERY_DATA_SOURCE_CHAT_DATA",
+      },
+      {
+        no: 3,
+        name: "QUERY_DATA_SOURCE_COMMAND_DATA",
+      },
+      {
+        no: 4,
+        name: "QUERY_DATA_SOURCE_CASCADE_DATA",
+      },
+      {
+        no: 5,
+        name: "QUERY_DATA_SOURCE_PCW_DATA",
+      },
+    ],
+  },
+  {
+    typeName: "exa.user_analytics_pb.QueryDataSource",
+    values: [
+      {
+        no: 0,
+        name: "QUERY_DATA_SOURCE_UNSPECIFIED",
+      },
+      {
+        no: 1,
+        name: "QUERY_DATA_SOURCE_USER_DATA",
+      },
+      {
+        no: 2,
+        name: "QUERY_DATA_SOURCE_CHAT_DATA",
+      },
+      {
+        no: 3,
+        name: "QUERY_DATA_SOURCE_COMMAND_DATA",
+      },
+      {
+        no: 4,
+        name: "QUERY_DATA_SOURCE_CASCADE_DATA",
+      },
+      {
+        no: 5,
+        name: "QUERY_DATA_SOURCE_PCW_DATA",
       },
     ],
   },
@@ -23618,6 +23832,64 @@ export const pbs = [
     ],
   },
   {
+    typeName: "exa.user_analytics_pb.QueryAggregation",
+    values: [
+      {
+        no: 0,
+        name: "QUERY_AGGREGATION_UNSPECIFIED",
+      },
+      {
+        no: 1,
+        name: "QUERY_AGGREGATION_COUNT",
+      },
+      {
+        no: 2,
+        name: "QUERY_AGGREGATION_SUM",
+      },
+      {
+        no: 3,
+        name: "QUERY_AGGREGATION_AVG",
+      },
+      {
+        no: 4,
+        name: "QUERY_AGGREGATION_MAX",
+      },
+      {
+        no: 5,
+        name: "QUERY_AGGREGATION_MIN",
+      },
+    ],
+  },
+  {
+    typeName: "exa.user_analytics_pb.QueryAggregation",
+    values: [
+      {
+        no: 0,
+        name: "QUERY_AGGREGATION_UNSPECIFIED",
+      },
+      {
+        no: 1,
+        name: "QUERY_AGGREGATION_COUNT",
+      },
+      {
+        no: 2,
+        name: "QUERY_AGGREGATION_SUM",
+      },
+      {
+        no: 3,
+        name: "QUERY_AGGREGATION_AVG",
+      },
+      {
+        no: 4,
+        name: "QUERY_AGGREGATION_MAX",
+      },
+      {
+        no: 5,
+        name: "QUERY_AGGREGATION_MIN",
+      },
+    ],
+  },
+  {
     typeName: "exa.user_analytics_pb.QueryFilter",
     values: [
       {
@@ -23647,6 +23919,114 @@ export const pbs = [
       {
         no: 6,
         name: "QUERY_FILTER_LE",
+      },
+    ],
+  },
+  {
+    typeName: "exa.user_analytics_pb.QueryFilter",
+    values: [
+      {
+        no: 0,
+        name: "QUERY_FILTER_UNSPECIFIED",
+      },
+      {
+        no: 1,
+        name: "QUERY_FILTER_EQUAL",
+      },
+      {
+        no: 2,
+        name: "QUERY_FILTER_NOT_EQUAL",
+      },
+      {
+        no: 3,
+        name: "QUERY_FILTER_GREATER_THAN",
+      },
+      {
+        no: 4,
+        name: "QUERY_FILTER_LESS_THAN",
+      },
+      {
+        no: 5,
+        name: "QUERY_FILTER_GE",
+      },
+      {
+        no: 6,
+        name: "QUERY_FILTER_LE",
+      },
+    ],
+  },
+  {
+    typeName: "exa.user_analytics_pb.QueryFilter",
+    values: [
+      {
+        no: 0,
+        name: "QUERY_FILTER_UNSPECIFIED",
+      },
+      {
+        no: 1,
+        name: "QUERY_FILTER_EQUAL",
+      },
+      {
+        no: 2,
+        name: "QUERY_FILTER_NOT_EQUAL",
+      },
+      {
+        no: 3,
+        name: "QUERY_FILTER_GREATER_THAN",
+      },
+      {
+        no: 4,
+        name: "QUERY_FILTER_LESS_THAN",
+      },
+      {
+        no: 5,
+        name: "QUERY_FILTER_GE",
+      },
+      {
+        no: 6,
+        name: "QUERY_FILTER_LE",
+      },
+    ],
+  },
+  {
+    typeName: "exa.user_analytics_pb.IDEType",
+    values: [
+      {
+        no: 0,
+        name: "IDE_TYPE_UNSPECIFIED",
+      },
+      {
+        no: 1,
+        name: "IDE_TYPE_WINDSURF",
+      },
+      {
+        no: 2,
+        name: "IDE_TYPE_JETBRAINS",
+      },
+      {
+        no: 3,
+        name: "IDE_TYPE_PLUGINS",
+      },
+    ],
+  },
+  {
+    typeName: "exa.user_analytics_pb.IDEType",
+    values: [
+      {
+        no: 0,
+        name: "IDE_TYPE_UNSPECIFIED",
+      },
+      {
+        no: 1,
+        name: "IDE_TYPE_WINDSURF",
+      },
+      {
+        no: 2,
+        name: "IDE_TYPE_JETBRAINS",
+      },
+      {
+        no: 3,
+        name: "IDE_TYPE_PLUGINS",
       },
     ],
   },

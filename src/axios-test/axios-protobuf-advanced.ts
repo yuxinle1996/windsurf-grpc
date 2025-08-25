@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import {
   UserSSOLoginRedirectRequest,
   UserSSOLoginRedirectResponse,
-} from "./gen/seat_management_pb_pb";
+} from "../gen/seat_management_pb_pb";
 
 // 配置接口
 export interface ProtobufRequestConfig {

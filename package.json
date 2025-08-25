@@ -12,9 +12,10 @@
     "generate": "buf generate",
     "reverse": "node script/proto-reverse-engineer.js script/proto-output",
     "axios-advanced": "tsc && node ./dist/axios-protobuf-advanced.js",
-    "axios-test": "tsc && node ./dist/axios-test-UserSSOLoginRedirect.js",
-    "axios-test2": "tsc && node ./dist/axios-test-GetCurrentUser.js",
-    "axios-test3": "tsc && node ./dist/axios-test-GetCurrentPeriodUsage.js"
+    "axios-test": "tsc && node ./dist/axios-test/axios-test-UserSSOLoginRedirect.js",
+    "axios-test2": "tsc && node ./dist/axios-test/axios-test-GetCurrentUser.js",
+    "axios-test3": "tsc && node ./dist/axios-test/axios-test-GetCurrentPeriodUsage.js",
+    "axios-test4": "tsc && node ./dist/axios-test/axios-test-RegisterUser.js"
   },
   "dependencies": {
     "@bufbuild/protobuf": "^1.10.1",

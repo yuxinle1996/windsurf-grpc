@@ -1,9 +1,9 @@
 syntax = "proto3";
 
+package exa.codeium_common_pb;
+
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
-
-package exa.codeium_common_pb;
 
 message CodeContextItem {
   string absolute_path_migrate_me_to_uri = 1;
@@ -427,6 +427,7 @@ message Metadata {
   string plan_name = 26;
   string id = 27;
   string ide_type = 28;
+  string impersonate_tier = 29;
 }
 
 message KnowledgeBaseScopeItem {
@@ -2630,6 +2631,7 @@ enum APIProvider {
   API_PROVIDER_OPENAI_DEVIN = 32;
   API_PROVIDER_LLAMA_FT_DEEPWIKI = 33;
   API_PROVIDER_XAI_INTERNAL = 34;
+  API_PROVIDER_CEREBRAS_CACHE = 35;
 }
 
 enum ModelStatus {
@@ -3097,3 +3099,4 @@ enum ThirdPartyWebSearchModel {
   THIRD_PARTY_WEB_SEARCH_MODEL_GPT_4_1 = 2;
   THIRD_PARTY_WEB_SEARCH_MODEL_O4_MINI = 3;
 }
+

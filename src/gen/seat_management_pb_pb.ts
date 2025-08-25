@@ -851,7 +851,7 @@ export class UserSSOLoginRedirectResponse extends Message<UserSSOLoginRedirectRe
  */
 export class MigrateApiKeyRequest extends Message<MigrateApiKeyRequest> {
   /**
-   * @generated from field: string api_key = 1;
+   * @generated from field: string api_key = 1 [json_name = "api_key"];
    */
   apiKey = "";
 
@@ -863,7 +863,7 @@ export class MigrateApiKeyRequest extends Message<MigrateApiKeyRequest> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "exa.seat_management_pb.MigrateApiKeyRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: "api_key", jsonName: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MigrateApiKeyRequest {
@@ -5392,7 +5392,7 @@ export class SAMLAuthProvider extends Message<SAMLAuthProvider> {
  */
 export class RegisterUserRequest extends Message<RegisterUserRequest> {
   /**
-   * @generated from field: string firebase_id_token = 1;
+   * @generated from field: string firebase_id_token = 1 [json_name = "firebase_id_token"];
    */
   firebaseIdToken = "";
 
@@ -5404,7 +5404,7 @@ export class RegisterUserRequest extends Message<RegisterUserRequest> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "exa.seat_management_pb.RegisterUserRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "firebase_id_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: "firebase_id_token", jsonName: "firebase_id_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RegisterUserRequest {
@@ -5509,7 +5509,7 @@ export class IsUsernameAvailableRequest extends Message<IsUsernameAvailableReque
  */
 export class MigrateApiKeyResponse extends Message<MigrateApiKeyResponse> {
   /**
-   * @generated from field: string session_token = 1;
+   * @generated from field: string session_token = 1 [json_name = "session_token"];
    */
   sessionToken = "";
 
@@ -5521,7 +5521,7 @@ export class MigrateApiKeyResponse extends Message<MigrateApiKeyResponse> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "exa.seat_management_pb.MigrateApiKeyResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "session_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: "session_token", jsonName: "session_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MigrateApiKeyResponse {
@@ -8697,7 +8697,7 @@ export class GetNetlifyAccountStatusRequest extends Message<GetNetlifyAccountSta
  */
 export class RegisterUserResponse extends Message<RegisterUserResponse> {
   /**
-   * @generated from field: string api_key = 1;
+   * @generated from field: string api_key = 1 [json_name = "api_key"];
    */
   apiKey = "";
 
@@ -8707,7 +8707,7 @@ export class RegisterUserResponse extends Message<RegisterUserResponse> {
   name = "";
 
   /**
-   * @generated from field: string api_server_url = 3;
+   * @generated from field: string api_server_url = 3 [json_name = "api_server_url"];
    */
   apiServerUrl = "";
 
@@ -8719,9 +8719,9 @@ export class RegisterUserResponse extends Message<RegisterUserResponse> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "exa.seat_management_pb.RegisterUserResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: "api_key", jsonName: "api_key", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "api_server_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "api_server_url", jsonName: "api_server_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RegisterUserResponse {
